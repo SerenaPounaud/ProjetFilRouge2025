@@ -4,9 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="header.html">
-    <title>My recettes</title>
+    <title>Miam & Co</title>
 </head>
 <body>
-    
+    <section class="aside"> <!--section de gauche pour la recherche par catégories-->
+        <h2>Recettes</h2> <!--section latérale pour afficher un menu déroulé-->
+        <div class="sidenav">
+            <button class="deroulant_btn">Catégories</button>
+            <div class="deroulant_contenu">
+                <a href="">Apéritifs & Snacks</a>
+                <a href="">Petit déjeuner</a>
+                <a href="">Entrées</a>
+                <a href="">Plats complet</a>
+                <a href="">Desserts</a>
+                <a href="">Accompagnements</a>
+                <a href="">Boissons & Cocktails</a>
+                <a href="">Recettes de Noël</a>
+                <a href="">Recettes d'Halloween</a>
+                <a href="">Recettes de Pâques</a>
+            </div>
+        </div>
+    </section>
+    <section> <!--section droite pour la barre de recherche + affichage des recettes-->
+        <div class="barre_recherche"> <!--barre de recherche non fonctionnelle-->
+            <form classe="barre" action="">
+                <button type="submit">
+                    <img src="" alt="Logo de loupe">
+                </button>
+                <input type="text" placeholder="Rechercher une recette...">
+            </form>
+        </div>
+        <div> <!--bouton de trie non fonctionnelle-->
+            <button class="trier-btn">Trier par :
+                <span class="fleches">
+                    <span class="fleche_haut">▲</span>
+                    <span class="fleche_bas">▼</span>
+                </span>
+            </button>
+        </div>
+    </section>
 </body>
 </html>
