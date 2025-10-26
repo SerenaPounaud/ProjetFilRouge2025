@@ -4,6 +4,7 @@ const barre_recherche = document.getElementById('barre_recherche')
 const bouton_recherche = document.getElementById('btn_recherche')
 const bouton_filtre = document.getElementById('btn_filtre')
 
+//Récupérer les catégories de l'API
 fetch('https://www.themealdb.com/api/json/v1/1/categories.php') //Requête HTTP pour prendre toutes les catégories
     .then(response => response.json()) //Renvoie une promesse de l'API, transforme la réponse en objet JS (Json en JS) et de continuer si la promesse est résolue
     .then(data => //Récupère les données JSON dans la variable data, elle contient une clé categories qui est un tableau de toutes les catgories
@@ -16,3 +17,16 @@ fetch('https://www.themealdb.com/api/json/v1/1/categories.php') //Requête HTTP 
             categories_ul.appendChild(li); //Ajoute li dans la liste ul et l'affiche
         }); 
 });
+
+//Répcupérer les recettes par catégorie
+function fetchRecipesByCategory(category) { //Créer une fonction ftch....category correspond au nom de la categorie à récupérer
+    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`) //Récupère les recettes des categories
+    .then(response => response.json()) 
+    .then(data => { //Contient les recettes des catégories
+        if (data.meals) { //Verifie si l'API à renvoyé des recettes et si data.meals existe et n'est pas null, si la catégorie n'a pas de recette ou si le mot-clé n'a rien donnée, il sera null
+        displayRecipes(data.meals); //Si il existe on appelle display...pour afficher
+    }else{ //Si il n'existe pas on affiche une phrase d'erreur
+        div_recettes.innerHTML = `<p>Aucune recette trouvée</p>`; //affiche le message d'erreur
+    }
+    });
+}
