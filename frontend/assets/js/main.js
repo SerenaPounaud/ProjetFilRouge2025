@@ -79,29 +79,46 @@ function displayRecipes(meals) {
 } //crée une div pour la recette, affiche le nom de la recette dans h3, affiche l'image de la recette
 
 
-// Afficher plusieurs recettes aléatoires au chargement de la page
-function fetchRandomRecipes(number = 5) { //number = nombre de recettes aléatoires à afficher
-    div_recettes.innerHTML = '<p>Chargement des recettes aléatoires...</p>';
-    const promises = [];
+// Afficher plusieurs recettes aléatoires au chargement de la page sans doublons
+function fetchRandomRecipes(number = 5) { //nombre de recettes aléatoires par défaut 5
+    div_recettes.innerHTML = '<p>Chargement des recettes...</p>'; //remplace le contenu html lors du chargement
+    const promises = []; //crée un tableau vide pour stocker toutes les promesses fetch de la boucle for
 
-    for (let i = 0; i < number; i++) {
+    for (let i = 0; i < number; i++) { //chaque résultat d'itération sera dans le tableau
         promises.push(
             fetch('https://www.themealdb.com/api/json/v1/1/random.php')
                 .then(response => response.json())
-                .then(data => data.meals[0])
+                .then(data => data.meals[0]) //récupère l'entrée du tableau meals, objet qui représente la recette
         );
     }
 
-    Promise.all(promises)
-        .then(meals => {
-            displayRecipes(meals); //utilise ta fonction existante pour afficher
-        })
-        .catch(error => {
-            console.error('Erreur lors du chargement des recettes aléatoires :', error);
-            div_recettes.innerHTML = '<p>Impossible de charger les recettes. Veuillez réessayer plus tard.</p>';
-        });
+Promise.allSetted(promises) //recupère le tableau promises peut importe si elles échouent ou non (chaque élément est une recette/meal)
+    .then(results => { //récupére le résultat puis crée un tableau
+        const meals = results //on stock les promesses réussies ici
+        .filter(r => r.status === 'fulfilled') //filter parcour le tableau results et garde que les prommesses résolue
+        .map(r => r.value); //transforme le tableau filtré pour récupérer que la valeur (recette)
+
+        const seen = new Set(); //set = contient des valeurs uniques
+        const uniqueMeals = meals.filter(meal => { //variable contenant que les recettes uniques via tableau filter, meal = recette du tableau meals
+            if (seen.has(meal.idMeal)) { //verifie si l'idMeal est déjà présent dans set seen avec has
+                return false; //si oui, exclue du tableau
+            }
+            seen.add(meal.idMeal); //si non, on ajoute idMeal dans set seen
+            return true; //la recette sera gardée
+            });
+        displayRecipes(uniqueMeals); //appelle la fonction existante pour afficher les recettes du tableau sans doublons
+    })        
+
+    .catch(error => {
+        console.error('Erreur lors du chargement des recettes aléatoires :', error);
+        div_recettes.innerHTML = '<p>Impossible de charger les recettes. Veuillez réessayer plus tard.</p>';
+    });
 }
 
 //Appel de la fonction au chargement de la page
 fetchRandomRecipes(6); //6 recettes aléatoires
+/*Le Set n’est pas directement stocké dans uniqueMeals.
+Il sert seulement de mémoire temporaire pour savoir quelles recettes ont déjà été vues.
+Le tableau uniqueMeals est le résultat filtré, qui ne contient que les recettes dont l’ID n’était pas déjà dans seen.
+seen = carnet où tu coches chaque recette (vérifie)*/
  
