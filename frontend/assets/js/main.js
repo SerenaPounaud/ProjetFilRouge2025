@@ -2,7 +2,7 @@ const categories_ul = document.getElementById('liste_categories')
 const div_recettes = document.getElementById('recettes')
 const barre_recherche = document.getElementById('barre_recherche')
 const bouton_recherche = document.getElementById('btn_recherche')
-const bouton_filtre = document.getElementById('btn_filtre')
+const selectFiltre = document.getElementById('btn_filtre');
 
 //Récupérer les catégories de l'API
 fetch('https://www.themealdb.com/api/json/v1/1/categories.php') //Requête HTTP pour prendre toutes les catégories
@@ -92,12 +92,12 @@ function fetchRandomRecipes(number = 5) { //nombre de recettes aléatoires par d
         );
     }
 
-Promise.allSetted(promises) //recupère le tableau promises peut importe si elles échouent ou non (chaque élément est une recette/meal)
+Promise.allSettled(promises) //recupère le tableau promises peut importe si elles échouent ou non (chaque élément est une recette/meal)
     .then(results => { //récupére le résultat puis crée un tableau
         const meals = results //on stock les promesses réussies ici
-        .filter(r => r.status === 'fulfilled') //filter parcour le tableau results et garde que les prommesses résolue
-        .map(r => r.value); //transforme le tableau filtré pour récupérer que la valeur (recette)
-
+        .filter(r => r.status === 'fulfilled') //filter parcourt le tableau results et garde que les prommesses résolue, les autres sont ignorées
+        .map(r => r.value); //map parcourt le tableau filtré, r.value = valeur renvoyée par la promesse (recette)
+//r = nom qu'on donne à chaque élément du tableau results
         const seen = new Set(); //set = contient des valeurs uniques
         const uniqueMeals = meals.filter(meal => { //variable contenant que les recettes uniques via tableau filter, meal = recette du tableau meals
             if (seen.has(meal.idMeal)) { //verifie si l'idMeal est déjà présent dans set seen avec has
@@ -117,8 +117,16 @@ Promise.allSetted(promises) //recupère le tableau promises peut importe si elle
 
 //Appel de la fonction au chargement de la page
 fetchRandomRecipes(6); //6 recettes aléatoires
+
 /*Le Set n’est pas directement stocké dans uniqueMeals.
 Il sert seulement de mémoire temporaire pour savoir quelles recettes ont déjà été vues.
 Le tableau uniqueMeals est le résultat filtré, qui ne contient que les recettes dont l’ID n’était pas déjà dans seen.
 seen = carnet où tu coches chaque recette (vérifie)*/
- 
+
+// Bouton filtrer par
+selectFiltre.addEventListener('change', () => {
+    const value = selectFiltre.value;
+    const text = selectFiltre.options[selectFiltre.selectedIndex].text;
+    alert(`${text} (fonctionnalité à venir)`);
+
+});
