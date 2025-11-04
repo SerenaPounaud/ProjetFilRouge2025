@@ -130,3 +130,12 @@ selectFiltre.addEventListener('change', () => {
     alert(`${text} (fonctionnalité à venir)`);
 
 });
+
+// Charger le header + footer
+  fetch("templates/header.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("header").innerHTML = data);
+
+    fetch("templates/footer.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("footer").innerHTML = data);
