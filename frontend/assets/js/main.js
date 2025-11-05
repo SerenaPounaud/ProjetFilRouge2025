@@ -124,10 +124,10 @@ Le tableau uniqueMeals est le résultat filtré, qui ne contient que les recette
 seen = carnet où tu coches chaque recette (vérifie)*/
 
 // Bouton filtrer par
-selectFiltre.addEventListener('change', () => {
-    const value = selectFiltre.value;
-    const text = selectFiltre.options[selectFiltre.selectedIndex].text;
-    alert(`${text} (fonctionnalité à venir)`);
+selectFiltre.addEventListener('change', () => { //se déclenche quand l'utilisateur change la valeur 
+    const value = selectFiltre.value; //on assigne la valeur de select > option
+    const text = selectFiltre.options[selectFiltre.selectedIndex].text; //collecte toutes les options de select, donne l'index de l'option sélectionnée et récupère le text affiché
+    alert('Fonctionnalité à venir');
 
 });
 
