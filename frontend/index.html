@@ -27,8 +27,9 @@
     <section>
         <div class="zone_recherche">
             <div class="barre_recherche"> <!--barre de recherche pour rechercher par mots clés-->
-                <button id="btn_recherche"><img src="assets/img/loupe.webp" height="15px" alt="loupe"></button>
-                <input type="text" id="barre_recherche" placeholder="Rechercher par mots clés...">
+                <button id="btn_recherche" aria-label="Rechercher">
+                    <img src="assets/img/loupe.webp" height="15px" alt="Loupe de recherche"></button>
+                <input type="text" id="barre_recherche" placeholder="Rechercher par mots clés..." aria-label="Barre de recherche">
             </div>
             <div>       
                 <label for="btn_filtre">Filtrer par :</label>
@@ -45,7 +46,7 @@
     <div class="contenu_video">
         <iframe 
             width="460" height="315" 
-            src="https://www.youtube.com/embed/MuZGBlYEYMo?si=C8Z-Cfw-02p-dLLe&amp;controls=0&amp;start=1&mute=1" 
+            src="https://www.youtube.com/embed/MuZGBlYEYMo?si=C8Z-Cfw-02p-dLLe&amp;controls=0&amp;start=1&amp;mute=1" 
             title="YouTube video player" 
             frameborder="0" 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
