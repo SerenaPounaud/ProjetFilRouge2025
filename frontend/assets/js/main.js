@@ -131,7 +131,7 @@ selectFiltre.addEventListener('change', () => {                            //se 
 
 });
 
-// Charger le header + footer
+// Charger le header + footer dans index
   fetch("templates/header.html")
       .then(res => res.text())
       .then(data => document.getElementById("header").innerHTML = data);
