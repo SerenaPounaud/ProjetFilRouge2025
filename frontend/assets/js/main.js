@@ -71,10 +71,18 @@ function displayRecipes(meals) {
     div_recettes.innerHTML = '';                         //réinitialise le contenu html pour afficher les nouveaux résultats
     meals.forEach(meal => {                             //parcourt le tableau meals, pour chaque élément la fonction reçoit l'objet meal correspondant à une recette
         const mealDiv = document.createElement('div'); //crée une div pour afficher les recettes
+        mealDiv.classList.add('recette-item');        //crée une classe pour css
+        mealDiv.style.cursor='pointer';              //le curseur devient une main au survol
+
         mealDiv.innerHTML = `
         <h3>${meal.strMeal}</h3> 
         <img src="${meal.strMealThumb}" alt="${meal.strMeal}" width="200">`;
-        div_recettes.appendChild(mealDiv);           //ajoute la div de la recette dans div_recettes
+
+        mealDiv.addEventListener('click', () => {     //lorsqu'on clique => rediriger vers page recettes_déteils
+            window.location.href = `templates/recettes_details.html?id=${meal.idMeal}`;
+        });
+
+        div_recettes.appendChild(mealDiv);         //ajoute la div de la recette dans div_recettes
     });
 } //crée une div pour la recette, affiche le nom de la recette dans h3, affiche l'image de la recette
 
