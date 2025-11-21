@@ -1,7 +1,6 @@
 // Récupérer l'id depuis l'URL
 const params = new URLSearchParams(window.location.search); //récupère la partie de l'url après le ?(paramètre de la requête) puis crée un objet pour manipuler ces paramètres
 const idMeal = params.get('id'); //récupère la valeur de paramètre id dans l'url
-
 const recipeDetailsDiv = document.getElementById('recettes_details');
 
 if (!idMeal) { //vérifie si idMeal est vide ou null et affiche un message si c'est vrai
@@ -27,42 +26,67 @@ if (!idMeal) { //vérifie si idMeal est vide ou null et affiche un message si c'
   }
 
   // Afficher la recette
-  getRecipeDetails(idMeal).then(meal => {
-    if (!meal) {
+  getRecipeDetails(idMeal).then(meal => { //appelle la fonction, meal = recevra le résultat
+    if (!meal) { //si null ou undefined
       recipeDetailsDiv.innerHTML = '<p>Recette introuvable.</p>';
-      return;
+      return; //quitte la fonction pour éviter que le code continu si meal est absent
     }
-
-    const { temps, personnes } = generateFixedInfo(idMeal);
-
+  
+    const { temps, personnes } = generateFixedInfo(idMeal); //déstructuration = 2 variables
+  
     // Tags
-    const tags = meal.strTags
-      ? meal.strTags.split(',').map(t => t.trim()).filter(Boolean)
-      : [];
+    let tags = [];
 
+    if (meal.strTags) { //si il existe
+      let rawTags = meal.strTags.split(','); //découpe le tableau avec des virgules
+
+      let cleandTags = [];
+      for (let i =0; i < rawTags.length; i++) {
+        let trimmed = rawTags[i].trim(); //parcourt et enlève les espaces
+        if (trimmed) {
+          cleandTags.push(trimmed); //garde que ceux qui ne sont pas vide
+        }
+      }
+      tags = cleandTags;
+    } else {
+      tags = []; //si meal.strTags n'existe pas, tags reste un tableau vide
+    }
     let tagsHtml = '';
     if (tags.length > 0) {
       tagsHtml = '<h3>Tags :</h3><ul class="tags-list">';
-      tagsHtml += tags.map(tag => `<li class="tag">${tag}</li>`).join('');
+      for (let i =0; i < tags.length; i++) { //créer un li pour chaque tags
+        tagsHtml += '<li class="tag">' + tags[i] + '</li>';
+      }
       tagsHtml += '</ul>';
     } else {
-      tagsHtml = '<p><em>Aucun tag disponible pour cette recette.</em></p>';
+      tagsHtml = '<p>Aucun tag disponible pour cette recette.</p>'
     }
 
-    // ------ Construire HTML des ingrédients ------
+    // HTML des ingrédients
     const ingredients = [];
-    for (let i = 1; i <= 20; i++) {
-      const ingredient = meal[`strIngredient${i}`];
-      const measure = meal[`strMeasure${i}`];
-      if (ingredient && ingredient.trim() !== '') {
-        ingredients.push(`${ingredient}${measure ? ' - ' + measure : ''}`);
+    for (let i = 1; i <= 20; i++) { //max 20 ingrédients dans l'API
+      const ingredient = meal[`strIngredient${i}`]; //récupère l'ingrédient de la recette
+      const measure = meal[`strMeasure${i}`]; //récupère les mesures de l'ingrédient
+
+      if (ingredient && ingredient.trim() !== '') { //vérifie si l'ingrédient existe et n'est pas un espace vide
+        let text = ingredient;
+        if (measure && measure.trim() !== '') {
+          text += ' → ' + measure; //on ajoute ingrédient + mesure
+        }
+        ingredients.push(text); //on push vers le tableau initial
       }
     }
-    const ingredientsHtml = ingredients.length
-      ? ingredients.map(it => `<li>${it}</li>`).join('')
-      : '<li>Aucun ingrédient listé.</li>';
+    let ingredientsHtml = '';
+    if (ingredients.length === 0) {
+      ingredientsHtml = '<li>Aucun ingrédient listé.</li>';
+    } else {
+      ingredients.forEach(it => { //it = nom de chaque ingrédient
+      ingredientsHtml += `<li>${it}</li>`; //+= ajoute à la fin de la chaîne existante
+      });
 
-    // ------ Injecter le HTML final ------
+    }
+
+    // HTML final 
     recipeDetailsDiv.innerHTML = `
       <h2>${meal.strMeal || '—'}</h2>
       <img src="${meal.strMealThumb || ''}" alt="${meal.strMeal || ''}" width="300">
@@ -70,7 +94,7 @@ if (!idMeal) { //vérifie si idMeal est vide ou null et affiche un message si c'
       <p><strong>Pour :</strong> ${personnes} personne(s)</p>
 
       <h3>Instructions :</h3>
-      <p>${meal.strInstructions || '<em>Aucune instruction fournie.</em>'}</p>
+      <p>${meal.strInstructions || '<em>Aucune instruction fournie.</em>'}</p> 
 
       <h3>Ingrédients :</h3>
       <ul>
@@ -80,7 +104,7 @@ if (!idMeal) { //vérifie si idMeal est vide ou null et affiche un message si c'
       ${tagsHtml}
     `;
   });
-}
+}//instructions fournit par l'API
 
 // Chargement du header et du footer
 fetch("../templates/header.html")
