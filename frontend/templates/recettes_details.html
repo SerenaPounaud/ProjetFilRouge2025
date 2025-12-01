@@ -3,20 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/recettes_details.css">
     <title>Recette</title>
 </head>
 <body>
+    <div id="toast"></div>
     <div id="header"></div>
     <div id="recettes_details"></div>
 
     <h2>Commentaires</h2>
 
+    <div id="commentaires"></div>
+
     <div id="zone_commentaire" style="display: none;">
         <h3>Ajouter un commentaire</h3>
-        <textarea name="" id="commentaire_input" placeholder="Ecrivez votre commentaire"></textarea>
+        <textarea name="" id="commentaire_input" placeholder="Ecrivez votre commentaire" aria-required></textarea>
+        <p id="char_count" class="char_count">0/500</p>
             <div>
                 <span>Note :</span>
-                <select name="" id="note_input">
+                <select name="" id="note_input" aria-required>
                     <option value="" selected disabled>Choisissez une note</option>
                     <option value="1">★☆☆☆☆</option>
                     <option value="2">★★☆☆☆</option>
@@ -24,16 +29,18 @@
                     <option value="4">★★★★☆</option>
                     <option value="5">★★★★★</option>
                 </select>
+                <span class="error" id="note_error" aria-live="assertive"></span>
             </div>
         <button onclick="ajoutCommentaire()">Envoyer</button>
     </div>
 
     <div id="connexion" aria-autocomplete="off">
-        <input type="text" id="prenom" placeholder="Entrez votre prénom">
+        <input type="text" id="prenom" placeholder="Entrez votre prénom" aria-required>
+        <span class="error" id="prenom_error" aria-live="assertive"></span>
         <button onclick="connexion()">Se connecter</button>
     </div>
         
-    <div id="commentaires"></div>
+    
 
     <div id="footer"></div>
 
