@@ -16,7 +16,7 @@ fetch('https://www.themealdb.com/api/json/v1/1/categories.php') //Requête HTTP 
                 fetchRecipesByCategory(category.strCategory)); //La fonction fetch...est appelée lorsqu'on clique, récupère et affiche les recettes de la catégorie
             categories_ul.appendChild(li);             //Ajoute li dans la liste ul et l'affiche
         }); 
-    });
+});
 
 // Répcupérer les recettes par catégorie
 function fetchRecipesByCategory(category) {              //Créer une fonction fetch...category correspond au nom de la categorie à récupérer
@@ -124,7 +124,7 @@ Promise.allSettled(promises)                                 //recupère le tabl
 }
 
 //Appel de la fonction au chargement de la page
-fetchRandomRecipes(6); //6 recettes aléatoires
+fetchRandomRecipes(8); //8 recettes aléatoires
 
 /*Le Set n’est pas directement stocké dans uniqueMeals.
 Il sert seulement de mémoire temporaire pour savoir quelles recettes ont déjà été vues.
@@ -147,3 +147,5 @@ selectFiltre.addEventListener('change', () => {                            //se 
     fetch("templates/footer.html")
       .then(res => res.text())
       .then(data => document.getElementById("footer").innerHTML = data);
+
+

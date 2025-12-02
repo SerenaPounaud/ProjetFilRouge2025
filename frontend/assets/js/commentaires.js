@@ -1,9 +1,17 @@
 let user = null;
 
+//recupère la chaîne JSON stockée sous la clé commentaires dans localstorage et la transforme en tableau ou ver.vide si null/falsy
 let commentaires = JSON.parse(localStorage.getItem("commentaires")) || [];
-displayComments(); //recupère la chaîne JSON stockée sous la clé commentaires dans localstorage et la transforme en tableau ou ver.vide si null/falsy
-//affichera les commentaires
+displayComments(); //affichera les commentaires
 
+
+// Vider l'input au chargement de la page
+window.addEventListener("load", () => {
+    const prenomInput = document.getElementById("prenom");
+    if (prenomInput) prenomInput.value = "";
+});
+
+// Notification erreur
 function showError(message, fieldId) { //fieldId = id de l'élément html où s'affiche le message
         const errorDiv = document.getElementById(fieldId); //cherche l'id
         if (!errorDiv) return; //si id = null = arrête fonction
@@ -17,6 +25,7 @@ function showError(message, fieldId) { //fieldId = id de l'élément html où s'
         }, 3000);
     }
 
+// Notification toast    
 function toast(message) {
     const t = document.getElementById("toast");
     t.style.transition = "none";
@@ -36,6 +45,7 @@ function toast(message) {
     }, 3000);
 }  
 
+// Connexion
 function connexion() {
     const prenomInput = document.getElementById("prenom");
     const nom = prenomInput.value.trim(); //lit la valeur sans les espaces
@@ -55,6 +65,26 @@ function connexion() {
     document.getElementById("zone_commentaire").style.display = "block"; //basculement connexion -> commentaire
 }
 
+// Condition commentaire
+function displayComments() {
+    const contenu = document.getElementById("commentaires");
+    contenu.innerHTML = ""; //réinitialise l'affichage
+    contenu.setAttribute("aria-live", "polite"); //pas d'interruption brutale
+
+    if(commentaires.length === 0) {
+        const emptyMsg = document.createElement("p");
+        emptyMsg.textContent = "Aucun commentaire"; //variable temporaire
+        contenu.appendChild(emptyMsg); //ajoute le p dans contenu
+        return;
+    }
+
+    commentaires.forEach(c => {
+        const div = createCommentElement(c); //retourne un élément html
+        contenu.appendChild(div);
+    });
+}
+
+// Ajouter un commentaire
 function ajoutCommentaire() {
     const text = document.getElementById("commentaire_input").value.trim();
     const noteInput = document.getElementById("note_input").value; //récupère la valeur
@@ -82,24 +112,24 @@ function ajoutCommentaire() {
     displayComments(); //met à jour l'affichage
 }
 
-window.addEventListener("load", () => {
+// Affiche nombre de caractères
+window.addEventListener("load", () => { //se déclenche quand toute la page est chargée
     const prenomInput = document.getElementById("prenom");
-    if (prenomInput) prenomInput.value = "";
+    if (prenomInput) prenomInput.value = ""; //si prenominput existe on met sa valeur/efface le champ au chargement de la page
 
     const commentaireInput = document.getElementById("commentaire_input");
     const charCount = document.getElementById("char_count");
 
-    if (commentaireInput) {
-        commentaireInput.addEventListener("input", () => {
-            if (commentaireInput.value.length > 500) {
-                commentaireInput.value = commentaireInput.value.slice(0, 500);
-                showError("Maximum 500 caractères", "commentaire_input");
+    if (commentaireInput) { //vérifie qu'il existe, évite erreur si élément absent
+        commentaireInput.addEventListener("input", () => { //se déclenche à chaque changement du contenu
+            if (charCount) { 
+                charCount.textContent = `${commentaireInput.value.length} /500`; //met à jour l'affichage
             }
-            charCount.textContent = `${commentaireInput.value.length} /500`;
         });
     }
 });
 
+// Supprimer commentaire
 function supprimerCommentaire(id) {
     commentaires = commentaires.filter(c => c.id !== id); //filtre le tableau pour trouver l'id
     localStorage.setItem("commentaires", JSON.stringify(commentaires)); //sauvegarde la nouvelle liste dans localstorage
@@ -108,15 +138,15 @@ function supprimerCommentaire(id) {
 
 }
 
-// Div commentaire sécurisé
-function createCommentElement(c) {
+// Div commentaire
+function createCommentElement(c) { //c = commentaire
     const div = document.createElement("div");
     div.className = "divCommentaires"; //assigne une class à div
 
-    const metaDiv = document.createElement("div");
+    const metaDiv = document.createElement("div"); //(utilisateur, date, note, bouton)
     metaDiv.className = "meta";
 
-    const userStrong = document.createElement("strong");
+    const userStrong = document.createElement("strong"); //met en gras le nom de l'utilisateur
     userStrong.textContent = c.newUser;
 
     const dateSpan = document.createElement("span");
@@ -124,10 +154,10 @@ function createCommentElement(c) {
 
     const etoileSpan = document.createElement("span");
     etoileSpan.textContent = "★".repeat(c.note) + "☆".repeat(5 - c.note);
-    etoileSpan.setAttribute("aria-label", `Note : ${c.note} sur 5 étoiles`);
+    etoileSpan.setAttribute("aria-label", `Note : ${c.note} sur 5 étoiles`); //ajoute de l'accessibilité
 
     const btnSupprimer = document.createElement("button");
-    btnSupprimer.type = "button";
+    btnSupprimer.type = "button"; //évite de soumettre un formulaire si dans form
     btnSupprimer.style.marginLeft = "10px";
     btnSupprimer.style.color = "red";
     btnSupprimer.textContent = "Supprimer";
@@ -137,34 +167,11 @@ function createCommentElement(c) {
         }
     });
 
-    metaDiv.append(userStrong, dateSpan, etoileSpan, btnSupprimer);
+    metaDiv.append(userStrong, dateSpan, etoileSpan, btnSupprimer); //ajoute tous les éléments à la div
 
     const messageDiv = document.createElement("div");
     messageDiv.textContent = c.message; //contre XSS
 
-    div.append(metaDiv, messageDiv);
+    div.append(metaDiv, messageDiv); //ajouter à la fin
     return div;
-}
-function displayComments() {
-    const contenu = document.getElementById("commentaires");
-    contenu.innerHTML = ""; //réinitialise l'affichage
-    contenu.setAttribute("aria-live", "polite");
-
-    if(commentaires.length === 0) { //lorsqu'il n'y a aucun message
-        const emptyMsg = document.createElement("p");
-        emptyMsg.textContent = "Aucun commentaire";
-        contenu.appendChild(emptyMsg);
-        return;
-    }
-
-    commentaires.forEach(c => {
-        const div = createCommentElement(c);
-        contenu.appendChild(div);
-    });
-}
-
-// Vider l'input au chargement de la page
-window.addEventListener("load", () => {
-    const prenomInput = document.getElementById("prenom");
-    if (prenomInput) prenomInput.value = "";
-});
+};
