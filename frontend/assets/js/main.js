@@ -84,6 +84,8 @@ function displayRecipes(meals) {
         });
 
         div_recettes.appendChild(mealDiv);     //ajoute la div de la recette dans div_recettes
+        const noteDiv = createNoteBlock(meal.idMeal);
+        mealDiv.appendChild(noteDiv);
     });
 } //crée une div pour la recette, affiche le nom de la recette dans h3, affiche l'image de la recette
 
