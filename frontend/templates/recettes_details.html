@@ -15,7 +15,7 @@
 
     <div id="commentaires" aria-live="polite"></div>
 
-    <form id="zone_commentaire" style="display: none;" onsubmit="event.preventDefault(); ajoutCommentaire();">
+    <form id="zone_commentaire" style="display: none;" onsubmit="event.preventDefault(); ajoutCommentaire();"> <!--empêche le comportement par défaut du navigateur(rechargement)-->
         <h3>Ajouter un commentaire</h3>
 
         <label for="commentaire_input">Votre commentaire :</label>
@@ -42,6 +42,9 @@
         <button type="button" onclick="connexion()">Se connecter</button>
     </div>
 
+    <h3>Recettes de la même catégorie</h3>
+    <div id="recettes_similaires"></div>
+    
     <div id="footer"></div>
 
 <script src="../assets/js/commentaires.js"></script>

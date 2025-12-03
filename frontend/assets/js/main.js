@@ -23,19 +23,20 @@ function fetchRecipesByCategory(category) {              //Créer une fonction f
     div_recettes.innerHTML = `<h2>Recettes : ${category}</h2><p>Chargement...</p>`; //affiche un texte pendant le chargement
     fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`) //Récupère les recettes des categories
     .then(response => response.json()) 
-    .then(data => {                                    //Contient les recettes des catégories
-        if (data.meals) {                             //Verifie si l'API à renvoyé des recettes et si data.meals existe et n'est pas null, si la catégorie n'a pas de recette ou si le mot-clé n'a rien donnée, il sera null
-        displayRecipes(data.meals);                  //Si il existe on appelle display...pour afficher
-    }else{                                          //Si il n'existe pas on affiche une phrase d'erreur
-        div_recettes.innerHTML = `<p>Aucune recette trouvée</p>`;    //affiche le message d'erreur
+    .then(data => {                                   //Contient les recettes des catégories
+        if (data.meals) {                            //Verifie si l'API à renvoyé des recettes et si data.meals existe et n'est pas null, si la catégorie n'a pas de recette ou si le mot-clé n'a rien donnée, il sera null
+            const limiteRecette = data.meals.slice(0, 8);
+        displayRecipes(limiteRecette);                 //Si il existe on appelle display...pour afficher
+    }else{                                         //Si il n'existe pas on affiche une phrase d'erreur
+        div_recettes.innerHTML = `<p>Aucune recette trouvée</p>`;  //affiche le message d'erreur
     }
     });
 }
 
 // Rechercher des recettes par mot-clé
-bouton_recherche.addEventListener('click', () => {      //créer un événement sur le bouton
-  const keyword = barre_recherche.value.trim();        //lit la valeur de la barre de recherche, trin = supprime les espace inutiles en début et fin
-  if (!keyword) return;                               //si keyword est vide on arrête la fonction
+bouton_recherche.addEventListener('click', () => {    //créer un événement sur le bouton
+  const keyword = barre_recherche.value.trim();      //lit la valeur de la barre de recherche, trin = supprime les espace inutiles en début et fin
+  if (!keyword) return;                             //si keyword est vide on arrête la fonction
 
   div_recettes.innerHTML = '<p>Recherche en cours...</p>'; //affiche un message de recherche
 
@@ -78,11 +79,11 @@ function displayRecipes(meals) {
         <h3>${meal.strMeal}</h3> 
         <img src="${meal.strMealThumb}" alt="${meal.strMeal}" width="200">`;
 
-        mealDiv.addEventListener('click', () => {     //lorsqu'on clique => rediriger vers page recettes_déteils
+        mealDiv.addEventListener('click', () => { //lorsqu'on clique => rediriger vers page recettes_déteils
             window.location.href = `templates/recettes_details.html?id=${meal.idMeal}`;
         });
 
-        div_recettes.appendChild(mealDiv);         //ajoute la div de la recette dans div_recettes
+        div_recettes.appendChild(mealDiv);     //ajoute la div de la recette dans div_recettes
     });
 } //crée une div pour la recette, affiche le nom de la recette dans h3, affiche l'image de la recette
 
@@ -100,21 +101,21 @@ function fetchRandomRecipes(number = 5) {                          //nombre de r
         );
     }
 
-Promise.allSettled(promises)                                 //recupère le tableau promises peut importe si elles échouent ou non (chaque élément est une recette/meal)
-    .then(results => {                                      //récupére le résultat puis crée un tableau
-        const meals = results                              //on stock les promesses réussies ici
-        .filter(r => r.status === 'fulfilled')            //filter parcourt le tableau results et garde que les prommesses résolue, les autres sont ignorées
-        .map(r => r.value);                              //map parcourt le tableau filtré, r.value = valeur renvoyée par la promesse (recette)
-                                                        //r = nom qu'on donne à chaque élément du tableau results
-        const seen = new Set();                        //set = contient des valeurs uniques
-        const uniqueMeals = meals.filter(meal => {    //variable contenant que les recettes uniques via tableau filter, meal = recette du tableau meals
-            if (seen.has(meal.idMeal)) {             //verifie si l'idMeal est déjà présent dans set seen avec has
-                return false;                       //si oui, exclue du tableau
+Promise.allSettled(promises)                               //recupère le tableau promises peut importe si elles échouent ou non (chaque élément est une recette/meal)
+    .then(results => {                                    //récupére le résultat puis crée un tableau
+        const meals = results                            //on stock les promesses réussies ici
+        .filter(r => r.status === 'fulfilled')          //filter parcourt le tableau results et garde que les prommesses résolue, les autres sont ignorées
+        .map(r => r.value);                            //map parcourt le tableau filtré, r.value = valeur renvoyée par la promesse (recette)
+                                                      //r = nom qu'on donne à chaque élément du tableau results
+        const seen = new Set();                      //set = contient des valeurs uniques
+        const uniqueMeals = meals.filter(meal => {  //variable contenant que les recettes uniques via tableau filter, meal = recette du tableau meals
+            if (seen.has(meal.idMeal)) {           //verifie si l'idMeal est déjà présent dans set seen avec has
+                return false;                     //si oui, exclue du tableau
             }
-            seen.add(meal.idMeal);                //si non, on ajoute idMeal dans set seen
-            return true;                         //la recette sera gardée
+            seen.add(meal.idMeal);              //si non, on ajoute idMeal dans set seen
+            return true;                       //la recette sera gardée
             });
-        displayRecipes(uniqueMeals);           //appelle la fonction existante pour afficher les recettes du tableau sans doublons
+        displayRecipes(uniqueMeals);         //appelle la fonction existante pour afficher les recettes du tableau sans doublons
     })        
 
     .catch(error => {
@@ -124,7 +125,7 @@ Promise.allSettled(promises)                                 //recupère le tabl
 }
 
 //Appel de la fonction au chargement de la page
-fetchRandomRecipes(8); //8 recettes aléatoires
+fetchRandomRecipes(8); //8 recettes aléatoires au chargement
 
 /*Le Set n’est pas directement stocké dans uniqueMeals.
 Il sert seulement de mémoire temporaire pour savoir quelles recettes ont déjà été vues.
