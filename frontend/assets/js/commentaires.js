@@ -67,7 +67,7 @@ function connexion() {
 
 // Condition commentaire
 function displayComments() {
-    const contenu = document.getElementById("commentaires");
+    const contenu = document.getElementById("commentaires"); //div principale
     contenu.innerHTML = ""; //réinitialise l'affichage
     contenu.setAttribute("aria-live", "polite"); //pas d'interruption brutale
 
@@ -140,7 +140,7 @@ function supprimerCommentaire(id) {
 
 // Div commentaire
 function createCommentElement(c) { //c = commentaire
-    const div = document.createElement("div");
+    const div = document.createElement("div"); //div individuel commentaire
     div.className = "divCommentaires"; //assigne une class à div
 
     const metaDiv = document.createElement("div"); //(utilisateur, date, note, bouton)

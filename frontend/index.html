@@ -9,65 +9,71 @@
 </head>
 <body>
     <div id="header"></div>
-    <div class="img_header">
-        <picture>  <!--Affiche un format d'image adapté à l'ancienneté du navigateur-->
+
+    <div class="headerIndex">
+        <picture> <!--Affiche un format d'image adapté à l'ancienneté du navigateur-->
             <source srcset="assets/img/happy-woman-biting-slice-tasty-260nw-2587042729.webp" type="image/webp">
             <source srcset="assets/img/happy-woman-biting-slice-tasty-260nw-2587042729.avif" type="image/avif">
             <img src="assets/img/happy-woman-biting-slice-tasty-260nw-2587042729.jpg" alt="Femme qui mange en souriant">
         </picture>
         <div class="p_header">   
             <p>Choisissez parmi des milliers de recettes</p>
-            <a href="templates/connexion.html">Inscrivez-vous</a>
+            <a href="templates/connexion.html">Inscrivez-vous -></a>
         </div> 
     </div>
-    <section class="sidebar"> <!--section de gauche pour la recherche par catégories-->
-        <h2>Recettes</h2> 
-        <ul id="liste_categories"></ul> <!--Affiche la liste des catégories via l'API-->
-    </section>
     <section>
-        <div class="zone_recherche">
-            <div class="barre_recherche"> <!--barre de recherche pour rechercher par mots clés-->
-                <button id="btn_recherche" aria-label="Rechercher">
-                    <img src="assets/img/loupe.webp" height="15px" alt="Loupe de recherche"></button>
-                <input type="text" id="barre_recherche" placeholder="Rechercher par mots clés..." aria-label="Barre de recherche">
-            </div>
-            <div>       
-                <label for="btn_filtre">Filtrer par :</label>
-                <select id="btn_filtre">
-                    <option value="recent">Récent</option>
-                    <option value="ancien">Anciens</option>
-                </select>
-            </div>
-        </div> 
-        <div class="recettes" id="recettes">
-            <!--Les recettes s'affichent ici-->
-        </div> 
+        <aside> <!--section gauche pour la recherche par catégories-->
+            <h2>Recettes</h2> 
+            <ul id="liste_categories"></ul> <!--Affiche la liste des catégories via l'API-->
+        </aside>
+        <div>
+            <div class="zone_recherche">
+                <div class="barre_recherche"> <!--barre de recherche pour rechercher par mots clés-->
+                    <button id="btn_recherche" aria-label="Rechercher">
+                        <img src="assets/img/loupe.webp" height="15px" alt="Loupe de recherche"></button>
+                    <input type="text" id="barre_recherche" placeholder="Rechercher par mots clés..." aria-label="Barre de recherche">
+                </div>
+                <div>       
+                    <label for="btn_filtre">Filtrer par :</label>
+                    <select id="btn_filtre">
+                        <option value="recent">Récent</option>
+                        <option value="ancien">Anciens</option>
+                    </select>
+                </div>
+            </div> 
+            <div class="recettes" id="recettes">
+                <!--Les recettes s'affichent ici-->
+            </div> 
+        </div>
     </section>
-    <div class="contenu_video">
-        <iframe 
-            width="460" height="315" 
-            src="https://www.youtube.com/embed/MuZGBlYEYMo?si=C8Z-Cfw-02p-dLLe&amp;controls=0&amp;start=1&amp;mute=1" 
-            title="YouTube video player" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            referrerpolicy="strict-origin-when-cross-origin">
-        </iframe>
-        <img src="assets/img/pexels-alena-evseenko-660538512-34560968.jpg" alt="" width="200" height="315" >
-        <iframe 
-            width="460" height="315" 
-            src="https://www.youtube.com/embed/9g-gMkV5vL4?si=vNRDt5Met7UisZ6n&amp;controls=0&mute=1" 
-            title="YouTube video player" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            referrerpolicy="strict-origin-when-cross-origin">
-        </iframe>
-        <img src="assets/img/pexels-dapur-melodi-192125-1109197.jpg" alt="" width="200" height="315" >
-    </div>
-    <div class="newsletter">
-        <p>Soyez les premiers informés des dernières recettes intégrées</p>
-        <input type="email" placeholder="Votre email">
-        <button>S'inscrire</button>
-    </div>
+    <section class="footerIndex">
+        <div class="contenu_video">
+            <iframe 
+                width="460" height="315" 
+                src="https://www.youtube.com/embed/MuZGBlYEYMo?si=C8Z-Cfw-02p-dLLe&amp;controls=0&amp;start=1&amp;mute=1" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin">
+            </iframe>
+            <img src="assets/img/pexels-alena-evseenko-660538512-34560968.jpg" alt="" width="200" height="315" >
+            <iframe 
+                width="460" height="315" 
+                src="https://www.youtube.com/embed/9g-gMkV5vL4?si=vNRDt5Met7UisZ6n&amp;controls=0&mute=1" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin">
+            </iframe>
+            <img src="assets/img/pexels-dapur-melodi-192125-1109197.jpg" alt="" width="200" height="315" >
+        </div>
+        <div class="newsletter">
+            <p>Soyez les premiers informés des dernières recettes intégrées</p>
+            <input type="email" placeholder="Votre email">
+            <button>S'inscrire</button>
+        </div>
+    </section>
+    
     <div id="footer"></div>
 
     <script src="../frontend/assets/js/random.js"></script>
