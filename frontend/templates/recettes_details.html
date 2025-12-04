@@ -7,8 +7,12 @@
     <title>Recette</title>
 </head>
 <body>
-    <div id="toast" role="status" aria-live="polite"></div>
-    <div id="header"></div>
+    <!--informe les technologies d'assitance que le contenu contient des informations importantes qui changent dynamiquement-->
+    <div id="toast" role="status" aria-live="polite"></div> 
+                                                            
+    <header id="header"></header>
+
+<main>
     <section class="headerDetails" id="recettes_details"></section>
 
     <h2>Commentaires</h2>
@@ -36,16 +40,17 @@
         <button type="submit">Envoyer</button>
     </form>
 
-    <div id="connexion" aria-autocomplete="off">
-        <input type="text" id="prenom" placeholder="Entrez votre prénom" aria-required>
+    <div id="connexion">
+        <input type="text" id="prenom" placeholder="Entrez votre prénom" aria-required="true" aria-autocomplete="off" required>
         <span class="error" id="prenom_error" aria-live="assertive"></span>
         <button type="button" onclick="connexion()">Se connecter</button>
     </div>
 
     <h3>Recettes de la même catégorie</h3>
     <div id="recettes_similaires"></div>
+</main>    
     
-    <div id="footer"></div>
+    <footer id="footer"></footer>
 
 <script src="../assets/js/random.js"></script>    
 <script src="../assets/js/commentaires.js"></script>
