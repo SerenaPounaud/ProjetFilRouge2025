@@ -9,6 +9,31 @@ displayComments(); //affichera les commentaires
 window.addEventListener("load", () => {
     const prenomInput = document.getElementById("prenom");
     if (prenomInput) prenomInput.value = "";
+
+    user = localStorage.getItem("user") || null;
+
+    if (user) {
+        document.getElementById("connexion").style.display = "none";
+        document.getElementById("zone_commentaire").style.display = "block";
+        document.getElementById("btn_deconnexion").style.display = "inline-block";
+    } else {
+        document.getElementById("connexion").style.display = "block";
+        document.getElementById("zone_commentaire").style.display = "none";
+        document.getElementById("btn_deconnexion").style.display = "none";
+    }
+
+    // Affiche nombre de caractères
+    const commentaireInput = document.getElementById("commentaire_input");
+    const charCount = document.getElementById("char_count");
+
+    if (commentaireInput) { //vérifie qu'il existe, évite erreur si élément absent
+        commentaireInput.addEventListener("input", () => { //se déclenche à chaque changement du contenu
+            if (charCount) { 
+                charCount.textContent = `${commentaireInput.value.length} /500`; //met à jour l'affichage
+            }
+        });
+    }
+    displayComments();
 });
 
 // Notification erreur
@@ -59,10 +84,32 @@ function connexion() {
         return;
      }
     prenomInput.classList.remove("input-error");
-
     user = nom; //affecte le prenom si pas d'alerte
+    localStorage.setItem("user", user); //stocke user
+
+
     document.getElementById("connexion").style.display = "none"; //cacher après connexion
     document.getElementById("zone_commentaire").style.display = "block"; //basculement connexion -> commentaire
+    document.getElementById("btn_deconnexion").style.display = "inline-block";
+
+    const zone = document.getElementById("zone_commentaire");
+    zone.removeAttribute("aria-hidden");
+    zone.querySelector("textarea").focus(); //met le curseur sur textarea
+}
+
+// Déconnexion
+function deconnexion() {
+    user = null; // réinitialise l'utilisateur
+    localStorage.removeItem("user"); //supprime user
+
+    document.getElementById("zone_commentaire").style.display = "none";
+    document.getElementById("zone_commentaire").setAttribute("aria-hidden", "true");
+
+    document.getElementById("connexion").style.display = "block";
+    document.getElementById("prenom").value = "";
+    document.getElementById("btn_deconnexion").style.display = "none";
+
+    toast("Vous êtes déconnecté");
 }
 
 // Condition commentaire
@@ -111,23 +158,6 @@ function ajoutCommentaire() {
     toast("Commentaire ajouté");
     displayComments(); //met à jour l'affichage
 }
-
-// Affiche nombre de caractères
-window.addEventListener("load", () => { //se déclenche quand toute la page est chargée
-    const prenomInput = document.getElementById("prenom");
-    if (prenomInput) prenomInput.value = ""; //si prenominput existe on met sa valeur/efface le champ au chargement de la page
-
-    const commentaireInput = document.getElementById("commentaire_input");
-    const charCount = document.getElementById("char_count");
-
-    if (commentaireInput) { //vérifie qu'il existe, évite erreur si élément absent
-        commentaireInput.addEventListener("input", () => { //se déclenche à chaque changement du contenu
-            if (charCount) { 
-                charCount.textContent = `${commentaireInput.value.length} /500`; //met à jour l'affichage
-            }
-        });
-    }
-});
 
 // Supprimer commentaire
 function supprimerCommentaire(id) {

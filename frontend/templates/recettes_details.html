@@ -8,22 +8,24 @@
 </head>
 <body>
     <!--informe les technologies d'assitance que le contenu contient des informations importantes qui changent dynamiquement-->
-    <div id="toast" role="status" aria-live="polite"></div> 
+    <div id="toast" role="status"></div> 
                                                             
     <header id="header"></header>
 
 <main>
-    <section class="headerDetails" id="recettes_details"></section>
+    <h1 class="sr-only">Détails de la recette</h1>
+
+    <section class="headerDetails" id="recettes_details" aria-label="Détails de la recette"></section>
 
     <h2>Commentaires</h2>
 
     <div id="commentaires" aria-live="polite"></div>
 
-    <form id="zone_commentaire" style="display: none;" onsubmit="event.preventDefault(); ajoutCommentaire();"> <!--empêche le comportement par défaut du navigateur(rechargement)-->
+    <form id="zone_commentaire" style="display: none;" aria-hidden="true" onsubmit="event.preventDefault(); ajoutCommentaire();"> <!--empêche le comportement par défaut du navigateur(rechargement)-->
         <h3>Ajouter un commentaire</h3>
 
         <label for="commentaire_input">Votre commentaire :</label>
-        <textarea id="commentaire_input" placeholder="Ecrivez votre commentaire" aria-required="true" maxlength="500"></textarea>
+        <textarea id="commentaire_input" placeholder="Ecrivez votre commentaire" maxlength="500"></textarea>
         <p id="char_count" class="char_count">0/500</p>
 
         <label for="note_input">Note :</label>
@@ -41,13 +43,15 @@
     </form>
 
     <div id="connexion">
-        <input type="text" id="prenom" placeholder="Entrez votre prénom" aria-required="true" aria-autocomplete="off" required>
+        <label for="prenom" class="sr-only">Votre prénom</label>
+        <input type="text" id="prenom" placeholder="Entrez votre prénom" aria-required="true" aria-autocomplete="none" required>
         <span class="error" id="prenom_error" aria-live="assertive"></span>
         <button type="button" onclick="connexion()">Se connecter</button>
+        <button type="button" id="btn_deconnexion" style="display: none;" onclick="deconnexion()">Déconnexion</button>
     </div>
 
     <h3>Recettes de la même catégorie</h3>
-    <div id="recettes_similaires"></div>
+    <div id="recettes_similaires" role="list"></div>
 </main>    
     
     <footer id="footer"></footer>
