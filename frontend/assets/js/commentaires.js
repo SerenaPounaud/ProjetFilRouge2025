@@ -8,18 +8,22 @@ displayComments(); //affichera les commentaires
 // Vider l'input au chargement de la page
 window.addEventListener("load", () => {
     const prenomInput = document.getElementById("prenom");
-    if (prenomInput) prenomInput.value = "";
+    if (prenomInput) prenomInput.value = ""; //vérifie si il n'est pas null, réinitialise la valeur
 
-    user = localStorage.getItem("user") || null;
+    const user = localStorage.getItem("user") || null; //retourne prenom ou null
+
+    const connexionDiv = document.getElementById("connexion");
+    const commentaireZone = document.getElementById("zone_commentaire");
+    const btnDeconnexion = document.getElementById("btn_deconnexion");
 
     if (user) {
-        document.getElementById("connexion").style.display = "none";
-        document.getElementById("zone_commentaire").style.display = "block";
-        document.getElementById("btn_deconnexion").style.display = "inline-block";
+        connexionDiv.style.display = "none";
+        commentaireZone.style.display = "block";
+        btnDeconnexion.style.display = "inline-block";
     } else {
-        document.getElementById("connexion").style.display = "block";
-        document.getElementById("zone_commentaire").style.display = "none";
-        document.getElementById("btn_deconnexion").style.display = "none";
+        connexionDiv.style.display = "block";
+        commentaireZone.style.display = "none";
+        btnDeconnexion.style.display = "none";
     }
 
     // Affiche nombre de caractères

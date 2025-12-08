@@ -22,66 +22,68 @@
             <a href="templates/connexion.html" title="Se connecter ou s'incrire">Inscrivez-vous -></a>
         </div> 
     </div>
-    <section class="middleIndex">
-        <aside aria-label="Catégories de recettes"> <!--section gauche pour la recherche par catégories-->
-            <h2>Recettes</h2> 
-            <ul id="liste_categories"></ul> <!--Affiche la liste des catégories via l'API-->
-        </aside>
-        <div>
-            <div class="zone_recherche">
-                <div class="barre_recherche"> <!--barre de recherche pour rechercher par mots clés-->
-                    <button id="btn_recherche" aria-label="Rechercher une recette">
-                        <img src="assets/img/loupe.webp" height="15px" alt="Loupe de recherche">
-                    </button>
-                    <input 
-                        type="text" 
-                        id="barre_recherche" 
-                        placeholder="Rechercher par mots clés..." 
-                        aria-label="Champ de recherche par mots clés">
-                </div>
-                <div>       
-                    <label for="btn_filtre">Filtrer par :</label>
-                    <select id="btn_filtre">
-                        <option value="recent">Récent</option>
-                        <option value="ancien">Anciens</option>
-                    </select>
-                </div>
-            </div> 
-            <div class="recettes" id="recettes">
-                <!--Les recettes s'affichent ici-->
-            </div> 
-        </div>
-    </section>
-    <section class="footerIndex">
-        <div class="contenu_video">
-            <iframe 
-                loading="lazy" 
-                width="460" height="315" 
-                src="https://www.youtube.com/embed/MuZGBlYEYMo?si=C8Z-Cfw-02p-dLLe&amp;controls=0&amp;start=1&amp;mute=1" 
-                title="YouTube video player" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                referrerpolicy="strict-origin-when-cross-origin">
-            </iframe>
-                <img src="assets/img/pexels-alena-evseenko-660538512-34560968.jpg" alt="Image d'un cake aux fruits" width="200" height="315" >
-            <iframe 
-                loading="lazy" 
-                width="460" height="315" 
-                src="https://www.youtube.com/embed/9g-gMkV5vL4?si=vNRDt5Met7UisZ6n&amp;controls=0&mute=1" 
-                title="YouTube video player" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                referrerpolicy="strict-origin-when-cross-origin">
-            </iframe>
-                <img src="assets/img/pexels-dapur-melodi-192125-1109197.jpg" alt="Image d'un bol contenant des légumes" width="200" height="315" >
-        </div>
-        <div class="newsletter">
-            <p>Soyez les premiers informés des dernières recettes intégrées</p>
-            <label for="newsletter_email" class="sr-only">Inscrivez votre adresse email</label> <!--Cache le label visuellement mais pas pour l’accessibilité-->
-            <input id="newsletter_email" type="email" placeholder="Votre adresse email" required>
-            <button type="button" aria-label="S'incrire">S'inscrire</button>
-        </div>
-    </section>
+
+<section class="middleIndex">
+    <aside aria-label="Catégories de recettes"> <!--section gauche pour la recherche par catégories-->
+        <h2>Recettes</h2> 
+        <ul id="liste_categories"></ul> <!--Affiche la liste des catégories via l'API-->
+    </aside>
+    <div>
+        <div class="zone_recherche">
+            <div class="barre_recherche"> <!--barre de recherche pour rechercher par mots clés-->
+                <button id="btn_recherche" aria-label="Rechercher une recette">
+                    <img src="assets/img/loupe.webp" height="15px" alt="Loupe de recherche">
+                </button>
+                <input 
+                    type="text" 
+                    id="barre_recherche" 
+                    placeholder="Rechercher par mots clés..." 
+                    aria-label="Champ de recherche par mots clés">
+            </div>
+            <div>       
+                <label for="btn_filtre">Filtrer par :</label>
+                <select id="btn_filtre">
+                    <option value="recent">Récent</option>
+                    <option value="ancien">Anciens</option>
+                </select>
+            </div>
+        </div> 
+        <div class="recettes" id="recettes">
+            <!--Les recettes s'affichent ici-->
+        </div> 
+    </div>
+</section>
+
+<section class="footerIndex">
+    <div class="contenu_video">
+        <iframe 
+            loading="lazy" 
+            width="460" height="315" 
+            src="https://www.youtube.com/embed/MuZGBlYEYMo?si=C8Z-Cfw-02p-dLLe&amp;controls=0&amp;start=1&amp;mute=1" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin">
+        </iframe>
+            <img src="assets/img/pexels-alena-evseenko-660538512-34560968.jpg" alt="Image d'un cake aux fruits" width="200" height="315" >
+        <iframe 
+            loading="lazy" 
+            width="460" height="315" 
+            src="https://www.youtube.com/embed/9g-gMkV5vL4?si=vNRDt5Met7UisZ6n&amp;controls=0&mute=1" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin">
+        </iframe>
+            <img src="assets/img/pexels-dapur-melodi-192125-1109197.jpg" alt="Image d'un bol contenant des légumes" width="200" height="315" >
+    </div>
+    <div class="newsletter">
+        <p>Soyez les premiers informés des dernières recettes intégrées</p>
+        <label for="newsletter_email" class="sr-only">Inscrivez votre adresse email</label> <!--Cache le label visuellement mais pas pour l’accessibilité-->
+        <input id="newsletter_email" type="email" placeholder="Votre adresse email" required>
+        <button type="button" aria-label="S'incrire">S'inscrire</button>
+    </div>
+</section>
 </main>
 
     <footer id="footer"></footer>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/reset_modern_normalize.css">
+    <link rel="stylesheet" href="../assets/css/recherche.css">
+    <title>Recherche</title>
+</head>
+<body>
+    <header id="header"></header>
+<main>
+<div class="zone_recherche">
+    <div class="barre_recherche"> <!--barre de recherche pour rechercher par mots clés-->
+        <button id="btn_recherche" aria-label="Rechercher une recette">
+            <img src="assets/img/loupe.webp" height="15px" alt="Loupe de recherche">
+        </button>
+        <input 
+            type="text" 
+            id="barre_recherche" 
+            placeholder="Rechercher par mots clés..." 
+            aria-label="Champ de recherche par mots clés">
+    </div>
+    <div>       
+        <label for="btn_filtre">Filtrer par :</label>
+        <select id="btn_filtre">
+            <option value="recent">Récent</option>
+            <option value="ancien">Anciens</option>
+        </select>
+    </div>
+</div> 
+<div class="recettes" id="recettes">
+    <!--Les recettes s'affichent ici-->
+</div> 
+
+
+</main>
+    
+    <footer id="footer"></footer>
+
+
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/random.js"></script>
+<script src="../assets/js/recherche.js"></script>
+</body>
+</html>

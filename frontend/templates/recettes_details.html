@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/reset_modern_normalize.css">
     <link rel="stylesheet" href="../assets/css/recettes_details.css">
     <title>Recette</title>
 </head>
@@ -17,41 +18,44 @@
 
     <section class="headerDetails" id="recettes_details" aria-label="Détails de la recette"></section>
 
-    <h2>Commentaires</h2>
+    <section>
+        <h2>Commentaires</h2>
 
-    <div id="commentaires" aria-live="polite"></div>
+        <div id="commentaires" aria-live="polite"></div>
 
-    <form id="zone_commentaire" style="display: none;" aria-hidden="true" onsubmit="event.preventDefault(); ajoutCommentaire();"> <!--empêche le comportement par défaut du navigateur(rechargement)-->
-        <h3>Ajouter un commentaire</h3>
+        <form id="zone_commentaire" style="display: none;" aria-hidden="true" onsubmit="event.preventDefault(); ajoutCommentaire();"> <!--empêche le comportement par défaut du navigateur(rechargement)-->
+            <h3>Ajouter un commentaire</h3>
 
-        <label for="commentaire_input">Votre commentaire :</label>
-        <textarea id="commentaire_input" placeholder="Ecrivez votre commentaire" maxlength="500"></textarea>
-        <p id="char_count" class="char_count">0/500</p>
+            <label for="commentaire_input">Votre commentaire :</label>
+            <textarea id="commentaire_input" placeholder="Ecrivez votre commentaire" maxlength="500"></textarea>
+            <p id="char_count" class="char_count">0/500</p>
 
-        <label for="note_input">Note :</label>
-        <select id="note_input" aria-required="true">
-            <option value="" selected disabled>Choisissez une note</option>
-            <option value="1">★☆☆☆☆</option>
-            <option value="2">★★☆☆☆</option>
-            <option value="3">★★★☆☆</option>
-            <option value="4">★★★★☆</option>
-            <option value="5">★★★★★</option>
-        </select>
-        <span class="error" id="note_error" aria-live="assertive"></span> <!--interruption immédiate-->
-        
-        <button type="submit">Envoyer</button>
-    </form>
+            <label for="note_input">Note :</label>
+            <select id="note_input" aria-required="true">
+                <option value="" selected disabled>Choisissez une note</option>
+                <option value="1">★☆☆☆☆</option>
+                <option value="2">★★☆☆☆</option>
+                <option value="3">★★★☆☆</option>
+                <option value="4">★★★★☆</option>
+                <option value="5">★★★★★</option>
+            </select>
+            <span class="error" id="note_error" aria-live="assertive"></span> <!--interruption immédiate-->
+            
+            <button type="submit">Envoyer</button>
+        </form>
 
-    <div id="connexion">
-        <label for="prenom" class="sr-only">Votre prénom</label>
-        <input type="text" id="prenom" placeholder="Entrez votre prénom" aria-required="true" aria-autocomplete="none" required>
-        <span class="error" id="prenom_error" aria-live="assertive"></span>
-        <button type="button" onclick="connexion()">Se connecter</button>
-        <button type="button" id="btn_deconnexion" style="display: none;" onclick="deconnexion()">Déconnexion</button>
-    </div>
-
-    <h3>Recettes de la même catégorie</h3>
-    <div id="recettes_similaires" role="list"></div>
+        <div id="connexion">
+            <label for="prenom" class="sr-only">Votre prénom</label>
+            <input type="text" id="prenom" placeholder="Entrez votre prénom" aria-required="true" aria-autocomplete="none" required>
+            <span class="error" id="prenom_error" aria-live="assertive"></span>
+            <button type="button" onclick="connexion()">Se connecter</button>
+        </div>
+            <button type="button" id="btn_deconnexion" style="display: none;" onclick="deconnexion()">Déconnexion</button>
+    </section>
+    <section>
+        <h3>Recettes de la même catégorie</h3>
+        <div id="recettes_similaires" role="list"></div>
+    </section>
 </main>    
     
     <footer id="footer"></footer>

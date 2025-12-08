@@ -142,10 +142,13 @@ const noteBlock = createNoteBlock(meal.idMeal);
 const noteHtml = noteBlock.outerHTML;
 
 recipeDetailsDiv.innerHTML = `
+
 <h2>${meal.strMeal || '—'}</h2>
 <img src="${meal.strMealThumb || ''}" alt="${meal.strMeal || ''}" width="300">
-<p><strong>Temps de cuisson :</strong> ${temps} min</p>
-<p><strong>Pour :</strong> ${personnes} personne(s)</p>
+<div>
+  <p><strong>Temps de cuisson :</strong> ${temps} min</p>
+  <p><strong>Pour :</strong> ${personnes} personne(s)</p>
+</div>
   <div class="note">
     ${noteHtml}
     <button class="btnDetails" title="Ajouter aux favoris" aria-label="Ajouter aux favoris" style="background: transparent; border: none; padding: 0; cursor: pointer;">
@@ -160,7 +163,7 @@ recipeDetailsDiv.innerHTML = `
     </button>
   </div>
     
-<section class="middleDetails">
+<div class="middleDetails">
   <div>
     <h3>Instructions :</h3>
     <p>${meal.strInstructions || '<em>Aucune instruction fournie.</em>'}</p> 
@@ -172,7 +175,7 @@ recipeDetailsDiv.innerHTML = `
     </ul>
     ${tagsHtml}
   </aside>
-</section>
+</div>
   `;
 });
 }//instructions fournit par l'API
