@@ -1,8 +1,7 @@
-const div_recettes = document.getElementById('recettes');
 
 // Afficher les recettes
 function displayRecipes(meals) {
-    div_recettes.innerHTML = '';
+    div_recettes.innerHTML = ''; //réinitialise
     meals.forEach(meal => {
         const mealDiv = document.createElement('div');
         mealDiv.classList.add('recette-item');
@@ -12,7 +11,7 @@ function displayRecipes(meals) {
         <img src="${meal.strMealThumb}" alt="${meal.strMeal}" width="200">`;
 
     mealDiv.addEventListener('click', () => {
-        window.location.href = `recettes_details.html?id=${meal.idMeal}`;
+        window.location.href = `../templates/recettes_details.html?id=${meal.idMeal}`;
         });
     div_recettes.appendChild(mealDiv);
     });
@@ -28,6 +27,7 @@ function fetchRandomRecipesRecherche(nb = 12) {
             fetch('https://www.themealdb.com/api/json/v1/1/random.php')
             .then(res => res.json())
             .then(data => data.meals[0])
+            .catch(() => null) //ignore les fetch échoués
         );
     }
 
@@ -43,7 +43,11 @@ function fetchRandomRecipesRecherche(nb = 12) {
                 vue.add(meal.idMeal);
                 return true;
             });
+            if (uniqueMeals.length === 0) {
+                div_recettes.innerHTML = '<p>Aucune recette trouvée.</p>';
+            } else {
             displayRecipes(uniqueMeals);
+            }
         })
         .catch(() => {
             div_recettes.innerHTML = '<p>Impossible de charger les recettes. Réessayez plus tard.</p>';
@@ -56,12 +60,12 @@ function fetchRandomRecipesRecherche(nb = 12) {
 
 
 
-fetch("../templates/header.html")
+fetch("header.html")
   .then(res => res.text())
   .then(data => document.getElementById("header").innerHTML = data)
   .catch(() => console.error("Erreur chargement header"));
 
-fetch("../templates/footer.html")
+fetch("footer.html")
   .then(res => res.text())
   .then(data => document.getElementById("footer").innerHTML = data)
   .catch(() => console.error("Erreur chargement footer"));

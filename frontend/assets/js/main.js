@@ -4,23 +4,27 @@ const barre_recherche = document.getElementById('barre_recherche')
 const bouton_recherche = document.getElementById('btn_recherche')
 const selectFiltre = document.getElementById('btn_filtre');
 
-// Récupérer les catégories de l'API
-fetch('https://www.themealdb.com/api/json/v1/1/categories.php') //Requête HTTP pour prendre toutes les catégories
-    .then(response => response.json())                         //Renvoie une promesse de l'API, transforme la réponse en objet JS (Json en JS) et de continuer si la promesse est résolue
-    .then(data => {                                           //Récupère les données JSON dans la variable data, elle contient une clé categories qui est un tableau de toutes les catgories
-         data.categories.forEach(category => {               //Parcourt chaque catégories avec forEach, category représente un objet de catégorie à chaque itération (ex:idCategory: "1", strCategory:"Beef")
-            const li = document.createElement('li');        //Créer un élément li
-            li.textContent = category.strCategory;         //Remplit le li avec le nom de la catégorie qui vient de l'API
-            li.style.cursor = 'pointer';                  //Change le curseur de la souris en main quand on survol
-            li.addEventListener('click', () =>           //Ajoute un événement clic sur li
-                fetchRecipesByCategory(category.strCategory)); //La fonction fetch...est appelée lorsqu'on clique, récupère et affiche les recettes de la catégorie
-            categories_ul.appendChild(li);             //Ajoute li dans la liste ul et l'affiche
-        }); 
-});
+// Récupère les catégories uniquement si l'élément existe
+if (categories_ul) {
+        fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
+        .then(res => res.json())
+        .then(data => {
+            data.categories.forEach(category => {
+                const li = document.createElement('li');
+                li.textContent = category.strCategory;
+                li.style.cursor = 'pointer';
+                li.addEventListener('click', () => fetchRecipesByCategory(category.strCategory));
+                categories_ul.appendChild(li);
+            });
+        })
+        .catch(err => console.error("Erreur chargement catégories :", err));
+    }
 
 // Répcupérer les recettes par catégorie
 function fetchRecipesByCategory(category) {              //Créer une fonction fetch...category correspond au nom de la categorie à récupérer
+    if (!div_recettes) return; //si la page n'a pas de conteneur
     div_recettes.innerHTML = `<h2>Recettes : ${category}</h2><p>Chargement...</p>`; //affiche un texte pendant le chargement
+    
     fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`) //Récupère les recettes des categories
     .then(response => response.json()) 
     .then(data => {                                   //Contient les recettes des catégories
@@ -30,6 +34,10 @@ function fetchRecipesByCategory(category) {              //Créer une fonction f
     }else{                                         //Si il n'existe pas on affiche une phrase d'erreur
         div_recettes.innerHTML = `<p>Aucune recette trouvée</p>`;  //affiche le message d'erreur
     }
+    })
+    .catch(err => {
+        console.error("Erreur récupération recettes :", err);
+        div_recettes.innerHTML = `Impossible de charger les recettes. Réessayer plus tard`;
     });
 }
 
