@@ -4,6 +4,7 @@ const barre_recherche = document.getElementById('barre_recherche')
 const bouton_recherche = document.getElementById('btn_recherche')
 const selectFiltre = document.getElementById('btn_filtre');
 
+
 // Récupère les catégories uniquement si l'élément existe
 if (categories_ul) {
         fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
@@ -21,7 +22,7 @@ if (categories_ul) {
     }
 
 // Répcupérer les recettes par catégorie
-function fetchRecipesByCategory(category) {              //Créer une fonction fetch...category correspond au nom de la categorie à récupérer
+function fetchRecipesByCategory(category) { //category correspond au nom de la categorie à récupérer
     if (!div_recettes) return; //si la page n'a pas de conteneur
     div_recettes.innerHTML = `<h2>Recettes : ${category}</h2><p>Chargement...</p>`; //affiche un texte pendant le chargement
     
@@ -29,8 +30,7 @@ function fetchRecipesByCategory(category) {              //Créer une fonction f
     .then(response => response.json()) 
     .then(data => {                                   //Contient les recettes des catégories
         if (data.meals) {                            //Verifie si l'API à renvoyé des recettes et si data.meals existe et n'est pas null, si la catégorie n'a pas de recette ou si le mot-clé n'a rien donnée, il sera null
-            const limiteRecette = data.meals.slice(0, 8);
-        displayRecipes(limiteRecette);                 //Si il existe on appelle display...pour afficher
+        displayRecipes(data.meals);                 //Si il existe on appelle display...pour afficher
     }else{                                         //Si il n'existe pas on affiche une phrase d'erreur
         div_recettes.innerHTML = `<p>Aucune recette trouvée</p>`;  //affiche le message d'erreur
     }
@@ -76,30 +76,25 @@ barre_recherche.addEventListener('keydown', (e) => { //l'événement keydown se 
 });
 
 // Afficher les recettes
-function displayRecipes(meals) { 
-    div_recettes.innerHTML = '';                         //réinitialise le contenu html pour afficher les nouveaux résultats
-    meals.forEach(meal => {                             //parcourt le tableau meals, pour chaque élément la fonction reçoit l'objet meal correspondant à une recette
-        const mealDiv = document.createElement('div'); //crée une div pour afficher les recettes
-        mealDiv.classList.add('recette-item');        //crée une classe pour css
-        mealDiv.style.cursor='pointer';              //le curseur devient une main au survol
-
+function displayRecipes(meals) {
+    div_recettes.innerHTML = '';
+    meals.forEach(meal => {
+        const mealDiv = document.createElement('div');
+        mealDiv.classList.add('recette-item');
+        mealDiv.style.cursor = 'pointer';
         mealDiv.innerHTML = `
-        <h3>${meal.strMeal}</h3> 
-        <img src="${meal.strMealThumb}" alt="${meal.strMeal}" width="200">`;
-
-        mealDiv.addEventListener('click', () => { //lorsqu'on clique => rediriger vers page recettes_déteils
+            <h3>${meal.strMeal}</h3>
+            <img src="${meal.strMealThumb}" alt="${meal.strMeal}" width="200">
+        `;
+        mealDiv.addEventListener('click', () => {
             window.location.href = `templates/recettes_details.html?id=${meal.idMeal}`;
         });
-
-        div_recettes.appendChild(mealDiv);     //ajoute la div de la recette dans div_recettes
-        const noteDiv = createNoteBlock(meal.idMeal);
-        mealDiv.appendChild(noteDiv);
+        div_recettes.appendChild(mealDiv);
     });
-} //crée une div pour la recette, affiche le nom de la recette dans h3, affiche l'image de la recette
-
+}
 
 // Afficher plusieurs recettes aléatoires au chargement de la page sans doublons
-function fetchRandomRecipes(number = 5) {                          //nombre de recettes aléatoires par défaut 5
+function fetchRandomRecipes(number = 8) {                          //nombre de recettes aléatoires par défaut
     div_recettes.innerHTML = '<p>Chargement des recettes...</p>'; //remplace le contenu html lors du chargement
     const promises = [];                                         //crée un tableau vide pour stocker toutes les promesses fetch de la boucle for
 
