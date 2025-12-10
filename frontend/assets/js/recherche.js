@@ -5,11 +5,6 @@ let allMeals = [];
 let currentPage = 1;
 
 // Afficher recettes avec pagination
-function displayRecipes(meals) {
-    allMeals = meals;
-    displayRecipesPage(1);
-}
-
 function displayRecipesPage(page = 1) {
     div_recettes.innerHTML = ''; //réinitialise
     currentPage = page;
@@ -52,39 +47,32 @@ function createPaginationButtons() {
         paginationDiv.appendChild(btn);
     }
 }
-// Récupérer des recettes aléatoires
-function fetchRandomRecipes(nb = 12) {
+// Récupérer des recettes alphabet
+async function fetchAllRecipes() {
     div_recettes.innerHTML = '<p>Chargement des recettes...</p>';
-    const requests = [];
-
-    for (let i = 0; i < nb; i++) {
-        requests.push(
-            fetch('https://www.themealdb.com/api/json/v1/1/random.php')
+    const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
+    const allRequests = letters.map(letter =>
+        fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`)
             .then(res => res.json())
-            .then(data => data.meals[0])
-            .catch(() => null) //ignore les fetch échoués
-        );
-    }
+            .then (data => data.meals || [])
+            .catch(() => [])
+    );
+    try {
+        const results = await Promise.all(allRequests);
+        const merged = results.flat();
 
-    Promise.allSettled(requests)
-        .then(results => {
-            const meals = results
-            .filter(r => r.status === 'fulfilled'&& r.value != null)
-            .map(r => r.value);
-
-            const vue = new Set();
-            const uniqueMeals = meals.filter(meal => {
-                if (vue.has(meal.idMeal)) return false;
-                vue.add(meal.idMeal);
-                return true;
-            });
-            displayRecipes(uniqueMeals);
-        })
-        .catch(() => {
-            div_recettes.innerHTML = '<p>Impossible de charger les recettes. Réessayez plus tard.</p>';
+        const seen = new Set();
+        allMeals = merged.filter(meal => {
+            if (seen.has(meal.idMeal)) return false;
+            seen.add(meal.idMeal);
+            return true;
         });
+        displayRecipesPage(1);
+    } catch (error) {
+        console.error('Erreur lors du chargement des recettes :', error);
+        div_recettes.innerHTML = '<p>Impossible de charger les recettes. Réessayer plus tard.</p>';
+    }
 }
-fetchRandomRecipes();
 
 // Recherche par mot-clé
 document.getElementById('btn_recherche').addEventListener('click', () => {
@@ -95,8 +83,10 @@ document.getElementById('btn_recherche').addEventListener('click', () => {
 
     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${encodeURIComponent(keyword)}`)
         .then(res => res.json())
-        .then(data => 
-            displayRecipes(data.meals || []))
+        .then(data => {
+            allMeals = data.meals || [];
+            displayRecipesPage(1);
+        })
         .catch(() => {
             div_recettes.innerHTML = '<p>Une erreur est survenue. Veuillez réessayer plus tard.</p>';
         });
@@ -113,11 +103,15 @@ document.addEventListener("click", (e) => {
         const category = e.target.textContent.trim();
         fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
             .then(res => res.json())
-            .then(data => displayRecipes(data.meals || []))
+            .then(data => {
+                allMeals = data.meals || [];
+                displayRecipesPage(1);
+            })
             .catch(() => div_recettes.innerHTML = '<p>Impossible de charger les recettes.</p>');
         
     }
 });
+fetchAllRecipes();
 
 
 fetch("../templates/header.html")
