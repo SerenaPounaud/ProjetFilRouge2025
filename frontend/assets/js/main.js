@@ -42,9 +42,9 @@ function fetchRecipesByCategory(category) { //category correspond au nom de la c
 }
 
 // Rechercher des recettes par mot-clé
-bouton_recherche.addEventListener('click', () => {    //créer un événement sur le bouton
-  const keyword = barre_recherche.value.trim();      //lit la valeur de la barre de recherche, trin = supprime les espace inutiles en début et fin
-  if (!keyword) return;                             //si keyword est vide on arrête la fonction
+bouton_recherche.addEventListener('click', () => {  //créer un événement sur le bouton
+  const keyword = barre_recherche.value.trim();    //lit la valeur de la barre de recherche, trin = supprime les espace inutiles en début et fin
+  if (!keyword) return;                           //si keyword est vide on arrête la fonction
 
   div_recettes.innerHTML = '<p>Recherche en cours...</p>'; //affiche un message de recherche
 
@@ -75,6 +75,41 @@ barre_recherche.addEventListener('keydown', (e) => { //l'événement keydown se 
     }
 });
 
+// Trie par nb personnes
+selectFiltre.addEventListener('change', () => {
+    const value = selectFiltre.value;
+
+    if (!allMeals || allMeals.length === 0) return;
+
+    let filteredMeals = [...allMeals]; //clone
+    switch(value) {
+        case '1':
+            filteredMeals = filteredMeals.filter(meal => generateFixedInfo(meal.idMeal).personnes <= 1);
+            break;
+            case '2':
+            filteredMeals = filteredMeals.filter(meal => generateFixedInfo(meal.idMeal).personnes === 2);
+            break;
+            case '3':
+            filteredMeals = filteredMeals.filter(meal => generateFixedInfo(meal.idMeal).personnes === 3);
+            break;
+            case '4':
+            filteredMeals = filteredMeals.filter(meal => generateFixedInfo(meal.idMeal).personnes === 4);
+            break;
+            case 'plus5':
+            filteredMeals = filteredMeals.filter(meal => generateFixedInfo(meal.idMeal).personnes >= 5);
+            break;
+            case 'recent':
+            case 'ancien':
+                default:
+                    break;
+    }
+    if (typeof displayRecipesPage === 'function') {
+        displayRecipesPage(1, filteredMeals);
+    } else if (typeof displayRecipes === 'function'){
+        displayRecipes(filteredMeals);
+    }
+});
+
 // Afficher les recettes
 function displayRecipes(meals) {
     div_recettes.innerHTML = '';
@@ -86,6 +121,9 @@ function displayRecipes(meals) {
             <h3>${meal.strMeal}</h3>
             <img src="${meal.strMealThumb}" alt="${meal.strMeal}" width="200">
         `;
+        const noteBlock = createNoteBlock(meal.idMeal);
+        mealDiv.appendChild(noteBlock);
+
         mealDiv.addEventListener('click', () => {
             window.location.href = `templates/recettes_details.html?id=${meal.idMeal}`;
         });
@@ -94,7 +132,7 @@ function displayRecipes(meals) {
 }
 
 // Afficher plusieurs recettes aléatoires au chargement de la page sans doublons
-function fetchRandomRecipes(number = 8) {                          //nombre de recettes aléatoires par défaut
+function fetchRandomRecipes(number = 12) {                         //nombre de recettes aléatoires par défaut
     div_recettes.innerHTML = '<p>Chargement des recettes...</p>'; //remplace le contenu html lors du chargement
     const promises = [];                                         //crée un tableau vide pour stocker toutes les promesses fetch de la boucle for
 
@@ -120,6 +158,7 @@ Promise.allSettled(promises)                               //recupère le tablea
             seen.add(meal.idMeal);              //si non, on ajoute idMeal dans set seen
             return true;                       //la recette sera gardée
             });
+        allMeals = uniqueMeals;
         displayRecipes(uniqueMeals);         //appelle la fonction existante pour afficher les recettes du tableau sans doublons
     })        
 
@@ -130,20 +169,12 @@ Promise.allSettled(promises)                               //recupère le tablea
 }
 
 //Appel de la fonction au chargement de la page
-fetchRandomRecipes(8); //8 recettes aléatoires au chargement
+fetchRandomRecipes(12); //12 recettes aléatoires au chargement
 
 /*Le Set n’est pas directement stocké dans uniqueMeals.
 Il sert seulement de mémoire temporaire pour savoir quelles recettes ont déjà été vues.
 Le tableau uniqueMeals est le résultat filtré, qui ne contient que les recettes dont l’ID n’était pas déjà dans seen.
 seen = carnet où tu coches chaque recette (vérifie)*/
-
-// Bouton filtrer par
-selectFiltre.addEventListener('change', () => {                            //se déclenche quand l'utilisateur change la valeur 
-    const value = selectFiltre.value;                                     //on assigne la valeur de select > option
-    const text = selectFiltre.options[selectFiltre.selectedIndex].text;  //collecte toutes les options de select, donne l'index de l'option sélectionnée et récupère le text affiché
-    alert('Fonctionnalité à venir');
-
-});
 
 // Charger le header + footer dans index
   fetch("templates/header.html")

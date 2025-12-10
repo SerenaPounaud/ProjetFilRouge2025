@@ -5,13 +5,13 @@ let allMeals = [];
 let currentPage = 1;
 
 // Afficher recettes avec pagination
-function displayRecipesPage(page = 1) {
+function displayRecipesPage(page = 1, meals = allMeals) {
     div_recettes.innerHTML = ''; //réinitialise
     currentPage = page;
 
     const start = (page - 1) * recette_par_page;
     const end = start + recette_par_page;
-    const mealsToShow = allMeals.slice(start, end);
+    const mealsToShow = meals.slice(start, end);
     
     if (mealsToShow.length === 0) {
         div_recettes.innerHTML = '<p>Aucune recette trouvée</p>';
@@ -26,16 +26,19 @@ function displayRecipesPage(page = 1) {
         <h3>${meal.strMeal}</h3>
         <img src="${meal.strMealThumb}" alt="${meal.strMeal}" width="200">`;
 
+        const noteBlock = createNoteBlock(meal.idMeal);
+        mealDiv.appendChild(noteBlock);
+
         mealDiv.addEventListener('click', () => {
             window.location.href = `recettes_details.html?id=${meal.idMeal}`;
         });
         div_recettes.appendChild(mealDiv);
     });
-    createPaginationButtons();
+    createPaginationButtons(meals);
 }
 
 // Boutons pagination
-function createPaginationButtons() {
+function createPaginationButtons(meals = allMeals) {
     paginationDiv.innerHTML = '';
     const totalPages = Math.ceil(allMeals.length / recette_par_page);
 
@@ -43,7 +46,7 @@ function createPaginationButtons() {
         const btn = document.createElement('button');
         btn.textContent = i;
         btn.classList.toggle('active', i === currentPage);
-        btn.addEventListener('click', () => displayRecipesPage(i));
+        btn.addEventListener('click', () => displayRecipesPage(i, meals));
         paginationDiv.appendChild(btn);
     }
 }
