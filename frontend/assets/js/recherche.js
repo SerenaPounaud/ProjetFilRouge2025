@@ -1,7 +1,8 @@
 const paginationDiv = document.getElementById('pagination');
+let allMeals = [];
+let filteredMeals = [];
 
 const recette_par_page = 12;
-let allMeals = [];
 let currentPage = 1;
 
 // Afficher recettes avec pagination

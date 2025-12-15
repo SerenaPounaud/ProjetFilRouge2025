@@ -3,6 +3,9 @@ const div_recettes = document.getElementById('recettes')
 const barre_recherche = document.getElementById('barre_recherche')
 const bouton_recherche = document.getElementById('btn_recherche')
 const selectFiltre = document.getElementById('btn_filtre');
+let allMeals = [];
+let filteredMeals = [];
+
 
 
 // Récupère les catégories uniquement si l'élément existe
@@ -24,16 +27,25 @@ if (categories_ul) {
 // Répcupérer les recettes par catégorie
 function fetchRecipesByCategory(category) { //category correspond au nom de la categorie à récupérer
     if (!div_recettes) return; //si la page n'a pas de conteneur
+    
     div_recettes.innerHTML = `<h2>Recettes : ${category}</h2><p>Chargement...</p>`; //affiche un texte pendant le chargement
     
     fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`) //Récupère les recettes des categories
     .then(response => response.json()) 
-    .then(data => {                                   //Contient les recettes des catégories
-        if (data.meals) {                            //Verifie si l'API à renvoyé des recettes et si data.meals existe et n'est pas null, si la catégorie n'a pas de recette ou si le mot-clé n'a rien donnée, il sera null
-        displayRecipes(data.meals);                 //Si il existe on appelle display...pour afficher
-    }else{                                         //Si il n'existe pas on affiche une phrase d'erreur
-        div_recettes.innerHTML = `<p>Aucune recette trouvée</p>`;  //affiche le message d'erreur
-    }
+    .then(data => {        //Contient les recettes des catégories
+        if (!data.meals) { 
+            div_recettes.innerHTML = '<p>Aucune recette trouvée.</p>';
+            return;
+        }
+            
+            allMeals = data.meals;
+            filteredMeals = [...allMeals];
+
+            sessionStorage.setItem('allMeals', JSON.stringify(allMeals));
+            sessionStorage.setItem('source', 'category');
+            sessionStorage.removeItem('filtrePersonnes');
+
+        displayRecipes(filteredMeals);    //Si il existe on appelle display...pour afficher
     })
     .catch(err => {
         console.error("Erreur récupération recettes :", err);
@@ -56,8 +68,21 @@ bouton_recherche.addEventListener('click', () => {  //créer un événement sur 
         return response.json(); //convertit en objet js
     })
     .then(data => {
-      if (data.meals) {              //si la propriété meals existe ou n'est pas null sinon renvoie null si pas de repas correspondant
-        displayRecipes(data.meals); //si oui alors affiche les recettes
+      if (data.meals) {    
+            allMeals = data.meals || [];
+            filteredMeals = [...allMeals];
+
+            sessionStorage.setItem('allMeals', JSON.stringify(allMeals));
+            sessionStorage.setItem('source', 'search');
+            sessionStorage.removeItem('filtrePersonnes');
+
+            const savedFilter = sessionStorage.getItem('filrePersonnes');
+            if (savedFilter) {
+                selectFiltre.value = savedFilter;
+                filtreParPersonne(savedFilter);
+            }
+
+        displayRecipes(filteredMeals); //si oui alors affiche les recettes
       } else {
         div_recettes.innerHTML = '<p>Aucune recette trouvée</p>'; //si pas de recettes alors on affiche un message dans le conteneur
       }
@@ -76,15 +101,16 @@ barre_recherche.addEventListener('keydown', (e) => { //l'événement keydown se 
 });
 
 // Trie par nb personnes
-selectFiltre.addEventListener('change', () => {
-    const value = selectFiltre.value;
+function filtreParPersonne(value) {
+    if (!value || !allMeals.length) {
+        filteredMeals = [...allMeals];
+        return;
+    }
+    filteredMeals = [...allMeals];
 
-    if (!allMeals || allMeals.length === 0) return;
-
-    let filteredMeals = [...allMeals]; //clone
     switch(value) {
         case '1':
-            filteredMeals = filteredMeals.filter(meal => generateFixedInfo(meal.idMeal).personnes <= 1);
+            filteredMeals = filteredMeals.filter(meal => generateFixedInfo(meal.idMeal).personnes === 1);
             break;
             case '2':
             filteredMeals = filteredMeals.filter(meal => generateFixedInfo(meal.idMeal).personnes === 2);
@@ -101,11 +127,19 @@ selectFiltre.addEventListener('change', () => {
             case 'recent':
             case 'ancien':
                 default:
-                    break;
+                    filteredMeals = [...allMeals];
     }
-    if (typeof displayRecipesPage === 'function') {
+}
+selectFiltre.addEventListener('change', () => {
+    const value = selectFiltre.value;
+    if (!allMeals.length) return;
+
+    sessionStorage.setItem('filtrePersonnes', value);
+    filtreParPersonne(value);
+
+    if (typeof displayRecipes === 'function') {
         displayRecipesPage(1, filteredMeals);
-    } else if (typeof displayRecipes === 'function'){
+    } else if(typeof displayRecipes === 'function'){
         displayRecipes(filteredMeals);
     }
 });
@@ -159,7 +193,16 @@ Promise.allSettled(promises)                               //recupère le tablea
             return true;                       //la recette sera gardée
             });
         allMeals = uniqueMeals;
-        displayRecipes(uniqueMeals);         //appelle la fonction existante pour afficher les recettes du tableau sans doublons
+        filteredMeals = [...allMeals];
+
+        sessionStorage.setItem('allMeals', JSON.stringify(allMeals));
+
+        const savedFilter = sessionStorage.getItem('filtrePersones');
+        if (savedFilter) {
+            selectFiltre.value = savedFilter;
+            filtreParPersonne(savedFilter);
+        }
+        displayRecipes(uniqueMeals);       //appelle la fonction existante pour afficher les recettes du tableau sans doublons
     })        
 
     .catch(error => {
@@ -168,13 +211,23 @@ Promise.allSettled(promises)                               //recupère le tablea
     });
 }
 
-//Appel de la fonction au chargement de la page
-fetchRandomRecipes(12); //12 recettes aléatoires au chargement
+document.addEventListener('DOMContentLoaded', () => {
+    const savedMeals = sessionStorage.getItem('allMeals');
+    const savedFilter = sessionStorage.getItem('filtrePersonnes');
 
-/*Le Set n’est pas directement stocké dans uniqueMeals.
-Il sert seulement de mémoire temporaire pour savoir quelles recettes ont déjà été vues.
-Le tableau uniqueMeals est le résultat filtré, qui ne contient que les recettes dont l’ID n’était pas déjà dans seen.
-seen = carnet où tu coches chaque recette (vérifie)*/
+    if (savedMeals) {
+        allMeals = JSON.parse(savedMeals);
+        filteredMeals = [...allMeals];
+
+        if (savedFilter) {
+            selectFiltre.value = savedFilter;
+            filtreParPersonne(savedFilter);
+        }
+        displayRecipes(filteredMeals);
+    } else {
+        fetchRandomRecipes(12);
+    }
+});
 
 // Charger le header + footer dans index
   fetch("templates/header.html")

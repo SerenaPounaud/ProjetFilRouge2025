@@ -21,14 +21,6 @@ if (!idMeal) { //vérifie si idMeal est vide ou null et affiche un message si c'
     }
   }
 
-// Générer un temps de cuisson/nombre de personnes aléatoirement
-function generateFixedInfo(id) { //générer des informations basées sur un id
-  const num = parseInt(id, 10) || 0; //converti id en nombre entier avec une base décimale 10(=être sûr que la conversion se fasse correctement), s'il ne peut pas => valeur 0
-  const temps = 10 + (num % 61); //modulo donne le reste de la division + 10(pour que le résultat soit toujours >= à 10), ça crée un nombre entre 10 et 70
-  const personnes = 1 + (num % 4); //donne le reste +1 au reste de la division, ça crée un nombre entre 1 et 4
-  return { temps, personnes }; //renvoie un objet contenant les deux valeurs
-}
-
 // Affiche des recettes similaires  
 function displayRecettesSimilaire(meals, currentId) {
   divSimilaires.innerHTML = ""; //vide la div pour afficher de nouvelles recettes/mise à jout
