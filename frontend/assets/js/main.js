@@ -26,71 +26,26 @@ if (categories_ul) {
 
 // Répcupérer les recettes par catégorie
 function fetchRecipesByCategory(category) { //category correspond au nom de la categorie à récupérer
-    if (!div_recettes) return; //si la page n'a pas de conteneur
-    
-    div_recettes.innerHTML = `<h2>Recettes : ${category}</h2><p>Chargement...</p>`; //affiche un texte pendant le chargement
-    
-    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`) //Récupère les recettes des categories
-    .then(response => response.json()) 
-    .then(data => {        //Contient les recettes des catégories
-        if (!data.meals) { 
-            div_recettes.innerHTML = '<p>Aucune recette trouvée.</p>';
-            return;
-        }
-            
-            allMeals = data.meals;
+    if (!div_recettes) return;
+        fetchAllRecipes().then(all => {
+            allMeals = all.filter(meal => meal.strCategory && meal.strCategory === category);
             filteredMeals = [...allMeals];
-
-            sessionStorage.setItem('allMeals', JSON.stringify(allMeals));
-            sessionStorage.setItem('source', 'category');
-            sessionStorage.removeItem('filtrePersonnes');
-
-        displayRecipes(filteredMeals);    //Si il existe on appelle display...pour afficher
-    })
-    .catch(err => {
-        console.error("Erreur récupération recettes :", err);
-        div_recettes.innerHTML = `Impossible de charger les recettes. Réessayer plus tard`;
-    });
-}
+            appliquerFiltreEtAfficher();
+        });
+    }
 
 // Rechercher des recettes par mot-clé
-bouton_recherche.addEventListener('click', () => {  //créer un événement sur le bouton
+bouton_recherche.addEventListener('click', async () => {  //créer un événement sur le bouton
   const keyword = barre_recherche.value.trim();    //lit la valeur de la barre de recherche, trin = supprime les espace inutiles en début et fin
   if (!keyword) return;                           //si keyword est vide on arrête la fonction
+  
+  const all = await fetchAllRecipes();
+  allMeals = all.filter(meal => 
+    meal.strMeal.toLowerCase().includes(keyword)
+  );
 
-  div_recettes.innerHTML = '<p>Recherche en cours...</p>'; //affiche un message de recherche
-
-  fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${encodeURIComponent(keyword)}`) //requête http get en injectant la valeur keyword dans url, encodeURIComponent(keyword) = si keyword contient des caractères spéciaux
-    .then(response => {
-        if (!response.ok) { //si la réponse n'est pas ok, on déclenche une erreur
-            throw new Error(`Erreur HTTP : ${response.status}`); //throw = interrompt et lance une erreur, new Error = créer un objet d'erreur
-        }
-        return response.json(); //convertit en objet js
-    })
-    .then(data => {
-      if (data.meals) {    
-            allMeals = data.meals || [];
-            filteredMeals = [...allMeals];
-
-            sessionStorage.setItem('allMeals', JSON.stringify(allMeals));
-            sessionStorage.setItem('source', 'search');
-            sessionStorage.removeItem('filtrePersonnes');
-
-            const savedFilter = sessionStorage.getItem('filrePersonnes');
-            if (savedFilter) {
-                selectFiltre.value = savedFilter;
-                filtreParPersonne(savedFilter);
-            }
-
-        displayRecipes(filteredMeals); //si oui alors affiche les recettes
-      } else {
-        div_recettes.innerHTML = '<p>Aucune recette trouvée</p>'; //si pas de recettes alors on affiche un message dans le conteneur
-      }
-    })
-    .catch(error => { //intercepte/traite les erreurs
-        console.error('Erreur lors de la recherche :', error); //affiche l'erreur complète
-        div_recettes.innerHTML = '<p>Une erreur est survenue. Veuillez réessayer plus tard.</p>'; //affiche un message à l'utilisateur
-    });
+  filteredMeals = [...allMeals];
+  appliquerFiltreEtAfficher();
 });
 
 // Affiche les recettes quand on appuie sur le bouton 'Entrée'
@@ -106,29 +61,26 @@ function filtreParPersonne(value) {
         filteredMeals = [...allMeals];
         return;
     }
-    filteredMeals = [...allMeals];
+    filteredMeals = allMeals.filter(meal => {
+        const personnes = generateFixedInfo(meal.idMeal).personnes;
 
     switch(value) {
         case '1':
-            filteredMeals = filteredMeals.filter(meal => generateFixedInfo(meal.idMeal).personnes === 1);
-            break;
-            case '2':
-            filteredMeals = filteredMeals.filter(meal => generateFixedInfo(meal.idMeal).personnes === 2);
-            break;
-            case '3':
-            filteredMeals = filteredMeals.filter(meal => generateFixedInfo(meal.idMeal).personnes === 3);
-            break;
-            case '4':
-            filteredMeals = filteredMeals.filter(meal => generateFixedInfo(meal.idMeal).personnes === 4);
-            break;
-            case 'plus5':
-            filteredMeals = filteredMeals.filter(meal => generateFixedInfo(meal.idMeal).personnes >= 5);
-            break;
-            case 'recent':
-            case 'ancien':
-                default:
-                    filteredMeals = [...allMeals];
+            return personnes === 1;
+        case '2':
+            return personnes === 2;
+        case '3':
+            return personnes === 3;
+        case '4':
+            return personnes === 4;
+        case 'plus5':
+            return personnes >= 5;
+        case 'recent':
+        case 'ancien':
+            default:
+                return true;
     }
+});
 }
 selectFiltre.addEventListener('change', () => {
     const value = selectFiltre.value;
@@ -137,11 +89,7 @@ selectFiltre.addEventListener('change', () => {
     sessionStorage.setItem('filtrePersonnes', value);
     filtreParPersonne(value);
 
-    if (typeof displayRecipes === 'function') {
-        displayRecipesPage(1, filteredMeals);
-    } else if(typeof displayRecipes === 'function'){
-        displayRecipes(filteredMeals);
-    }
+    displayRecipes(filteredMeals);
 });
 
 // Afficher les recettes
@@ -174,7 +122,7 @@ function fetchRandomRecipes(number = 12) {                         //nombre de r
         promises.push(
             fetch('https://www.themealdb.com/api/json/v1/1/random.php')
                 .then(response => response.json())
-                .then(data => data.meals[0])                 //récupère l'entrée du tableau meals, objet qui représente la recette
+                .then(data => data.meals[0])                //récupère l'entrée du tableau meals, objet qui représente la recette
         );
     }
 
@@ -197,12 +145,12 @@ Promise.allSettled(promises)                               //recupère le tablea
 
         sessionStorage.setItem('allMeals', JSON.stringify(allMeals));
 
-        const savedFilter = sessionStorage.getItem('filtrePersones');
+        const savedFilter = sessionStorage.getItem('filtrePersonnes');
         if (savedFilter) {
             selectFiltre.value = savedFilter;
             filtreParPersonne(savedFilter);
         }
-        displayRecipes(uniqueMeals);       //appelle la fonction existante pour afficher les recettes du tableau sans doublons
+        appliquerFiltreEtAfficher();
     })        
 
     .catch(error => {
@@ -211,23 +159,31 @@ Promise.allSettled(promises)                               //recupère le tablea
     });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const savedMeals = sessionStorage.getItem('allMeals');
+document.addEventListener('DOMContentLoaded', async () => {
+    div_recettes.innerHTML = '<p>Chargement des recettes...</p>';
+    try { //récupèrer toutes les recettes valides
+        const all = await fetchAllRecipes();
+        allMeals = all;
+        filteredMeals = [...allMeals];
+        displayRecipesPage(1, filteredMeals);
+    } catch (error) {
+        console.error(error);
+        div_recettes.innerHTML = '<p>Impossible de charger les recettes</p>';
+    }
+    
+});
+
+function appliquerFiltreEtAfficher() {
     const savedFilter = sessionStorage.getItem('filtrePersonnes');
 
-    if (savedMeals) {
-        allMeals = JSON.parse(savedMeals);
-        filteredMeals = [...allMeals];
-
-        if (savedFilter) {
-            selectFiltre.value = savedFilter;
-            filtreParPersonne(savedFilter);
-        }
+    if (savedFilter) {
+        selectFiltre.value = savedFilter;
+        filtreParPersonne(savedFilter);
         displayRecipes(filteredMeals);
     } else {
-        fetchRandomRecipes(12);
+        displayRecipes(allMeals);
     }
-});
+}
 
 // Charger le header + footer dans index
   fetch("templates/header.html")

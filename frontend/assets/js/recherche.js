@@ -1,6 +1,7 @@
 const paginationDiv = document.getElementById('pagination');
 let allMeals = [];
 let filteredMeals = [];
+let AllApiMeals = [];
 
 const recette_par_page = 12;
 let currentPage = 1;
@@ -53,6 +54,8 @@ function createPaginationButtons(meals = allMeals) {
 }
 // Récupérer des recettes alphabet
 async function fetchAllRecipes() {
+    if (AllApiMeals.length) return AllApiMeals;
+
     div_recettes.innerHTML = '<p>Chargement des recettes...</p>';
     const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
     const allRequests = letters.map(letter =>
@@ -64,14 +67,15 @@ async function fetchAllRecipes() {
     try {
         const results = await Promise.all(allRequests);
         const merged = results.flat();
+        const validMeals = merged.filter(meal => meal.idMeal && meal.strMeal);
 
         const seen = new Set();
-        allMeals = merged.filter(meal => {
+        AllApiMeals = validMeals.filter(meal => {
             if (seen.has(meal.idMeal)) return false;
             seen.add(meal.idMeal);
             return true;
         });
-        displayRecipesPage(1);
+        return AllApiMeals;
     } catch (error) {
         console.error('Erreur lors du chargement des recettes :', error);
         div_recettes.innerHTML = '<p>Impossible de charger les recettes. Réessayer plus tard.</p>';
