@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S'inscrire</title>
+    <link rel="icon" href="../assets/img/poele.ico" type="image/x-icon">
+</head>
+<body>
+<main>
+    <section class="droite_insc">
+        <h1>S'inscrire</h1>
+        <nav aria-label="S'inscrire avec un réseau social">
+            <a href="" title="S'inscrire avec Facebook">
+                <img src="" alt="Logo Facebook"> 
+                <span class="sr-only">S'inscrire avec Facebook</span>
+            </a>
+            <a href="" title="S'inscrire avec Google">
+                <img src="" alt="Logo de Google"> 
+                <span class="sr-only">S'inscrire avec Google</span>
+            </a>
+            <a href="" title="S'inscrire avec Linkedin">
+                <img src="" alt="Logo Linkedin"> 
+                <span class="sr-only">S'inscrire avec Linkedin</span>
+            </a>
+        </nav>
+        <h2>Ou utilise ton adresse email</h2>
+        <div class="formInsc">
+            <form action="" method="POST"> 
+                <h3 class="sr-only">Formulaire d'inscription</h3>
+            
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="exemple@gmail.fr" maxlength="150" required>
+        
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password" placeholder="Min 8 caractères" minlength="8" required>
+
+                <label for="confirm_password">Confirmer le mot de passe</label>
+                <input type="password" id="confirm_password" name="confirm_password" minlength="8" required>
+
+                <label>
+                    <input type="checkbox" name="cgu" required>J'accepte les conditions générales d'utilisation
+                </label>
+
+                <button type="submit">S'inscrire</button>
+            </form>
+        </div>
+    </section>
+    <section class="gauche_insc">
+        <div>
+            <img src="../assets/img/cuisiniere.webp" alt="Dame qui cuisine" height="1000px">
+            <p>Déjà un compte ? <a href="connexion.html" aria-label="Aller à la page de connexion">Se connecter</a></p>
+        </div>
+    </section>
+</main>
+</body>
+</html>
