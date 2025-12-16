@@ -3,26 +3,43 @@ const div_recettes = document.getElementById('recettes')
 const barre_recherche = document.getElementById('barre_recherche')
 const bouton_recherche = document.getElementById('btn_recherche')
 const selectFiltre = document.getElementById('btn_filtre');
-let allMeals = [];
+const paginationDiv = document.getElementById('pagination');
+
 let filteredMeals = [];
+let AllApiMeals = [];
+let currentPage = 1;
+let allMeals = [];
 
+const recette_par_page = 12;
 
+// Récupérer des recettes dans alphabet
+async function fetchAllRecipes() {
+    if (AllApiMeals.length) return AllApiMeals;
 
-// Récupère les catégories uniquement si l'élément existe
-if (categories_ul) {
-        fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
-        .then(res => res.json())
-        .then(data => {
-            data.categories.forEach(category => {
-                const li = document.createElement('li');
-                li.textContent = category.strCategory;
-                li.style.cursor = 'pointer';
-                li.addEventListener('click', () => fetchRecipesByCategory(category.strCategory));
-                categories_ul.appendChild(li);
-            });
-        })
-        .catch(err => console.error("Erreur chargement catégories :", err));
+    div_recettes.innerHTML = '<p>Chargement des recettes...</p>';
+    const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
+    const allRequests = letters.map(letter =>
+        fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`)
+            .then(res => res.json())
+            .then (data => data.meals || [])
+            .catch(() => [])
+    );
+    try {
+        const results = await Promise.all(allRequests);
+        const merged = results.flat();
+
+        const seen = new Set();
+        AllApiMeals = merged.filter(meal => {
+            if (!meal.idMeal || seen.has(meal.idMeal)) return false;
+            seen.add(meal.idMeal);
+            return true;
+        });
+        return AllApiMeals;
+    } catch (error) {
+        console.error('Erreur lors du chargement des recettes :', error);
+        div_recettes.innerHTML = '<p>Impossible de charger les recettes. Réessayer plus tard.</p>';
     }
+}
 
 // Répcupérer les recettes par catégorie
 function fetchRecipesByCategory(category) { //category correspond au nom de la categorie à récupérer
@@ -34,21 +51,62 @@ function fetchRecipesByCategory(category) { //category correspond au nom de la c
         });
     }
 
+// Afficher recettes avec pagination
+function displayRecipesPage(page = 1, meals = filteredMeals) {
+    div_recettes.innerHTML = ''; //réinitialise
+    currentPage = page;
+
+    const start = (page - 1) * recette_par_page;
+    const end = start + recette_par_page;
+    const mealsToShow = meals.slice(start, end);
+    
+    if (mealsToShow.length === 0) {
+        div_recettes.innerHTML = '<p>Aucune recette trouvée</p>';
+        paginationDiv.innerHTML = '';
+        return;
+    }
+    mealsToShow.forEach(meal => {
+        const mealDiv = document.createElement('div');
+        mealDiv.className = 'recette-item';
+        mealDiv.style.cursor = 'pointer';
+        mealDiv.innerHTML = `
+        <h3>${meal.strMeal}</h3>
+        <img src="${meal.strMealThumb}" alt="${meal.strMeal}" width="200">`;
+
+        mealDiv.appendChild(createNoteBlock(meal.idMeal));
+        mealDiv.onclick = () => 
+            window.location.href = `recettes_details.html?id=${meal.idMeal}`;
+
+        div_recettes.appendChild(mealDiv);
+    });
+    createPaginationButtons(meals);
+}
+// Boutons pagination
+function createPaginationButtons(meals) {
+    paginationDiv.innerHTML = '';
+    const totalPages = Math.ceil(meals.length / recette_par_page);
+
+    for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement('button');
+        btn.textContent = i;
+        btn.classList.toggle('active', i === currentPage);
+        btn.onclick = () => displayRecipesPage(i, meals);
+        paginationDiv.appendChild(btn);
+    }
+}
+
 // Rechercher des recettes par mot-clé
-bouton_recherche.addEventListener('click', async () => {  //créer un événement sur le bouton
-  const keyword = barre_recherche.value.trim();    //lit la valeur de la barre de recherche, trin = supprime les espace inutiles en début et fin
-  if (!keyword) return;                           //si keyword est vide on arrête la fonction
+bouton_recherche.addEventListener('click', async () => {  
+  const keyword = barre_recherche.value.trim().toLowerCase();  //lit la valeur de la barre de recherche, trin = supprime les espace inutiles en début et fin
+  if (!keyword) return; //si keyword est vide on arrête la fonction
   
-  const all = await fetchAllRecipes();
-  allMeals = all.filter(meal => 
+  filteredMeals = allMeals.filter(meal => 
     meal.strMeal.toLowerCase().includes(keyword)
   );
-
-  filteredMeals = [...allMeals];
-  appliquerFiltreEtAfficher();
+  displayRecipesPage(1);
 });
 
-// Affiche les recettes quand on appuie sur le bouton 'Entrée'
+// Entrée = déclenche recherche
 barre_recherche.addEventListener('keydown', (e) => { //l'événement keydown se déclanche quand tu appuies sur une touche, e = event:objet évément qui contient toutes les informations sur la touche pressée, position souris...
     if (e.key === 'Enter') {                        //e.key contient la valeur de la touche entrée
         bouton_recherche.click();
@@ -56,13 +114,11 @@ barre_recherche.addEventListener('keydown', (e) => { //l'événement keydown se 
 });
 
 // Trie par nb personnes
-function filtreParPersonne(value) {
-    if (!value || !allMeals.length) {
-        filteredMeals = [...allMeals];
-        return;
-    }
-    filteredMeals = allMeals.filter(meal => {
-        const personnes = generateFixedInfo(meal.idMeal).personnes;
+function filtreParPersonne(value, sourceMeals) {
+    if (!value) return [...sourceMeals];
+
+    return sourceMeals.filter(meal => {
+        const { personnes } = generateFixedInfo(meal.idMeal);
 
     switch(value) {
         case '1':
@@ -82,49 +138,38 @@ function filtreParPersonne(value) {
     }
 });
 }
+// Evénement filtre par personnes
 selectFiltre.addEventListener('change', () => {
     const value = selectFiltre.value;
-    if (!allMeals.length) return;
 
-    sessionStorage.setItem('filtrePersonnes', value);
-    filtreParPersonne(value);
-
-    displayRecipes(filteredMeals);
+    filteredMeals = allMeals.filter(meal => {
+        const { personnes } = generateFixedInfo(meal.idMeal);
+        if (!value) return true;
+        if (value === 'plus5') return personnes >=5;
+        return personnes === parseInt(value);
+    });
+    displayRecipesPage(1);
 });
 
-// Afficher les recettes
-function displayRecipes(meals) {
-    div_recettes.innerHTML = '';
-    meals.forEach(meal => {
-        const mealDiv = document.createElement('div');
-        mealDiv.classList.add('recette-item');
-        mealDiv.style.cursor = 'pointer';
-        mealDiv.innerHTML = `
-            <h3>${meal.strMeal}</h3>
-            <img src="${meal.strMealThumb}" alt="${meal.strMeal}" width="200">
-        `;
-        const noteBlock = createNoteBlock(meal.idMeal);
-        mealDiv.appendChild(noteBlock);
-
-        mealDiv.addEventListener('click', () => {
-            window.location.href = `templates/recettes_details.html?id=${meal.idMeal}`;
-        });
-        div_recettes.appendChild(mealDiv);
-    });
-}
-
-// Afficher plusieurs recettes aléatoires au chargement de la page sans doublons
-function fetchRandomRecipes(number = 12) {                         //nombre de recettes aléatoires par défaut
-    div_recettes.innerHTML = '<p>Chargement des recettes...</p>'; //remplace le contenu html lors du chargement
-    const promises = [];                                         //crée un tableau vide pour stocker toutes les promesses fetch de la boucle for
-
-    for (let i = 0; i < number; i++) {                         //chaque résultat d'itération sera dans le tableau
-        promises.push(
-            fetch('https://www.themealdb.com/api/json/v1/1/random.php')
-                .then(response => response.json())
-                .then(data => data.meals[0])                //récupère l'entrée du tableau meals, objet qui représente la recette
-        );
+// Récupère les catégories uniquement si l'élément existe
+if (categories_ul) {
+        fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
+        .then(res => res.json())
+        .then(data => {
+            data.categories.forEach(cat => {
+                const li = document.createElement('li');
+                li.textContent = cat.strCategory;
+                li.style.cursor = 'pointer';
+                li.onclick = () => fetchRecipesByCategory(cat.strCategory);
+                categories_ul.appendChild(li);
+            });
+        })
+        .catch(err => console.error("Erreur chargement catégories :", err));
     }
+function filtreParCategorie(category) {
+    filteredMeals = allMeals.filter(meal => meal.strCategory === category);
+    displayRecipesPage(1);
+}
 
 Promise.allSettled(promises)                               //recupère le tableau promises peut importe si elles échouent ou non (chaque élément est une recette/meal)
     .then(results => {                                    //récupére le résultat puis crée un tableau
@@ -157,20 +202,15 @@ Promise.allSettled(promises)                               //recupère le tablea
         console.error('Erreur lors du chargement des recettes aléatoires :', error);
         div_recettes.innerHTML = '<p>Impossible de charger les recettes. Veuillez réessayer plus tard.</p>';
     });
-}
 
+// Chargement initial
 document.addEventListener('DOMContentLoaded', async () => {
     div_recettes.innerHTML = '<p>Chargement des recettes...</p>';
-    try { //récupèrer toutes les recettes valides
-        const all = await fetchAllRecipes();
-        allMeals = all;
-        filteredMeals = [...allMeals];
-        displayRecipesPage(1, filteredMeals);
-    } catch (error) {
-        console.error(error);
-        div_recettes.innerHTML = '<p>Impossible de charger les recettes</p>';
-    }
-    
+
+    allMeals = await fetchAllRecipes();
+    filteredMeals = [...allMeals].sort (() => Math.random() - 0.5); //mélange aléatoire
+
+    displayRecipesPage(1);
 });
 
 function appliquerFiltreEtAfficher() {
