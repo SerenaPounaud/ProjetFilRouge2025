@@ -4,6 +4,7 @@ const barre_recherche = document.getElementById('barre_recherche')
 const bouton_recherche = document.getElementById('btn_recherche')
 const selectFiltre = document.getElementById('btn_filtre');
 const paginationDiv = document.getElementById('pagination');
+const bouton_reset = document.getElementById('btn_reset');
 
 let filteredMeals = [];
 let AllApiMeals = [];
@@ -41,15 +42,26 @@ async function fetchAllRecipes() {
     }
 }
 
-// Répcupérer les recettes par catégorie
-function fetchRecipesByCategory(category) { //category correspond au nom de la categorie à récupérer
-    if (!div_recettes) return;
-        fetchAllRecipes().then(all => {
-            allMeals = all.filter(meal => meal.strCategory && meal.strCategory === category);
-            filteredMeals = [...allMeals];
-            appliquerFiltreEtAfficher();
+// Récupère les catégories uniquement si l'élément existe
+if (categories_ul) {
+        fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
+        .then(res => res.json())
+        .then(data => {
+            data.categories.forEach(cat => {
+                const li = document.createElement('li');
+                li.textContent = cat.strCategory;
+                li.style.cursor = 'pointer';
+                li.onclick = () => {
+                    filteredMeals = allMeals.filter (
+                        meal => meal.strCategory === cat.strCategory
+                    );
+                    displayRecipesPage(1, filteredMeals);
+            };
+            categories_ul.appendChild(li);
         });
-    }
+    })
+    .catch (err => console.error(err));
+}
 
 // Afficher recettes avec pagination
 function displayRecipesPage(page = 1, meals = filteredMeals) {
@@ -75,7 +87,7 @@ function displayRecipesPage(page = 1, meals = filteredMeals) {
 
         mealDiv.appendChild(createNoteBlock(meal.idMeal));
         mealDiv.onclick = () => 
-            window.location.href = `recettes_details.html?id=${meal.idMeal}`;
+            window.location.href = `./templates/recettes_details.html?id=${meal.idMeal}`;
 
         div_recettes.appendChild(mealDiv);
     });
@@ -83,6 +95,7 @@ function displayRecipesPage(page = 1, meals = filteredMeals) {
 }
 // Boutons pagination
 function createPaginationButtons(meals) {
+    if (!paginationDiv) return;
     paginationDiv.innerHTML = '';
     const totalPages = Math.ceil(meals.length / recette_par_page);
 
@@ -96,14 +109,14 @@ function createPaginationButtons(meals) {
 }
 
 // Rechercher des recettes par mot-clé
-bouton_recherche.addEventListener('click', async () => {  
+bouton_recherche.addEventListener('click', () => {  
   const keyword = barre_recherche.value.trim().toLowerCase();  //lit la valeur de la barre de recherche, trin = supprime les espace inutiles en début et fin
   if (!keyword) return; //si keyword est vide on arrête la fonction
   
   filteredMeals = allMeals.filter(meal => 
     meal.strMeal.toLowerCase().includes(keyword)
   );
-  displayRecipesPage(1);
+  displayRecipesPage(1, filteredMeals);
 });
 
 // Entrée = déclenche recherche
@@ -138,6 +151,7 @@ function filtreParPersonne(value, sourceMeals) {
     }
 });
 }
+
 // Evénement filtre par personnes
 selectFiltre.addEventListener('change', () => {
     const value = selectFiltre.value;
@@ -148,60 +162,21 @@ selectFiltre.addEventListener('change', () => {
         if (value === 'plus5') return personnes >=5;
         return personnes === parseInt(value);
     });
-    displayRecipesPage(1);
+    currentPage = 1;
+    displayRecipesPage(currentPage, filteredMeals);
 });
 
-// Récupère les catégories uniquement si l'élément existe
-if (categories_ul) {
-        fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
-        .then(res => res.json())
-        .then(data => {
-            data.categories.forEach(cat => {
-                const li = document.createElement('li');
-                li.textContent = cat.strCategory;
-                li.style.cursor = 'pointer';
-                li.onclick = () => fetchRecipesByCategory(cat.strCategory);
-                categories_ul.appendChild(li);
-            });
-        })
-        .catch(err => console.error("Erreur chargement catégories :", err));
-    }
-function filtreParCategorie(category) {
-    filteredMeals = allMeals.filter(meal => meal.strCategory === category);
-    displayRecipesPage(1);
-}
-
-Promise.allSettled(promises)                               //recupère le tableau promises peut importe si elles échouent ou non (chaque élément est une recette/meal)
-    .then(results => {                                    //récupére le résultat puis crée un tableau
-        const meals = results                            //on stock les promesses réussies ici
-        .filter(r => r.status === 'fulfilled')          //filter parcourt le tableau results et garde que les prommesses résolue, les autres sont ignorées
-        .map(r => r.value);                            //map parcourt le tableau filtré, r.value = valeur renvoyée par la promesse (recette)
-                                                      //r = nom qu'on donne à chaque élément du tableau results
-        const seen = new Set();                      //set = contient des valeurs uniques
-        const uniqueMeals = meals.filter(meal => {  //variable contenant que les recettes uniques via tableau filter, meal = recette du tableau meals
-            if (seen.has(meal.idMeal)) {           //verifie si l'idMeal est déjà présent dans set seen avec has
-                return false;                     //si oui, exclue du tableau
-            }
-            seen.add(meal.idMeal);              //si non, on ajoute idMeal dans set seen
-            return true;                       //la recette sera gardée
-            });
-        allMeals = uniqueMeals;
+// Bouton reset
+if (bouton_reset) {
+    bouton_reset.addEventListener('click', () => {
+        barre_recherche.value = '';
+        selectFiltre.value = 'recent';
         filteredMeals = [...allMeals];
+        currentPage = 1;
 
-        sessionStorage.setItem('allMeals', JSON.stringify(allMeals));
-
-        const savedFilter = sessionStorage.getItem('filtrePersonnes');
-        if (savedFilter) {
-            selectFiltre.value = savedFilter;
-            filtreParPersonne(savedFilter);
-        }
-        appliquerFiltreEtAfficher();
-    })        
-
-    .catch(error => {
-        console.error('Erreur lors du chargement des recettes aléatoires :', error);
-        div_recettes.innerHTML = '<p>Impossible de charger les recettes. Veuillez réessayer plus tard.</p>';
+        displayRecipesPage(currentPage, filteredMeals);
     });
+}
 
 // Chargement initial
 document.addEventListener('DOMContentLoaded', async () => {
@@ -210,20 +185,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     allMeals = await fetchAllRecipes();
     filteredMeals = [...allMeals].sort (() => Math.random() - 0.5); //mélange aléatoire
 
-    displayRecipesPage(1);
+    displayRecipesPage(1, filteredMeals);
 });
-
-function appliquerFiltreEtAfficher() {
-    const savedFilter = sessionStorage.getItem('filtrePersonnes');
-
-    if (savedFilter) {
-        selectFiltre.value = savedFilter;
-        filtreParPersonne(savedFilter);
-        displayRecipes(filteredMeals);
-    } else {
-        displayRecipes(allMeals);
-    }
-}
 
 // Charger le header + footer dans index
   fetch("templates/header.html")
