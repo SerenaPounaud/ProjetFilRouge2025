@@ -112,28 +112,28 @@ function createPaginationButtons(meals) {
 
 // Rechercher des recettes par mot-clé
 bouton_recherche.addEventListener('click', () => {  
-  const keyword = barre_recherche.value.trim().toLowerCase();  //lit la valeur de la barre de recherche, trin = supprime les espace inutiles en début et fin
-  if (!keyword) return; //si keyword est vide on arrête la fonction
+  const keyword = barre_recherche.value.trim().toLowerCase(); //récupère la valeur de la barre de recherche + convertit en miniscule pour éviter sensibilité à la casse
+  if (!keyword) return;
   
-  filteredMeals = allMeals.filter(meal => 
+  filteredMeals = allMeals.filter(meal => //filtre le tableau et récupère celles qui correspondent
     meal.strMeal.toLowerCase().includes(keyword)
   );
-  displayRecipesPage(1, filteredMeals);
+  displayRecipesPage(1, filteredMeals); //affiche les résultats sur la page 1
 });
 
 // Entrée = déclenche recherche
-barre_recherche.addEventListener('keydown', (e) => { //l'événement keydown se déclanche quand tu appuies sur une touche, e = event:objet évément qui contient toutes les informations sur la touche pressée, position souris...
-    if (e.key === 'Enter') {                        //e.key contient la valeur de la touche entrée
+barre_recherche.addEventListener('keydown', (e) => { //keydown se déclenche dès qu'on appuie sur une touche, e = event:objet élément qui contient toutes les informations sur la touche pressée
+    if (e.key === 'Enter') { //vérifie si la touche pressée est entrée
         bouton_recherche.click();
     }
 });
 
 // Trie par nb personnes
-function filtreParPersonne(value, sourceMeals) {
-    if (!value) return [...sourceMeals];
+function filtreParPersonne(value, sourceMeals) { //prend la valeur du filtre + tableau de recette
+    if (!value) return [...sourceMeals]; //crée une copie pour éviter de modifier le tableau original
 
     return sourceMeals.filter(meal => {
-        const { personnes } = generateFixedInfo(meal.idMeal);
+        const { personnes } = generateFixedInfo(meal.idMeal); //on récupère la propriété personnes de la fonction
 
     switch(value) {
         case '1':
@@ -149,22 +149,22 @@ function filtreParPersonne(value, sourceMeals) {
         case 'recent':
         case 'ancien':
             default:
-                return true;
+                return true; //retourne toutes les recettes
     }
 });
 }
 
 // Evénement filtre par personnes
 selectFiltre.addEventListener('change', () => {
-    const value = selectFiltre.value;
+    const value = selectFiltre.value; //contient la valeur choisie
 
     filteredMeals = allMeals.filter(meal => {
-        const { personnes } = generateFixedInfo(meal.idMeal);
+        const { personnes } = generateFixedInfo(meal.idMeal); //regarde le nb de personnes pour la recette
         if (!value) return true;
         if (value === 'plus5') return personnes >=5;
-        return personnes === parseInt(value);
+        return personnes === parseInt(value); //compare le nb avec la valeur choisie, valeur strict
     });
-    currentPage = 1;
+    currentPage = 1; //revient à la page 1
     displayRecipesPage(currentPage, filteredMeals);
 });
 
@@ -172,8 +172,8 @@ selectFiltre.addEventListener('change', () => {
 if (bouton_reset) {
     bouton_reset.addEventListener('click', () => {
         barre_recherche.value = '';
-        selectFiltre.value = 'recent';
-        filteredMeals = [...allMeals];
+        selectFiltre.value = 'recent'; //pour l'instant sert à remettre toutes les recettes
+        filteredMeals = [...allMeals]; //créer une copie de allMeals, remets à zéro
         currentPage = 1;
 
         displayRecipesPage(currentPage, filteredMeals);
@@ -181,11 +181,12 @@ if (bouton_reset) {
 }
 
 // Chargement initial
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', async () => { //attend que html soit chargé
     div_recettes.innerHTML = '<p>Chargement des recettes...</p>';
 
-    allMeals = await fetchAllRecipes();
-    filteredMeals = [...allMeals].sort (() => Math.random() - 0.5); //mélange aléatoire
+    allMeals = await fetchAllRecipes(); //charge et stock toutes les recettes sans filtre
+    filteredMeals = [...allMeals].sort (() => Math.random() - 0.5);
+    //créer une copie, trie et mélange aléatoirement les recettes 
 
     displayRecipesPage(1, filteredMeals);
 });
