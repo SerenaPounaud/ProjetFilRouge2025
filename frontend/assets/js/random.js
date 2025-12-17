@@ -44,10 +44,23 @@ function createNoteBlock(id) {
     
 }
 
-// Générer un temps de cuisson/nombre de personnes aléatoirement
+// Génére un temps de cuisson/nombre de personnes aléatoirement
 function generateFixedInfo(id) { //générer des informations basées sur un id
   const num = parseInt(id, 10) || 0; //converti id en nombre entier avec une base décimale 10(=être sûr que la conversion se fasse correctement), s'il ne peut pas => valeur 0
   const temps = 10 + (num % 61); //modulo donne le reste de la division + 10(pour que le résultat soit toujours >= à 10), ça crée un nombre entre 10 et 70
   const personnes = 1 + (num % 6); //donne le reste +1 au reste de la division, crée un chiffre entre 1 et 6
   return { temps, personnes }; //renvoie un objet contenant les deux valeurs
+}
+
+// Génére une date
+function getDateRecette(id) {
+    const seed = parseInt(id, 10) || 0; //convertit l'id en entier = avoir un nombre fiable, 0 = si ça échoue
+    const baseDate = new Date (2010, 0, 1); //date de référence, 1er janvier 2010
+    const daysOffset = Math.floor(pseudoRandom(seed + 4) * 5475); //étalé sur 15ans
+    //génère un chffre entre 0 et 1, lié à l'id, arrondit vers le bas
+    //+4 évite que la date soit trop corrélée avec d’autres pseudo-valeurs générées à partir du même id
+    const date = new Date(baseDate);
+    date.setDate(baseDate.getDate() + daysOffset); //recupére le jour du mois + nombre de jour aléatoire puis met à jour
+
+    return date;
 }

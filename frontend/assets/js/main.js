@@ -2,44 +2,87 @@ const categories_ul = document.getElementById('liste_categories')
 const div_recettes = document.getElementById('recettes')
 const barre_recherche = document.getElementById('barre_recherche')
 const bouton_recherche = document.getElementById('btn_recherche')
-const selectFiltre = document.getElementById('btn_filtre');
+const selectPersonnes = document.getElementById('btn_personnes');
+const selectDate = document.getElementById('btn_date')
 const paginationDiv = document.getElementById('pagination');
 const bouton_reset = document.getElementById('btn_reset');
 
 let filteredMeals = []; //recettes après filtre
-let AllApiMeals = []; //cache pour éviter de rappeler l'api
 let currentPage = 1;
 let allMeals = []; //toutes les recettes de l'api
 
 const recette_par_page = 12;
 
+// Etat des filtres
+const filters = {
+    keyword: '',
+    category: '',
+    personnes: '',
+    dateSort: ''
+};
+
 // Récupére les recettes de A -> Z
 async function fetchAllRecipes() {
-    if (AllApiMeals.length) return AllApiMeals; //si elles sont déjà chargées, on les renvoie
-
-    div_recettes.innerHTML = '<p>Chargement des recettes...</p>';
     const letters = 'abcdefghijklmnopqrstuvwxyz'.split(''); //divise en liste
-    const allRequests = letters.map(letter => //chaque lettre du tableau => une requête/promesse
+    const requests = letters.map(letter => //chaque lettre du tableau => une requête/promesse
         fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`) //recherche les recettes commençant par cette lettre
             .then(res => res.json())
             .then (data => data.meals || []) //retourne les recettes ou un tableau vide si null/indefined
             .catch(() => []) //en cas d'erreur
     );
-    try {
-        const results = await Promise.all(allRequests); //attend que toutes les promesses soient terminées
+        const results = await Promise.all(requests); //attend que toutes les promesses soient terminées
         const merged = results.flat(); //fusionne tous les tableaux de recettes (une lettre = un tableau)
 
         const seen = new Set(); //supprime les doublons
-        AllApiMeals = merged.filter(meal => {
+        return merged.filter(meal => {
             if (!meal.idMeal || seen.has(meal.idMeal)) return false; //ignore les doublons ou recettes invalides
             seen.add(meal.idMeal); //ajoute l'id
             return true;
-        });
-        return AllApiMeals;
-    } catch (error) {
-        console.error('Erreur lors du chargement des recettes :', error);
-        div_recettes.innerHTML = '<p>Impossible de charger les recettes. Réessayer plus tard.</p>';
-    }
+    });
+}
+
+// Tous les filtres
+function applyFilters() {
+    filteredMeals = allMeals.filter(meal => {
+        //recherche par mot-clé
+        if (filters.keyword) {
+            if (!meal.strMeal.toLowerCase().includes(filters.keyword)) {
+                return false;
+            }
+        }
+        //recherche par catégorie
+        if (filters.category) {
+            if (meal.strCategory !== filters.category) {
+                return false;
+            }
+        }
+        //recherche par nb personnes
+        if (filters.personnes) {
+            const { personnes } = generateFixedInfo(meal.idMeal);
+
+            if (filters.personnes === 'plus5') {
+                if (personnes < 5) return false;
+            } else {
+                if (personnes !== parseInt(filters.personnes)) return false;
+            }
+        }
+        return true;
+    });
+     //recherche par date
+        if (filters.dateSort) { //vérifie si l'utilisateur a choisi le trie par date
+            filteredMeals.sort((a, b ) => { //trie le tableau, a + b = deux recettes à comparer
+                const dateA = getDateRecette(a.idMeal); //calcule la date fixe pour chaque recette
+                const dateB = getDateRecette(b.idMeal);
+
+                if (filters.dateSort === 'recent') {
+                    return dateB - dateA; //les plus récentes en premier
+                } else {
+                    return dateA - dateB; //les plus anciennes en premier
+                }
+            });
+        }
+    currentPage = 1;
+    displayRecipesPage(currentPage, filteredMeals);
 }
 
 // Récupère les catégories uniquement si l'élément existe
@@ -52,19 +95,16 @@ if (categories_ul) {
                 li.textContent = cat.strCategory; //nom de la catégorie
                 li.style.cursor = 'pointer';
                 li.onclick = () => {
-                    filteredMeals = allMeals.filter ( //filtre les recettes par catégorie
-                        meal => meal.strCategory === cat.strCategory
-                    );
-                    displayRecipesPage(1, filteredMeals); //affiche les recettes filtrées pour la catégorie, sur la page 1
-            };
-            categories_ul.appendChild(li); //ajoute et affiche li dans ul
+                    filters.category = cat.strCategory
+                        applyFilters();
+                };
+                    categories_ul.appendChild(li);
+            });
         });
-    })
-    .catch (err => console.error(err));
 }
 
 // Afficher recettes avec pagination
-function displayRecipesPage(page = 1, meals = filteredMeals) { //affiche une page spécifique + tableau des recettes
+function displayRecipesPage(page, meals) { //affiche une page spécifique + tableau des recettes
     div_recettes.innerHTML = ''; //réinitialise l'affichage
     currentPage = page; //met à jour la page courante
 
@@ -88,7 +128,6 @@ function displayRecipesPage(page = 1, meals = filteredMeals) { //affiche une pag
 
         mealDiv.onclick = () => 
             window.location.href = `./templates/recettes_details.html?id=${meal.idMeal}`;
-
         div_recettes.appendChild(mealDiv);
     });
     createPaginationButtons(meals); //affiche les boutons de page
@@ -112,13 +151,8 @@ function createPaginationButtons(meals) {
 
 // Rechercher des recettes par mot-clé
 bouton_recherche.addEventListener('click', () => {  
-  const keyword = barre_recherche.value.trim().toLowerCase(); //récupère la valeur de la barre de recherche + convertit en miniscule pour éviter sensibilité à la casse
-  if (!keyword) return;
-  
-  filteredMeals = allMeals.filter(meal => //filtre le tableau et récupère celles qui correspondent
-    meal.strMeal.toLowerCase().includes(keyword)
-  );
-  displayRecipesPage(1, filteredMeals); //affiche les résultats sur la page 1
+  filters.keyword = barre_recherche.value.trim().toLowerCase(); //récupère la valeur de la barre de recherche + convertit en miniscule pour éviter sensibilité à la casse
+  applyFilters();
 });
 
 // Entrée = déclenche recherche
@@ -128,55 +162,28 @@ barre_recherche.addEventListener('keydown', (e) => { //keydown se déclenche dè
     }
 });
 
-// Trie par nb personnes
-function filtreParPersonne(value, sourceMeals) { //prend la valeur du filtre + tableau de recette
-    if (!value) return [...sourceMeals]; //crée une copie pour éviter de modifier le tableau original
-
-    return sourceMeals.filter(meal => {
-        const { personnes } = generateFixedInfo(meal.idMeal); //on récupère la propriété personnes de la fonction
-
-    switch(value) {
-        case '1':
-            return personnes === 1;
-        case '2':
-            return personnes === 2;
-        case '3':
-            return personnes === 3;
-        case '4':
-            return personnes === 4;
-        case 'plus5':
-            return personnes >= 5;
-        case 'recent':
-        case 'ancien':
-            default:
-                return true; //retourne toutes les recettes
-    }
-});
-}
-
 // Evénement filtre par personnes
-selectFiltre.addEventListener('change', () => {
-    const value = selectFiltre.value; //contient la valeur choisie
-
-    filteredMeals = allMeals.filter(meal => {
-        const { personnes } = generateFixedInfo(meal.idMeal); //regarde le nb de personnes pour la recette
-        if (!value) return true;
-        if (value === 'plus5') return personnes >=5;
-        return personnes === parseInt(value); //compare le nb avec la valeur choisie, valeur strict
-    });
-    currentPage = 1; //revient à la page 1
-    displayRecipesPage(currentPage, filteredMeals);
+selectPersonnes.addEventListener('change', () => {
+    filters.personnes = selectPersonnes.value;
+    applyFilters();
 });
+
+// Evénement filtre par date
+selectDate.addEventListener('change', () => {
+    filters.dateSort = selectDate.value;
+    applyFilters();
+})
 
 // Bouton reset
 if (bouton_reset) {
     bouton_reset.addEventListener('click', () => {
         barre_recherche.value = '';
-        selectFiltre.value = 'recent'; //pour l'instant sert à remettre toutes les recettes
-        filteredMeals = [...allMeals]; //créer une copie de allMeals, remets à zéro
-        currentPage = 1;
-
-        displayRecipesPage(currentPage, filteredMeals);
+        selectPersonnes.value = '';
+        selectDate.value = '';
+        filters.keyword = '';
+        filters.category = '';
+        filters.personnes = ''; 
+        applyFilters();
     });
 }
 
@@ -199,5 +206,3 @@ document.addEventListener('DOMContentLoaded', async () => { //attend que html so
     fetch("templates/footer.html")
       .then(res => res.text())
       .then(data => document.getElementById("footer").innerHTML = data);
-
-

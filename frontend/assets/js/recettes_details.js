@@ -1,5 +1,3 @@
-console.log("JS chargé !");
-
 // Récupérer l'id depuis l'URL
 const params = new URLSearchParams(window.location.search); //récupère la partie de l'url après le ?(paramètre de la requête) puis crée un objet pour manipuler ces paramètres
 const idMeal = params.get('id'); //récupère la valeur de paramètre id dans l'url
@@ -77,6 +75,13 @@ getRecipeDetails(idMeal).then(meal => { //appelle la fonction, meal = recevra le
   fetchRecettesSimilaires(meal.strCategory, meal.idMeal);
   
   const { temps, personnes } = generateFixedInfo(idMeal); //déstructuration = 2 variables
+  const dateRecette = getDateRecette(idMeal);
+
+  const dateFormatted = dateRecette.toLocaleDateString('fr-FR', { //transforme date en texte lisible pour la france
+    day: 'numeric', //affiche le numéro du jour
+    month: 'long', //nom complet
+    year: 'numeric'//année complète
+  });
 
 // Tags
   let tags = [];
@@ -136,6 +141,7 @@ const noteHtml = noteBlock.outerHTML;
 recipeDetailsDiv.innerHTML = `
 
 <h2>${meal.strMeal || '—'}</h2>
+<p class='date-recette'>Publiée le <strong>${dateFormatted}</strong></p>
 <img src="${meal.strMealThumb || ''}" alt="${meal.strMeal || ''}" width="300">
 <div>
   <p><strong>Temps de cuisson :</strong> ${temps} min</p>

@@ -49,15 +49,21 @@
                     aria-label="Champ de recherche par mots clés">
             </div>
             <div>       
-                <label for="btn_filtre">Filtrer par :</label>
-                <select id="btn_filtre">
-                    <option value="recent">Récent</option>
-                    <option value="ancien">Anciens</option>
+                <label for="btn_personnes">Pour</label>
+                <select id="btn_personnes">
+                    <option value="">Toutes les recettes</option>
                     <option value="1">Pour 1 personne</option>
                     <option value="2">Pour 2 personnes</option>
                     <option value="3">Pour 3 personnes</option>
                     <option value="4">Pour 4 personnes</option>
                     <option value="plus5">+ de 5 personnes</option>
+                </select>
+
+                <label for="btn_date">Par date</label>
+                <select id="btn_date">
+                    <option value=""></option>
+                    <option value="recent">Récent</option>
+                    <option value="ancien">Ancien</option>
                 </select>
             </div>
             <button id="btn_reset" type="button" aria-label="Réinitialiser la recherche">Réinitialiser</button>
