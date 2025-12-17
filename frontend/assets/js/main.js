@@ -6,33 +6,33 @@ const selectFiltre = document.getElementById('btn_filtre');
 const paginationDiv = document.getElementById('pagination');
 const bouton_reset = document.getElementById('btn_reset');
 
-let filteredMeals = [];
-let AllApiMeals = [];
+let filteredMeals = []; //recettes après filtre
+let AllApiMeals = []; //cache pour éviter de rappeler l'api
 let currentPage = 1;
-let allMeals = [];
+let allMeals = []; //toutes les recettes de l'api
 
 const recette_par_page = 12;
 
-// Récupérer des recettes dans alphabet
+// Récupére les recettes de A -> Z
 async function fetchAllRecipes() {
-    if (AllApiMeals.length) return AllApiMeals;
+    if (AllApiMeals.length) return AllApiMeals; //si elles sont déjà chargées, on les renvoie
 
     div_recettes.innerHTML = '<p>Chargement des recettes...</p>';
-    const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
-    const allRequests = letters.map(letter =>
-        fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`)
+    const letters = 'abcdefghijklmnopqrstuvwxyz'.split(''); //divise en liste
+    const allRequests = letters.map(letter => //chaque lettre du tableau => une requête/promesse
+        fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`) //recherche les recettes commençant par cette lettre
             .then(res => res.json())
-            .then (data => data.meals || [])
-            .catch(() => [])
+            .then (data => data.meals || []) //retourne les recettes ou un tableau vide si null/indefined
+            .catch(() => []) //en cas d'erreur
     );
     try {
-        const results = await Promise.all(allRequests);
-        const merged = results.flat();
+        const results = await Promise.all(allRequests); //attend que toutes les promesses soient terminées
+        const merged = results.flat(); //fusionne tous les tableaux de recettes (une lettre = un tableau)
 
-        const seen = new Set();
+        const seen = new Set(); //supprime les doublons
         AllApiMeals = merged.filter(meal => {
-            if (!meal.idMeal || seen.has(meal.idMeal)) return false;
-            seen.add(meal.idMeal);
+            if (!meal.idMeal || seen.has(meal.idMeal)) return false; //ignore les doublons ou recettes invalides
+            seen.add(meal.idMeal); //ajoute l'id
             return true;
         });
         return AllApiMeals;
@@ -49,28 +49,28 @@ if (categories_ul) {
         .then(data => {
             data.categories.forEach(cat => {
                 const li = document.createElement('li');
-                li.textContent = cat.strCategory;
+                li.textContent = cat.strCategory; //nom de la catégorie
                 li.style.cursor = 'pointer';
                 li.onclick = () => {
-                    filteredMeals = allMeals.filter (
+                    filteredMeals = allMeals.filter ( //filtre les recettes par catégorie
                         meal => meal.strCategory === cat.strCategory
                     );
-                    displayRecipesPage(1, filteredMeals);
+                    displayRecipesPage(1, filteredMeals); //affiche les recettes filtrées pour la catégorie, sur la page 1
             };
-            categories_ul.appendChild(li);
+            categories_ul.appendChild(li); //ajoute et affiche li dans ul
         });
     })
     .catch (err => console.error(err));
 }
 
 // Afficher recettes avec pagination
-function displayRecipesPage(page = 1, meals = filteredMeals) {
-    div_recettes.innerHTML = ''; //réinitialise
-    currentPage = page;
+function displayRecipesPage(page = 1, meals = filteredMeals) { //affiche une page spécifique + tableau des recettes
+    div_recettes.innerHTML = ''; //réinitialise l'affichage
+    currentPage = page; //met à jour la page courante
 
-    const start = (page - 1) * recette_par_page;
-    const end = start + recette_par_page;
-    const mealsToShow = meals.slice(start, end);
+    const start = (page - 1) * recette_par_page; //index de la 1er recette à afficher
+    const end = start + recette_par_page; //index non inclus de la dernière recette à afficher, la page 2 recommence à la 13éme
+    const mealsToShow = meals.slice(start, end); //tableau avec les recettes d'une page
     
     if (mealsToShow.length === 0) {
         div_recettes.innerHTML = '<p>Aucune recette trouvée</p>';
@@ -84,26 +84,28 @@ function displayRecipesPage(page = 1, meals = filteredMeals) {
         mealDiv.innerHTML = `
         <h3>${meal.strMeal}</h3>
         <img src="${meal.strMealThumb}" alt="${meal.strMeal}" width="200">`;
-
         mealDiv.appendChild(createNoteBlock(meal.idMeal));
+
         mealDiv.onclick = () => 
             window.location.href = `./templates/recettes_details.html?id=${meal.idMeal}`;
 
         div_recettes.appendChild(mealDiv);
     });
-    createPaginationButtons(meals);
+    createPaginationButtons(meals); //affiche les boutons de page
 }
+
 // Boutons pagination
 function createPaginationButtons(meals) {
     if (!paginationDiv) return;
-    paginationDiv.innerHTML = '';
-    const totalPages = Math.ceil(meals.length / recette_par_page);
+    paginationDiv.innerHTML = ''; //vide le conteneur pour éviter des doublons
+    const totalPages = Math.ceil(meals.length / recette_par_page); //calcule et arrondi à l'entier supérieur pour connaitre le nombre de boutons
 
-    for (let i = 1; i <= totalPages; i++) {
+    for (let i = 1; i <= totalPages; i++) { //créer 1 bouton par page
         const btn = document.createElement('button');
-        btn.textContent = i;
-        btn.classList.toggle('active', i === currentPage);
-        btn.onclick = () => displayRecipesPage(i, meals);
+        btn.textContent = i; //affiche le numéro sur le bouton
+        btn.classList.add('pagination_btn');
+        btn.classList.toggle('active', i === currentPage); //class qui met le bouton en surbrillance si il correspond à la page actuel
+        btn.onclick = () => displayRecipesPage(i, meals); //affiche recette lié au bouton
         paginationDiv.appendChild(btn);
     }
 }
