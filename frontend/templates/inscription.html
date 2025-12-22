@@ -5,22 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>S'inscrire</title>
     <link rel="icon" href="../assets/img/poele.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../assets/css/main.css">
 </head>
 <body>
 <main>
     <section class="droite_insc">
         <h1>S'inscrire</h1>
         <nav aria-label="S'inscrire avec un réseau social">
-            <a href="" title="S'inscrire avec Facebook">
-                <img src="" alt="Logo Facebook"> 
+            <a href="https://www.facebook.com/?locale=fr_FR" title="S'inscrire avec Facebook" rel="noopener noreferrer">
+                <img src="../assets/img/facebook.webp" class="icon" alt="Logo Facebook"> 
                 <span class="sr-only">S'inscrire avec Facebook</span>
             </a>
-            <a href="" title="S'inscrire avec Google">
-                <img src="" alt="Logo de Google"> 
+            <a href="https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Fwww.google.com%2Fsearch%3Fclient%3Dfirefox-b-d%26q%3Dgooglr%26sei%3D4hJJacLqA7ylkdUPvrm7oAM&dsh=S923499906%3A1766396645593027&ec=futura_srp_og_si_72236_p&flowEntry=ServiceLogin&flowName=GlifWebSignIn&hl=fr&ifkv=Ac2yZaW3KqvlBnBTKCAyrZfElBKYimHjfzwkfKCacHkPeoWENUJgTC4PYWZh40M_Gvz8iCYsASPj8g" title="S'inscrire avec Google" rel="noopener noreferrer">
+                <img src="../assets/img/google.webp" class="icon" alt="Logo de Google"> 
                 <span class="sr-only">S'inscrire avec Google</span>
             </a>
-            <a href="" title="S'inscrire avec Linkedin">
-                <img src="" alt="Logo Linkedin"> 
+            <a href="https://www.linkedin.com/home" title="S'inscrire avec Linkedin" rel="noopener noreferrer">
+                <img src="../assets/img/linkedin.webp" class="icon" alt="Logo Linkedin"> 
                 <span class="sr-only">S'inscrire avec Linkedin</span>
             </a>
         </nav>
@@ -30,26 +31,32 @@
                 <h3 class="sr-only">Formulaire d'inscription</h3>
             
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="exemple@gmail.fr" maxlength="150" required>
+                <input type="email" id="email" name="email" placeholder="exemple@gmail.fr" maxlength="150" required autocomplete="email">
         
                 <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" placeholder="Min 8 caractères" minlength="8" required>
+                <input type="password" id="password" name="password" placeholder="Min 8 caractères" minlength="8" required autocomplete="password">
 
                 <label for="confirm_password">Confirmer le mot de passe</label>
-                <input type="password" id="confirm_password" name="confirm_password" minlength="8" required>
+                <input type="password" id="confirm_password" name="confirm_password" minlength="8" required autocomplete="confirm_password">
 
-                <label>
-                    <input type="checkbox" name="cgu" required>J'accepte les conditions générales d'utilisation
+
+                <label for="cgu">
+                    J'accepte les conditions générales d'utilisation
+                    <input type="checkbox" id="cgu" name="cgu" required>
                 </label>
+                
 
                 <button type="submit">S'inscrire</button>
             </form>
         </div>
     </section>
-    <section class="gauche_insc">
+    <section class="gauche_insc" aria-label="Image d'une dame qui cuisine">
         <div>
-            <img src="../assets/img/cuisiniere.webp" alt="Dame qui cuisine" height="1000px">
-            <p>Déjà un compte ? <a href="connexion.html" aria-label="Aller à la page de connexion">Se connecter</a></p>
+            <img src="../assets/img/cuisiniere.webp" alt="Dame qui cuisine" height="1000px" role="img">
+            <p>
+                Déjà un compte ?
+                <a href="connexion.html" aria-label="Aller à la page de connexion">Se connecter</a>
+            </p>
         </div>
     </section>
 </main>
