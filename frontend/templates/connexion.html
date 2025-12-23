@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S'inscrire</title>
+    <title>Se connecter</title>
     <link rel="icon" href="../assets/img/poele.ico" type="image/x-icon">
     <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/recettes_details.css">
 </head>
 <body>
 <main>
+    <div id="toast" role="status"></div> 
     <section class="droite_insc">
         <h1>Se connecter ⤵</h1>
         <nav aria-label="Se connecter avec un réseau social">
@@ -32,15 +34,13 @@
                 <h3 class="sr-only">Formulaire de connexion</h3>
             
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="exemple@gmail.fr" maxlength="150" required autocomplete="email">
+                <input type="email" id="login_email" name="email" placeholder="exemple@gmail.fr" maxlength="150" required autocomplete="email">
         
                 <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" placeholder="Min 8 caractères" minlength="8" required autocomplete="password">
+                <input type="password" id="login_password" name="password" placeholder="Min 8 caractères" minlength="8" required autocomplete="password">
 
-                <label for="confirm_password">Confirmer le mot de passe</label>
-                <input type="password" id="confirm_password" name="confirm_password" minlength="8" required autocomplete="confirm_password">
-
-                <button type="submit">Se connecter</button>
+                <button type="submit" id="btn_connexion">Se connecter</button>
+                <div id="connexion_error"></div>
             </form>
         </div>
     </section>
@@ -54,5 +54,7 @@
         </div>
     </section>
 </main>
+<script src="../assets/js/toast.js"></script>
+<script src="../assets/js/connexion_inscription.js"></script>
 </body>
 </html>

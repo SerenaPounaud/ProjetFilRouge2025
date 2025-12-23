@@ -6,9 +6,11 @@
     <title>S'inscrire</title>
     <link rel="icon" href="../assets/img/poele.ico" type="image/x-icon">
     <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/recettes_details.css">
 </head>
 <body>
 <main>
+    <div id="toast" role="status"></div> 
     <section class="droite_insc">
         <h1>S'inscrire ⤵</h1>
         <nav aria-label="S'inscrire avec un réseau social">
@@ -45,7 +47,8 @@
                     <input type="checkbox" id="cgu" name="cgu" required>
                 </label>
                 
-                <button type="submit">S'inscrire</button>
+                <button type="submit" id="btn_inscription">S'inscrire</button>
+                <div id="inscription_error"></div>
             </form>
         </div>
     </section>
@@ -59,5 +62,7 @@
         </div>
     </section>
 </main>
+<script src="../assets/js/toast.js"></script>
+<script src="../assets/js/connexion_inscription.js"></script>
 </body>
 </html>

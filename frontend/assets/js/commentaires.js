@@ -54,25 +54,6 @@ function showError(message, fieldId) { //fieldId = id de l'élément html où s'
         }, 3000);
     }
 
-// Notification toast    
-function toast(message) {
-    const t = document.getElementById("toast");
-    t.style.transition = "none";
-    t.style.opacity = "0";
-    t.style.transform = "translateY(20px)";
-
-    void t.offsetWidth; //force reflow pour relancer l'animation
-
-    t.textContent = message;
-    t.style.transition = "all 0.3s ease"; //réinitialise
-    t.style.opacity = "1";
-    t.style.transform = "translateY(0)"; //déplace verticalement, 0 = pas de déplacement
-
-    setTimeout(() => {
-        t.style.opacity = "0";
-        t.style.transform = "translateY(20px)"; //déplace vers le bas
-    }, 3000);
-}  
 
 // Connexion
 function connexion() {
