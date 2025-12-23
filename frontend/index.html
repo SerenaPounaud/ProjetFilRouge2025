@@ -2,9 +2,9 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/reset_modern_normalize.css">
     <link rel="stylesheet" href="assets/css/main.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Miam & Co</title>
     <link rel="icon" href="assets/img/poele.ico" type="image/x-icon">
 </head>
@@ -13,7 +13,9 @@
         <nav aria-label="Navigation principale">
             <a href="./index.html">Accueil</a>
             <a href="templates/contact.html">Contact</a>
-            <a href="" title="Rechercher"></a><img src="assets/img/loupe.svg" alt="Logo d'une loupe pour la recherche">
+            <button id="btn_loupe" aria-label="Rechercher une recette" title="Rechercher une recette">
+                <img src="assets/img/loupe.svg" alt="Logo d'une loupe pour la recherche" height="30px">
+            </button>
             <a href="templates/connexion.html">Se connecter</a>
             <a href="templates/inscription.html">S'inscrire</a>
         </nav>
@@ -115,6 +117,7 @@
     <!--Mis en bas de page pour ne pas ralentir le chargement de la page-->
 
     <script src="assets/js/random.js"></script>
-    <script src="assets/js/main.js"></script> 
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/header.js"></script> 
 </body>
 </html>
