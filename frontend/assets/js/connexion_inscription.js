@@ -69,15 +69,15 @@ if (btnConnexion) {
     const password = document.getElementById("login_password").value.trim();
 
     if (!email) {
-        showError ("Veuillez remplir le champ", "connexion_error", ["login_email"]);
-        return;
-    }
-     if (!password) {
-        showError("Veuillez remplir le champ", "connexion_error", ["login_password"]);
+        showError ("Veuillez entrer votre email", "connexion_error", ["login_email"]);
         return;
     }
     if (!email.includes("@")) {
-        showError("Email invalide", "connexion_error", ["login_email"]);
+        showError("Email invalide Ex: exemple@gmail.fr", "connexion_error", ["login_email"]);
+        return;
+    }
+     if (!password) {
+        showError("Veuillez entrer votre mot de passe", "connexion_error", ["login_password"]);
         return;
     }
 
