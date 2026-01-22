@@ -7,11 +7,12 @@
     <link rel="icon" href="../assets/img/poele.ico" type="image/x-icon">
     <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/recettes_details.css">
+    <link rel="stylesheet" href="../assets/css/connexion_inscription.css">
 </head>
 <body>
 <main>
     <div id="toast" role="status"></div> 
-    <section class="droite_insc">
+    <section class="gauche_insc">
         <h1>Se connecter ⤵</h1>
         <nav aria-label="Se connecter avec un réseau social">
             <a href="https://www.facebook.com/?locale=fr_FR" title="Se connecter avec Facebook" rel="noopener noreferrer" target="_blank">
@@ -41,10 +42,12 @@
 
                 <button type="submit" id="btn_connexion">Se connecter</button>
                 <div id="connexion_error"></div>
+                
+                <span class="faux-lien" aria-disabled="true" role="link">Mot de passe oublié ?</span>
             </form>
         </div>
     </section>
-    <section class="gauche_insc" aria-label="Image d'une dame qui cuisine">
+    <section class="droite_insc" aria-label="Image d'une dame qui cuisine">
         <div>
             <img src="../assets/img/cuisiniere.webp" alt="Dame qui cuisine" height="500px">
             <p>
