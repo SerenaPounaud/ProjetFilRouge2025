@@ -25,7 +25,7 @@ function showError (message, fieldId, inputIds = []) {
 // Inscription
 if (btnInscription) {
     btnInscription.addEventListener("click", (e) => {
-    e.preventDefault(); //empêche 
+    e.preventDefault(); //empêche le rechargement de la page
 
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();

@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/reset_modern_normalize.css">
+    <link rel="stylesheet" href="../assets/css/reset_modern_normalize.css">
+    <link rel="stylesheet" href="../assets/css/contact.css">
     <title>Contact</title>
 </head>
 <body>
@@ -17,7 +18,7 @@
             <button type="button">Prévoir un appel</button>
     </div>
     <div class="form">
-        <form action="" method="POST"> <!--method post pour éviter l'affichage des données sensibles dans l'url-->
+        <form action="" method="POST" id="form"> <!--method post pour éviter l'affichage des données sensibles dans l'url-->
             <label for="lastname">Nom</label>
             <input type="text" id="lastname" name="lastname" placeholder="Votre nom" maxlength="50" required> <!--donnée requise-->
 
@@ -30,12 +31,19 @@
             <label for="message">Message :</label>
             <textarea id="message" name="message" maxlength="255" placeholder="Écrivez ici (max 255 caractères)" required></textarea>
 
-            <button type="submit">Envoyer</button>
+            <label for="rgpd">
+                    Je consente au traitement des données personnelles
+                    <input type="checkbox" id="rgpd" name="rgpd" required>
+                </label>
+
+            <button type="submit" id="btn_contact">Envoyer</button>
+            <div id="contact_error"></div>
         </form>
     </div>
 
     <footer id="footer"></footer>
 
+<script src="../assets/js/toast.js"></script>
 <script src="../assets/js/contact.js"></script>
 <script src="../assets/js/header.js"></script>
 </body>
