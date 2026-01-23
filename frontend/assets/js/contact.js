@@ -1,4 +1,7 @@
 const formcontact = document.getElementById("form");
+const charCount = document.getElementById("char_count");
+const messageInput = document.getElementById("message");
+const maxMessageLength = 255;
 
 function showError (message, fieldId) {
     const errorDiv = document.getElementById(fieldId + "_error");
@@ -33,7 +36,6 @@ if (formcontact) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const maxEmailLength = 150;
     const maxNameLength = 50;
-    const maxMessageLength = 255;
 
     if (!nom) {
         showError ("Veuillez entrer votre nom", "lastname");
@@ -80,6 +82,12 @@ if (formcontact) {
 });
 }
 // Compteur de caractère
+if (messageInput && charCount) {
+    messageInput.addEventListener("input", () => {
+        const length = messageInput.value.length;
+        charCount.textContent = `${length} / ${maxMessageLength}`;
+    })
+};
 
 
   fetch("../templates/header.html")
