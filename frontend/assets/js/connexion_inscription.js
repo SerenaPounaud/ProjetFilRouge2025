@@ -1,88 +1,123 @@
-const btnInscription = document.getElementById("btn_inscription");
-const btnConnexion = document.getElementById("btn_connexion");
+const formInscription = document.getElementById("form");
+const formConnexion = document.getElementById("formconnexion");
 
-function showError (message, fieldId, inputIds = []) {
-    const errorDiv = document.getElementById(fieldId);
+function showError (message, fieldId) {
+    const errorDiv = document.getElementById(fieldId + "_error");
     if (!errorDiv) return;
 
     errorDiv.textContent = message;
-    errorDiv.classList.add("error");
     errorDiv.style.opacity = "1";
-    errorDiv.style.display = "block";
+    errorDiv.style.visibility = "visible";
+    errorDiv.style.opacity = "1";
+
     //applique bordure rouge
-    const inputs = inputIds.map(id => document.getElementById(id)).filter(el => el !== null);
-    inputs.forEach(input => input.classList.add("input-error"));
+    const input = document.getElementById(fieldId);
+    if (input) {
+        if (input.type === "checkbox") {
+            input.classList.add("cgu-error");
+        } else {
+        input.classList.add("input-error");
+        }
+    }
+
     //masque l'erreur après 3s
     setTimeout(() => {
         errorDiv.style.opacity = "0";
-        errorDiv.classList.remove("error");
-        errorDiv.style.display = "none";
-    
-        inputs.forEach(input => input.classList.remove("input-error"));
+        errorDiv.style.visibility = "hidden";
+        if (input) {
+            if (input.type == "checkbox") {
+                input.classList.remove("cgu-error");
+            } else {
+            input.classList.remove("input-error");
+            }
+        }
     }, 3000);
 }
 
 // Inscription
-if (btnInscription) {
-    btnInscription.addEventListener("click", (e) => {
+if (formInscription) {
+    formInscription.addEventListener("submit", (e) => {
     e.preventDefault(); //empêche le rechargement de la page
 
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
     const confirmPassword = document.getElementById("confirm_password").value.trim();
     const cgu = document.getElementById("cgu").checked;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const minPasswordLength = 8;
+    const maxPasswordLength = 20;
+    const maxEmailLength = 150;
 
     if (!email) {
-        showError("Veuillez entrer votre email", "inscription_error", ["email"]);
+        showError("Veuillez entrer votre email", "email");
         return;
     }
-    if (!email.includes("@")) {
-        showError("Email invalide Ex: exemple@gmail.fr", "inscription_error", ["email"]);
+    if (!emailRegex.test(email)) {
+        showError("Email invalide Ex: exemple@gmail.fr", "email");
+        return;
+    }
+     if (email.length > maxEmailLength) {
+        showError(`L'email ne doit pas contenir plus de ${maxEmailLength} caractères`, "email");
         return;
     }
     if (!password) {
-        showError("Veuillez entrer un mot de passe", "inscription_error", ["password"]);
+        showError("Veuillez entrer un mot de passe", "password");
+        return;
+    }
+    if (password.length < minPasswordLength) {
+        showError(`Le mot de passe doit contenir minimum ${minPasswordLength} caractères`, "password");
+        return;
+    }
+    if (password.length > maxPasswordLength) {
+        showError(`Le mot de passe doit contenir maximum ${maxPasswordLength} caractères`, "password");
         return;
     }
     if (password !== confirmPassword) {
-        showError("Les mots de passe ne correspondent pas", "inscription_error", ["password","confirm_password"]);
+        showError("Les mots de passe ne correspondent pas","password","confirm_password");
         return;
     }
     if (!cgu) {
-        showError("Veuillez accepter les conditions générales", "inscription_error", ["cgu"]);
+        showError("Veuillez accepter les conditions générales","cgu");
         return;
     }
     toast("Inscription réussie !");
-    document.getElementById("email").value = "";
-    document.getElementById("password").value = "";
-    document.getElementById("confirm_password").value = "";
-    document.getElementById("cgu").checked = false;
+    formInscription.reset();
 });
 }
 
 // Connexion
-if (btnConnexion) {
-    btnConnexion.addEventListener("click", (e) => {
+if (formConnexion) {
+    formConnexion.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const email = document.getElementById("login_email").value.trim();
-    const password = document.getElementById("login_password").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const minPasswordLength = 8;
+    const maxEmailLength = 150;
 
     if (!email) {
-        showError ("Veuillez entrer votre email", "connexion_error", ["login_email"]);
+        showError ("Veuillez entrer votre email", "email");
         return;
     }
-    if (!email.includes("@")) {
-        showError("Email invalide Ex: exemple@gmail.fr", "connexion_error", ["login_email"]);
+    if (!emailRegex.test(email)) {
+        showError("Email invalide Ex: exemple@gmail.fr", "email");
+        return;
+    }
+    if (email.length > maxEmailLength) {
+        showError(`L'email ne doit pas contenir plus de ${maxEmailLength} caractères`, "email");
         return;
     }
      if (!password) {
-        showError("Veuillez entrer votre mot de passe", "connexion_error", ["login_password"]);
+        showError("Veuillez entrer votre mot de passe", "password");
+        return;
+    }
+    if (password.length < minPasswordLength) {
+        showError(`Le mot de passe doit contenir minimum ${minPasswordLength} caractères`, "password");
         return;
     }
 
     toast("Connexion réussie !");
-    document.getElementById("login_email").value = "";
-    document.getElementById("login_password").value = "";
+    formConnexion.reset();
 });
 }

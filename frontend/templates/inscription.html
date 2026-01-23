@@ -6,7 +6,7 @@
     <title>S'inscrire</title>
     <link rel="icon" href="../assets/img/poele.ico" type="image/x-icon">
     <link rel="stylesheet" href="../assets/css/main.css">
-    <link rel="stylesheet" href="../assets/css/recettes_details.css">
+    <link rel="stylesheet" href="../assets/css/error.css">
 </head>
 <body>
 <main>
@@ -30,25 +30,29 @@
         </nav>
         <h2>Ou utilise ton adresse email</h2>
         <div class="formInsc">
-            <form action="" method="POST"> 
+            <form action="" method="POST" id = "form" novalidate> 
                 <h3 class="sr-only">Formulaire d'inscription</h3>
             
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="exemple@gmail.fr" maxlength="150" required autocomplete="email">
-        
+                <input type="email" id="email" name="email" placeholder="exemple@gmail.fr" autocomplete="email">
+                <div id = "email_error" class="error-message"></div>
+
                 <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" placeholder="Min 8 caractères" minlength="8" required autocomplete="password">
+                <input type="password" id="password" name="password" placeholder="Min 8 caractères" autocomplete="password">
+                <div id = "password_error" class="error-message"></div>
 
                 <label for="confirm_password">Confirmer le mot de passe</label>
-                <input type="password" id="confirm_password" name="confirm_password" minlength="8" required autocomplete="confirm_password">
+                <input type="password" id="confirm_password" name="confirm_password" autocomplete="confirm_password">
+                <div id = "confirm_password_error" class="error-message"></div>
 
                 <label for="cgu">
                     J'accepte les conditions générales d'utilisation
-                    <input type="checkbox" id="cgu" name="cgu" required>
+                    <input type="checkbox" id="cgu" name="cgu">
                 </label>
+                <div id = "cgu_error" class="error-message"></div>
                 
                 <button type="submit" id="btn_inscription">S'inscrire</button>
-                <div id="inscription_error"></div>
+                
             </form>
         </div>
     </section>

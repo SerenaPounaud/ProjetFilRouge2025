@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/reset_modern_normalize.css">
-    <link rel="stylesheet" href="../assets/css/contact.css">
+    <link rel="stylesheet" href="../assets/css/error.css">
     <title>Contact</title>
 </head>
 <body>
@@ -22,19 +22,20 @@
             <form action="" method="POST" id="form" novalidate> <!--method post pour éviter l'affichage des données sensibles dans l'url-->
             
                 <label for="lastname">Nom</label>
-                <input type="text" id="lastname" name="lastname" placeholder="Votre nom" maxlength="50">
+                <input type="text" id="lastname" name="lastname" placeholder="Votre nom">
                 <div id="lastname_error" class="error-message"></div>
 
                 <label for="firstname">Prénom</label>
-                <input type="text" id="firstname" name="firstname" placeholder="Votre prénom" maxlength="50">
+                <input type="text" id="firstname" name="firstname" placeholder="Votre prénom">
                 <div id="firstname_error" class="error-message"></div>
 
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="exemple@gmail.fr" maxlength="150">
+                <input type="email" id="email" name="email" placeholder="exemple@gmail.fr">
                 <div id="email_error" class="error-message"></div>
 
                 <label for="message">Message :</label>
-                <textarea id="message" name="message" maxlength="255" placeholder="Écrivez ici (max 255 caractères)"></textarea>
+                <textarea id="message" name="message" placeholder="Écrivez ici (max 255 caractères)"></textarea>
+                <div id="char_count">0/255</div>
                 <div id="message_error" class="error-message"></div>
                 
                 <label for="rgpd">Je consente au traitement des données personnelles

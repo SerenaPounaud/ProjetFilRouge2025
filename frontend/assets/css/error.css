@@ -8,12 +8,15 @@
     opacity: 0;
     transition: opacity 0.3s;
 }
-
-
 /* Bordure rouge sur les champs en erreur */
 .input-error {
     border: 2px solid #e57373;
     background: #fff5f5;
+}
+/* Label CGU en erreur */
+.cgu-error {
+    outline: 2px solid #e57373;
+    outline-offset: 2px;
 }
 #toast {
     position: fixed;

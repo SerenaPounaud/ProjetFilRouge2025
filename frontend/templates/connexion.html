@@ -6,7 +6,7 @@
     <title>Se connecter</title>
     <link rel="icon" href="../assets/img/poele.ico" type="image/x-icon">
     <link rel="stylesheet" href="../assets/css/main.css">
-    <link rel="stylesheet" href="../assets/css/recettes_details.css">
+    <link rel="stylesheet" href="../assets/css/error.css">
     <link rel="stylesheet" href="../assets/css/connexion_inscription.css">
 </head>
 <body>
@@ -31,17 +31,18 @@
         </nav>
         <h2>Ou utilise ton adresse email</h2>
         <div class="formInsc">
-            <form action="" method="POST"> 
+            <form action="" method="POST" id="formconnexion" novalidate> 
                 <h3 class="sr-only">Formulaire de connexion</h3>
             
                 <label for="email">Email</label>
-                <input type="email" id="login_email" name="email" placeholder="exemple@gmail.fr" maxlength="150" required autocomplete="email">
-        
+                <input type="email" id="email" name="email" placeholder="exemple@gmail.fr">
+                <div id = "email_error" class="error-message"></div>
+
                 <label for="password">Mot de passe</label>
-                <input type="password" id="login_password" name="password" placeholder="Min 8 caractères" minlength="8" required autocomplete="password">
+                <input type="password" id="password" name="password" placeholder="Min 8 caractères">
+                <div id = "password_error" class="error-message"></div>
 
                 <button type="submit" id="btn_connexion">Se connecter</button>
-                <div id="connexion_error"></div>
                 
                 <span class="faux-lien" aria-disabled="true" role="link">Mot de passe oublié ?</span>
             </form>
