@@ -6,7 +6,9 @@ function showError (message, fieldId) {
 
     errorDiv.textContent = message;
     errorDiv.style.opacity = "1";
-    errorDiv.style.display = "block";
+    errorDiv.style.visibility = "visible";
+    errorDiv.style.opacity = "1";
+    
 
     //applique bordure rouge
     const input = document.getElementById(fieldId);
@@ -15,7 +17,7 @@ function showError (message, fieldId) {
     //masque l'erreur après 3s
     setTimeout(() => {
         errorDiv.style.opacity = "0";
-        errorDiv.style.display = "none";
+        errorDiv.style.visibility = "hidden";
         if (input) input.classList.remove("input-error");
     }, 3000);
 }
@@ -37,6 +39,10 @@ if (formcontact) {
     }
      if (!prenom) {
         showError("Veuillez entrer votre prénom", "firstname");
+        return;
+    }
+    if (!email) {
+        showError("Veuillez entrer votre email", "email");
         return;
     }
     if (!emailRegex.test(email)) {

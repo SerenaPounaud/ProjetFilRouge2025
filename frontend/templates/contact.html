@@ -19,7 +19,7 @@
             <button type="button">Prévoir un appel</button>
     </div>
         <div class="formContact">
-            <form action="" method="POST" id="form"> <!--method post pour éviter l'affichage des données sensibles dans l'url-->
+            <form action="" method="POST" id="form" novalidate> <!--method post pour éviter l'affichage des données sensibles dans l'url-->
             
                 <label for="lastname">Nom</label>
                 <input type="text" id="lastname" name="lastname" placeholder="Votre nom" maxlength="50">
@@ -38,7 +38,7 @@
                 <div id="message_error" class="error-message"></div>
                 
                 <label for="rgpd">Je consente au traitement des données personnelles
-                <input type="checkbox" id="rgpd" name="rgpd">
+                    <input type="checkbox" id="rgpd" name="rgpd">
                 </label>
                 <div id="rgpd_error" class="error-message"></div>
                 

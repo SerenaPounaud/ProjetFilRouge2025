@@ -1,11 +1,14 @@
 .error-message {
-    color: #b00020;       /* Rouge */
+    color: #b00020;
     font-size: 0.9rem;
     margin-top: 5px;
-    display: none;        /* Caché par défaut */
-    opacity: 0;           /* Pour transition */
+
+    min-height: 1.2em;   /* 👈 réserve la place */
+    visibility: hidden; /* caché mais garde l’espace */
+    opacity: 0;
     transition: opacity 0.3s;
 }
+
 
 /* Bordure rouge sur les champs en erreur */
 .input-error {
