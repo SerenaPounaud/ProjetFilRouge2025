@@ -6,22 +6,24 @@ const maxMessageLength = 255;
 function showError (message, fieldId) {
     const errorDiv = document.getElementById(fieldId + "_error");
     if (!errorDiv) return;
-
+    //affiche le message
     errorDiv.textContent = message;
     errorDiv.style.opacity = "1";
     errorDiv.style.visibility = "visible";
-    errorDiv.style.opacity = "1";
 
-    //applique bordure rouge
+    //applique style
     const input = document.getElementById(fieldId);
     if (input) input.classList.add("input-error");
+    input.setAttribute("aria-invalid", "true"); //indique au lecteur d'écran
+    input.focus();
 
-    //masque l'erreur après 3s
+    //masque l'erreur après 5s
     setTimeout(() => {
         errorDiv.style.opacity = "0";
         errorDiv.style.visibility = "hidden";
-        if (input) input.classList.remove("input-error");
-    }, 3000);
+        input.classList.remove("input-error");
+        input.removeAttribute("aria-invalid");
+    }, 5000);
 }
 
 if (formcontact) {

@@ -8,6 +8,7 @@
     <title>Contact</title>
 </head>
 <body>
+<main>
     <div id="toast" role="status"></div>
     <header id="header"></header>
     <div class="para_form">
@@ -16,30 +17,30 @@
             Nous nous engageons à vous répondre dans les plus brefs délais et à vous apporter toute l’aide nécessaire. 
             Remplissez le formulaire ci-contre en indiquant vos coordonnées et votre message, et nous prendrons contact avec vous rapidement. 
             Votre satisfaction est notre priorité !</p>
-            <button type="button">Prévoir un appel</button>
+            <button type="button" aria-label="Prévoir un appel">Prévoir un appel</button>
     </div>
         <div class="formContact">
             <form action="" method="POST" id="form" novalidate> <!--method post pour éviter l'affichage des données sensibles dans l'url-->
             
                 <label for="lastname">Nom</label>
-                <input type="text" id="lastname" name="lastname" placeholder="Votre nom" maxlength="50">
+                <input type="text" id="lastname" name="lastname" placeholder="Votre nom" maxlength="50" aria-describedby="lastname_error">
                 <div id="lastname_error" class="error-message"></div>
 
                 <label for="firstname">Prénom</label>
-                <input type="text" id="firstname" name="firstname" placeholder="Votre prénom" maxlength="50">
+                <input type="text" id="firstname" name="firstname" placeholder="Votre prénom" maxlength="50" aria-describedby="firstname_error">
                 <div id="firstname_error" class="error-message"></div>
 
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="exemple@gmail.fr" maxlength="150">
+                <input type="email" id="email" name="email" placeholder="exemple@gmail.fr" maxlength="150" aria-describedby="email_error">
                 <div id="email_error" class="error-message"></div>
 
                 <label for="message">Message :</label>
-                <textarea id="message" name="message" placeholder="Écrivez ici (max 255 caractères)" maxlength="255"></textarea>
+                <textarea id="message" name="message" placeholder="Écrivez ici (max 255 caractères)" maxlength="255" aria-describedby="message_error"></textarea>
                 <div id="char_count">0/255</div>
                 <div id="message_error" class="error-message"></div>
                 
                 <label for="rgpd">Je consente au traitement des données personnelles
-                    <input type="checkbox" id="rgpd" name="rgpd">
+                    <input type="checkbox" id="rgpd" name="rgpd" aria-describedby="rgpd_error">
                 </label>
                 <div id="rgpd_error" class="error-message"></div>
                 
@@ -49,7 +50,7 @@
         </div>
 
     <footer id="footer"></footer>
-
+</main>
 <script src="../assets/js/toast.js"></script>
 <script src="../assets/js/contact.js"></script>
 <script src="../assets/js/header.js"></script>
