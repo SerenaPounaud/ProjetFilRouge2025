@@ -7,6 +7,18 @@
 .faux-lien:hover {
   color: blue;
 }
+.faux-button {
+  color: white;
+  cursor: pointer;
+  background: rgb(223, 0, 0);
+  border-radius: 20px;
+  padding: 10px;
+  border: solid black 1px;
+}
+.faux-button:hover {
+  color: black;
+  background-color: rgb(197, 197, 197);
+}
 .sr-only {
     position: absolute;
     width: 1px;

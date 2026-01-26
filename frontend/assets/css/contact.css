@@ -1,0 +1,12 @@
+.faux-lien {
+  color: gray;
+  cursor: pointer;
+  background: transparent;
+  border-radius: 20px;
+  padding: 10px;
+  border-style: double;
+}
+.faux-lien:hover {
+  color: black;
+  background-color: rgb(223, 0, 0);
+}

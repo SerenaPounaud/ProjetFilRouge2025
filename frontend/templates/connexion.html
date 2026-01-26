@@ -6,6 +6,7 @@
     <meta name="description" content="Connectez vous pour accéder à votre espace">
     <title>Se connecter à Miam & Co</title>
     <link rel="icon" href="../assets/img/poele.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../assets/css/reset_modern_normalize.css">
     <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/error.css">
     <link rel="stylesheet" href="../assets/css/connexion_inscription.css">
@@ -40,7 +41,7 @@
                 <input type="password" id="password" name="password" placeholder="Min 8 caractères" aria-describedby="password_error" maxlength="20" autocomplete="current-password">
                 <div id = "password_error" class="error-message" role="alert"></div>
 
-                <button type="submit" id="btn_connexion">Se connecter</button>
+                <button type="submit" id="btn_connexion" class="faux-button" disabled>Se connecter</button>
                 
                 <button class="faux-lien" type="button" disabled>Mot de passe oublié ?</button>
             </form>
