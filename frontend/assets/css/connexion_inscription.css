@@ -1,6 +1,11 @@
 .faux-lien {
   color: gray;
   cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+}
+.faux-lien:hover {
+  color: blue;
 }
 .sr-only {
     position: absolute;
@@ -19,4 +24,8 @@
     border-radius: 40%;
     border-style: solid;
     border-color: black;
+}
+img {
+  max-height: 500px;
+  height: auto;
 }
