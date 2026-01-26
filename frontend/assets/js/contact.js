@@ -3,39 +3,55 @@ const charCount = document.getElementById("char_count");
 const messageInput = document.getElementById("message");
 const maxMessageLength = 255;
 
-function showError (message, fieldId) {
-    const errorDiv = document.getElementById(fieldId + "_error");
+// Affichage des erreurs
+function showError (message, fieldId) { //fieldId = id du champ concerné
+    const errorDiv = document.getElementById(fieldId + "_error"); //afficher l'erreur sur id_error
     if (!errorDiv) return;
+
     //affiche le message
     errorDiv.textContent = message;
     errorDiv.style.opacity = "1";
-    errorDiv.style.visibility = "visible";
+    errorDiv.style.visibility = "visible"; //rend visible l'élément en gardant son espace
 
     //applique style
     const input = document.getElementById(fieldId);
-    if (input) input.classList.add("input-error");
-    input.setAttribute("aria-invalid", "true"); //indique au lecteur d'écran
+    if (input) {
+        if (input.type === "chekbox") {
+            input.classList.add("rgpd-error");
+        } else {
+            input.classList.add("input-error"); //ajoute une classe si il existe
+    input.setAttribute("aria-invalid", "true"); //indique au lecteur d'écran un champ incorrect
     input.focus();
+        };
+    }
 
     //masque l'erreur après 5s
     setTimeout(() => {
         errorDiv.style.opacity = "0";
         errorDiv.style.visibility = "hidden";
-        input.classList.remove("input-error");
+        if (input) {
+            if (input.type == "checkbox") {
+                input.classList.remove("rgpd-error");
+            } else {
+                input.classList.remove("input-error");
+            }
+        }
         input.removeAttribute("aria-invalid");
     }, 5000);
-}
+};
 
+
+// Condition du formulaire
 if (formcontact) {
     formcontact.addEventListener("submit", (e) => {
-      e.preventDefault();
+      e.preventDefault(); //empêche d'envoyer au backend
 
     const nom = document.getElementById("lastname").value.trim();
     const prenom = document.getElementById("firstname").value.trim();
     const email = document.getElementById("email").value.trim();
     const message = document.getElementById("message").value.trim();
     const rgpd = document.getElementById("rgpd").checked;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; //condition d'email valide
     const maxEmailLength = 150;
     const maxNameLength = 50;
 
@@ -81,6 +97,8 @@ if (formcontact) {
     }
     toast("Message envoyé !");
     formcontact.reset();
+
+    charCount.textContent = `0/${maxMessageLength}`; //remet à zéro le compteur
 });
 }
 // Compteur de caractère
@@ -91,11 +109,10 @@ if (messageInput && charCount) {
     })
 };
 
-
-  fetch("../templates/header.html")
-      .then(res => res.text())
-      .then(data => document.getElementById("header").innerHTML = data);
+fetch("../templates/header.html")
+    .then(res => res.text())
+    .then(data => document.getElementById("header").innerHTML = data);
 
     fetch("../templates/footer.html")
-      .then(res => res.text())
-      .then(data => document.getElementById("footer").innerHTML = data);
+    .then(res => res.text())
+    .then(data => document.getElementById("footer").innerHTML = data);

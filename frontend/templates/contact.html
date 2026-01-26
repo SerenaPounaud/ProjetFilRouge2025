@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Entrez en contact avec nous si vous avez des questions">
     <link rel="stylesheet" href="../assets/css/reset_modern_normalize.css">
     <link rel="stylesheet" href="../assets/css/error.css">
     <title>Contact</title>
@@ -23,26 +24,26 @@
             <form action="" method="POST" id="form" novalidate> <!--method post pour éviter l'affichage des données sensibles dans l'url-->
             
                 <label for="lastname">Nom</label>
-                <input type="text" id="lastname" name="lastname" placeholder="Votre nom" maxlength="50" aria-describedby="lastname_error">
-                <div id="lastname_error" class="error-message"></div>
+                <input type="text" id="lastname" name="lastname" placeholder="Votre nom" maxlength="50" aria-describedby="lastname_error" autocomplete="name">
+                <div id="lastname_error" class="error-message" role="alert"></div>
 
                 <label for="firstname">Prénom</label>
-                <input type="text" id="firstname" name="firstname" placeholder="Votre prénom" maxlength="50" aria-describedby="firstname_error">
-                <div id="firstname_error" class="error-message"></div>
+                <input type="text" id="firstname" name="firstname" placeholder="Votre prénom" maxlength="50" aria-describedby="firstname_error" autocomplete="given-name">
+                <div id="firstname_error" class="error-message" role="alert"></div>
 
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="exemple@gmail.fr" maxlength="150" aria-describedby="email_error">
-                <div id="email_error" class="error-message"></div>
+                <input type="email" id="email" name="email" placeholder="exemple@gmail.fr" maxlength="150" aria-describedby="email_error" autocomplete="email">
+                <div id="email_error" class="error-message" role="alert"></div>
 
                 <label for="message">Message :</label>
                 <textarea id="message" name="message" placeholder="Écrivez ici (max 255 caractères)" maxlength="255" aria-describedby="message_error"></textarea>
-                <div id="char_count">0/255</div>
-                <div id="message_error" class="error-message"></div>
+                <div id="char_count" role="status">0/255</div>
+                <div id="message_error" class="error-message" role="alert"></div>
                 
-                <label for="rgpd">Je consente au traitement des données personnelles
-                    <input type="checkbox" id="rgpd" name="rgpd" aria-describedby="rgpd_error">
+                <label for="rgpd">Je consens au traitement des données personnelles
+                    <input type="checkbox" id="rgpd" name="rgpd" aria-describedby="rgpd_error" aria-required="true">
                 </label>
-                <div id="rgpd_error" class="error-message"></div>
+                <div id="rgpd_error" class="error-message" role="alert"></div>
                 
                 <button type="submit" id="btn_contact">Envoyer</button>
                 

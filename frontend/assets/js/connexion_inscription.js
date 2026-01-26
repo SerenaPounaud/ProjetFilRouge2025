@@ -8,9 +8,8 @@ function showError (message, fieldId) {
     errorDiv.textContent = message;
     errorDiv.style.opacity = "1";
     errorDiv.style.visibility = "visible";
-    errorDiv.style.opacity = "1";
 
-    //applique bordure rouge
+    //applique le style
     const input = document.getElementById(fieldId);
     if (input) {
         if (input.type === "checkbox") {
@@ -20,7 +19,7 @@ function showError (message, fieldId) {
         }
     }
 
-    //masque l'erreur après 3s
+    //masque l'erreur après 5s
     setTimeout(() => {
         errorDiv.style.opacity = "0";
         errorDiv.style.visibility = "hidden";
@@ -31,7 +30,7 @@ function showError (message, fieldId) {
             input.classList.remove("input-error");
             }
         }
-    }, 3000);
+    }, 5000);
 }
 
 // Inscription
