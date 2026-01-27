@@ -21,25 +21,70 @@ const filters = {
     dateSort: ''
 };
 
-// Récupére les recettes de A -> Z
-async function fetchAllRecipes() {
-    const letters = 'abcdefghijklmnopqrstuvwxyz'.split(''); //divise en liste
+const cache_key = 'allMealsCache'; //stock les recettes
+const cache_time_key = 'allMealsCacheTime'; //stock l'heure de stockage
+const cache_duree = '24*60*60*1000'; //stock 24h
+
+async function fetchAllRecipes(forceRefresh = false) { //force le rafraichissement
+    //Vérifie le cache
+    const cachedData = localStorage.getItem(cache_key);
+    const cachedTime = localStorage.getItem(cache_time_key);
+
+    //si on ne force pas le refresh mais données en cache
+    if (!forceRefresh && cachedData && cachedTime) { 
+        const age = Date.now() - parseInt(cachedTime, 10); //calcule l'age du cache
+        if (age < cache_duree) {
+            console.log("Recettes encore valide");
+            return JSON.parse(cachedData); //toutes les recettes convertit en tableau pour boucles, filtres,...
+        } else {
+            console.log("Cache expiré");
+        }
+    }
+    //si pas de cache ou refresh forcé
+    const letters = 'abcdefghijklmnopqrstuvwxyz'.split(''); //divise en liste de string
     const requests = letters.map(letter => //chaque lettre du tableau => une requête/promesse
         fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`) //recherche les recettes commençant par cette lettre
-            .then(res => res.json())
-            .then (data => data.meals || []) //retourne les recettes ou un tableau vide si null/indefined
-            .catch(() => []) //en cas d'erreur
+        .then(res => res.json())
+        .then(data => data.meals || []) //retourne les recettes ou un tableau vide si null/indefined
+        .catch(() => []) //en cas d'erreur
     );
-        const results = await Promise.all(requests); //attend que toutes les promesses soient terminées
-        const merged = results.flat(); //fusionne tous les tableaux de recettes (une lettre = un tableau)
 
-        const seen = new Set(); //supprime les doublons
+    const results = await Promise.all(requests); //attend que toutes les promesses soient terminées
+    const merged = results.flat(); //fusionne tous les tableaux de recettes (une lettre = un tableau)
+
+    //Supprime les doublons
+    const seen = new Set(); //stocke les idmeal déjà vus
+    const uniqueMeals = merged.filter(meal => {
+        if (!meal.idMeal || seen.has(meal.idMeal)) return false; //ignore les idmeal manquant ou déjà présent
+        seen.add(meal.idMeal); //sinon ajoute l'idmeal dans set
+        return true;
+    });
+
+    //Stocke dans le cache
+    localStorage.setItem(cache_key, JSON.stringify(uniqueMeals)); //stocke en json les recettes uniques
+    localStorage.setItem(cache_time_key, Date.now().toString); //stocke l'heure actuelle
+
+    return uniqueMeals; //renvoie le tableau final
+}
+/*// Récupére les recettes de A -> Z
+async function fetchAllRecipes() {
+    const letters = 'abcdefghijklmnopqrstuvwxyz'.split(''); 
+    const requests = letters.map(letter => 
+        fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`)
+            .then(res => res.json())
+            .then (data => data.meals || []) 
+            .catch(() => []) 
+    );
+        const results = await Promise.all(requests); 
+        const merged = results.flat(); 
+
+        const seen = new Set(); 
         return merged.filter(meal => {
-            if (!meal.idMeal || seen.has(meal.idMeal)) return false; //ignore les doublons ou recettes invalides
-            seen.add(meal.idMeal); //ajoute l'id
+            if (!meal.idMeal || seen.has(meal.idMeal)) return false; 
+            seen.add(meal.idMeal); 
             return true;
     });
-}
+}*/
 
 // Tous les filtres
 function applyFilters() {
@@ -149,30 +194,31 @@ function createPaginationButtons(meals) {
     }
 }
 
-// Rechercher des recettes par mot-clé
-bouton_recherche.addEventListener('click', () => {  
+// Rechercher des recettes par mot-clé + touche entrée
+const formRecherche = document.querySelector('.barre_recherche');
+if (formRecherche) {
+    formRecherche.addEventListener('submit', (e) => {
+    e.preventDefault(); //stop le rechargement  
   filters.keyword = barre_recherche.value.trim().toLowerCase(); //récupère la valeur de la barre de recherche + convertit en miniscule pour éviter sensibilité à la casse
   applyFilters();
 });
-
-// Entrée = déclenche recherche
-barre_recherche.addEventListener('keydown', (e) => { //keydown se déclenche dès qu'on appuie sur une touche, e = event:objet élément qui contient toutes les informations sur la touche pressée
-    if (e.key === 'Enter') { //vérifie si la touche pressée est entrée
-        bouton_recherche.click();
-    }
-});
+}
 
 // Evénement filtre par personnes
-selectPersonnes.addEventListener('change', () => {
+if (selectPersonnes) {
+    selectPersonnes.addEventListener('change', () => {
     filters.personnes = selectPersonnes.value;
     applyFilters();
 });
+}
 
 // Evénement filtre par date
-selectDate.addEventListener('change', () => {
+if (selectDate) {
+    selectDate.addEventListener('change', () => {
     filters.dateSort = selectDate.value;
     applyFilters();
 })
+}
 
 // Bouton reset
 if (bouton_reset) {
@@ -183,6 +229,7 @@ if (bouton_reset) {
         filters.keyword = '';
         filters.category = '';
         filters.personnes = ''; 
+        filters.dateSort = '';
         applyFilters();
     });
 }
@@ -198,11 +245,6 @@ document.addEventListener('DOMContentLoaded', async () => { //attend que html so
     displayRecipesPage(1, filteredMeals);
 });
 
-// Charger le header + footer dans index
-  fetch("templates/header.html")
-      .then(res => res.text())
-      .then(data => document.getElementById("header").innerHTML = data);
-
-    fetch("templates/footer.html")
-      .then(res => res.text())
-      .then(data => document.getElementById("footer").innerHTML = data);
+fetch("templates/footer.html")
+    .then(res => res.text())
+    .then(data => document.getElementById("footer").innerHTML = data);
