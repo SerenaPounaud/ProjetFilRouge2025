@@ -9,6 +9,7 @@
     <link rel="icon" href="assets/img/poele.ico" type="image/x-icon">
 </head>
 <body>
+    <div id="toast" role="status"></div> 
     <header class="header">
         <nav aria-label="Navigation principale">
             <a href="./index.html">Accueil</a>
@@ -50,6 +51,9 @@
                     placeholder="Rechercher par mots clés..." 
                     aria-label="Champ de recherche par mots clés">
             </form>
+            <p>Pour être sûr de voir les dernières recettes -></p>
+            <button id="btn_refresh" type="button" aria-label="Actualiser les recettes" title="Actualisez les recettes">Cliquez ici</button>
+            <span id="refresh_status" aria-live="polite" class="refresh_status"></span>
             <div>
                 <p>Filtrer par :</p>       
                 <label for="btn_personnes">Personnes</label>
@@ -118,6 +122,7 @@
 
     <script src="assets/js/random.js"></script>
     <script src="assets/js/main.js"></script>
-    <script src="assets/js/header.js"></script> 
+    <script src="assets/js/header.js"></script>
+    <script src="assets/js/toast.js"></script> 
 </body>
 </html>
