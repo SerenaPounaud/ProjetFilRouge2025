@@ -30,5 +30,5 @@
     pointer-events: none;
     transition: opacity 0.4s, transform 0.4s;
     transform: translateY(20px);
-    font-size: 0.9rem;
+    font-size: 18px;
 }
