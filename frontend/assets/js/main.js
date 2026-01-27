@@ -23,7 +23,7 @@ const filters = {
 
 const cache_key = 'allMealsCache'; //stock les recettes
 const cache_time_key = 'allMealsCacheTime'; //stock l'heure de stockage
-const cache_duree = '24*60*60*1000'; //stock 24h
+const cache_duree = 24*60*60*1000; //stock 24h
 
 async function fetchAllRecipes(forceRefresh = false) { //force le rafraichissement
     //Vérifie le cache
@@ -61,30 +61,11 @@ async function fetchAllRecipes(forceRefresh = false) { //force le rafraichisseme
     });
 
     //Stocke dans le cache
-    localStorage.setItem(cache_key, JSON.stringify(uniqueMeals)); //stocke en json les recettes uniques
-    localStorage.setItem(cache_time_key, Date.now().toString); //stocke l'heure actuelle
+    localStorage.setItem(cache_key, JSON.stringify(uniqueMeals)); //convertit en json et stocke dans le navigateur les recettes uniques
+    localStorage.setItem(cache_time_key, Date.now().toString()); //convertit et stocke l'heure actuelle
 
     return uniqueMeals; //renvoie le tableau final
 }
-/*// Récupére les recettes de A -> Z
-async function fetchAllRecipes() {
-    const letters = 'abcdefghijklmnopqrstuvwxyz'.split(''); 
-    const requests = letters.map(letter => 
-        fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`)
-            .then(res => res.json())
-            .then (data => data.meals || []) 
-            .catch(() => []) 
-    );
-        const results = await Promise.all(requests); 
-        const merged = results.flat(); 
-
-        const seen = new Set(); 
-        return merged.filter(meal => {
-            if (!meal.idMeal || seen.has(meal.idMeal)) return false; 
-            seen.add(meal.idMeal); 
-            return true;
-    });
-}*/
 
 // Tous les filtres
 function applyFilters() {
@@ -233,6 +214,40 @@ if (bouton_reset) {
         applyFilters();
     });
 }
+
+// Bouton actualiser + date dernière mise à jour
+const bouton_refresh = document.getElementById('btn_refresh');
+const refreshStatus = document.getElementById('refresh_status');
+
+if (bouton_refresh) {
+    bouton_refresh.addEventListener('click', async () => {
+        if (div_recettes) {
+        div_recettes.innerHTML = '<p>Actualisation en cours...</p>';
+        }
+        if (refreshStatus) {
+            refreshStatus.textContent = 'Actualisation en cours...';
+        }
+        allMeals = await fetchAllRecipes(true); //ignore le localstorage, force le refresh
+        filteredMeals = [...allMeals];
+        applyFilters(); //réapplique les filtres sélectionnés
+
+        const cachedTime = localStorage.getItem(cache_time_key);
+        if (cachedTime) {
+            const lastUpdate = new Date(parseInt(cachedTime, 10)).toLocaleDateString('fr-FR', {day: '2-digit', month:'2-digit', year: 'numeric'});
+            refreshStatus.textContent = `Dernière mise à jour : ${lastUpdate}`
+        }
+    toast("Vous êtes à jours !");
+    });
+}
+
+// Afficher date sans cliquer sur le bouton
+document.addEventListener('DOMContentLoaded', () => {
+    const cachedTime = localStorage.getItem(cache_time_key);
+    if (cachedTime && refreshStatus) {
+        const lastUpdate = new Date(parseInt(cachedTime, 10)).toLocaleDateString('fr-FR');
+        refreshStatus.textContent = `Dernière actualisation : ${lastUpdate}`;
+    }
+});
 
 // Chargement initial
 document.addEventListener('DOMContentLoaded', async () => { //attend que html soit chargé
