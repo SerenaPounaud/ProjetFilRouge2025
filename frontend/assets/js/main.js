@@ -22,7 +22,7 @@ const filters = {
 };
 
 const cache_key = 'allMealsCache'; //stock les recettes
-const cache_time_key = 'allMealsCacheTime'; //stock l'heure de stockage
+const cache_time_key = 'allMealsCacheTime'; //stock la première heure de stockage ou actualisation
 const cache_duree = 24*60*60*1000; //stock 24h
 
 async function fetchAllRecipes(forceRefresh = false) { //force le rafraichissement
@@ -30,7 +30,7 @@ async function fetchAllRecipes(forceRefresh = false) { //force le rafraichisseme
     const cachedData = localStorage.getItem(cache_key);
     const cachedTime = localStorage.getItem(cache_time_key);
 
-    //si on ne force pas le refresh mais données en cache
+    //si on ne force pas l'actualisation mais des données sont en cache (recettes + heure stokage)
     if (!forceRefresh && cachedData && cachedTime) { 
         const age = Date.now() - parseInt(cachedTime, 10); //calcule l'age du cache
         if (age < cache_duree) {
@@ -72,46 +72,45 @@ function applyFilters() {
     filteredMeals = allMeals.filter(meal => {
         //recherche par mot-clé
         if (filters.keyword) {
-            if (!meal.strMeal.toLowerCase().includes(filters.keyword)) {
+            //convertit le nom en minuscule pour éviter la casse + vérifie mot clé est présent dans la recette
+            if (!meal.strMeal.toLowerCase().includes(filters.keyword)) { 
                 return false;
             }
         }
         //recherche par catégorie
         if (filters.category) {
-            if (meal.strCategory !== filters.category) {
+            //exclue les recettes ne correspondant pas à la catégorie sélectionnée
+            if (meal.strCategory !== filters.category) { 
                 return false;
             }
         }
         //recherche par nb personnes
         if (filters.personnes) {
-            const { personnes } = generateFixedInfo(meal.idMeal);
+            const { personnes } = generateFixedInfo(meal.idMeal); //récupère la valeur "personnes" par recette
 
             if (filters.personnes === 'plus5') {
                 if (personnes < 5) return false;
             } else {
-                if (personnes !== parseInt(filters.personnes)) return false;
+                if (personnes !== parseInt(filters.personnes)) return false; //convertit le filtre choisi en nombre puis compare
             }
         }
         return true;
     });
      //recherche par date
-        if (filters.dateSort) { //vérifie si l'utilisateur a choisi le trie par date
-            filteredMeals.sort((a, b ) => { //trie le tableau, a + b = deux recettes à comparer
-                const dateA = getDateRecette(a.idMeal); //calcule la date fixe pour chaque recette
-                const dateB = getDateRecette(b.idMeal);
-
-                if (filters.dateSort === 'recent') {
-                    return dateB - dateA; //les plus récentes en premier
-                } else {
-                    return dateA - dateB; //les plus anciennes en premier
-                }
-            });
+        if (filters.dateSort === 'recent') {
+            filteredMeals.sort ((a, b) => //a et b représentent deux recettes du tableau
+            getDateRecette(b.idMeal) - getDateRecette(a.idMeal) //comparaison : b plus grand(récent) que a
+            );
+        } else if (filters.dateSort === 'ancien') {
+            filteredMeals.sort((a, b) =>
+            getDateRecette(a.idMeal) - getDateRecette(b.idMeal)
+            );
         }
     currentPage = 1;
     displayRecipesPage(currentPage, filteredMeals);
 }
 
-// Récupère les catégories uniquement si l'élément existe
+// Récupère les catégories
 if (categories_ul) {
         fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
         .then(res => res.json())
@@ -124,7 +123,7 @@ if (categories_ul) {
                     filters.category = cat.strCategory
                         applyFilters();
                 };
-                    categories_ul.appendChild(li);
+                    categories_ul.appendChild(li); //importe li dans ul
             });
         });
 }
@@ -249,8 +248,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Chargement initial
+// Chargement initial/rechargement de la page
 document.addEventListener('DOMContentLoaded', async () => { //attend que html soit chargé
+
+    //réinitialisation des champs
+    if (barre_recherche) barre_recherche.value = '';
+    if (selectPersonnes) selectPersonnes.value = '';
+    if (selectDate) selectDate.value = '';
+
+    //réinitialisation des filtres
+    filters.keyword = '';
+    filters.category = '';
+    filters.personnes = '';
+    filters.dateSort = '';
+    currentPage = 1;
+
     div_recettes.innerHTML = '<p>Chargement des recettes...</p>';
 
     allMeals = await fetchAllRecipes(); //charge et stock toutes les recettes sans filtre
