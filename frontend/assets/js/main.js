@@ -23,19 +23,19 @@ const filters = {
 
 const cache_key = 'allMealsCache'; //stock les recettes
 const cache_time_key = 'allMealsCacheTime'; //stock la première heure de stockage ou actualisation
-const cache_duree = 24*60*60*1000; //stock 24h
+const cache_duree = 24*60*60*1000; //stock 24h en ms
 
 async function fetchAllRecipes(forceRefresh = false) { //force le rafraichissement
     //Vérifie le cache
-    const cachedData = localStorage.getItem(cache_key);
+    const cachedMeals = localStorage.getItem(cache_key);
     const cachedTime = localStorage.getItem(cache_time_key);
 
     //si on ne force pas l'actualisation mais des données sont en cache (recettes + heure stokage)
-    if (!forceRefresh && cachedData && cachedTime) { 
-        const age = Date.now() - parseInt(cachedTime, 10); //calcule l'age du cache
+    if (!forceRefresh && cachedMeals && cachedTime) { 
+        const age = Date.now() - parseInt(cachedTime, 10); //convertit l'heure en nombre et calcul l'age du cache
         if (age < cache_duree) {
             console.log("Recettes encore valide");
-            return JSON.parse(cachedData); //toutes les recettes convertit en tableau pour boucles, filtres,...
+            return JSON.parse(cachedMeals); //convertit les recettes en tableau JS utilisable
         } else {
             console.log("Cache expiré");
         }
@@ -62,7 +62,7 @@ async function fetchAllRecipes(forceRefresh = false) { //force le rafraichisseme
 
     //Stocke dans le cache
     localStorage.setItem(cache_key, JSON.stringify(uniqueMeals)); //convertit en json et stocke dans le navigateur les recettes uniques
-    localStorage.setItem(cache_time_key, Date.now().toString()); //convertit et stocke l'heure actuelle
+    localStorage.setItem(cache_time_key, Date.now().toString()); //convertit en string et stocke l'heure actuelle
 
     return uniqueMeals; //renvoie le tableau final
 }
@@ -239,17 +239,15 @@ if (bouton_refresh) {
     });
 }
 
-// Afficher date sans cliquer sur le bouton
-document.addEventListener('DOMContentLoaded', () => {
+// Chargement initial/rechargement de la page
+document.addEventListener('DOMContentLoaded', async () => { //attend que html soit chargé
+
+    // Afficher la date d'actualisation sans cliquer sur le bouton
     const cachedTime = localStorage.getItem(cache_time_key);
     if (cachedTime && refreshStatus) {
         const lastUpdate = new Date(parseInt(cachedTime, 10)).toLocaleDateString('fr-FR');
         refreshStatus.textContent = `Dernière actualisation : ${lastUpdate}`;
     }
-});
-
-// Chargement initial/rechargement de la page
-document.addEventListener('DOMContentLoaded', async () => { //attend que html soit chargé
 
     //réinitialisation des champs
     if (barre_recherche) barre_recherche.value = '';
@@ -263,11 +261,13 @@ document.addEventListener('DOMContentLoaded', async () => { //attend que html so
     filters.dateSort = '';
     currentPage = 1;
 
-    div_recettes.innerHTML = '<p>Chargement des recettes...</p>';
+    if (div_recettes) {
+        div_recettes.innerHTML = '<p>Chargement des recettes...</p>';
+    }
 
     allMeals = await fetchAllRecipes(); //charge et stock toutes les recettes sans filtre
-    filteredMeals = [...allMeals].sort (() => Math.random() - 0.5);
-    //créer une copie, trie et mélange aléatoirement les recettes 
+    filteredMeals = [...allMeals].sort (() => Math.random() - 0.5); //fonction de comparaison pour forcer un ordre aléatoire
+    //créer une copie du tableau des recettes, trie et mélange aléatoirement 
 
     displayRecipesPage(1, filteredMeals);
 });
