@@ -151,7 +151,7 @@ function displayRecipesPage(page, meals) { //affiche une page spécifique + tabl
         <img src="${meal.strMealThumb}" alt="${meal.strMeal}" width="200">`;
         mealDiv.appendChild(createNoteBlock(meal.idMeal));
 
-        mealDiv.onclick = () => 
+        mealDiv.onclick = () => //redirige
             window.location.href = `./templates/recettes_details.html?id=${meal.idMeal}`;
         div_recettes.appendChild(mealDiv);
     });
@@ -227,7 +227,7 @@ if (bouton_refresh) {
             refreshStatus.textContent = 'Actualisation en cours...';
         }
         allMeals = await fetchAllRecipes(true); //ignore le localstorage, force le refresh
-        filteredMeals = [...allMeals];
+        filteredMeals = [...allMeals]; //créer une copie
         applyFilters(); //réapplique les filtres sélectionnés
 
         const cachedTime = localStorage.getItem(cache_time_key);

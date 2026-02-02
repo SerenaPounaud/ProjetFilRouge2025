@@ -51,30 +51,32 @@
                     placeholder="Rechercher par mots clés..." 
                     aria-label="Champ de recherche par mots clés">
             </form>
-            <p>Pour être sûr de voir les dernières recettes -></p>
-            <button id="btn_refresh" type="button" aria-label="Actualiser les recettes" title="Actualisez les recettes">Cliquez ici</button>
-            <span id="refresh_status" aria-live="polite" class="refresh_status"></span>
             <div>
-                <p>Filtrer par :</p>       
-                <label for="btn_personnes">Personnes</label>
-                <select id="btn_personnes">
-                    <option value="">Toutes les recettes</option>
-                    <option value="1">Pour 1 personne</option>
-                    <option value="2">Pour 2 personnes</option>
-                    <option value="3">Pour 3 personnes</option>
-                    <option value="4">Pour 4 personnes</option>
-                    <option value="plus5">+ de 5 personnes</option>
-                </select>
+                    <p>Pour être sûr de voir les dernières recettes -></p>
+                    <button id="btn_refresh" type="button" aria-label="Actualiser les recettes" title="Actualisez les recettes">Cliquez ici</button>
+                    <span id="refresh_status" aria-live="polite" class="refresh_status"></span>
+                <div>
+                    <p>Filtrer par :</p>       
+                    <label for="btn_personnes">Personnes</label>
+                    <select id="btn_personnes">
+                        <option value="">Toutes les recettes</option>
+                        <option value="1">Pour 1 personne</option>
+                        <option value="2">Pour 2 personnes</option>
+                        <option value="3">Pour 3 personnes</option>
+                        <option value="4">Pour 4 personnes</option>
+                        <option value="plus5">+ de 5 personnes</option>
+                    </select>
 
-                <label for="btn_date">Date</label>
-                <select id="btn_date">
-                    <option value="">Aucun tri</option>
-                    <option value="recent">Récent</option>
-                    <option value="ancien">Ancien</option>
-                </select>
-            </div>
-            <button id="btn_reset" type="button" aria-label="Réinitialiser la recherche">Réinitialiser</button>
-        </div> 
+                    <label for="btn_date">Date</label>
+                    <select id="btn_date">
+                        <option value="">Aucun tri</option>
+                        <option value="recent">Récent</option>
+                        <option value="ancien">Ancien</option>
+                    </select>
+                </div>
+                <button id="btn_reset" type="button" aria-label="Réinitialiser la recherche">Réinitialiser</button>
+            </div> 
+        </div>
         <div class="recettes" id="recettes">
             <!--Les recettes s'affichent ici-->
         </div> 
