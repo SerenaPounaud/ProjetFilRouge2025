@@ -8,9 +8,9 @@ displayComments(); //affichera les commentaires
 // Vider l'input au chargement de la page
 window.addEventListener("load", () => {
     const prenomInput = document.getElementById("prenom");
-    if (prenomInput) prenomInput.value = ""; //vérifie si il n'est pas null, réinitialise la valeur
+    if (prenomInput) prenomInput.value = ""; //si il existe, réinitialise la valeur
 
-    const user = localStorage.getItem("user") || null; //retourne prenom ou null
+    const user = localStorage.getItem("user") || null; //retourne prenom ou rien
 
     const connexionDiv = document.getElementById("connexion");
     const commentaireZone = document.getElementById("zone_commentaire");
@@ -29,11 +29,12 @@ window.addEventListener("load", () => {
     // Affiche nombre de caractères
     const commentaireInput = document.getElementById("commentaire_input");
     const charCount = document.getElementById("char_count");
+    const maxcommentaireLength = 500;
 
-    if (commentaireInput) { //vérifie qu'il existe, évite erreur si élément absent
+    if (commentaireInput) {
         commentaireInput.addEventListener("input", () => { //se déclenche à chaque changement du contenu
             if (charCount) { 
-                charCount.textContent = `${commentaireInput.value.length} /500`; //met à jour l'affichage
+                charCount.textContent = `${commentaireInput.value.length} / ${maxcommentaireLength}`;
             }
         });
     }
@@ -43,14 +44,16 @@ window.addEventListener("load", () => {
 // Notification erreur
 function showError(message, fieldId) { //fieldId = id de l'élément html où s'affiche le message
         const errorDiv = document.getElementById(fieldId); //cherche l'id
-        if (!errorDiv) return; //si id = null = arrête fonction
-        errorDiv.textContent = message; //intégre le message d'erreur dedans errorDiv
-        errorDiv.style.opacity = "1"; //le rend visible et force sont affichage
-        errorDiv.style.display = "block";
+        if (!errorDiv) return;
 
-        setTimeout(() => { //efface après 3000 millisecondes 
+        errorDiv.textContent = message; //intégre le message d'erreur dans errorDiv
+        errorDiv.style.opacity = "1"; //le rend visible et force sont affichage
+        errorDiv.style.visibility = "visible";
+
+        //supprime après 3s 
+        setTimeout(() => { 
             errorDiv.style.opacity= "0";
-            errorDiv.style.display = "none";
+            errorDiv.style.visibility = "hidden";
         }, 3000);
     }
 
