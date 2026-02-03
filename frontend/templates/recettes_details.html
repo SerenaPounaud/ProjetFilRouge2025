@@ -39,7 +39,7 @@
                 <option value="4">★★★★☆</option>
                 <option value="5">★★★★★</option>
             </select>
-            <span class="error" id="note_error" aria-live="assertive"></span> <!--interruption immédiate-->
+            <div class="error" id="note_error" aria-live="assertive" role="alert"></div> <!--interruption immédiate-->
             
             <button type="submit">Envoyer</button>
         </form>
@@ -47,7 +47,7 @@
         <div id="connexion">
             <label for="prenom" class="sr-only">Votre prénom</label>
             <input type="text" id="prenom" placeholder="Entrez votre prénom" aria-required="true" autocomplete="given-name" required>
-            <span class="error" id="prenom_error" aria-live="assertive"></span>
+            <div class="error" id="prenom_error" aria-live="assertive" role="alert"></div>
             
             <button type="button" onclick="connexion()">Se connecter</button>
         </div>

@@ -1,9 +1,12 @@
 .error {
-    color: #b00020;
+    display: block; /* important pour div et span */
+    color: red;
     font-size: 0.9rem;
-    margin-top: 5px;
-    transition: opacity 0.3s;
+    margin-top: 0.25rem;
+    opacity: 0; /* invisible par défaut */
+    transition: opacity 0.3s ease;
 }
+
 #toast {
     position: fixed;
     bottom: 20px;

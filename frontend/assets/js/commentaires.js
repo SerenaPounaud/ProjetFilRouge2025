@@ -1,17 +1,15 @@
 let user = null;
+const prenomInput = document.getElementById("prenom");
+const commentaireInput = document.getElementById("commentaire_input");
+const noteInput = document.getElementById("note_input");
 
 //recupère la chaîne JSON stockée sous la clé commentaires dans localstorage et la transforme en tableau ou ver.vide si null/falsy
 let commentaires = JSON.parse(localStorage.getItem("commentaires")) || [];
 displayComments(); //affichera les commentaires
 
 
-// Vider l'input au chargement de la page
-window.addEventListener("load", () => {
-    const prenomInput = document.getElementById("prenom");
-    if (prenomInput) prenomInput.value = ""; //si il existe, réinitialise la valeur
-
-    const user = localStorage.getItem("user") || null; //retourne prenom ou rien
-
+// Condition d'affichage zone commentaire
+function conditionCommentaire() {
     const connexionDiv = document.getElementById("connexion");
     const commentaireZone = document.getElementById("zone_commentaire");
     const btnDeconnexion = document.getElementById("btn_deconnexion");
@@ -20,14 +18,23 @@ window.addEventListener("load", () => {
         connexionDiv.style.display = "none";
         commentaireZone.style.display = "block";
         btnDeconnexion.style.display = "inline-block";
+        commentaireZone.removeAttribute("aria-hidden");
     } else {
         connexionDiv.style.display = "block";
         commentaireZone.style.display = "none";
         btnDeconnexion.style.display = "none";
+        commentaireZone.setAttribute("aria-hidden", "true");
     }
+}
+
+// Vider l'input au chargement de la page
+window.addEventListener("load", () => {
+    if (prenomInput) prenomInput.value = ""; //si il existe, réinitialise la valeur
+
+    user = localStorage.getItem("user"); //retourne prenom ou rien
+    conditionCommentaire();
 
     // Affiche nombre de caractères
-    const commentaireInput = document.getElementById("commentaire_input");
     const charCount = document.getElementById("char_count");
     const maxcommentaireLength = 500;
 
@@ -43,66 +50,66 @@ window.addEventListener("load", () => {
 
 // Notification erreur
 function showError(message, fieldId) { //fieldId = id de l'élément html où s'affiche le message
-        const errorDiv = document.getElementById(fieldId); //cherche l'id
+        const errorDiv = document.getElementById(fieldId + "_error"); //afficher l'erreur sur id_error
         if (!errorDiv) return;
 
         errorDiv.textContent = message; //intégre le message d'erreur dans errorDiv
-        errorDiv.style.opacity = "1"; //le rend visible et force sont affichage
+        errorDiv.style.opacity = "1"; //le rend visible
         errorDiv.style.visibility = "visible";
 
-        //supprime après 3s 
-        setTimeout(() => { 
-            errorDiv.style.opacity= "0";
-            errorDiv.style.visibility = "hidden";
-        }, 3000);
-    }
+        //applique style
+        const input = document.getElementById(fieldId);
+        if (input && input.tagName.toLowerCase() !== "select") { //ignore le select
+            input.classList.add("input-error");
+            input.setAttribute("aria-invalid", "true");
+            input.focus();
+        } else if (input) {
+            input.classList.add("input-error"); //ajoute une classe si il existe
+            input.setAttribute("aria-invalid", "true"); //indique au lecteur d'écran un champ incorrect
+        }
 
+        //masque l'erreur après 5s
+        setTimeout(() => {
+        errorDiv.style.opacity = "0";
+        errorDiv.style.visibility = "hidden";
+        if (input){
+                input.classList.remove("input-error");
+                input.removeAttribute("aria-invalid");
+            }
+        }, 5000);
+    };
 
 // Connexion
 function connexion() {
-    const prenomInput = document.getElementById("prenom");
-    const nom = prenomInput.value.trim(); //lit la valeur sans les espaces
-     if(!nom) {
-        prenomInput.classList.add("input-error");
-        showError("Veuillez entrer un prénom", "prenom_error");
+    const prenom = prenomInput.value.trim();
+     if(!prenom) {
+        showError("Veuillez entrer un prénom", "prenom");
         return;
      }
-     if (nom.length > 50) {
-        showError("Prénom trop long", "prenom_error");
+     if (prenom.length > 50) {
+        showError("Prénom trop long", "prenom");
         return;
      }
-    prenomInput.classList.remove("input-error");
-    user = nom; //affecte le prenom si pas d'alerte
+    user = prenom;
     localStorage.setItem("user", user); //stocke user
 
-
-    document.getElementById("connexion").style.display = "none"; //cacher après connexion
-    document.getElementById("zone_commentaire").style.display = "block"; //basculement connexion -> commentaire
-    document.getElementById("btn_deconnexion").style.display = "inline-block";
-
-    const zone = document.getElementById("zone_commentaire");
-    zone.removeAttribute("aria-hidden");
-    zone.querySelector("textarea").focus(); //met le curseur sur textarea
+    conditionCommentaire();
+    document.querySelector("#zone_commentaire textarea").focus();
 }
 
 // Déconnexion
 function deconnexion() {
     user = null; // réinitialise l'utilisateur
-    localStorage.removeItem("user"); //supprime user
-
-    document.getElementById("zone_commentaire").style.display = "none";
-    document.getElementById("zone_commentaire").setAttribute("aria-hidden", "true");
-
-    document.getElementById("connexion").style.display = "block";
+    localStorage.removeItem("user"); //supprime user du localstorage
+    conditionCommentaire();
     document.getElementById("prenom").value = "";
-    document.getElementById("btn_deconnexion").style.display = "none";
 
     toast("Vous êtes déconnecté");
 }
 
 // Condition commentaire
 function displayComments() {
-    const contenu = document.getElementById("commentaires"); //div principale
+    const contenu = document.getElementById("commentaires");
     contenu.innerHTML = ""; //réinitialise l'affichage
     contenu.setAttribute("aria-live", "polite"); //pas d'interruption brutale
 
@@ -121,13 +128,13 @@ function displayComments() {
 
 // Ajouter un commentaire
 function ajoutCommentaire() {
-    const text = document.getElementById("commentaire_input").value.trim();
-    const noteInput = document.getElementById("note_input").value; //récupère la valeur
-    if (!noteInput) {
-        showError("Veuillez choisir une note avant d'envoyer", "note_error");
+    const text = commentaireInput.value.trim();
+    const noteInputValue = noteInput.value;
+    if (!noteInputValue) {
+        showError("Veuillez choisir une note avant d'envoyer", "note_input");
         return;
     }
-    const note = parseInt(noteInput); //convertit chaine -> entier
+    const note = parseInt(noteInputValue); //convertit chaine -> entier
 
     const newCommentaire = { //créer un objet contenant les informations du commentaire
         id: Date.now(), //generer un id basé sur le nombre de millisecondes écoulées 1er janvier 1970 -> aujourd'hui
@@ -140,8 +147,9 @@ function ajoutCommentaire() {
     commentaires.push(newCommentaire); //ajoute à la fin du tableau commentaires
     localStorage.setItem("commentaires",JSON.stringify(commentaires)); //sauvegarde le tableau dans localstorage puis convertit en JSON
 
-    document.getElementById("commentaire_input").value = ""; //réinitialise la valeur après envoi
-    document.getElementById("note_input").value = "";
+    //réinitialise la valeur après envoi
+    commentaireInput.value = "";
+    noteInput.value = "";
     document.getElementById("char_count").textContent = "0/500";
     toast("Commentaire ajouté");
     displayComments(); //met à jour l'affichage
@@ -159,7 +167,7 @@ function supprimerCommentaire(id) {
 // Div commentaire
 function createCommentElement(c) { //c = commentaire
     const div = document.createElement("div"); //div individuel commentaire
-    div.className = "divCommentaires"; //assigne une class à div
+    div.className = "divCommentaires";
 
     const metaDiv = document.createElement("div"); //(utilisateur, date, note, bouton)
     metaDiv.className = "meta";
