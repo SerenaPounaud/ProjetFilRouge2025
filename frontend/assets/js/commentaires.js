@@ -54,24 +54,19 @@ function showError(message, fieldId) { //fieldId = id de l'élément html où s'
         if (!errorDiv) return;
 
         errorDiv.textContent = message; //intégre le message d'erreur dans errorDiv
-        errorDiv.style.opacity = "1"; //le rend visible
-        errorDiv.style.visibility = "visible";
+        errorDiv.classList.add("visible");
 
         //applique style
         const input = document.getElementById(fieldId);
-        if (input && input.tagName.toLowerCase() !== "select") { //ignore le select
-            input.classList.add("input-error");
-            input.setAttribute("aria-invalid", "true");
-            input.focus();
-        } else if (input) {
+        if (input) {
             input.classList.add("input-error"); //ajoute une classe si il existe
             input.setAttribute("aria-invalid", "true"); //indique au lecteur d'écran un champ incorrect
+            if (input.tagName.toLowerCase() !== "select")input.focus();
         }
 
         //masque l'erreur après 5s
         setTimeout(() => {
-        errorDiv.style.opacity = "0";
-        errorDiv.style.visibility = "hidden";
+        errorDiv.classList.remove("visible");
         if (input){
                 input.classList.remove("input-error");
                 input.removeAttribute("aria-invalid");

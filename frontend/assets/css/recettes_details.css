@@ -1,12 +1,19 @@
 .error {
-    display: block; /* important pour div et span */
+    visibility: hidden;
+    opacity: 0;
     color: red;
     font-size: 0.9rem;
     margin-top: 0.25rem;
-    opacity: 0; /* invisible par défaut */
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s;
 }
-
+.input-error {
+    border: 2px solid #e57373;
+    background: #fff5f5;
+}
+.error.visible {
+    opacity: 1;
+    visibility: visible;
+}
 #toast {
     position: fixed;
     bottom: 20px;
@@ -20,10 +27,6 @@
     transition: opacity 0.4s, transform 0.4s;
     transform: translateY(20px);
     font-size: 0.9rem;
-}
-.input-error {
-    border: 2px solid #e57373;
-    background: #fff5f5;
 }
 .sr-only {
     position: absolute;
