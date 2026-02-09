@@ -9,8 +9,7 @@ function showError (message, fieldId) { //fieldId = id du champ concerné
 
     //affiche le message
     errorDiv.textContent = message;
-    errorDiv.style.opacity = "1";
-    errorDiv.style.visibility = "visible"; //rend visible l'élément en gardant son espace
+    errorDiv.classList.add("visible");
 
     //applique style
     const input = document.getElementById(fieldId);
@@ -27,8 +26,7 @@ function showError (message, fieldId) { //fieldId = id du champ concerné
 
     //masque l'erreur après 5s
     setTimeout(() => {
-        errorDiv.style.opacity = "0";
-        errorDiv.style.visibility = "hidden";
+        errorDiv.classList.remove("visible");
         if (input) {
             if (input.type == "checkbox") {
                 input.classList.remove("rgpd-error", "cgu-error");
@@ -39,6 +37,40 @@ function showError (message, fieldId) { //fieldId = id du champ concerné
         }
     }, 5000);
 };
+
+//Supprimer les erreurs
+function clearErrors() {
+    document.querySelectorAll(".error.visible").forEach(error => { //message visible d'erreur
+        error.classList.remove("visible");        
+    });
+    document.querySelectorAll(".input-error").forEach(input => { //champs d'erreur
+        input.classList.remove("input-error");
+        input.removeAttribute("aria-invalid");
+    });
+    document.querySelectorAll(".rgpd-error, .cgu-error").forEach(checkbox => { //style checkbox
+            checkbox.classList.remove("rgpd-error", "cgu-error");
+    });
+};
+//Supprime l'erreur si :
+    //on écrit dans textarea
+document.querySelectorAll("input:not([type='checkbox']), textarea").forEach(field => {
+    field.addEventListener("input",() => {
+        const error = document.getElementById(field.id + "_error");
+        if (error) error.classList.remove("visible");
+        field.classList.remove("input-error");
+        field.removeAttribute("aria-invalid");
+    });
+});
+    //checkox coché
+document.querySelectorAll("input[type='checkbox']").forEach(checkbox => {
+    checkbox.addEventListener("change", () => {
+        const errorCheckbox = document.getElementById(checkbox.id + "_error");
+        if (checkbox.checked && errorCheckbox) {
+            errorCheckbox.classList.remove("visible");
+            checkbox.classList.remove("rgpd-error", "cgu-error");
+        }
+    });
+});
 
 // Inscription
 const formInscription = document.getElementById("forminscription");
@@ -84,6 +116,7 @@ if (formInscription) {
         showError("Veuillez accepter les conditions générales","cgu");
         return;
     }
+    clearErrors();
     toast("Inscription réussie !");
     formInscription.reset();
 });
@@ -118,7 +151,7 @@ if (formConnexion) {
         showError(`Le mot de passe doit contenir minimum ${minPasswordLength} caractères`, "password");
         return;
     }
-
+    clearErrors();
     toast("Connexion réussie !");
     formConnexion.reset();
 });
@@ -181,6 +214,7 @@ if (formcontact) {
         showError("Veuillez consentir au traitement de vos données personnelles","rgpd");
         return;
     }
+    clearErrors();
     toast("Message envoyé !");
     charCount.textContent = `0/${maxMessageLength}`; //remet à zéro le compteur
     formcontact.reset();

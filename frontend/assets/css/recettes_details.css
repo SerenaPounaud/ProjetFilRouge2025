@@ -2,12 +2,13 @@
     visibility: hidden;
     opacity: 0;
     color: red;
-    font-size: 0.9rem;
-    margin-top: 0.25rem;
+    font-size: 15px;
+    min-height: 19px;
+    margin: 5px;
     transition: opacity 0.3s;
 }
 .input-error {
-    border: 2px solid #e57373;
+    border: 2px solid red;
     background: #fff5f5;
 }
 .error.visible {

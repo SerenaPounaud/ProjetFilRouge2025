@@ -74,17 +74,38 @@ function showError(message, fieldId) { //fieldId = id de l'élément html où s'
         }, 5000);
     };
 
+//Supprimer les erreurs
+function clearErrors() {
+    document.querySelectorAll(".error.visible").forEach(error => { //message visible d'erreur
+        error.classList.remove("visible");        
+    });
+    document.querySelectorAll(".input-error").forEach(input => { //champs d'erreur
+        input.classList.remove("input-error");
+        input.removeAttribute("aria-invalid");
+    });
+};
+//Supprime l'erreur si on écrit dans textarea/select
+document.querySelectorAll("input, select, textarea").forEach(field => {
+    field.addEventListener("input",() => {
+        const error = document.getElementById(field.id + "_error");
+        if (error) error.classList.remove("visible");
+        field.classList.remove("input-error");
+        field.removeAttribute("aria-invalid");
+    });
+});
+
 // Connexion
 function connexion() {
     const prenom = prenomInput.value.trim();
-     if(!prenom) {
+    if(!prenom) {
         showError("Veuillez entrer un prénom", "prenom");
         return;
-     }
-     if (prenom.length > 50) {
+    }
+    if (prenom.length > 50) {
         showError("Prénom trop long", "prenom");
         return;
-     }
+    }
+    clearErrors()
     user = prenom;
     localStorage.setItem("user", user); //stocke user
 

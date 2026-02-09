@@ -1,21 +1,24 @@
 .error-message {
-    color: #b00020;
-    font-size: 0.9rem;
-    margin-top: 5px;
-
-    min-height: 1.2em;   /* 👈 réserve la place */
+    color: red;
+    font-size: 15px;
+    margin: 5px;
+    min-height: 19px;   /* 👈 réserve la place */
     visibility: hidden; /* caché mais garde l’espace */
     opacity: 0;
     transition: opacity 0.3s;
 }
 /* Bordure rouge sur les champs en erreur */
 .input-error {
-    border: 2px solid #e57373;
+    border: 2px solid red;
     background: #fff5f5;
+}
+.error-message.visible {
+    opacity: 1;
+    visibility: visible;
 }
 /* Label CGU en erreur */
 .cgu-error, .rgpd-error {
-    outline: 2px solid #e57373;
+    outline: 2px solid red;
     outline-offset: 2px;
 }
 #toast {
