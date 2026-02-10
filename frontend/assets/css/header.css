@@ -1,0 +1,16 @@
+.robot {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1;
+  background: none;
+  cursor: pointer;
+  border-style: none;
+}
+.robot > img:hover {
+  transform: scale(1.2);
+}
+.robot > img {
+  height: clamp(4rem, 8vw, 6rem);
+  transition: transform 0.3s ease;
+}
