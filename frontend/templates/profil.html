@@ -3,12 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/reset_modern_normalize.css">
+    <link rel="icon" href="../assets/img/poele.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../assets/css/profil.css">
     <title>Mon compte</title>
 </head>
 <body>
-    
+    <header id="header"></header>
+<main>
+    <nav aria-label="Navigation utilisateur" class="user_nav">
+        <button type="button">Mes informations</button>
+        <button type="button">Mes favoris</button>
+        <button type="button">Mes recettes</button>
+    </nav>
 
+    <div id="profil" class="section_active"></div>
+    <div id="favoris" class="section"></div>
+    <div id="recettes" class="section"></div>
+</main>
 
-    
+    <footer id="footer"></footer>
+
+<script src="../assets/js/profil.js"></script>
+<script src="../assets/js/header.js"></script>
 </body>
 </html>
