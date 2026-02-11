@@ -74,7 +74,7 @@ getRecipeDetails(idMeal).then(meal => { //appelle la fonction, meal = recevra le
   }
   fetchRecettesSimilaires(meal.strCategory, meal.idMeal);
   
-  const { temps, personnes } = generateFixedInfo(idMeal); //déstructuration = 2 variables
+  const { heures, minutes, personnes } = generateFixedInfo(idMeal); //déstructuration = 2 variables
   const dateRecette = getDateRecette(idMeal);
 
   const dateFormatted = dateRecette.toLocaleDateString('fr-FR', { //transforme date en texte lisible pour la france
@@ -134,6 +134,18 @@ getRecipeDetails(idMeal).then(meal => { //appelle la fonction, meal = recevra le
     });
 }
 
+// Condition heures et minutes
+let afficheTemps;
+if (heures > 0) {
+  if (minutes === 0) {
+    afficheTemps = heures + "h ";
+  } else {
+    afficheTemps = heures + "h " + minutes;
+  }
+} else {
+  afficheTemps = minutes + " min";
+}
+
 // HTML final 
 const noteBlock = createNoteBlock(meal.idMeal);
 const noteHtml = noteBlock.outerHTML;
@@ -144,7 +156,7 @@ recipeDetailsDiv.innerHTML = `
 <p class='date-recette'>Publiée le <strong>${dateFormatted}</strong></p>
 <img src="${meal.strMealThumb || ''}" alt="${meal.strMeal || ''}" width="300">
 <div>
-  <p><strong>Temps de cuisson :</strong> ${temps} min</p>
+  <p><strong>Temps de cuisson :</strong> ${afficheTemps}</p>
   <p><strong>Pour :</strong> ${personnes} personne(s)</p>
 </div>
   <div class="note">
