@@ -1,12 +1,11 @@
 const boutons = document.querySelectorAll('.user_nav button');
-const sections = document.querySelectorAll('.section, .section_active');
+const sections = document.querySelectorAll('.section');
 
 // Html pour chaque section
 const contenuHtml = {
     profil: `
-    <h2>Mes informations<h2/>
-    <form action="" method="POST" id="profil" novalidate> 
-        <h3 class="sr-only">Information utilisateur</h3>
+    <h2>Mes informations</h2>
+    <form action="" method="POST" id="form_profil" novalidate> 
 
         <label for="lastname">Nom</label>
         <input type="text" id="lastname" name="lastname" placeholder="Votre nom" maxlength="50" aria-describedby="lastname_error" autocomplete="name">
@@ -27,14 +26,14 @@ const contenuHtml = {
         <button type="submit" id="btn_info">Enregistrer</button>
     </form>`,
     favoris: `
-    <h2>Mes favoris<h2/>
+    <h2>Mes favoris</h2>
     <ul>
-        <li>Recette 1<li/><button type="button" id="btn_delete">Supprimer</button>
-        <li>Recette 2<li/><button type="button" id="btn_delete">Supprimer</button>
-        <li>Recette 3<li/><button type="button" id="btn_delete">Supprimer</button>
+        <li>Recette 1</li><button type="button" id="btn_delete">Supprimer</button>
+        <li>Recette 2</li><button type="button" id="btn_delete">Supprimer</button>
+        <li>Recette 3</li><button type="button" id="btn_delete">Supprimer</button>
     <ul/>`,
     recettes: `
-    <h2>Mes recettes<h2/>
+    <h2>Ajouter une recette</h2>
     <form action="" method="POST" id="form_recette" enctype="multipart/form-data" novalidate> 
 
         <label for="nom_recette">Nom de la recette</label>
@@ -45,26 +44,81 @@ const contenuHtml = {
         <input type="file" id="img" name="img"aria-describedby="img_recette_error" accept="image/*">
         <div id="img_recette_error" class="error-message" role="alert"></div>
 
-        <label for="cuisson">Temps de cuisson</label>
-        <input type="text" id="cuisson" name="cuisson" placeholder="50 min" maxlength="5" aria-describedby="cuisson_error" autocomplete="off">
-        <div id = "cuisson_error" class="error-message" role="alert"></div>
+        <h3>Temps de cuisson</h3>
+        <label for="cuisson_h">Heures :</label>
+        <select id="cuisson_h" name="cuisson_h">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+        <div id = "cuisson_h_error" class="error-message" role="alert"></div>
+
+        <label for="cuisson_m">Minutes :</label>
+        <select id="cuisson_m" name="cuisson_m">
+            <option value="0">0</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+            <option value="30">30</option>
+            <option value="35">35</option>
+            <option value="40">40</option>
+            <option value="45">45</option>
+            <option value="50">50</option>
+            <option value="55">55</option>
+        </select>
+        <div id = "cuisson_m_error" class="error-message" role="alert"></div>
 
         <label for="nb_personnes">Nombre de personnes</label>
         <input type="number" id="nb_personnes" name="nb_personnes" min="1" value="1" aria-describedby="nb_personnes_error" autocomplete="off">
         <div id = "nb_personnes_error" class="error-message" role="alert"></div>
 
         <label for="ingredients">Ingrédients</label>
-        <input type="text" id="ingredients" name="ingredients" placeholder="Min 3 caractères" aria-describedby="ingredients_error" maxlength="20" autocomplete="off">
+        <input type="text" id="ingredients" name="ingredients" placeholder="Ajouter un ingrédient" aria-describedby="ingredients_error" maxlength="20" autocomplete="off">
+        <button type="button" id="ajout_ingredient">Ajouter</button>
+        <ul id="ingredient_list"></ul>
         <div id = "ingredients_error" class="error-message" role="alert"></div>
 
-        <label for="ingredients">Instructions</label>
-        <input type="text" id="ingredients" name="ingredients" placeholder="Min 3 caractères" aria-describedby="ingredients_error" maxlength="20" autocomplete="off">
-        <div id = "ingredients_error" class="error-message" role="alert"></div>
+        <label for="insctructions">Instructions</label>
+        <textarea type="text" id="instructions" name="instructions" placeholder="Etape 1 :..." aria-describedby="instruction_error" maxlength="60000" autocomplete="off"></textarea>
+        <div id = "instructions_error" class="error-message" role="alert"></div>
 
-        <button type="submit" id="btn_info">Enregistrer</button>
-    </form>`
+        <label for="mots_cles">Mots clés</label>
+        <input type="text" id="mots_cles" name="mots_cles" placeholder="Ajouter un mot clé" aria-describedby="mots_cles_error" minlength="3" maxlength="20" autocomplete="off">
+        <button type="button" id="ajout_mot_cle">Ajouter</button>
+        <ul id="mot_cle_list"></ul>
+        <div id = "mots_cles_error" class="error-message" role="alert"></div>
+
+        <button type="submit" id="btn_recette">Enregistrer</button>
+    </form>
+    
+    <h2>Mes recettes :</h2>
+    <p>Ici d'affiche mes recettes</p>`
 }
 
+// Affiche la section sélectionné
+function afficheSection(index) {
+    sections.forEach((section, i) => {
+        if (i === index) {
+            if (!section.dataset.loaded) {
+                section.innerHTML = contenuHtml[section.id];
+                section.dataset.loaded = "true";
+            }
+            section.classList.add('active');
+        } else {
+            section.classList.remove('active');
+        }
+    });
+}
+
+// Evenement de changement de section
+boutons.forEach((button, index) => {
+    button.addEventListener('click', () => afficheSection(index));
+});
+afficheSection(0); //affiche par défaut le première section
 
 fetch("../templates/header.html")
   .then(res => res.text())
