@@ -22,8 +22,9 @@ function focusAndScrollToSearch(retry = 0) {
         setTimeout(() => focusAndScrollToSearch(retry + 1), 150); //réessaye après 150 ms, +1 éviter une boucle infinie
         return;
     }
-    barreRecherche.focus(); //redirige vers la barre de recherche
+    
     barreRecherche.scrollIntoView({ behavior: 'smooth', block: 'center'}); //scroll si besoin
+    barreRecherche.focus({ preventScroll: true}); //redirige vers la barre de recherche
     history.replaceState(null, '', window.location.pathname); //nettoie l'url
 }
 

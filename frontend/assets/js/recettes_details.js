@@ -9,7 +9,7 @@ if (!idMeal) { //vérifie si idMeal est vide ou null et affiche un message si c'
   recipeDetailsDiv.innerHTML = '<p>Aucune recette sélectionnée.</p>';
 } else {
   async function getRecipeDetails(id) { //si il existe => fonction asynchrome pour récupérer la recette via l'API
-    try {                              //try pour gérer les erreurs
+    try { //try pour gérer les erreurs
       const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`); //récupère les détails de la recette correspondant à l'id
       const data = await response.json(); //transforme la réponse en objet js via .json
       return data.meals ? data.meals[0] : null; //vérifie si data.meals existe, si oui renvoie le premier élément du tableau meals

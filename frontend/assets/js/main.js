@@ -25,6 +25,7 @@ const cache_key = 'allMealsCache'; //stock les recettes
 const cache_time_key = 'allMealsCacheTime'; //stock la première heure de stockage ou actualisation
 const cache_duree = 24*60*60*1000; //stock 24h en ms
 
+// Stockage recette dans le localstorage
 async function fetchAllRecipes(forceRefresh = false) { //force le rafraichissement
     //Vérifie le cache
     const cachedMeals = localStorage.getItem(cache_key);

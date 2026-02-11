@@ -231,10 +231,13 @@ if (messageInput && charCount) {
 
 const header = document.getElementById("header");
 if (header) {
-fetch("../templates/header.html")
+    fetch("../templates/header.html")
     .then(res => res.text())
-    .then(data => header.innerHTML = data);
-};
+    .then(data => {
+    document.getElementById("header").innerHTML = data;
+    initHeaderSearch();
+});
+}
 
 const footer = document.getElementById("footer");
 if (footer) {   
