@@ -14,6 +14,10 @@
     background-color: #007bff;
     color: white;
 }
+.user_nav button.active {
+    background-color: #007bff;
+    color: white;
+}
 .section {
     display: none; /* caché par défaut */
     padding: 20px;

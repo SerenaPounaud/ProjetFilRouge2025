@@ -6,24 +6,28 @@
     <link rel="stylesheet" href="../assets/css/reset_modern_normalize.css">
     <link rel="icon" href="../assets/img/poele.ico" type="image/x-icon">
     <link rel="stylesheet" href="../assets/css/profil.css">
+    <link rel="stylesheet" href="../assets/css/error.css">
     <title>Mon compte</title>
 </head>
 <body>
     <header id="header"></header>
+    <div id="toast" role="status"></div> 
 <main>
     <nav aria-label="Navigation utilisateur" class="user_nav">
-        <button type="button">Mes informations</button>
-        <button type="button">Mes favoris</button>
-        <button type="button">Mes recettes</button>
+        <button type="button" data-target="profil">Mes informations</button>
+        <button type="button" data-target="favoris">Mes favoris</button>
+        <button type="button" data-target="recettes">Mes recettes</button>
     </nav>
 
-    <div id="profil" class="section_active"></div>
+    <div id="profil" class="section"></div>
     <div id="favoris" class="section"></div>
     <div id="recettes" class="section"></div>
 </main>
 
     <footer id="footer"></footer>
 
+<script src="../assets/js/toast.js"></script>
+<script src="../assets/js/formulaire.js"></script>
 <script src="../assets/js/profil.js"></script>
 <script src="../assets/js/header.js"></script>
 </body>

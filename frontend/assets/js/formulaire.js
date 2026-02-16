@@ -38,7 +38,7 @@ function showError (message, fieldId) { //fieldId = id du champ concerné
     }, 5000);
 };
 
-//Supprimer les erreurs
+//Supprime les erreurs après un submit
 function clearErrors() {
     document.querySelectorAll(".error.visible").forEach(error => { //message visible d'erreur
         error.classList.remove("visible");        
@@ -218,6 +218,156 @@ if (formcontact) {
     toast("Message envoyé !");
     charCount.textContent = `0/${maxMessageLength}`; //remet à zéro le compteur
     formcontact.reset();
+});
+}
+
+// Profil
+function FormProfil() {
+    const formProfil = document.getElementById('form_profil');
+    if (!formProfil) return;
+    if (formProfil.dataset.initialized) return; //évite plusieurs submit car section injectée dynamiquement
+    formProfil.dataset.initialized = "true";
+
+        formProfil.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const maxNameLength = 50;
+        const nom = document.getElementById("lastname").value.trim();
+        const prenom = document.getElementById("firstname").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        if (!nom) {
+            showError ("Veuillez entrer votre nom", "lastname");
+            return;
+        }
+        if (nom.length > maxNameLength) {
+            showError (`Le nom ne doit pas dépasser ${maxNameLength} caractères`, "lastname");
+            return;
+        }
+        if (!prenom) {
+            showError("Veuillez entrer votre prénom", "firstname");
+            return;
+        }
+        if (prenom.length > maxNameLength) {
+            showError (`Le prénom ne doit pas dépasser ${maxNameLength} caractères`, "firstname");
+            return;
+        }
+        if (!email) {
+            showError ("Veuillez entrer votre email", "email");
+            return;
+        }
+        if (!emailRegex.test(email)) {
+            showError("Email invalide Ex: exemple@gmail.fr", "email");
+            return;
+        }
+        if (email.length > maxEmailLength) {
+            showError(`L'email ne doit pas contenir plus de ${maxEmailLength} caractères`, "email");
+            return;
+        }
+        if (!password) {
+            showError("Veuillez entrer votre mot de passe", "password");
+            return;
+        }
+        if (password.length < minPasswordLength) {
+            showError(`Le mot de passe doit contenir minimum ${minPasswordLength} caractères`, "password");
+            return;
+        }
+        clearErrors();
+        toast("Informations modifiés !");
+        formProfil.reset();
+    });
+    // Supprimer erreur si correction
+    document.querySelectorAll("input").forEach(field => {
+    field.addEventListener("input",() => {
+        const error = document.getElementById(field.id + "_error");
+        if (error) error.classList.remove("visible");
+        field.classList.remove("input-error");
+        field.removeAttribute("aria-invalid");
+    });
+});
+}
+
+// Intégration recette
+function FormRecette() {
+    const formrecette = document.getElementById('form_recette');
+    if (!formrecette) return;
+    if (formrecette.dataset.initialized) return; //évite plusieurs submit car section injectée dynamiquement
+    formrecette.dataset.initialized = "true";
+
+        formrecette.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const maxNameLength = 50;
+        const maxTextearea = 60000;
+        const maxPersonnesLength = 10
+        const minPersonnesLength = 1
+        const maxIngreLength = 20
+        const nomRecette = document.getElementById("nom_recette").value.trim();
+        const img = document.getElementById("img").value;
+        const cuisson_H = document.getElementById("cuisson_h").value;
+        const cuisson_M = document.getElementById("cuisson_m").value;
+        const nb_personnes = document.getElementById("nb_personnes").value.trim();
+        const ingredients = document.getElementById("ingredients").value.trim();
+        const instructions = document.getElementById("instructions").value.trim();
+        const mots_cles = document.getElementById("mots_cles").value.trim();
+
+        if (!nomRecette) {
+            showError ("Veuillez entrer un nom pour la recette", "nom_recette");
+            return;
+        }
+        if (nomRecette.length > maxNameLength) {
+            showError (`Le nom ne doit pas dépasser ${maxNameLength} caractères`, "nom_recette");
+            return;
+        }
+        if (!img) {
+            showError("Veuillez téléverser une image", "img");
+            return;
+        }
+        if (!cuisson_H) {
+            showError ("Veuillez entrer une heure", "cuisson_h");
+            return;
+        }
+        if (!cuisson_M) {
+            showError ("Veuillez entrer des minutes", "cuisson_m");
+            return;
+        }
+        if (!nb_personnes) {
+            showError ("Veuillez indiquer le nombre de personnes", "nb_personnes");
+            return;
+        }
+        if (nb_personnes.length > maxPersonnesLength) {
+            showError(`Le nombre de personnes ne peut pas exéder plus de ${maxPersonnesLength} personnes`, "nb_personnes");
+            return;
+        }
+        if (nb_personnes.length > minPersonnesLength) {
+            showError(`Le nombre de personnes doit être de minimum ${minPersonnesLength} personne`, "nb_personnes");
+            return;
+        }
+        if (!ingredients) {
+            showError("Veuillez écrire vos ingrédients", "ingredients");
+            return;
+        }
+        if (ingredients.length > maxIngreLength) {
+            showError(`Le nom ne peut pas dépasser ${maxIngreLength} caractères", "ingredients`);
+            return;
+        }
+        if (!instructions) {
+            showError(`Le mot de passe doit contenir minimum ${minPasswordLength} caractères`, "password");
+            return;
+        }
+        clearErrors();
+        toast("Informations modifiés !");
+        formProfil.reset();
+    });
+    // Supprimer erreur si correction
+    document.querySelectorAll("input").forEach(field => {
+    field.addEventListener("input",() => {
+        const error = document.getElementById(field.id + "_error");
+        if (error) error.classList.remove("visible");
+        field.classList.remove("input-error");
+        field.removeAttribute("aria-invalid");
+    });
 });
 }
 
