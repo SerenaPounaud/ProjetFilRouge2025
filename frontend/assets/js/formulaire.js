@@ -298,16 +298,19 @@ function FormRecette() {
         formrecette.addEventListener("submit", (e) => {
         e.preventDefault();
 
-        const maxNameLength = 50;
+        const maxNameLength = 30;
         const maxTextearea = 60000;
         const maxPersonnesLength = 10
         const minPersonnesLength = 1
         const maxIngreLength = 20
         const nomRecette = document.getElementById("nom_recette").value.trim();
-        const img = document.getElementById("img").value;
-        const cuisson_H = document.getElementById("cuisson_h").value;
-        const cuisson_M = document.getElementById("cuisson_m").value;
-        const nb_personnes = document.getElementById("nb_personnes").value.trim();
+        const img = document.getElementById("img");
+        const select_H = document.getElementById("cuisson_h");
+        const select_M = document.getElementById("cuisson_m");
+        const m = select_M.value;
+        const h = select_H.value;
+        const nb_personnes_input = document.getElementById("nb_personnes").value.trim();
+        const nb_personnes = Number(nb_personnes_input);
         const ingredients = document.getElementById("ingredients").value.trim();
         const instructions = document.getElementById("instructions").value.trim();
         const mots_cles = document.getElementById("mots_cles").value.trim();
@@ -320,28 +323,24 @@ function FormRecette() {
             showError (`Le nom ne doit pas dépasser ${maxNameLength} caractères`, "nom_recette");
             return;
         }
-        if (!img) {
+        /*if (img.files.length === 0) {
             showError("Veuillez téléverser une image", "img");
             return;
-        }
-        if (!cuisson_H) {
-            showError ("Veuillez entrer une heure", "cuisson_h");
+        }*/
+        if (h === "0" && m === "0") {
+            showError ("Veuillez indiquer un temps de cuisson", "cuisson_h");
+            showError ("", "cuisson_m"); //supprime le message après 5s
+            //affiche les deux selects en rouge
+            select_H.classList.add("input-error");
+            select_M.classList.add("input-error");
             return;
         }
-        if (!cuisson_M) {
-            showError ("Veuillez entrer des minutes", "cuisson_m");
-            return;
-        }
-        if (!nb_personnes) {
+        if (!nb_personnes_input || isNaN(nb_personnes)) { //vérifie si champ vide ou entrée non numérique
             showError ("Veuillez indiquer le nombre de personnes", "nb_personnes");
             return;
         }
-        if (nb_personnes.length > maxPersonnesLength) {
-            showError(`Le nombre de personnes ne peut pas exéder plus de ${maxPersonnesLength} personnes`, "nb_personnes");
-            return;
-        }
-        if (nb_personnes.length > minPersonnesLength) {
-            showError(`Le nombre de personnes doit être de minimum ${minPersonnesLength} personne`, "nb_personnes");
+        if (nb_personnes < minPersonnesLength || nb_personnes > maxPersonnesLength) {
+            showError(`Le nombre de personnes doit être compris entre ${minPersonnesLength} et ${maxPersonnesLength} personnes`, "nb_personnes");
             return;
         }
         if (!ingredients) {
@@ -349,19 +348,32 @@ function FormRecette() {
             return;
         }
         if (ingredients.length > maxIngreLength) {
-            showError(`Le nom ne peut pas dépasser ${maxIngreLength} caractères", "ingredients`);
+            showError(`Le nom ne peut pas dépasser ${maxIngreLength} caractères`, "ingredients");
             return;
         }
         if (!instructions) {
-            showError(`Le mot de passe doit contenir minimum ${minPasswordLength} caractères`, "password");
+            showError("Veuillez inscrire les instructions de la recette", "instructions");
+            return;
+        }
+        if (instructions.length > maxTextearea) {
+            showError(`Les instructions ne peuvent excéder ${maxTextearea} caractères`, "instructions");
+            return;
+        }
+        if (!mots_cles) {
+            showError("Veuillez inscrire des mots-clés", "mots_cles");
+            return;
+        }
+        if (mots_cles.length > maxIngreLength) {
+            showError(`Le mot-clé ne peut pas dépasser ${maxIngreLength} caractères`, "mots_cles");
             return;
         }
         clearErrors();
-        toast("Informations modifiés !");
-        formProfil.reset();
+        toast("Recette ajoutée !");
+        formrecette.reset();
     });
+    
     // Supprimer erreur si correction
-    document.querySelectorAll("input").forEach(field => {
+    document.querySelectorAll("input, select, textarea").forEach(field => {
     field.addEventListener("input",() => {
         const error = document.getElementById(field.id + "_error");
         if (error) error.classList.remove("visible");

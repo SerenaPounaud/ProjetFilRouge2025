@@ -52,12 +52,12 @@ const contenuHtml = {
         <form action="" method="POST" id="form_recette" enctype="multipart/form-data" novalidate> 
 
             <label for="nom_recette">Nom de la recette</label>
-            <input type="text" id="nom_recette" name="nom_recette" placeholder="Nom de la recette" maxlength="50" aria-describedby="nom_recette_error" autocomplete="off">
+            <input type="text" id="nom_recette" name="nom_recette" placeholder="Nom de la recette" maxlength="30" aria-describedby="nom_recette_error" autocomplete="off">
             <div id="nom_recette_error" class="error-message" role="alert"></div>
 
             <label for="img">Image</label>
-            <input type="file" id="img" name="img"aria-describedby="img_recette_error" accept="image/*">
-            <div id="img_recette_error" class="error-message" role="alert"></div>
+            <input type="file" id="img" name="img"aria-describedby="img_error" accept="image/*">
+            <div id="img_error" class="error-message" role="alert"></div>
 
             <h4>Temps de cuisson</h4>
             <label for="cuisson_h">Heures :</label>
@@ -97,7 +97,7 @@ const contenuHtml = {
             <ul id="ingredient_list"></ul>
             <div id = "ingredients_error" class="error-message" role="alert"></div>
 
-            <label for="insctructions">Instructions</label>
+            <label for="instructions">Instructions</label>
             <textarea type="text" id="instructions" name="instructions" placeholder="Etape 1 :..." aria-describedby="instruction_error" maxlength="60000" autocomplete="off"></textarea>
             <div id = "instructions_error" class="error-message" role="alert"></div>
 
@@ -131,6 +131,9 @@ function afficheSection(id) {
     });
     if (id === "profil") {
         FormProfil();
+    }
+    if (id === "recettes") {
+        FormRecette();
     }
     // Bouton actif
     boutons.forEach(button => {
