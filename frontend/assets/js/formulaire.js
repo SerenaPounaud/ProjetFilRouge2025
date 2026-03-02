@@ -76,14 +76,32 @@ document.querySelectorAll("input[type='checkbox']").forEach(checkbox => {
 const formInscription = document.getElementById("forminscription");
 if (formInscription) {
     formInscription.addEventListener("submit", (e) => {
-    e.preventDefault(); //empêche d'envoyer au backend
+    e.preventDefault();
 
+    const nom = document.getElementById("lastname").value.trim();
+    const prenom = document.getElementById("firstname").value.trim();
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
     const confirmPassword = document.getElementById("confirm_password").value.trim();
     const cgu = document.getElementById("cgu").checked;
     const maxPasswordLength = 20;
 
+    if (!nom) {
+        showError ("Veuillez entrer votre nom", "lastname");
+        return;
+    }
+    if (nom.length > maxNameLength) {
+        showError (`Le nom ne doit pas dépasser ${maxNameLength} caractères`, "lastname");
+        return;
+    }
+     if (!prenom) {
+        showError("Veuillez entrer votre prénom", "firstname");
+        return;
+    }
+    if (prenom.length > maxNameLength) {
+        showError (`Le prénom ne doit pas dépasser ${maxNameLength} caractères`, "firstname");
+        return;
+    }
     if (!email) {
         showError("Veuillez entrer votre email", "email");
         return;
@@ -222,7 +240,7 @@ if (formcontact) {
 }
 
 // Profil
-function FormProfil() {
+function formProfil() {
     const formProfil = document.getElementById('form_profil');
     if (!formProfil) return;
     if (formProfil.dataset.initialized) return; //évite plusieurs submit car section injectée dynamiquement
@@ -289,20 +307,54 @@ function FormProfil() {
 }
 
 // Intégration recette
-function FormRecette() {
+function formRecette() {
     const formrecette = document.getElementById('form_recette');
     if (!formrecette) return;
     if (formrecette.dataset.initialized) return; //évite plusieurs submit car section injectée dynamiquement
     formrecette.dataset.initialized = "true";
 
+        const maxIngreLength = 20
+        const inputIngredients = document.getElementById("ingredients");
+        const btnAjoutIngredient = document.getElementById("ajout_ingredient");
+        const ingredientsListe = document.getElementById("ingredient_list");
+        let tabIngredients = [];
+        if (!inputIngredients || !btnAjoutIngredient || !ingredientsListe) return;
+
+        // Ajout liste d'ingrédients
+        btnAjoutIngredient.addEventListener("click", () => {
+        const valeur = inputIngredients.value.trim();
+        if (!valeur) {
+            showError("Veuillez écrire vos ingrédients", "ingredients");
+            return;
+        }
+        if (valeur.length > maxIngreLength) {
+            showError(`Le nom ne peut pas dépasser ${maxIngreLength} caractères`, "ingredients");
+            return;
+        }
+        clearErrors();
+            tabIngredients.push(valeur);
+            const li = document.createElement("li");
+            li.textContent = valeur;
+
+            const btnSupprimer = document.createElement("button");
+            btnSupprimer.textContent = "Supprimer";
+            btnSupprimer.type = "button";
+            btnSupprimer.addEventListener("click", () => {
+                li.remove();
+                tabIngredients = tabIngredients.filter(i => i !== valeur);
+            });
+            li.appendChild(btnSupprimer);
+            ingredientsListe.appendChild(li);
+
+            inputIngredients.value = "";
+        });
+
         formrecette.addEventListener("submit", (e) => {
         e.preventDefault();
-
         const maxNameLength = 30;
         const maxTextearea = 60000;
         const maxPersonnesLength = 10
         const minPersonnesLength = 1
-        const maxIngreLength = 20
         const nomRecette = document.getElementById("nom_recette").value.trim();
         const img = document.getElementById("img");
         const select_H = document.getElementById("cuisson_h");
@@ -311,7 +363,6 @@ function FormRecette() {
         const h = select_H.value;
         const nb_personnes_input = document.getElementById("nb_personnes").value.trim();
         const nb_personnes = Number(nb_personnes_input);
-        const ingredients = document.getElementById("ingredients").value.trim();
         const instructions = document.getElementById("instructions").value.trim();
         const mots_cles = document.getElementById("mots_cles").value.trim();
 
@@ -323,10 +374,15 @@ function FormRecette() {
             showError (`Le nom ne doit pas dépasser ${maxNameLength} caractères`, "nom_recette");
             return;
         }
-        /*if (img.files.length === 0) {
+        if (img.files.length === 0) {
             showError("Veuillez téléverser une image", "img");
             return;
-        }*/
+        }
+        const fichier = img.files[0]; // vérifie que c'est une image
+        if (!fichier.type.startsWith("image/")) {
+            showError("Le fichier doit être une image", "img");
+            return;
+        }
         if (h === "0" && m === "0") {
             showError ("Veuillez indiquer un temps de cuisson", "cuisson_h");
             showError ("", "cuisson_m"); //supprime le message après 5s
@@ -343,12 +399,8 @@ function FormRecette() {
             showError(`Le nombre de personnes doit être compris entre ${minPersonnesLength} et ${maxPersonnesLength} personnes`, "nb_personnes");
             return;
         }
-        if (!ingredients) {
+        if (tabIngredients.length === 0) {
             showError("Veuillez écrire vos ingrédients", "ingredients");
-            return;
-        }
-        if (ingredients.length > maxIngreLength) {
-            showError(`Le nom ne peut pas dépasser ${maxIngreLength} caractères`, "ingredients");
             return;
         }
         if (!instructions) {
@@ -370,6 +422,14 @@ function FormRecette() {
         clearErrors();
         toast("Recette ajoutée !");
         formrecette.reset();
+        ingredientsListe.innerHTML = "";
+        tabIngredients.length = 0;
+    });
+    inputIngredients.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            btnAjoutIngredient.click();
+        }
     });
     
     // Supprimer erreur si correction
