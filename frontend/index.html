@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/reset_modern_normalize.css">
     <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
+    <script src="assets/js/random.js" defer></script>
+    <script src="assets/js/main.js" defer></script>
+    <script src="assets/js/header.js" defer></script>
+    <script src="assets/js/toast.js" defer></script> 
     <title>Miam & Co</title>
     <link rel="icon" href="assets/img/poele.ico" type="image/x-icon">
 </head>
@@ -125,13 +130,36 @@
 </section>
 </main>
 
-    <footer id="footer"></footer>
-
-    <!--Mis en bas de page pour ne pas ralentir le chargement de la page-->
-
-    <script src="assets/js/random.js"></script>
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/header.js"></script>
-    <script src="assets/js/toast.js"></script> 
+    <footer class="footer"> 
+        <nav aria-label="Liens vers les réseaux sociaux" class="logo_bas_de_page"><!--ouvrir dans un autre onglet + empêche x d’accéder à l'onglet actuel + n’envoie pas l’URL du site à x-->
+            <a href="" target="_blank" rel="noopener noreferrer" title="Lien vers Facebook"></a>
+                <img src="assets/img/facebook.webp" alt="Logo Facebook" class="icon"> 
+            <a href="" target="_blank" rel="noopener noreferrer" title="Lien vers Instagram"></a>
+                <img src="assets/img/instagram.webp" alt="Logo Instagram" class="icon">
+            <a href="" target="_blank" rel="noopener noreferrer" title="Lien vers Twitter"></a>
+                <img src="assets/img/twitter.webp" alt="Logo X/Twitter" class="icon">
+        </nav>
+        <div class="footer-columns">
+            <ul>
+                <li><a href="">Présentations</a></li>
+                <li><a href="">Professionnels</a></li>
+                <li><a href="">Boutique</a></li>
+                <li><a href="">Webinaires</a></li>
+            </ul>
+            <ul>
+                <li><a href="">Ateliers</a></li>
+                <li><a href="">Rencontres locales</a></li>
+                <li><a href="">Nos initiatives</a></li>
+                <li><a href="">Redonner</a></li>
+            </ul>
+            <ul>
+                <li><a href="">Communautés</a></li>
+                <li><a href="">Formulaire de contact</a></li>
+                <li><a href="">Travailler avec nous</a></li>
+                <li><a href="">Nous rendre visite</a></li>
+            </ul>
+        </div>
+            <p>Crée par la ville de Saint Ciers sur Gironde.</p>
+    </footer>
 </body>
 </html>
