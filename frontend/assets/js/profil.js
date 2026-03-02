@@ -88,7 +88,7 @@ const contenuHtml = {
             <div id = "cuisson_m_error" class="error-message" role="alert"></div>
 
             <label for="nb_personnes">Nombre de personnes</label>
-            <input type="number" id="nb_personnes" name="nb_personnes" min="1" max ="10" value="1" aria-describedby="nb_personnes_error" autocomplete="off" maxlength="10" minlength="1">
+            <input type="number" id="nb_personnes" name="nb_personnes" min="1" max ="10" value="1" aria-describedby="nb_personnes_error" autocomplete="off">
             <div id = "nb_personnes_error" class="error-message" role="alert"></div>
 
             <label for="ingredients">Ingrédients</label>
@@ -116,6 +116,7 @@ const contenuHtml = {
     </div>`
 }
 
+
 // Affiche la section sélectionné
 function afficheSection(id) {
     sections.forEach(section => {
@@ -130,10 +131,10 @@ function afficheSection(id) {
         }
     });
     if (id === "profil") {
-        FormProfil();
+        formProfil();
     }
     if (id === "recettes") {
-        FormRecette();
+        formRecette();
     }
     // Bouton actif
     boutons.forEach(button => {
