@@ -29,7 +29,7 @@ function conditionCommentaire() {
 
 // Vider l'input au chargement de la page
 window.addEventListener("load", () => {
-    if (prenomInput) prenomInput.value = ""; //si il existe, réinitialise la valeur
+    if (prenomInput) prenomInput.value = "";
 
     user = localStorage.getItem("user"); //retourne prenom ou rien
     conditionCommentaire();
@@ -126,7 +126,7 @@ function deconnexion() {
 // Condition commentaire
 function displayComments() {
     const contenu = document.getElementById("commentaires");
-    contenu.innerHTML = ""; //réinitialise l'affichage
+    contenu.innerHTML = "";
     contenu.setAttribute("aria-live", "polite"); //pas d'interruption brutale
 
     if(commentaires.length === 0) {
