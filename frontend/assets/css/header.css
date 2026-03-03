@@ -14,3 +14,52 @@
   height: clamp(4rem, 8vw, 6rem);
   transition: transform 0.3s ease;
 }
+
+/*Navbar*/
+nav {
+  display: flex;
+}
+.nav-droite, .nav-centre, .nav-gauche {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.nav-gauche {
+  justify-content: center;
+  gap: 100px;
+}
+.nav-droite {
+  justify-content: center;
+  gap: 100px;
+}
+.nav-centre {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.logo {
+  width: 20%;
+}
+.titre_h1{
+  font-size: 20px;
+}
+.loupe  {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.loupe:hover {
+  transform: scale(1.5);
+}
+nav a {
+  color: black;
+  font-size: 20px;
+  text-decoration: none;
+}
+.inscrire {
+  border-radius: 30px;
+  color: white;
+  background-color: rgb(245, 60, 60);
+  padding: 3% 5%;
+}

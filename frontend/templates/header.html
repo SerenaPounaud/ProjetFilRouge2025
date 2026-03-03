@@ -8,24 +8,29 @@
     <link rel="icon" href="../assets/img/poele.ico" type="image/x-icon">
 </head>
 <body>
-    <header class="header">
-        <span class="robot">
+        <button class="robot" type="button">
             <img src="../assets/img/chatbot.webp" alt="Image d'un robot">
-        </span>
-        <div class="logo_titre">
-            <a href="../index.html">
-                <img src="../assets/img/poele.ico" alt="Logo Miam & Co" class="logo">
-            </a>
-            <p class="titre_h1">Miam & Co</p>
-        </div>
+        </button>
+    <header class="header">
         <nav aria-label="Navigation principale">
-            <a href="../index.html">Accueil</a>
-            <a href="contact.html">Contact</a>
-            <button id="btn_loupe" type="button" aria-label="Rechercher une recette">
-                <img src="../assets/img/loupe.svg" alt="Logo d'une loupe pour la recherche" height="30px">
-            </button>
-            <a href="connexion.html">Se connecter</a>
-            <a href="inscription.html">S'inscrire</a>
+            
+            <div class="nav-gauche">
+                <a href="../index.html">Accueil</a>
+                <a href="templates/contact.html">Contact</a>
+            </div>
+            
+            <div class="nav-centre">
+                <img src="../assets/img/poele.ico" alt="Logo Miam & Co" class="logo">
+                <h1 class="titre_h1">Miam & Co - Accueil</h1>
+            </div>
+
+            <div class="nav-droite">
+                <button class="loupe" id="btn_loupe" type="button" aria-label="Rechercher une recette" title="Rechercher une recette">
+                    <img src="../assets/img/loupe.svg" alt="Logo d'une loupe pour la recherche" height="30px">
+                </button>
+                <a href="connexion.html">Se connecter</a>
+                <a class="inscrire" href="inscription.html">S'inscrire</a>
+            </div>
         </nav>
     </header>
 </body>

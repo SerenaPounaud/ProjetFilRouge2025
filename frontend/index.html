@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="assets/css/reset_modern_normalize.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/footer.css">
+    <link rel="stylesheet" href="assets/css/header.css">
     <script src="assets/js/random.js" defer></script>
     <script src="assets/js/main.js" defer></script>
     <script src="assets/js/header.js" defer></script>
@@ -19,18 +20,25 @@
             <img src="assets/img/chatbot.webp" alt="Image d'un robot">
         </button>
     <header class="header">
-        <div class="logo_titre">
-            <img src="assets/img/poele.webp" alt="Logo Miam & Co" class="logo">
-            <h1 class="titre_h1">Miam & Co - Accueil</h1>
-        </div>
         <nav aria-label="Navigation principale">
-            <a href="./index.html">Accueil</a>
-            <a href="templates/contact.html">Contact</a>
-            <button id="btn_loupe" type="button" aria-label="Rechercher une recette" title="Rechercher une recette">
-                <img src="assets/img/loupe.svg" alt="Logo d'une loupe pour la recherche" height="30px">
-            </button>
-            <a href="templates/connexion.html">Se connecter</a>
-            <a href="templates/inscription.html">S'inscrire</a>
+            
+            <div class="nav-gauche">
+                <a href="./index.html">Accueil</a>
+                <a href="templates/contact.html">Contact</a>
+            </div>
+            
+            <div class="nav-centre">
+                <img src="assets/img/poele.webp" alt="Logo Miam & Co" class="logo">
+                <h1 class="titre_h1">Miam & Co - Accueil</h1>
+            </div>
+
+            <div class="nav-droite">
+                <button class="loupe" id="btn_loupe" type="button" aria-label="Rechercher une recette" title="Rechercher une recette">
+                    <img src="assets/img/loupe.svg" alt="Logo d'une loupe pour la recherche" height="30px">
+                </button>
+                <a href="templates/connexion.html">Se connecter</a>
+                <a class="inscrire" href="templates/inscription.html">S'inscrire</a>
+            </div>
         </nav>
     </header>
 <main>
@@ -42,7 +50,7 @@
         </picture>
         <div class="p_header">   
             <p>Choisissez parmi des milliers de recettes</p>
-            <a href="templates/connexion.html" title="Se connecter ou s'incrire">Inscrivez-vous -></a>
+            <a href="templates/inscription.html" title="Se connecter ou s'incrire">Inscrivez-vous -></a>
         </div> 
     </div>
 
