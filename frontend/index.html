@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="stylesheet" href="assets/css/header.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
     <script src="assets/js/random.js" defer></script>
     <script src="assets/js/main.js" defer></script>
     <script src="assets/js/header.js" defer></script>
@@ -42,20 +43,16 @@
         </nav>
     </header>
 <main>
-    <div class="headerIndex">
-        <picture> <!--Affiche un format d'image adapté à l'ancienneté du navigateur-->
-            <source srcset="assets/img/happy-woman-biting-slice-tasty-260nw-2587042729.webp" type="image/webp">
-            <source srcset="assets/img/happy-woman-biting-slice-tasty-260nw-2587042729.avif" type="image/avif">
-            <img src="assets/img/happy-woman-biting-slice-tasty-260nw-2587042729.jpg" alt="Femme qui mange en souriant">
-        </picture>
+    <div class="headerImg">
+            <img src="assets/img/dame_pizza.webp" alt="Femme qui mange en souriant">
         <div class="p_header">   
             <p>Choisissez parmi des milliers de recettes</p>
-            <a href="templates/inscription.html" title="Se connecter ou s'incrire">Inscrivez-vous -></a>
+            <a href="templates/inscription.html" title="Se connecter ou s'incrire">Inscrivez-vous ➔</a>
         </div> 
     </div>
 
 <section class="middleIndex">
-    <aside aria-label="Catégories de recettes"> <!--section gauche pour la recherche par catégories-->
+    <aside aria-label="Catégories de recettes" class="li_aside"> <!--section gauche pour la recherche par catégories-->
         <h2>Recettes</h2> 
         <ul id="liste_categories"></ul> <!--Affiche la liste des catégories-->
     </aside>
@@ -71,10 +68,11 @@
                     placeholder="Rechercher par mots clés..." 
                     aria-label="Champ de recherche par mots clés">
             </form>
-            <div>
+                <div>
                     <p>Pour être sûr de voir les dernières recettes -></p>
                     <button id="btn_refresh" type="button" aria-label="Actualiser les recettes" title="Actualisez les recettes">Cliquez ici</button>
                     <span id="refresh_status" aria-live="polite" class="refresh_status"></span>
+                </div>
                 <div>
                     <p>Filtrer par :</p>       
                     <label for="btn_personnes">Personnes</label>
@@ -95,7 +93,6 @@
                     </select>
                 </div>
                 <button id="btn_reset" type="button" aria-label="Réinitialiser la recherche">Réinitialiser</button>
-            </div> 
         </div>
         <div class="recettes" id="recettes">
             <!--Les recettes s'affichent ici-->

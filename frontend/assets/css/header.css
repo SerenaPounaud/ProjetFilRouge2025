@@ -16,6 +16,9 @@
 }
 
 /*Navbar*/
+header {
+  margin-bottom: 30px;
+}
 nav {
   display: flex;
 }
