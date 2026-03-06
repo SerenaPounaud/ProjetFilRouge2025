@@ -80,16 +80,16 @@ button.active {
 }
 
 /*Zone recherche*/
+.zone_recettes {
+  margin-right: 5%;
+}
 .zone_recherche {
   display: flex;
   gap: 20px;
-}
-.zone_recherche div {
-  flex: 1;
+  align-items: center;
 }
 .barre_recherche {
   display: flex;
-  align-items: center;
   width: 30%;
   gap: 10px;
 }
@@ -118,11 +118,10 @@ button.active {
 }
 .actualisation {
   display: flex;
-  align-items: center;
   gap: 10px;
-}
-.actualisation p {
-  white-space: nowrap; /*empêche de revenir à la ligne*/
+  flex: 2;
+  align-items: center;
+  text-align: left;
 }
 #btn_refresh {
   background-color: rgb(245, 60, 60);
@@ -135,11 +134,12 @@ button.active {
 .filtre {
   display: flex;
   gap: 10px;
+  flex: 2;
+  justify-content: space-around;
 }
 .filtre div {
   display: grid;
   gap: 10px;
-  text-align: center;
 }
 .filtre select{
   width: 100%;
@@ -153,6 +153,7 @@ button.active {
 }
 .reset {
   display: flex;
+  flex: 1;
   justify-content: center;
 }
 .reset button {
