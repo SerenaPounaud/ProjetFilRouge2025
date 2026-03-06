@@ -19,6 +19,9 @@
 header {
   margin-bottom: 30px;
 }
+header a:not(.inscrire):hover {
+  color: rgb(245, 60, 60);
+}
 nav {
   display: flex;
 }

@@ -57,7 +57,7 @@ button.active {
   color: black;
 }
 .p_header a:hover {
-  color: rgb(245, 60, 60);;
+  color: rgb(245, 60, 60);
 }
 
 /*Liste catégories*/
@@ -76,7 +76,7 @@ button.active {
   margin: 20px;
 }
 .li_aside li:hover {
-  color: rgb(245, 60, 60);;
+  color: rgb(245, 60, 60);
 }
 
 /*Zone recherche*/
