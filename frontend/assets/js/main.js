@@ -149,7 +149,7 @@ function displayRecipesPage(page, meals) { //affiche une page spécifique + tabl
         mealDiv.style.cursor = 'pointer';
         mealDiv.innerHTML = `
         <h3>${meal.strMeal}</h3>
-        <img src="${meal.strMealThumb}" alt="${meal.strMeal}" width="200">`;
+        <img src="${meal.strMealThumb}" alt="${meal.strMeal}">`;
         mealDiv.appendChild(createNoteBlock(meal.idMeal));
 
         mealDiv.onclick = () => //redirige
