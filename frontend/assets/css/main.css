@@ -1,27 +1,12 @@
-.faux-bouton {
-  color: gray;
-  cursor: pointer;
-  background: transparent;
-  border-radius: 20px;
-  padding: 10px;
-  border-style: double;
-}
-.faux-bouton:hover {
-  color: black;
-  background-color: orange;
-}
 #toast {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 10%;
+    right: 45%;
     background: #333;
     color: white;
     padding: 12px 18px;
     border-radius: 8px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s, transform 0.4s;
-    transform: translateY(20px);
+    pointer-events: none; /*l’élément ne peut pas être cliqué*/
     font-size: 18px;
 }
 
@@ -84,6 +69,9 @@
   gap: 20px;
   align-items: center;
   margin-bottom: 3%;
+}
+.zone_recherche button:hover, .zone_recherche select:hover {
+  opacity: 0.7;
 }
 .barre_recherche {
   display: flex;
@@ -171,6 +159,10 @@
 }
 .recette-item {
   width: 20%;
+  transition: transform 0.3s ease;
+}
+.recette-item:hover {
+  transform: scale(1.1);
 }
 .recette-item img {
   width: 100%;
@@ -202,6 +194,12 @@ button.active {
   border: transparent;
   background: transparent;
   font-size: 20px;
+  cursor: pointer;
+}
+.pagination_btn:hover {
+  background-color: #ff9800;
+  border-radius: 5px;
+  color: white;
 }
 
 /*Footer*/
@@ -220,16 +218,46 @@ button.active {
   color: white;
   border-radius: 30px;
   padding: 20px;
-  margin: 0 5%;
+  margin: 0 5% 5%;
   text-align: center;
+  display: grid;
+  gap: 10px;
+  font-family: 'DM Serif Display', serif;
+}
+.newsletter-email {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+.newsletter p {
+  font-size: clamp(10px, 5vw, 30px);
 }
 .newsletter button {
   background-color: white;
   border: none;
+  padding: 1%;
+  border-radius: 20px;
+}
+.newsletter button:hover {
+  cursor: pointer;
+  color: black;
+  background-color: orange;
 }
 .newsletter input {
   border-radius: 30px;
   border: none;
-  padding: 10px;
+  padding: 1%;
   width: 20%;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
