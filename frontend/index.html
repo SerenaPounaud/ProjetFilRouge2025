@@ -63,10 +63,7 @@
                     <img src="assets/img/loupe.svg" height="15px" alt="Loupe de recherche" aria-hidden="true">
                 </button>
                 <input 
-                    type="text" 
-                    id="barre_recherche" 
-                    placeholder="Rechercher par mots clés..." 
-                    aria-label="Champ de recherche par mots clés">
+                    type="text" id="barre_recherche" placeholder="Rechercher par mots clés..." aria-label="Champ de recherche par mots clés">
             </form>
                 <div class="actualisation">
                     <button id="btn_refresh" type="button" aria-label="Actualiser les recettes" title="Actualisez les recettes">Actualisez les recettes</button>
@@ -128,14 +125,18 @@
             <img src="assets/img/bol.webp" alt="Image d'un bol contenant des légumes" >
     </div>
     <div class="newsletter">
-        <p>Soyez les premiers informés des dernières recettes intégrées</p>
-        <label for="newsletter_email" class="sr-only">Inscrivez votre adresse email</label>
-        <input id="newsletter_email" type="email" placeholder="Votre adresse email" required>
-        <button type="button" aria-label="S'incrire" class="faux-bouton" disabled>S'inscrire</button>
+        <div>
+            <p>Soyez les premiers informés des dernières recettes intégrées !</p>
+        </div>
+        <div class="newsletter-email">
+            <label for="newsletter_email" class="sr-only">Inscrivez votre adresse email</label>
+            <input id="newsletter_email" type="email" placeholder="exemple@gmail.fr" required>
+            <button type="button" aria-label="S'incrire" disabled>S'inscrire</button>
+        </div>
+        
     </div>
 </section>
 </main>
-
     <footer class="footer"> 
         <nav aria-label="Liens vers les réseaux sociaux" class="logo_bas_de_page"><!--ouvrir dans un autre onglet + empêche x d’accéder à l'onglet actuel + n’envoie pas l’URL du site à x-->
             <a href="" target="_blank" rel="noopener noreferrer" title="Lien vers Facebook"></a>
@@ -150,19 +151,21 @@
                 <li><a href="">Présentations</a></li>
                 <li><a href="">Professionnels</a></li>
                 <li><a href="">Boutique</a></li>
-                <li><a href="">Webinaires</a></li>
             </ul>
             <ul>
                 <li><a href="">Ateliers</a></li>
                 <li><a href="">Rencontres locales</a></li>
                 <li><a href="">Nos initiatives</a></li>
-                <li><a href="">Redonner</a></li>
             </ul>
             <ul>
                 <li><a href="">Communautés</a></li>
                 <li><a href="">Formulaire de contact</a></li>
                 <li><a href="">Travailler avec nous</a></li>
-                <li><a href="">Nous rendre visite</a></li>
+            </ul>
+            <ul>
+                <li><li><a href="">Webinaires</a></li></li>
+                <li><li><a href="">Redonner</a></li></li>
+                <li><li><a href="">Nous rendre visite</a></li></li>
             </ul>
         </div>
             <p>Crée par la ville de Saint Ciers sur Gironde.</p>
