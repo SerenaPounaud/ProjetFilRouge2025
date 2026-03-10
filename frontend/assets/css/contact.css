@@ -1,12 +1,72 @@
-.faux-lien {
-  color: gray;
-  cursor: pointer;
-  background: transparent;
-  border-radius: 20px;
-  padding: 10px;
-  border-style: double;
+section {
+  display: flex;
+  margin: 3%;
 }
-.faux-lien:hover {
+.para_form {
+  flex: 1;
+  padding: 2%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.para_form h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 3rem;
+  margin: 0;
+}
+.para_form p {
+  line-height: 1.5rem; 
+}
+.para_form button {
+  cursor: pointer;
+  background-color: rgb(245, 60, 60);
+  color: white;
+  border-radius: 20px;
+  padding: 2%;
+  border: none;
+  width: 20%;
+}
+.para_form button:hover {
   color: black;
-  background-color: rgb(223, 0, 0);
+}
+.formContact {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2%;
+}
+.formContact div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+#formcontact {
+  border-radius: 30px;
+  background-color: rgb(245, 60, 60);
+  color: white;
+  padding: 10%;
+}
+.formContact input:not([type="checkbox"]) {
+  border-radius: 30px;
+  height: 2vw;
+  padding: 5%;
+  border: none;
+}
+.formContact textarea {
+  border-radius: 30px;
+  height: 7vw;
+  padding: 5%;
+  border: none;
+}
+.formContact button {
+  padding: 5%;
+  border-radius: 30px;
+  background-color: white;
+  border: none;
+  width: 30%;
+}
+.formContact button:hover {
+  background-color: orange;
+  cursor: pointer;
 }

@@ -16,44 +16,56 @@
 <main>
     <div id="toast" role="status"></div>
     <header id="header"></header>
-    <div class="para_form">
-        <h1>Contactez-nous</h1>
-        <p>Vous avez une question, une suggestion ou souhaitez simplement échanger avec nous ? 
-            N’hésitez pas à nous écrire ! 
-            Nous nous engageons à vous répondre dans les plus brefs délais et à vous apporter toute l’aide nécessaire. 
-            Remplissez le formulaire ci-contre en indiquant vos coordonnées et votre message, et nous prendrons contact avec vous rapidement. 
-            Votre satisfaction est notre priorité !</p>
-            <button type="button" aria-label="Prévoir un appel" class="faux-lien" disabled>Prévoir un appel</button>
-    </div>
+    <section>
+        <div class="para_form">
+            <h1>Contactez-nous</h1>
+            <p>Vous avez une question, une suggestion ou souhaitez simplement échanger avec nous ? 
+                N’hésitez pas à nous écrire ! 
+                Nous nous engageons à vous répondre dans les plus brefs délais et à vous apporter toute l’aide nécessaire. 
+                Remplissez le formulaire ci-contre en indiquant vos coordonnées et votre message, et nous prendrons contact avec vous rapidement. 
+                Votre satisfaction est notre priorité !</p>
+            <button type="button" aria-label="Prévoir un appel" disabled>Prévoir un appel</button>
+        </div>
         <div class="formContact">
             <form action="" method="POST" id="formcontact" novalidate> <!--method post pour éviter l'affichage des données sensibles dans l'url-->
             
+                <div>
                 <label for="lastname">Nom</label>
                 <input type="text" id="lastname" name="lastname" placeholder="Votre nom" maxlength="50" aria-describedby="lastname_error" autocomplete="name">
                 <div id="lastname_error" class="error-message" role="alert"></div>
+                </div>
 
+                <div>
                 <label for="firstname">Prénom</label>
                 <input type="text" id="firstname" name="firstname" placeholder="Votre prénom" maxlength="50" aria-describedby="firstname_error" autocomplete="given-name">
                 <div id="firstname_error" class="error-message" role="alert"></div>
+                </div>
 
+                <div>
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" placeholder="exemple@gmail.fr" maxlength="150" aria-describedby="email_error" autocomplete="email">
                 <div id="email_error" class="error-message" role="alert"></div>
+                </div>
 
+                <div>
                 <label for="message">Message :</label>
                 <textarea id="message" name="message" placeholder="Écrivez ici (max 255 caractères)" maxlength="255" aria-describedby="message_error"></textarea>
                 <div id="char_count" role="status">0/255</div>
                 <div id="message_error" class="error-message" role="alert"></div>
-                
+                </div>
+
+                <div>
                 <label for="rgpd">Je consens au traitement des données personnelles
                     <input type="checkbox" id="rgpd" name="rgpd" aria-describedby="rgpd_error" aria-required="true">
                 </label>
                 <div id="rgpd_error" class="error-message" role="alert"></div>
+                </div>
                 
                 <button type="submit" id="btn_contact">Envoyer</button>
                 
             </form>
         </div>
+    </section>
 
     <footer id="footer"></footer>
 </main>
