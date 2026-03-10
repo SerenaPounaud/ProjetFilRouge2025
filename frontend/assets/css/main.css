@@ -8,6 +8,7 @@
     border-radius: 8px;
     pointer-events: none; /*l’élément ne peut pas être cliqué*/
     font-size: 18px;
+    opacity: 0;
 }
 
 /*Img index*/
