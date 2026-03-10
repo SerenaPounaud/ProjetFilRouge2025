@@ -1,11 +1,14 @@
 .error-message {
     color: red;
     font-size: 15px;
-    margin: 5px;
-    min-height: 19px;   /* 👈 réserve la place */
+    height: 2rem;
     visibility: hidden; /* caché mais garde l’espace */
     opacity: 0;
     transition: opacity 0.3s;
+    background-color: white;
+    border-radius: 10px;
+    padding: 2%;
+    width: fit-content;
 }
 /* Bordure rouge sur les champs en erreur */
 .input-error {
@@ -16,7 +19,6 @@
     opacity: 1;
     visibility: visible;
 }
-/* Label CGU en erreur */
 .cgu-error, .rgpd-error {
     outline: 2px solid red;
     outline-offset: 2px;
