@@ -23,17 +23,21 @@
 
     <section id="recettes_details" aria-label="Détails de la recette"></section>
 
-    <section>
-        <h2>Commentaires</h2>
+    <section class="espaceCommentaires">
+        <h2 id="h2Com">Commentaires</h2>
 
         <div id="commentaires" aria-live="polite"></div>
 
         <form id="zone_commentaire" style="display: none;" aria-hidden="true" onsubmit="event.preventDefault(); ajoutCommentaire();"> <!--empêche le comportement par défaut du navigateur(rechargement)-->
             <h3>Ajouter un commentaire</h3>
 
-            <label for="commentaire_input">Votre commentaire :</label>
-            <textarea id="commentaire_input" placeholder="Ecrivez votre commentaire" maxlength="500"></textarea>
-            <p id="char_count" class="char_count" role="status">0/500</p>
+            <div class="inputCommentaires">
+                <label for="commentaire_input">Votre commentaire :</label>
+                <div class="divTextarea">
+                    <textarea id="commentaire_input" placeholder="Ecrivez votre commentaire" maxlength="500"></textarea>
+                    <p id="char_count" class="char_count" role="status">0/500</p>
+                </div>
+            </div>
 
             <label for="note_input">Note :</label>
             <select id="note_input" aria-required="true">
@@ -46,7 +50,7 @@
             </select>
             <div class="error" id="note_input_error" aria-live="assertive" role="alert"></div> <!--interruption immédiate-->
             
-            <button type="submit">Envoyer</button>
+            <button class="btnEnvoyer" type="submit">Envoyer</button>
         </form>
 
         <div id="connexion">
@@ -54,7 +58,7 @@
             <input type="text" id="prenom" placeholder="Entrez votre prénom" aria-required="true" autocomplete="given-name" required>
             <div class="error" id="prenom_error" aria-live="assertive" role="alert"></div>
             
-            <button type="button" onclick="connexion()">Se connecter</button>
+            <button class="btnConnexion" type="button" onclick="connexion()">Se connecter</button>
         </div>
             <button type="button" id="btn_deconnexion" style="display: none;" onclick="deconnexion()">Déconnexion</button>
     </section>

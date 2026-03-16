@@ -189,6 +189,7 @@ function createCommentElement(c) { //c = commentaire
     metaDiv.className = "meta";
 
     const userStrong = document.createElement("strong"); //met en gras le nom de l'utilisateur
+    userStrong.className = "users";
     userStrong.textContent = c.newUser;
 
     const dateSpan = document.createElement("span");
@@ -200,8 +201,7 @@ function createCommentElement(c) { //c = commentaire
 
     const btnSupprimer = document.createElement("button");
     btnSupprimer.type = "button"; //évite de soumettre un formulaire si dans form
-    btnSupprimer.style.marginLeft = "10px";
-    btnSupprimer.style.color = "red";
+    btnSupprimer.className = "btnSupprimer";
     btnSupprimer.textContent = "Supprimer";
     btnSupprimer.addEventListener("click", () => { //confirmation pour éviter les erreurs utilisateur
         if(confirm("Voulez-vous supprimer ce commentaire ?")) {
@@ -212,6 +212,7 @@ function createCommentElement(c) { //c = commentaire
     metaDiv.append(userStrong, dateSpan, etoileSpan, btnSupprimer); //ajoute tous les éléments à la div
 
     const messageDiv = document.createElement("div");
+    messageDiv.className = "paraCommentaires";
     messageDiv.textContent = c.message; //contre XSS
 
     div.append(metaDiv, messageDiv); //ajouter à la fin

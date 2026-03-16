@@ -161,7 +161,7 @@ recipeDetailsDiv.innerHTML = `
     <div>
       <p class="loremDetails">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis debitis sint dignissimos vitae voluptates hic harum voluptas illo totam soluta quidem temporibus, laborum maxime nihil facilis voluptatibus sapiente quae! Odio?
       Cupiditate vitae consequuntur eos accusantium, fugit unde totam ut facere voluptatem error.</p>
-      <div>
+      <div class="infoSuppleDetails">
         <p>Publiée le <strong>${dateFormatted}</strong></p>
         <p><strong>Temps de cuisson :</strong> ${afficheTemps}</p>
         <p><strong>Pour :</strong> ${personnes} personne(s)</p>
@@ -188,16 +188,16 @@ recipeDetailsDiv.innerHTML = `
 </div> 
  
 <div class="middleDetails">
-  <div>
-    <h3>Instructions :</h3>
+  <div class="instructions">
+    <h2>Instructions :</h2>
     <p>${meal.strInstructions || '<em>Aucune instruction fournie.</em>'}</p> 
   </div>
-  <aside>
+  <aside class="ingredients">
     <h3>Ingrédients :</h3>
     <ul>
       ${ingredientsHtml}
     </ul>
-    ${tagsHtml}
+    <span>${tagsHtml}</span>
   </aside>
 </div>
   `;
