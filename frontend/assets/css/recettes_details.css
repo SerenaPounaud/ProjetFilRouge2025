@@ -17,17 +17,15 @@
 }
 #toast {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 10%;
+    right: 45%;
     background: #333;
     color: white;
     padding: 12px 18px;
     border-radius: 8px;
+    pointer-events: none; /*l’élément ne peut pas être cliqué*/
+    font-size: 18px;
     opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s, transform 0.4s;
-    transform: translateY(20px);
-    font-size: 0.9rem;
 }
 .sr-only {
     position: absolute;
@@ -109,14 +107,61 @@
 .ingredients li {
     margin: 3%;
 }
+
+/*Zone commentaire*/
 .espaceCommentaires {
     padding: 4%;
 }
 #h2Com {
-    font-size: clamp(20px, 2vw, 40px);;
+    font-size: clamp(20px, 2vw, 40px);
 }
 #connexion {
-    margin-top: 3%;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    padding: 3%;
+    background: linear-gradient(135deg, peachpuff, papayawhip);
+    width: 30%;
+    border-radius: 30px;
+}
+#connexion label {
+    font-size: clamp(10px, 2vw, 20px);
+    margin-bottom: 5%;
+}
+#connexion input {
+    border-radius: 10px;
+    padding: 2%;
+    border: none;
+}
+.btnConnexion {
+    padding: 3%;
+}
+#zone_commentaire {
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 3%;
+    background: linear-gradient(135deg, peachpuff, papayawhip);
+    width: 50%;
+    border-radius: 30px;
+    align-items: center;
+}
+#zone_commentaire h3 {
+    font-size: clamp(10px, 2vw, 25px);
+}
+#zone_commentaire label {
+    margin: 0 1% 1% 1%;
+}
+.btnZoneCommentaire {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+}
+.btnEnvoyer, #btn_deconnexion {
+    padding: 2%;
+}
+#note_input {
+    padding: 1%;
+    text-align: center;
 }
 #commentaires {
     display: flex;
@@ -126,7 +171,7 @@
 }
 .divCommentaires {
     border-radius: 30px;
-    padding: 1%;
+    padding: 2%;
     width: 50%;
 }
 .divCommentaires:nth-child(odd) {
@@ -139,7 +184,6 @@
   background-color: peachpuff;
 }
 .paraCommentaires {
-    width: 50%;
     overflow-wrap: break-word; /*évite de dépasser le conteneur*/
 }
 .meta {
@@ -156,29 +200,60 @@
 .inputCommentaires > .divTextarea {
     display: flex;
     gap: 10px;
-    margin: 2%;
+    margin: 4%;
 }
 .divTextarea textarea {
-    width: 40%;
-    height: 20vh;
+    width: 80vh; /*80% de la largeur de l'écran*/
+    height: 25vh;
     resize: none; /*empêche l'utilisateur de remanier le textarea*/
-}
-#note_input {
-    padding: 0.5%;
-    text-align: center;
+    border-radius: 10px;
+    padding: 1%;
 }
 .btnEnvoyer, #btn_deconnexion, #note_input, .btnConnexion, .btnSupprimer {
     background-color: rgb(245, 60, 60);
     border-radius: 30px;
     color: white;
     border: none;
-    padding: 0.8%;
     cursor: pointer;
 }
-#btn_deconnexion {
-    padding: 0.7%;
-    margin-top: 1%;
-}
 .btnSupprimer {
-    padding: 0.5%;
+    padding: 1%;
+}
+
+/*Zone recettes similaires*/
+.recettesSimilaires {
+    background-color: papayawhip ;
+    padding: 2%;
+}
+.recettesSimilaires > h3 {
+    font-size: clamp(10px, 3vw, 30px);
+}
+#recettes_similaires {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 0.2%;
+}
+.item-similaire {
+  width: 20%;
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.item-similaire:hover {
+  transform: scale(1.1);
+}
+.item-similaire img {
+  width: 80%;
+  border-radius: 30px;
+  height: 60%;
+}
+.item-similaire h3 {
+  align-content: center;
+  text-align: center;
+}
+.note-block {
+  margin: 5% 0;
 }

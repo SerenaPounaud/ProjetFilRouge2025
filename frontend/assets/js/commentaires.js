@@ -16,8 +16,8 @@ function conditionCommentaire() {
 
     if (user) {
         connexionDiv.style.display = "none";
-        commentaireZone.style.display = "block";
-        btnDeconnexion.style.display = "inline-block";
+        commentaireZone.style.display = "flex";
+        btnDeconnexion.style.display = "block";
         commentaireZone.removeAttribute("aria-hidden");
     } else {
         connexionDiv.style.display = "flex";

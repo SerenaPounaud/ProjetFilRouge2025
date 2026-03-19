@@ -50,19 +50,21 @@
             </select>
             <div class="error" id="note_input_error" aria-live="assertive" role="alert"></div> <!--interruption immédiate-->
             
-            <button class="btnEnvoyer" type="submit">Envoyer</button>
+            <div class="btnZoneCommentaire">
+                <button class="btnEnvoyer" type="submit">Envoyer</button>
+                <button type="button" id="btn_deconnexion" style="display: none;" onclick="deconnexion()">Déconnexion</button>
+            </div>
         </form>
 
         <div id="connexion">
-            <label for="prenom" class="sr-only">Votre prénom</label>
+            <label for="prenom"><strong>Se connecter pour commenter</strong></label>
             <input type="text" id="prenom" placeholder="Entrez votre prénom" aria-required="true" autocomplete="given-name" required>
             <div class="error" id="prenom_error" aria-live="assertive" role="alert"></div>
             
             <button class="btnConnexion" type="button" onclick="connexion()">Se connecter</button>
         </div>
-            <button type="button" id="btn_deconnexion" style="display: none;" onclick="deconnexion()">Déconnexion</button>
     </section>
-    <section>
+    <section class="recettesSimilaires">
         <h3>Recettes de la même catégorie</h3>
         <div id="recettes_similaires" role="list"></div>
     </section>

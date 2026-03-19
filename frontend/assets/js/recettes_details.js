@@ -5,7 +5,7 @@ const recipeDetailsDiv = document.getElementById('recettes_details');
 const divSimilaires = document.getElementById("recettes_similaires");
 
 // Récupère détails recette
-if (!idMeal) { //vérifie si idMeal est vide ou null et affiche un message si c'est vrai
+if (!idMeal) {
   recipeDetailsDiv.innerHTML = '<p>Aucune recette sélectionnée.</p>';
 } else {
   async function getRecipeDetails(id) { //si il existe => fonction asynchrome pour récupérer la recette via l'API
@@ -32,7 +32,7 @@ function displayRecettesSimilaire(meals, currentId) {
     card.setAttribute("role", "listitem")
 
     card.innerHTML = `
-    <h4>${meal.strMeal}</h4>
+    <h3>${meal.strMeal}</h3>
     <img src="${meal.strMealThumb}" width="150">`;
 
     const noteBlock = createNoteBlock(meal.idMeal);
@@ -55,10 +55,12 @@ function fetchRecettesSimilaires(category, currentId) {
       divSimilaires.innerHTML = "<p>Aucune autre recette trouvée.</p>";
       return;
     }
-    const shuffled = data.meals.sort(() => Math.random() -0.5); //mélange les résultats
-    const randomFour = shuffled.slice(0, 8); //garde 8 recettes
+    //évite d'afficher la recette actuelle
+    const filtered = data.meals.filter(meal => meal.idMeal != currentId);
+    const shuffled = filtered.sort(() => Math.random() -0.5); //mélange les résultats
+    const randomRecipes = shuffled.slice(0, 8); //garde 8 recettes
     
-    displayRecettesSimilaire(randomFour, currentId);
+    displayRecettesSimilaire(randomRecipes, currentId);
   })
   .catch(err => {
     console.error("Erreur similaires :", err);
