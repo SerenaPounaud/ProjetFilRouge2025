@@ -20,7 +20,7 @@ function conditionCommentaire() {
         btnDeconnexion.style.display = "inline-block";
         commentaireZone.removeAttribute("aria-hidden");
     } else {
-        connexionDiv.style.display = "block";
+        connexionDiv.style.display = "flex";
         commentaireZone.style.display = "none";
         btnDeconnexion.style.display = "none";
         commentaireZone.setAttribute("aria-hidden", "true");

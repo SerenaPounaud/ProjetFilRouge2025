@@ -161,6 +161,10 @@
 .recette-item {
   width: 20%;
   transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .recette-item:hover {
   transform: scale(1.1);
@@ -171,10 +175,8 @@
   height: 60%;
 }
 .recette-item h3 {
-  height: 10%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  align-content: center;
+  text-align: center;
 }
 .note-block {
   margin: 5% 0;
