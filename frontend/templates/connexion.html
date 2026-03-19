@@ -15,41 +15,43 @@
 <main>
     <div id="toast" role="status"></div> 
     <section class="gauche_insc">
-        <h1>Se connecter ⤵</h1>
-        <nav aria-label="Se connecter avec un réseau social">
-            <a href="https://www.facebook.com/?locale=fr_FR" title="Se connecter avec Facebook" rel="noopener noreferrer" target="_blank" aria-label="Se connecter avec Facebook">
-                <img src="../assets/img/facebook.webp" class="icon" alt="Logo Facebook"> 
-            </a>
-            <a href="https://accounts.google.com" 
-            title="Se connecter avec Google" rel="noopener noreferrer" target="_blank" aria-label="Se connecter avec Google">
-                <img src="../assets/img/google.webp" class="icon" alt="Logo de Google"> 
-            </a>
-            <a href="https://www.linkedin.com/home" title="Se connecter avec Linkedin" rel="noopener noreferrer" target="_blank">
-                <img src="../assets/img/linkedin.webp" class="icon" alt="Logo Linkedin" aria-label="Se connecter avec Linkedin"> 
-            </a>
-        </nav>
-        <h2>Ou utilise ton adresse email</h2>
-        <div class="formInsc">
-            <form action="" method="POST" id="formconnexion" novalidate> 
-                <h3 class="sr-only">Formulaire de connexion</h3>
-            
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="exemple@gmail.fr" maxlength="150" aria-describedby="email_error" autocomplete="email">
-                <div id = "email_error" class="error-message" role="alert"></div>
-
-                <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" placeholder="Min 8 caractères" aria-describedby="password_error" maxlength="20" autocomplete="current-password">
-                <div id = "password_error" class="error-message" role="alert"></div>
-
-                <button type="submit" id="btn_connexion" class="faux-button">Se connecter</button>
+        <div class="formGauche">
+            <h1>Se connecter ⤵</h1>
+            <nav aria-label="Se connecter avec un réseau social">
+                <a href="https://www.facebook.com/?locale=fr_FR" title="Se connecter avec Facebook" rel="noopener noreferrer" target="_blank" aria-label="Se connecter avec Facebook">
+                    <img src="../assets/img/facebook.webp" class="icon" alt="Logo Facebook"> 
+                </a>
+                <a href="https://accounts.google.com" 
+                title="Se connecter avec Google" rel="noopener noreferrer" target="_blank" aria-label="Se connecter avec Google">
+                    <img src="../assets/img/google.webp" class="icon" alt="Logo de Google"> 
+                </a>
+                <a href="https://www.linkedin.com/home" title="Se connecter avec Linkedin" rel="noopener noreferrer" target="_blank">
+                    <img src="../assets/img/linkedin.webp" class="icon" alt="Logo Linkedin" aria-label="Se connecter avec Linkedin"> 
+                </a>
+            </nav>
+            <h2>Ou utilise ton adresse email</h2>
+            <div class="formInsc">
+                <form action="" method="POST" id="formconnexion" novalidate> 
+                    <h3 class="sr-only">Formulaire de connexion</h3>
                 
-                <button class="faux-lien" type="button" disabled>Mot de passe oublié ?</button>
-            </form>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="exemple@gmail.fr" maxlength="150" aria-describedby="email_error" autocomplete="email">
+                    <div id = "email_error" class="error-message" role="alert"></div>
+
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" placeholder="Min 8 caractères" aria-describedby="password_error" maxlength="20" autocomplete="current-password">
+                    <div id = "password_error" class="error-message" role="alert"></div>
+
+                    <button type="submit" id="btn_connexion" class="faux-button">Se connecter</button>
+                    
+                    <button class="faux-lien" type="button" disabled>Mot de passe oublié ?</button>
+                </form>
+            </div>
         </div>
     </section>
     <section class="droite_insc" aria-label="Image d'une dame qui cuisine">
-        <div>
-            <img src="../assets/img/cuisiniere.webp" alt="Dame qui cuisine" loading="lazy">
+        <div class="imgDroite">
+            <img src="../assets/img/Cuisinière.webp" alt="Dame qui cuisine" loading="lazy">
             <p>
                 Vous êtes nouveau ?
                 <a href="inscription.html" aria-label="Aller à la page d'inscription">S'inscrire</a>

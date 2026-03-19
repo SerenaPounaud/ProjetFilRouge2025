@@ -15,58 +15,60 @@
 <main>
     <div id="toast" role="status"></div> 
     <section class="gauche_insc">
-        <h1>S'inscrire ⤵</h1>
-        <nav aria-label="S'inscrire avec un réseau social">
-            <a href="https://www.facebook.com/?locale=fr_FR" title="S'inscrire avec Facebook" rel="noopener noreferrer" target="_blank" aria-label="S'inscrire avec Facebook">
-                <img src="../assets/img/facebook.webp" class="icon" alt="Logo Facebook"> 
-            </a>
-            <a href="https://accounts.google.com" 
-            title="S'inscrire avec Google" rel="noopener noreferrer" target="_blank" aria-label="S'inscrire avec Google">
-                <img src="../assets/img/google.webp" class="icon" alt="Logo de Google"> 
-            </a>
-            <a href="https://www.linkedin.com/home" title="S'inscrire avec Linkedin" rel="noopener noreferrer" target="_blank" aria-label="S'inscrire avec Linkedin">
-                <img src="../assets/img/linkedin.webp" class="icon" alt="Logo Linkedin"> 
-            </a>
-        </nav>
-        <h2>Ou utilise ton adresse email</h2>
-        <div class="formInsc">
-            <form action="" method="POST" id = "forminscription" novalidate> 
-                <h3 class="sr-only">Formulaire d'inscription</h3>
-            
-                <label for="lastname">Nom</label>
-                <input type="text" id="lastname" name="lastname" placeholder="Votre nom" maxlength="50" aria-describedby="lastname_error" autocomplete="name">
-                <div id="lastname_error" class="error-message" role="alert"></div>
-
-                <label for="firstname">Prénom</label>
-                <input type="text" id="firstname" name="firstname" placeholder="Votre prénom" maxlength="50" aria-describedby="firstname_error" autocomplete="given-name">
-                <div id="firstname_error" class="error-message" role="alert"></div>
+        <div class="formGauche">
+            <h1>S'inscrire ⤵</h1>
+            <nav aria-label="S'inscrire avec un réseau social">
+                <a href="https://www.facebook.com/?locale=fr_FR" title="S'inscrire avec Facebook" rel="noopener noreferrer" target="_blank" aria-label="S'inscrire avec Facebook">
+                    <img src="../assets/img/facebook.webp" class="icon" alt="Logo Facebook"> 
+                </a>
+                <a href="https://accounts.google.com" 
+                title="S'inscrire avec Google" rel="noopener noreferrer" target="_blank" aria-label="S'inscrire avec Google">
+                    <img src="../assets/img/google.webp" class="icon" alt="Logo de Google"> 
+                </a>
+                <a href="https://www.linkedin.com/home" title="S'inscrire avec Linkedin" rel="noopener noreferrer" target="_blank" aria-label="S'inscrire avec Linkedin">
+                    <img src="../assets/img/linkedin.webp" class="icon" alt="Logo Linkedin"> 
+                </a>
+            </nav>
+            <h2>Ou utilise ton adresse email</h2>
+            <div class="formInsc">
+                <form action="" method="POST" id = "forminscription" novalidate> 
+                    <h3 class="sr-only">Formulaire d'inscription</h3>
                 
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="exemple@gmail.fr" maxlength="150" aria-describedby="email_error" autocomplete="email">
-                <div id = "email_error" class="error-message" role="alert"></div>
+                    <label for="lastname">Nom</label>
+                    <input type="text" id="lastname" name="lastname" placeholder="Votre nom" maxlength="50" aria-describedby="lastname_error" autocomplete="name">
+                    <div id="lastname_error" class="error-message" role="alert"></div>
 
-                <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" placeholder="Min 8 caractères" maxlength="20" aria-describedby="password_error" autocomplete="new-password">
-                <div id = "password_error" class="error-message" role="alert"></div>
+                    <label for="firstname">Prénom</label>
+                    <input type="text" id="firstname" name="firstname" placeholder="Votre prénom" maxlength="50" aria-describedby="firstname_error" autocomplete="given-name">
+                    <div id="firstname_error" class="error-message" role="alert"></div>
+                    
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="exemple@gmail.fr" maxlength="150" aria-describedby="email_error" autocomplete="email">
+                    <div id = "email_error" class="error-message" role="alert"></div>
 
-                <label for="confirm_password">Confirmer le mot de passe</label>
-                <input type="password" id="confirm_password" name="confirm_password" placeholder="Réécrivez votre mot de passe" maxlength="20" aria-describedby="confirm_password_error" autocomplete="new-password">
-                <div id = "confirm_password_error" class="error-message" role="alert"></div>
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" placeholder="Min 8 caractères" maxlength="20" aria-describedby="password_error" autocomplete="new-password">
+                    <div id = "password_error" class="error-message" role="alert"></div>
 
-                <label for="cgu">
-                    J'accepte les conditions générales d'utilisation
-                    <input type="checkbox" id="cgu" name="cgu" aria-describedby="cgu_error" aria-required="true">
-                </label>
-                <div id = "cgu_error" class="error-message" role="alert"></div>
-                
-                <button type="submit" id="btn_inscription" class="faux-button">S'inscrire</button>
-                
-            </form>
+                    <label for="confirm_password">Confirmer le mot de passe</label>
+                    <input type="password" id="confirm_password" name="confirm_password" placeholder="Réécrivez votre mot de passe" maxlength="20" aria-describedby="confirm_password_error" autocomplete="new-password">
+                    <div id = "confirm_password_error" class="error-message" role="alert"></div>
+
+                    <label for="cgu">
+                        J'accepte les conditions générales d'utilisation
+                        <input type="checkbox" id="cgu" name="cgu" aria-describedby="cgu_error" aria-required="true">
+                    </label>
+                    <div id = "cgu_error" class="error-message" role="alert"></div>
+                    
+                    <button type="submit" id="btn_inscription" class="faux-button">S'inscrire</button>
+                    
+                </form>
+            </div>
         </div>
     </section>
     <section class="droite_insc" aria-label="Image d'une dame qui cuisine">
-        <div>
-            <img src="../assets/img/cuisiniere.webp" alt="Dame qui cuisine" loading="lazy">
+        <div class="imgDroite">
+            <img src="../assets/img/Cuisinière.webp" alt="Dame qui cuisine" loading="lazy">
             <p>
                 Déjà un compte ?
                 <a href="connexion.html" aria-label="Aller à la page de connexion">Se connecter</a>
