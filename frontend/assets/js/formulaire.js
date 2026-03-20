@@ -1,6 +1,7 @@
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; //condition d'email valide
 const maxEmailLength = 150;
 const minPasswordLength = 8;
+const maxNameLength = 50;
 
 // Affichage des erreurs
 function showError (message, fieldId) { //fieldId = id du champ concerné
@@ -190,7 +191,6 @@ if (formcontact) {
     const email = document.getElementById("email").value.trim();
     const message = document.getElementById("message").value.trim();
     const rgpd = document.getElementById("rgpd").checked;
-    const maxNameLength = 50;
 
     if (!nom) {
         showError ("Veuillez entrer votre nom", "lastname");
@@ -249,7 +249,6 @@ function formProfil() {
         formProfil.addEventListener("submit", (e) => {
         e.preventDefault();
 
-        const maxNameLength = 50;
         const nom = document.getElementById("lastname").value.trim();
         const prenom = document.getElementById("firstname").value.trim();
         const email = document.getElementById("email").value.trim();
@@ -351,7 +350,6 @@ function formRecette() {
 
         formrecette.addEventListener("submit", (e) => {
         e.preventDefault();
-        const maxNameLength = 30;
         const maxTextearea = 60000;
         const maxPersonnesLength = 10
         const minPersonnesLength = 1

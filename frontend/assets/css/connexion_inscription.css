@@ -1,78 +1,123 @@
 main {
   display: flex;
+   display: flex;
+  align-items: stretch;
 }
-.gauche_insc {
-  flex: 1;
-  padding: 3%;
-}
-.droite_insc {
+.gauche_insc, .droite_insc {
   flex: 1;
   padding: 3%;
 }
 
 /*zone droite*/
-.imgDroite {
+.imgDroite, .imgDroiteConnexion {
   display: flex;
   justify-content: center;
   position: relative;
 }
 .imgDroite img {
   border-radius: 30px;
-  width: 60%;
+  width: 80%;
 }
-.imgDroite p {
+.imgDroite p, .imgDroiteConnexion p {
   position: absolute;
   background: white;
   padding: 2%;
   border-radius: 30px;
   bottom: 10%;
 }
-.imgDroite p a {
+.imgDroite p a, .imgDroiteConnexion p a {
   text-decoration: none;
+}
+.imgDroiteConnexion img {
+  border-radius: 30px;
+  width: 60%;
 }
 
 /*zone gauche*/
+.liens {
+  display: flex;
+  gap: 3vw; 
+}
+.liens {
+  display: flex;
+  gap: 3vw; 
+}
+.icon {
+  width: clamp(20px, 3vw, 50px);
+  transition: transform 0.3s ease;
+}
+.icon:hover {
+  transform: scale(1.3);
+}
 .formGauche {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 1vw;
+}
+#forminscription {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+}
+#formconnexion {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+}
+.formInsc input:not(#cgu) {
+  border-radius: 30px;
+  padding: 2%;
+  border: solid rgb(184, 184, 184) 1px;
+  text-align: center;
+  margin: 1%;
+  font-size: clamp(10px, 1.2vw, 20px);
+  width: 100%;
+}
+.formInsc label:not(#cgu) {
+  margin: 1%;
+  font-size: clamp(10px, 1.2vw, 20px);
+}
+.cgu {
+  display: flex;
+  font-size: clamp(10px, 1.2vw, 20px);
+}
+#btn_inscription, #btn_connexion{
+  border-radius: 30px;
+  color: white;
+  background-color: rgb(245, 60, 60);
+  padding: 3% 5%;
+  border: none;
+  cursor: pointer;
+}
+#btn_inscription {
+  width: 40%;
+}
+#cgu {
+  height: min-content;
+}
+#btn_connexion {
+  width: 70%;
+
 }
 .faux-lien {
   color: gray;
   cursor: pointer;
   background: transparent;
   border-color: transparent;
+  margin-top: 5%;
 }
 .faux-lien:hover {
   color: blue;
 }
-.faux-button {
-  color: white;
-  cursor: pointer;
-  background: rgb(223, 0, 0);
-  border-radius: 20px;
-  padding: 10px;
-  border: solid black 1px;
-}
-.faux-button:hover {
-  color: black;
-  background-color: rgb(197, 197, 197);
-}
 .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-}
-.icon {
-    height: 40px;
-    padding: 10px;
-    border-radius: 40%;
-    border-style: solid;
-    border-color: black;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

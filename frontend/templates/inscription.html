@@ -17,12 +17,11 @@
     <section class="gauche_insc">
         <div class="formGauche">
             <h1>S'inscrire ⤵</h1>
-            <nav aria-label="S'inscrire avec un réseau social">
+            <nav class="liens" aria-label="S'inscrire avec un réseau social">
                 <a href="https://www.facebook.com/?locale=fr_FR" title="S'inscrire avec Facebook" rel="noopener noreferrer" target="_blank" aria-label="S'inscrire avec Facebook">
                     <img src="../assets/img/facebook.webp" class="icon" alt="Logo Facebook"> 
                 </a>
-                <a href="https://accounts.google.com" 
-                title="S'inscrire avec Google" rel="noopener noreferrer" target="_blank" aria-label="S'inscrire avec Google">
+                <a href="https://accounts.google.com" title="S'inscrire avec Google" rel="noopener noreferrer" target="_blank" aria-label="S'inscrire avec Google">
                     <img src="../assets/img/google.webp" class="icon" alt="Logo de Google"> 
                 </a>
                 <a href="https://www.linkedin.com/home" title="S'inscrire avec Linkedin" rel="noopener noreferrer" target="_blank" aria-label="S'inscrire avec Linkedin">
@@ -31,7 +30,7 @@
             </nav>
             <h2>Ou utilise ton adresse email</h2>
             <div class="formInsc">
-                <form action="" method="POST" id = "forminscription" novalidate> 
+                <form action="" method="POST" id= "forminscription" novalidate> 
                     <h3 class="sr-only">Formulaire d'inscription</h3>
                 
                     <label for="lastname">Nom</label>
@@ -54,13 +53,13 @@
                     <input type="password" id="confirm_password" name="confirm_password" placeholder="Réécrivez votre mot de passe" maxlength="20" aria-describedby="confirm_password_error" autocomplete="new-password">
                     <div id = "confirm_password_error" class="error-message" role="alert"></div>
 
-                    <label for="cgu">
+                    <label for="cgu" class="cgu">
                         J'accepte les conditions générales d'utilisation
                         <input type="checkbox" id="cgu" name="cgu" aria-describedby="cgu_error" aria-required="true">
                     </label>
                     <div id = "cgu_error" class="error-message" role="alert"></div>
                     
-                    <button type="submit" id="btn_inscription" class="faux-button">S'inscrire</button>
+                    <button type="submit" id="btn_inscription">S'inscrire</button>
                     
                 </form>
             </div>
