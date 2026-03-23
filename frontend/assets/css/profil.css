@@ -1,29 +1,78 @@
+/*bar de navigation*/
 .user_nav {
     display: flex;
-    margin-bottom: 20px;
+    margin-bottom: 2%;
+    justify-content: center;
+    gap: 5%;
   }
 .user_nav button {
-    padding: 10px 20px;
+    padding: 0.6%;
     cursor: pointer;
     border: none;
-    background-color: #eee;
-    border-radius: 5px;
+    border-radius: 10px;
     transition: background-color 0.3s;
 }
 .user_nav button:hover {
-    background-color: #007bff;
-    color: white;
+    opacity: 0.7;
 }
 .user_nav button.active {
-    background-color: #007bff;
+    background-color: rgb(245, 60, 60);
     color: white;
 }
+
+/*sections*/
 .section {
     display: none; /* caché par défaut */
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
+}
 .section.active {
     display: block; /* affiché quand actif */
+}
+
+/*section profil*/
+.profilDiv{
+    display: flex;
+    justify-content: space-evenly;
+    border-top: 3px solid;
+    border-bottom: 3px solid;
+    border-image: linear-gradient(to right, rgb(245, 60, 60), #c9cd4e) 1;
+    padding: 3%;
+}
+#form_profil{
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+}
+.profilDiv input {
+    border-radius: 10px;
+    border: solid 1px;
+    padding: 2%;
+    margin: 2%;
+}
+#btn_info, .btn_delete {
+    border-radius: 30px;
+    color: white;
+    background-color: rgb(245, 60, 60);
+    border: none;
+    cursor: pointer;
+}
+#btn_info{
+    padding: 3% 5%;
+}
+#btn_info:hover {
+    opacity: 0.7;
+}
+
+/*section favoris*/
+.favorisDiv {
+    display: flex;
+    justify-content: center;
+}
+.divRecette {
+    display: flex;
+}
+.divRecette div {
+    margin: 2%;
+}
+.btn_delete {
+    padding: 8%;
 }

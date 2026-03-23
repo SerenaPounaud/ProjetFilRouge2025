@@ -1,11 +1,13 @@
 main {
   display: flex;
-   display: flex;
-  align-items: stretch;
 }
 .gauche_insc, .droite_insc {
   flex: 1;
   padding: 3%;
+}
+.gauche_insc{
+  display: flex;
+  justify-content: right;
 }
 
 /*zone droite*/

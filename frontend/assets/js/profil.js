@@ -4,17 +4,16 @@ const sections = document.querySelectorAll('.section');
 // Html pour chaque section
 const contenuHtml = {
     profil: `
-    <div>
+<div class="profilDiv">       
+    <div id='mes_infos'>
         <h2>Mes informations</h2>
-        <div id='mes_infos'>
-            <p>Nom : Séréna</p>
-            <p>Prénom : Pounaud</p>
-            <p>Email : exemple@gmail.fr</p>
-            <p>Mot de passe : **********</p>
+        <p>Nom : Séréna</p>
+        <p>Prénom : Pounaud</p>
+        <p>Email : exemple@gmail.fr</p>
+        <p>Mot de passe : **********</p>
     </div>
-    <div>
-        <h3>Mofifier mes informations</h3>
         <form action="" method="POST" id="form_profil" novalidate> 
+        <h2>Modifier mes informations</h2>
 
             <label for="lastname">Nom</label>
             <input type="text" id="lastname" name="lastname" placeholder="Votre nom" maxlength="50" aria-describedby="lastname_error" autocomplete="name">
@@ -34,18 +33,40 @@ const contenuHtml = {
 
             <button type="submit" id="btn_info">Enregistrer</button>
         </form>
-    </div>`,
+    </div>
+</div> `,
     favoris: `
-    <div>
+    <section class="favorisDiv">
+        <div>
         <h2>Mes favoris</h2>
-        <ul>
-            <li>Recette 1</li><button type="button" class="btn_delete">Supprimer</button>
-            <li>Recette 2</li><button type="button" class="btn_delete">Supprimer</button>
-            <li>Recette 3</li><button type="button" class="btn_delete">Supprimer</button>
-            <li>Recette 4</li><button type="button" class="btn_delete">Supprimer</button>
-            <li>Recette 5</li><button type="button" class="btn_delete">Supprimer</button>
-        <ul/>
-    </div>`,
+            <div class="divRecette">
+                <div>
+                    Recette 1<button type="button" class="btn_delete">Supprimer</button>
+                </div>
+                <div>
+                    Recette 2<button type="button" class="btn_delete">Supprimer</button>
+                </div>
+                <div>
+                    Recette 3<button type="button" class="btn_delete">Supprimer</button>
+                </div>
+                <div>
+                    Recette 4<button type="button" class="btn_delete">Supprimer</button>
+                </div>
+                <div>
+                    Recette 5<button type="button" class="btn_delete">Supprimer</button>
+                </div>
+                <div>
+                    Recette 6<button type="button" class="btn_delete">Supprimer</button>
+                </div>
+                <div>
+                    Recette 7<button type="button" class="btn_delete">Supprimer</button>
+                </div>
+                <div>
+                    Recette 8<button type="button" class="btn_delete">Supprimer</button>
+                </div>
+            </div>
+        </div>
+    </section>`,
     recettes: `
     <div>
         <h2>Ajouter une recette</h2>
