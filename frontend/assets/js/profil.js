@@ -41,37 +41,64 @@ const contenuHtml = {
         <h2>Mes favoris</h2>
             <div class="divRecette">
                 <div>
-                    Recette 1<button type="button" class="btn_delete">Supprimer</button>
+                    <h3>Recette 1</h3>
+                    <img src="../assets/img/cake.webp" alt="cake">
+                    <button type="button" class="btn_delete">Supprimer</button>
                 </div>
                 <div>
-                    Recette 2<button type="button" class="btn_delete">Supprimer</button>
+                    <h3>Recette 2</h3>
+                    <img src="../assets/img/cake.webp" alt="cake">
+                    <button type="button" class="btn_delete">Supprimer</button>
                 </div>
                 <div>
-                    Recette 3<button type="button" class="btn_delete">Supprimer</button>
+                    <h3>Recette 3</h3>
+                    <img src="../assets/img/cake.webp" alt="cake">
+                    <button type="button" class="btn_delete">Supprimer</button>
                 </div>
                 <div>
-                    Recette 4<button type="button" class="btn_delete">Supprimer</button>
+                    <h3>Recette 4</h3>
+                    <img src="../assets/img/cake.webp" alt="cake">
+                    <button type="button" class="btn_delete">Supprimer</button>
                 </div>
                 <div>
-                    Recette 5<button type="button" class="btn_delete">Supprimer</button>
+                    <h3>Recette 5</h3>
+                    <img src="../assets/img/cake.webp" alt="cake">
+                    <button type="button" class="btn_delete">Supprimer</button>
                 </div>
                 <div>
-                    Recette 6<button type="button" class="btn_delete">Supprimer</button>
+                    <h3>Recette 6</h3>
+                    <img src="../assets/img/cake.webp" alt="cake">
+                    <button type="button" class="btn_delete">Supprimer</button>
                 </div>
                 <div>
-                    Recette 7<button type="button" class="btn_delete">Supprimer</button>
+                    <h3>Recette 7</h3>
+                    <img src="../assets/img/cake.webp" alt="cake">
+                    <button type="button" class="btn_delete">Supprimer</button>
                 </div>
                 <div>
-                    Recette 8<button type="button" class="btn_delete">Supprimer</button>
+                    <h3>Recette 8</h3>
+                    <img src="../assets/img/cake.webp" alt="cake">
+                    <button type="button" class="btn_delete">Supprimer</button>
+                </div>
+                <div>
+                    <h3>Recette 9</h3>
+                    <img src="../assets/img/cake.webp" alt="cake">
+                    <button type="button" class="btn_delete">Supprimer</button>
+                </div>
+                <div>
+                    <h3>Recette 10</h3>
+                    <img src="../assets/img/cake.webp" alt="cake">
+                    <button type="button" class="btn_delete">Supprimer</button>
                 </div>
             </div>
         </div>
     </section>`,
     recettes: `
-    <div>
+    <div class="ajoutRecetteDiv">
         <h2>Ajouter une recette</h2>
-        <form action="" method="POST" id="form_recette" enctype="multipart/form-data" novalidate> 
+        <form action="" method="POST" id="form_recette" enctype="multipart/form-data" novalidate>
 
+        <div class="divRecetteImg">
             <label for="nom_recette">Nom de la recette</label>
             <input type="text" id="nom_recette" name="nom_recette" placeholder="Nom de la recette" maxlength="30" aria-describedby="nom_recette_error" autocomplete="off">
             <div id="nom_recette_error" class="error-message" role="alert"></div>
@@ -79,6 +106,7 @@ const contenuHtml = {
             <label for="img">Image</label>
             <input type="file" id="img" name="img"aria-describedby="img_error" accept="image/*">
             <div id="img_error" class="error-message" role="alert"></div>
+        </div>
 
             <h4>Temps de cuisson</h4>
             <label for="cuisson_h">Heures :</label>
@@ -112,26 +140,31 @@ const contenuHtml = {
             <input type="number" id="nb_personnes" name="nb_personnes" min="1" max ="10" value="1" aria-describedby="nb_personnes_error" autocomplete="off">
             <div id = "nb_personnes_error" class="error-message" role="alert"></div>
 
+        <div class="divIngredients">
             <label for="ingredients">Ingrédients</label>
             <input type="text" id="ingredients" name="ingredients" placeholder="Ajouter un ingrédient" aria-describedby="ingredients_error" maxlength="20" autocomplete="off">
             <button type="button" id="ajout_ingredient">Ajouter</button>
             <ul id="ingredient_list"></ul>
             <div id = "ingredients_error" class="error-message" role="alert"></div>
+        </div>
 
+        <div class="divInstruction">
             <label for="instructions">Instructions</label>
             <textarea type="text" id="instructions" name="instructions" placeholder="Etape 1 :..." aria-describedby="instruction_error" maxlength="60000" autocomplete="off"></textarea>
             <div id = "instructions_error" class="error-message" role="alert"></div>
-
+        </div>
+        <div class="divMotsCles">
             <label for="mots_cles">Mots clés</label>
             <input type="text" id="mots_cles" name="mots_cles" placeholder="Ex : Fromage" aria-describedby="mots_cles_error" minlength="3" maxlength="20" autocomplete="off">
             <button type="button" id="ajout_mot_cle">Ajouter</button>
             <ul id="mot_cle_list"></ul>
             <div id = "mots_cles_error" class="error-message" role="alert"></div>
+        </div>
 
             <button type="submit" id="btn_recette">Enregistrer</button>
         </form>
     </div>
-    <div>
+    <div class="mesRecettes">
         <h2>Mes recettes :</h2>
         <p>Ici s'afficheront les recettes que l'utilisateur intégrera. On pourra les supprimer ou les modifier ultérieurement</p>
     </div>`
