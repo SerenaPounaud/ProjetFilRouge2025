@@ -1,16 +1,17 @@
 // Initialise le bouton loupe
 function initHeaderSearch() {
-    const btnLoupe = document.getElementById('btn_loupe');
-    if (!btnLoupe) return;
-        btnLoupe.addEventListener('click', () => {
-                const barreRecherche = document.getElementById('barre_recherche');
-                //si on est sur l'index
-                if (barreRecherche) {
-                  focusAndScrollToSearch();
-            } else { //redirige vers index
-                window.location.href = '/frontend/index.html#recherche'; 
-            } //# = met en avant sur la page
-        });
+    document.addEventListener('click', (e) => {
+        // détecte tout clic sur la loupe, même si injectée plus tard
+        if (e.target.closest('#btn_loupe')) {
+            const barreRecherche = document.getElementById('barre_recherche');
+            //si on est sur l'index -> scroll
+            if (barreRecherche) {
+                focusAndScrollToSearch();
+            } else { //redirige vers la barre de recherche d'index
+                window.location.href = `${window.location.origin}/frontend/index.html#recherche`; 
+            }
+        }
+    });
 }
 
 // Focus + scroll + retry si barre pas encore visible
