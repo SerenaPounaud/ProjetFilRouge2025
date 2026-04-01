@@ -73,7 +73,7 @@ function applyFilters() {
     filteredMeals = allMeals.filter(meal => {
         //recherche par mot-clé
         if (filters.keyword) {
-            //convertit le nom en minuscule pour éviter la casse + vérifie mot clé est présent dans la recette
+            //convertit le nom en minuscule + vérifie mot clé est présent dans la recette
             if (!meal.strMeal.toLowerCase().includes(filters.keyword)) { 
                 return false;
             }
@@ -97,16 +97,17 @@ function applyFilters() {
         }
         return true;
     });
-     //recherche par date
-        if (filters.dateSort === 'recent') {
-            filteredMeals.sort ((a, b) => //a et b représentent deux recettes du tableau
-            getDateRecette(b.idMeal) - getDateRecette(a.idMeal) //comparaison : b plus grand(récent) que a
-            );
-        } else if (filters.dateSort === 'ancien') {
-            filteredMeals.sort((a, b) =>
-            getDateRecette(a.idMeal) - getDateRecette(b.idMeal)
-            );
-        }
+    
+    //recherche par date
+    if (filters.dateSort === 'recent') {
+        filteredMeals.sort ((a, b) => //a et b représentent deux recettes du tableau
+        getDateRecette(b.idMeal) - getDateRecette(a.idMeal) //comparaison : b plus grand(récent) que a
+        );
+    } else if (filters.dateSort === 'ancien') {
+        filteredMeals.sort((a, b) =>
+        getDateRecette(a.idMeal) - getDateRecette(b.idMeal)
+        );
+    }
     currentPage = 1;
     displayRecipesPage(currentPage, filteredMeals);
 }
