@@ -21,5 +21,6 @@ function toast(message) {
     toastTimeout = setTimeout(() => {
         t.style.opacity = "0";
         t.style.transform = "translateY(20px)"; //déplace vers le bas
+        t.style.zIndex = "10";
     }, 3000);
 }  
