@@ -1,3 +1,4 @@
+/*Desktop first*/
 #toast {
     position: fixed;
     bottom: 10%;
@@ -10,7 +11,6 @@
     font-size: 18px;
     opacity: 0;
 }
-
 /*Img index*/
 .headerImg {
   display: flex;

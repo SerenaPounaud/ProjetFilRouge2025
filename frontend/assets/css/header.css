@@ -16,8 +16,27 @@
 }
 
 /*Navbar*/
+.nav-gauche {
+  gap: 100px;
+}
+.nav-droite {
+  gap: 100px;
+  padding: 0;
+}
+.logo {
+  width: 20%;
+}
+.titre_h1{
+  font-size: 20px;
+}
+nav a {
+  font-size: 20px;
+}
+
+@media (min-width: 360px) {
+  
 header {
-  margin-bottom: 30px;
+margin-bottom: 30px;
 }
 header a:not(.inscrire):hover {
   color: rgb(245, 60, 60);
@@ -29,14 +48,16 @@ nav {
   flex: 1;
   display: flex;
   align-items: center;
+  font-size: 10px;
 }
 .nav-gauche {
   justify-content: center;
-  gap: 100px;
+  gap: 20px;
 }
 .nav-droite {
   justify-content: center;
-  gap: 100px;
+  gap: 20px;
+  padding: 3%;
 }
 .nav-centre {
   align-items: center;
@@ -44,10 +65,10 @@ nav {
   flex-direction: column;
 }
 .logo {
-  width: 20%;
+  width: clamp(50px, 3vw, 100px);
 }
 .titre_h1{
-  font-size: 20px;
+  font-size: clamp(10px, 3vw, 20px);
 }
 .loupe  {
   background: transparent;
@@ -58,9 +79,12 @@ nav {
 .loupe:hover {
   transform: scale(1.5);
 }
+.imgLoupe {
+  height: clamp(10px, 3vw, 100px);
+}
 nav a {
   color: black;
-  font-size: 20px;
+  font-size: clamp(8px, 2vw, 20px);
   text-decoration: none;
 }
 .inscrire {
@@ -71,4 +95,5 @@ nav a {
 }
 .inscrire:hover {
   opacity: 0.7;
+}
 }
