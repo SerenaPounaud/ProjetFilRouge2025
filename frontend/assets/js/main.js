@@ -170,7 +170,7 @@ function createPaginationButtons(meals) {
         const btn = document.createElement('button');
         btn.textContent = i; //affiche le numéro sur le bouton
         btn.classList.add('pagination_btn');
-        btn.classList.toggle('active', i === currentPage); //class qui met le bouton en surbrillance si il correspond à la page actuel
+        btn.classList.toggle('active', i === currentPage); //met le bouton courant en surbrillance
         btn.onclick = () => displayRecipesPage(i, meals); //affiche recette lié au bouton
         paginationDiv.appendChild(btn);
     }

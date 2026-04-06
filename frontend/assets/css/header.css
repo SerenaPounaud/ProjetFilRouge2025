@@ -10,8 +10,8 @@
 .robot > img:hover {
   transform: scale(1.2);
 }
-.robot > img {
-  height: clamp(4rem, 8vw, 6rem);
+.robot img {
+  height: clamp(2rem, 10vw, 100px);
   transition: transform 0.3s ease;
 }
 

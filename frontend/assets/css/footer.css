@@ -26,7 +26,7 @@
   gap: 2%;
 }
 .icon {
-    height: 2vw;
+    height: 3vw;
     transition: transform 0.3s ease;
     margin: 0 0 2%;
 }
@@ -36,4 +36,13 @@
 }
 .footer p {
     text-align: left;
+}
+
+@media (min-width: 360px) and (max-width: 700px) {
+.footer-columns li, .footer p {
+  font-size: clamp(6px, 1vw, 30px);
+}
+.footer-columns ul {
+  padding-left: 3%;
+}
 }
