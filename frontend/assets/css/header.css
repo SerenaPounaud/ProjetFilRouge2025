@@ -11,11 +11,29 @@
   transform: scale(1.2);
 }
 .robot img {
-  height: clamp(2rem, 10vw, 100px);
+  height: clamp(2rem, 8vw, 100px);
   transition: transform 0.3s ease;
 }
 
+
+@media (min-width: 360px) {
+
 /*Navbar*/
+.nav-droite, .nav-centre, .nav-gauche {
+  justify-content: center;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  font-size: 10px;
+  flex: 1;
+}
+.nav-gauche {
+  gap: 20px;
+}
+.nav-droite {
+  gap: 20px;
+  padding: 3%;
+}
 header {
 margin-bottom: 30px;
 }
@@ -24,20 +42,6 @@ header a:not(.inscrire):hover {
 }
 nav {
   display: flex;
-}
-.nav-droite, .nav-centre, .nav-gauche {
-  justify-content: space-evenly;
-  flex: 1;
-  display: flex;
-  align-items: center;
-  font-size: 10px;
-}
-.nav-gauche {
-  gap: 100px;
-}
-.nav-droite {
-  gap: 100px;
-  padding: 0;
 }
 .nav-centre {
   align-items: center;
@@ -76,17 +80,18 @@ nav a {
 .inscrire:hover {
   opacity: 0.7;
 }
+}
 
-@media (min-width: 360px) and (max-width: 700px) {
-  
+@media (min-width: 1001px) {
+
 .nav-droite, .nav-centre, .nav-gauche {
-  justify-content: center;
+  justify-content: space-evenly;
 }
 .nav-gauche {
-  gap: 20px;
+  gap: 100px;
 }
 .nav-droite {
-  gap: 20px;
-  padding: 3%;
+  gap: 100px;
+  padding: 0;
 }
 }

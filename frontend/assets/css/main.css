@@ -1,37 +1,54 @@
 /*Desktop first*/
 #toast {
-    position: fixed;
-    bottom: 10%;
-    right: 45%;
-    background: #333;
-    color: white;
-    padding: 12px 18px;
-    border-radius: 8px;
-    pointer-events: none; /*l’élément ne peut pas être cliqué*/
-    font-size: 18px;
-    opacity: 0;
+  position: fixed;
+  bottom: 10%;
+  right: 45%;
+  background: #333;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 8px;
+  pointer-events: none; /*l’élément ne peut pas être cliqué*/
+  font-size: 18px;
+  opacity: 0;
 }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (min-width: 360px) {
+
+body {
+  margin: 0;
+  padding: 0 5%;
+}
+
 /*Img index*/
 .headerImg {
-  display: flex;
-  justify-content: center;
   position: relative;
-  margin-bottom: 10%;
-}
-.headerImg > img {
-  width: 90%;
+  background-image: url('../img/dame_pizza.webp');
+  background-size: cover;
+  background-position: center;
+  aspect-ratio: 16 / 9;
   border-radius: 30px;
+  margin-bottom: 5%;
 }
 .p_header {
-position: absolute;
-top: 10%;
-left: 150px;
-color: black;
-font-family: 'DM Serif Display', serif;
-font-size: clamp(20px, 5vw, 30px);
-background-color: white;
-border-radius: 30px;
-padding: 30px;
+  font-size: clamp(1px, 1.5vw, 30px);
+  border-radius: 10px;
+  padding: 2%;
+  left: 22px;
+  top: 10%;
+  background-color: white;
+  font-family: 'DM Serif Display', serif;
+  position: absolute;
 }
 .p_header a {
   text-decoration: none;
@@ -41,47 +58,55 @@ padding: 30px;
   color: rgb(245, 60, 60);
 }
 
-/*Liste catégories*/
+/*liste catégories*/
 .middleIndex {
   display: flex;
+  flex-direction: column;
   margin-bottom: 2%;
 }
-.li_aside {
-  font-size: clamp(10px, 5vw, 20px);
-  margin: 0px 80px;
-}
 .li_aside h2 {
+  margin: 2%;
   text-align: center;
-  margin-bottom: 50px;
+}
+.li_aside {
+  margin: 5% 0;
+  font-size: clamp(10px, 2vw, 20px);
 }
 .li_aside li {
-  margin: 20px;
+  margin: 3%;
+}
+#liste_categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 0;
+  margin: 0;
 }
 .li_aside li:hover {
   color: rgb(245, 60, 60);
 }
 
-/*Zone recherche*/
-.zone_recettes {
-  margin-right: 5%;
-}
+/*zone recherche*/
 .zone_recherche {
   display: flex;
   gap: 20px;
+  margin-bottom: 5%;
+  font-size: clamp(10px, 2vw, 20px);
+  flex-wrap: wrap;
   align-items: center;
-  margin-bottom: 3%;
 }
 .zone_recherche button:hover, .zone_recherche select:hover {
   opacity: 0.7;
 }
 .barre_recherche {
   display: flex;
-  width: 30%;
+  width: 100%;
   gap: 10px;
+  align-items: center;
+  justify-content: center;
 }
 .barre_recherche button {
-  width: 12%;
-  height: 40%;
+  width: clamp(30px, 6vw, 50px);
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -95,9 +120,8 @@ padding: 30px;
   height: 100%;
 }
 .barre_recherche input {
-  width: 100%;
+  width: 70%;
   border-radius: 10px;
-  height: 40%;
   background-color: #fbf2f0;
   border: none;
   padding: 10px;
@@ -105,17 +129,29 @@ padding: 30px;
 .actualisation {
   display: flex;
   gap: 10px;
-  flex: 2;
   align-items: center;
   text-align: left;
 }
+.actualisation, .filtre {
+  flex: 1;
+}
 #btn_refresh {
   background-color: rgb(245, 60, 60);
-  border-radius: 30px;
   color: white;
   border: none;
-  padding: 1%;
   cursor: pointer;
+  padding: 5%;
+  border-radius: 10px;
+}
+.filtre select {
+  border-radius: 5px;
+  width: 100%;
+  background-color: rgb(245, 60, 60);
+  color: white;
+  border: none;
+  padding: 5%;
+  cursor: pointer;
+  text-align: center;
 }
 .filtre {
   display: flex;
@@ -127,32 +163,24 @@ padding: 30px;
   display: grid;
   gap: 10px;
 }
-.filtre select{
-  width: 100%;
-  background-color: rgb(245, 60, 60);
-  border-radius: 30px;
-  color: white;
-  border: none;
-  padding: 5%;
-  cursor: pointer;
-  text-align: center;
-}
 .reset {
   display: flex;
+  align-content: center;
   flex: 1;
   justify-content: center;
 }
 .reset button {
   background-color: rgb(245, 60, 60);
-  border-radius: 30px;
+  border-radius: 5px;
   color: white;
   border: none;
-  padding: 10% 5%;
+  padding: 10%;
   cursor: pointer;
 }
 
-/*Zone recettes*/
+/*recettes*/
 .recettes {
+  font-size: clamp(5px, 2vw, 20px);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -166,13 +194,13 @@ padding: 30px;
   justify-content: center;
   align-items: center;
 }
+.recette-item img {
+  width: 90%;
+  height: 45%;
+  border-radius: 15px;
+}
 .recette-item:hover {
   transform: scale(1.1);
-}
-.recette-item img {
-  width: 100%;
-  border-radius: 30px;
-  height: 60%;
 }
 .recette-item h3 {
   align-content: center;
@@ -181,23 +209,25 @@ padding: 30px;
 .note-block {
   margin: 5% 0;
 }
-button.active {
-    background-color: #ff9800;
-    color: white;
-    border: none;
-    border-radius: 5px;
-}
 .pagination {
+  font-size: clamp(5px, 2vw, 20px);
+  justify-content: initial;
+  flex-wrap: wrap;
+  margin: 2%;
   text-align: center;
   display: flex;
-  justify-content: center;
-  margin: 2%;
 }
 .pagination_btn {
+  font-size: clamp(5px, 2vw, 20px);
   border: transparent;
   background: transparent;
-  font-size: 20px;
   cursor: pointer;
+}
+button.active {
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  border-radius: 5px;
 }
 .pagination_btn:hover {
   background-color: #ff9800;
@@ -205,16 +235,25 @@ button.active {
   color: white;
 }
 
-/*Footer*/
+/*contenu video + img*/
 .contenu_video {
-  display: flex;
-  justify-content: space-evenly;
-  margin: 0 2% 3%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /*part égale de l’espace*/
+  gap: 10px;
+  margin-bottom: 5%;
 }
-.contenu_video img, .contenu_video iframe {
-  width: 20%;
-  height: 300px;
-  border-radius: 30px;
+.contenu_video iframe,
+.contenu_video img {
+  width: 100%;
+  max-height: 100px;
+  aspect-ratio: 16 / 9; /*format vidéo YouTube*/
+  border-radius: 20px;
+}
+.contenu_video img {
+  object-fit: cover; /*remplit toute la zone et évite les images écrasées*/
+}
+.newsletter p, .newsletter {
+  font-size: clamp(5px, 2vw, 20px);
 }
 .newsletter {
   background-color: rgb(245, 60, 60);
@@ -233,13 +272,10 @@ button.active {
   justify-content: center;
   align-items: center;
 }
-.newsletter p {
-  font-size: clamp(10px, 5vw, 30px);
-}
 .newsletter button {
   background-color: white;
   border: none;
-  padding: 1%;
+  padding: 2%;
   border-radius: 20px;
 }
 .newsletter button:hover {
@@ -250,134 +286,88 @@ button.active {
 .newsletter input {
   border-radius: 30px;
   border: none;
-  padding: 1%;
-  width: 25%;
-}
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-@media (min-width: 360px) and (max-width: 700px) {
-
-.p_header {
-  font-size: clamp(1px, 1.5vw, 30px);
-  border-radius: 10px;
   padding: 2%;
-  left: 22px;
+  width: 30%;
 }
-.middleIndex {
-  display: flex;
-  flex-direction: column;
+}
+
+@media (min-width: 800px) {
+.reset button, .filtre select, #btn_refresh {
+  border-radius: 30px;
+}
+}
+
+@media (min-width: 1001px) { 
+.p_header {
+  border-radius: 20px;
 }
 
 /*liste catégories*/
-.li_aside h2 {
-  margin: 0;
-}
-.li_aside {
-  margin: 0;
-  font-size: clamp(10px, 2vw, 20px);
+.middleIndex {
+  display: flex;
+  flex-direction: initial;
+  margin-bottom: 0;
 }
 .li_aside li {
-  margin: 15px;
+  margin: 20%;
 }
 #liste_categories {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  padding: 5%;
+  display: block;
+  padding: revert;
+  margin: revert;
+}
+.li_aside li:hover {
+  color: rgb(245, 60, 60);
 }
 
-/*zone recherche*/
-.zone_recettes {
-  margin: 0;
-  padding: 2%;
-}
+/*Zone recherche*/
 .zone_recherche {
-  display: flex;
-  gap: 20px;
+  align-items: center;
   margin-bottom: 3%;
-  font-size: clamp(10px, 2vw, 20px);
-  flex-wrap: wrap;
-  padding: 2%;
+  margin-right: 5%;
 }
 .barre_recherche {
-  display: flex;
-  width: 100%;
-  gap: 10px;
+  width: 30%;
 }
-.barre_recherche button {
-  width: 10%;
-}
-.actualisation, .filtre {
-  flex: 1;
-}
-.reset {
-  flex: none;
+.actualisation {
+  flex: 2;
 }
 #btn_refresh {
-  padding: 5%;
+  padding: 1%;
 }
-.recettes {
-  font-size: clamp(5px, 2vw, 20px);
+.filtre select{
+  border-radius: 30px;
 }
+
+}
+
+
+@media (min-width: 1201px) { 
+.p_header {
+  border-radius: 30px;
+}
+
+/*recettes*/
 .recette-item img {
-  width: 90%;
-  height: 45%;
-  border-radius: 15px;
+  width: 100%;
+  border-radius: 30px;
+  height: 60%;
 }
 .pagination {
-  font-size: clamp(5px, 2vw, 20px);
-  justify-content: initial;
-  flex-wrap: wrap;
-}
-.pagination_btn {
-  font-size: clamp(5px, 2vw, 20px);
+  justify-content: center;
+  flex-wrap: nowrap;
 }
 
-/*contenu video + img*/
+/*footer*/
 .contenu_video {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /*part égale de l’espace*/
-  gap: 10px;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 0 2% 3%;
 }
-.contenu_video iframe,
-.contenu_video img {
-  width: 100%;
-  max-height: 100px;
-  aspect-ratio: 16 / 9; /*format vidéo YouTube*/
-}
-.contenu_video img {
-  object-fit: cover; /*remplit toute la zone et évite les images écrasées*/
-}
-.newsletter p, .newsletter {
-  font-size: clamp(5px, 2vw, 20px);
-}
+.contenu_video img, .contenu_video iframe {
+  width: 20%;
+  height: 300px;
+  border-radius: 30px;
 }
 
-
-@media (min-width: 701px) and (max-width: 1024px) { 
-
-.p_header {
-font-size: clamp(1px, 1.5vw, 30px);
-left: 50px;
-}
-}
-
-
-@media (min-width: 1025px) { 
-.p_header {
-left: 150px;
-font-size: clamp(20px, 5vw, 30px);
-border-radius: 30px;
-padding: 30px;
-}
 }
