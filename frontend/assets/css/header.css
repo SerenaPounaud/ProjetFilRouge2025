@@ -80,18 +80,24 @@ nav a {
 .inscrire:hover {
   opacity: 0.7;
 }
+
+}
+@media (min-width: 800px) {
+.nav-centre, .nav-gauche {
+  justify-content: space-evenly;
+}
+.nav-droite {
+  justify-content: space-between;
+}
 }
 
 @media (min-width: 1001px) {
 
-.nav-droite, .nav-centre, .nav-gauche {
-  justify-content: space-evenly;
-}
 .nav-gauche {
-  gap: 100px;
+  gap: 0;
 }
 .nav-droite {
-  gap: 100px;
   padding: 0;
+  gap: 0;
 }
 }
