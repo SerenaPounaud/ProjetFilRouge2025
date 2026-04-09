@@ -110,7 +110,7 @@ getRecipeDetails(idMeal).then(meal => { //appelle la fonction, meal = recevra le
     }
     tagsHtml += '</ul>';
   } else {
-    tagsHtml = '<p>Aucun tag disponible pour cette recette.</p>'
+    tagsHtml = 'Aucun mot clé associé à la recette</p>'
   }
 
 // HTML des ingrédients
