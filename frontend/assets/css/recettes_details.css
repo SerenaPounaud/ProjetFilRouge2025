@@ -2,7 +2,7 @@
     visibility: hidden;
     opacity: 0;
     color: red;
-    font-size: 15px;
+    font-size: clamp(10px, 3vw, 40px);
     min-height: 19px;
     margin: 5px;
     transition: opacity 0.3s;
@@ -15,18 +15,6 @@
     opacity: 1;
     visibility: visible;
 }
-#toast {
-    position: fixed;
-    bottom: 10%;
-    right: 45%;
-    background: #333;
-    color: white;
-    padding: 12px 18px;
-    border-radius: 8px;
-    pointer-events: none; /*l’élément ne peut pas être cliqué*/
-    font-size: 18px;
-    opacity: 0;
-}
 .sr-only {
     position: absolute;
     width: 1px;
@@ -37,187 +25,6 @@
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
-}
-.headerDetails {
-    display: flex;
-    margin: 3% 3% 0 3%;
-}
-.imgDetails {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-}
-.imgDetails img {
-    width: 80%;
-    height: 80%;
-    border-radius: 30px;
-}
-.infoDetails {
-    flex: 1;
-}
-.infoDetails h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(20px, 5vw, 50px);
-}
-.loremDetails {
-    font-size: 20px;
-    margin-bottom: 8%;
-}
-.infoSuppleDetails {
-    margin-bottom: 5%;
-}
-.noteDetails {
-    display: flex;
-    justify-content: space-between;
-}
-.buttonDetails {
-    display: flex;
-    gap: 20px;
-}
-.btnDetails {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 3vw;
-    padding: 0;
-    border: none;
-    border-radius: 8px;
-    background-color: transparent;
-    cursor: pointer;
-}
-.btnDetails svg {
-    width: 80%;
-    height: 80%; 
-    transition: transform 0.3s ease;
-}
-.btnDetails svg:hover {
-    transform: scale(1.2);
-}
-.middleDetails {
-    display: flex;
-}
-.instructions {
-    flex: 2;
-    padding: 5%;
-    line-height: 2;
-}
-.ingredients {
-    flex: 1;
-}
-.ingredients li {
-    margin: 3%;
-}
-
-/*Zone commentaire*/
-.espaceCommentaires {
-    padding: 4%;
-}
-#h2Com {
-    font-size: clamp(20px, 2vw, 40px);
-}
-#connexion {
-    flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
-    padding: 3%;
-    background: linear-gradient(135deg, peachpuff, papayawhip);
-    width: 30%;
-    border-radius: 30px;
-}
-#connexion label {
-    font-size: clamp(10px, 2vw, 20px);
-    margin-bottom: 5%;
-}
-#connexion input {
-    border-radius: 10px;
-    padding: 2%;
-    border: none;
-}
-.btnConnexion {
-    padding: 3%;
-}
-#zone_commentaire {
-    flex-direction: column;
-    margin: 0 auto;
-    padding: 3%;
-    background: linear-gradient(135deg, peachpuff, papayawhip);
-    width: 50%;
-    border-radius: 30px;
-    align-items: center;
-}
-#zone_commentaire h3 {
-    font-size: clamp(10px, 2vw, 25px);
-}
-#zone_commentaire label {
-    margin: 0 1% 1% 1%;
-}
-.btnZoneCommentaire {
-    display: flex;
-    width: 100%;
-    justify-content: space-evenly;
-}
-.btnEnvoyer, #btn_deconnexion {
-    padding: 2%;
-}
-#note_input {
-    padding: 1%;
-    text-align: center;
-}
-#commentaires {
-    display: flex;
-    flex-direction: column;
-    gap: clamp(20px, 2vw, 40px);
-    margin: 3% 0;
-}
-.divCommentaires {
-    border-radius: 30px;
-    padding: 2%;
-    width: 50%;
-}
-.divCommentaires:nth-child(odd) {
-  align-self: flex-start;
-  background-color: papayawhip;
-}
-
-.divCommentaires:nth-child(even) {
-  align-self: flex-end; /* décale vers la droite */
-  background-color: peachpuff;
-}
-.paraCommentaires {
-    overflow-wrap: break-word; /*évite de dépasser le conteneur*/
-}
-.meta {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 0.5%;
-}
-.users {
-    font-size: clamp(10px, 2vw, 25px);
-}
-#char_count {
-    align-self: flex-end;
-}
-.inputCommentaires > .divTextarea {
-    display: flex;
-    gap: 10px;
-    margin: 4%;
-}
-.divTextarea textarea {
-    width: 80vh; /*80% de la largeur de l'écran*/
-    height: 25vh;
-    resize: none; /*empêche l'utilisateur de remanier le textarea*/
-    border-radius: 10px;
-    padding: 1%;
-}
-.btnEnvoyer, #btn_deconnexion, #note_input, .btnConnexion, .btnSupprimer {
-    background-color: rgb(245, 60, 60);
-    border-radius: 30px;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-.btnSupprimer {
-    padding: 1%;
 }
 
 /*Zone recettes similaires*/
@@ -254,6 +61,228 @@
   align-content: center;
   text-align: center;
 }
+
+
+@media (min-width: 360px) {
+
+body {
+  margin: 0;
+  padding: 0 5%;
+}
+#toast {
+  font-size: clamp(8px, 2vw, 20px);
+  bottom: 10%;
+  right: 34%;
+  position: fixed;
+  background: #333;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 8px;
+  pointer-events: none; 
+  opacity: 0;
+}
+/*header recette*/
+.headerDetails {
+    display: flex;
+    margin: 3% 3% 0 3%;
+}
+.imgDetails {
+    flex: 1;
+    aspect-ratio: 16 / 9;
+}
+.imgDetails img {
+    object-fit: cover;
+    width: 80%;
+    border-radius: 20px;
+}
+.infoDetails {
+    flex: 1;
+    font-size: clamp(10px, 2vw, 50px);
+}
+.infoDetails h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(15px, 2vw, 50px);
+}
+.loremDetails {
+    margin-bottom: 8%;
+}
+.middleDetails {
+    display: flex;
+    font-size: clamp(10px, 2vw, 50px);
+}
+.middleDetails h2, .middleDetails h3 {
+    font-size: clamp(10px, 2vw, 50px);
+}
+.infoSuppleDetails {
+    margin-bottom: 5%;
+}
+.noteDetails {
+    display: flex;
+}
 .note-block {
   margin: 5% 0;
+  flex: 2;
+}
+.buttonDetails {
+    display: flex;
+    justify-content: space-evenly;
+    flex: 1;
+}
+.btnDetails {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    aspect-ratio: 16 / 9;
+    width: 30%;
+}
+.btnDetails svg {
+    transition: transform 0.3s ease;
+    object-fit: cover;
+    width: 100%;
+}
+.btnDetails svg:hover {
+    transform: scale(1.2);
+}
+.instructions {
+    flex: 2;
+    padding: 5%;
+    line-height: 2;
+}
+.ingredients {
+    flex: 1;
+}
+.ingredients li {
+    margin: 3%;
+}
+.ingredients ul {
+    padding: 0;
+}
+
+/*Zone commentaire*/
+.espaceCommentaires {
+    padding: 4%;
+    font-size: clamp(10px, 2vw, 50px);
+}
+#h2Com {
+    font-size: clamp(15px, 2vw, 50px);
+}
+#connexion {
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    padding: 3%;
+    background: linear-gradient(135deg, peachpuff, papayawhip);
+    width: 100%;
+    border-radius: 30px;
+}
+#connexion label {
+    font-size: clamp(10px, 2vw, 20px);
+    margin-bottom: 5%;
+}
+#connexion input {
+    border-radius: 10px;
+    padding: 2%;
+    border: none;
+}
+.btnConnexion {
+    padding: 3%;
+}
+#zone_commentaire {
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 3%;
+    background: linear-gradient(135deg, peachpuff, papayawhip);
+    width: 100%;
+    border-radius: 30px;
+    align-items: center;
+}
+#zone_commentaire h3 {
+    font-size: clamp(10px, 2vw, 25px);
+}
+#zone_commentaire label {
+    margin: 0 1% 1% 1%;
+}
+.btnZoneCommentaire {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+}
+.btnEnvoyer, #btn_deconnexion {
+    padding: 2%;
+}
+#note_input {
+    padding: 1%;
+    text-align: center;
+}
+#commentaires {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 2vw, 40px);
+    margin: 3% 0;
+}
+.divCommentaires {
+    border-radius: 10px;
+    padding: 2%;
+    width: 90%;
+}
+.divCommentaires:nth-child(odd) {
+  align-self: flex-start;
+  background-color: papayawhip;
+}
+
+.divCommentaires:nth-child(even) {
+  align-self: flex-end;
+  background-color: peachpuff;
+}
+.paraCommentaires {
+    overflow-wrap: break-word; /*évite de dépasser le conteneur*/
+}
+.meta {
+    display: flex;
+    gap: clamp(10px, 3vw, 40px);
+    margin-bottom: 1.5%;
+    align-items: center;
+}
+.dateSpan {
+    white-space: nowrap; /*évite de casser*/
+}
+#char_count {
+    align-self: flex-end;
+}
+.inputCommentaires {
+    aspect-ratio: 16/8;
+    width: 100%;
+}
+.inputCommentaires > .divTextarea {
+    display: flex;
+    gap: 10px;
+    margin: 4%;
+}
+.divTextarea textarea {
+    width: 80%;
+    resize: none;
+    border-radius: 10px;
+    padding: 1%;
+    height: 25vw;
+}
+.btnEnvoyer, #btn_deconnexion, #note_input, .btnConnexion, .btnSupprimer {
+    background-color: rgb(245, 60, 60);
+    border-radius: 30px;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.btnSupprimer {
+    padding: 2%;
+}
+
+}
+
+@media (min-width: 508px) {
+  #toast {
+  right: 40%;
+  }
 }

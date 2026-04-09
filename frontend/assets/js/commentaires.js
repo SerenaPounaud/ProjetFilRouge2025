@@ -194,6 +194,7 @@ function createCommentElement(c) { //c = commentaire
 
     const dateSpan = document.createElement("span");
     dateSpan.textContent = `- ${c.date} - `;
+    dateSpan.className = "dateSpan";
 
     const etoileSpan = document.createElement("span");
     etoileSpan.textContent = "★".repeat(c.note) + "☆".repeat(5 - c.note);
