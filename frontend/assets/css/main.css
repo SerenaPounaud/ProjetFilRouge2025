@@ -44,8 +44,8 @@ body {
   font-size: clamp(1px, 1.5vw, 30px);
   border-radius: 10px;
   padding: 2%;
-  left: 22px;
-  top: 10%;
+  left: 10px;
+  top: 5%;
   background-color: white;
   font-family: 'DM Serif Display', serif;
   position: absolute;

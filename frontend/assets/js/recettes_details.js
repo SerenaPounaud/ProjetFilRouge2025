@@ -33,9 +33,9 @@ function displayRecettesSimilaire(meals, currentId) {
 
     card.innerHTML = `
     <h3>${meal.strMeal}</h3>
-    <img src="${meal.strMealThumb}" width="150">`;
+    <img src="${meal.strMealThumb}">`;
 
-    const noteBlock = createNoteBlock(meal.idMeal);
+    const noteBlock = createNoteBlock(meal.idMeal, true);
     card.appendChild(noteBlock);
 
     card.addEventListener("click", () => { //redirige vers la page détails de la recette

@@ -2,9 +2,10 @@
     visibility: hidden;
     opacity: 0;
     color: red;
-    font-size: clamp(10px, 3vw, 40px);
+    font-size: clamp(10px, 2.5vw, 25px);
     min-height: 19px;
-    margin: 5px;
+    margin: 2%;
+    padding: 2%;
     transition: opacity 0.3s;
 }
 .input-error {
@@ -27,47 +28,11 @@
     border: 0;
 }
 
-/*Zone recettes similaires*/
-.recettesSimilaires {
-    background-color: papayawhip ;
-    padding: 2%;
-}
-.recettesSimilaires > h3 {
-    font-size: clamp(10px, 3vw, 30px);
-}
-#recettes_similaires {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    gap: 0.2%;
-}
-.item-similaire {
-  width: 20%;
-  transition: transform 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.item-similaire:hover {
-  transform: scale(1.1);
-}
-.item-similaire img {
-  width: 80%;
-  border-radius: 30px;
-  height: 60%;
-}
-.item-similaire h3 {
-  align-content: center;
-  text-align: center;
-}
-
-
 @media (min-width: 360px) {
 
 body {
   margin: 0;
-  padding: 0 5%;
+  padding: 0;
 }
 #toast {
   font-size: clamp(8px, 2vw, 20px);
@@ -81,10 +46,13 @@ body {
   pointer-events: none; 
   opacity: 0;
 }
+#recettes_details {
+    padding: 0 5%;
+}
 /*header recette*/
 .headerDetails {
     display: flex;
-    margin: 3% 3% 0 3%;
+    margin-top: 3%;
 }
 .imgDetails {
     flex: 1;
@@ -97,18 +65,18 @@ body {
 }
 .infoDetails {
     flex: 1;
-    font-size: clamp(10px, 2vw, 50px);
+    font-size: clamp(10px, 2vw, 20px);
 }
 .infoDetails h2 {
     font-family: 'DM Serif Display', serif;
-    font-size: clamp(15px, 2vw, 50px);
+    font-size: clamp(15px, 3vw, 50px);
 }
 .loremDetails {
     margin-bottom: 8%;
 }
 .middleDetails {
     display: flex;
-    font-size: clamp(10px, 2vw, 50px);
+    font-size: clamp(10px, 2vw, 20px);
 }
 .middleDetails h2, .middleDetails h3 {
     font-size: clamp(10px, 2vw, 50px);
@@ -119,8 +87,7 @@ body {
 .noteDetails {
     display: flex;
 }
-.note-block {
-  margin: 5% 0;
+.note-block-detail{
   flex: 2;
 }
 .buttonDetails {
@@ -136,7 +103,7 @@ body {
     background-color: transparent;
     cursor: pointer;
     aspect-ratio: 16 / 9;
-    width: 30%;
+    width: clamp(10px, 3vw, 40px);
 }
 .btnDetails svg {
     transition: transform 0.3s ease;
@@ -149,7 +116,7 @@ body {
 .instructions {
     flex: 2;
     padding: 5%;
-    line-height: 2;
+    line-height: 1.5;
 }
 .ingredients {
     flex: 1;
@@ -163,8 +130,9 @@ body {
 
 /*Zone commentaire*/
 .espaceCommentaires {
-    padding: 4%;
-    font-size: clamp(10px, 2vw, 50px);
+    margin-bottom: 5%;
+    font-size: clamp(10px, 2vw, 20px);
+    padding: 0 5%;
 }
 #h2Com {
     font-size: clamp(15px, 2vw, 50px);
@@ -210,11 +178,10 @@ body {
     width: 100%;
     justify-content: space-evenly;
 }
-.btnEnvoyer, #btn_deconnexion {
+.btnEnvoyer, #btn_deconnexion, #note_input {
     padding: 2%;
 }
 #note_input {
-    padding: 1%;
     text-align: center;
 }
 #commentaires {
@@ -260,12 +227,13 @@ body {
     display: flex;
     gap: 10px;
     margin: 4%;
+    justify-content: center;
 }
 .divTextarea textarea {
     width: 80%;
     resize: none;
     border-radius: 10px;
-    padding: 1%;
+    padding: 2%;
     height: 25vw;
 }
 .btnEnvoyer, #btn_deconnexion, #note_input, .btnConnexion, .btnSupprimer {
@@ -278,6 +246,46 @@ body {
 .btnSupprimer {
     padding: 2%;
 }
+/*Zone recettes similaires*/
+.recettesSimilaires {
+    background-color: papayawhip ;
+    padding: 2%;
+}
+.recettesSimilaires > h3 {
+    font-size: clamp(10px, 3vw, 30px);
+    text-align: center;
+}
+#recettes_similaires {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 0.2%;
+}
+.item-similaire {
+    width: 20%;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: clamp(5px, 2vw, 18px);
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.item-similaire:hover {
+  transform: scale(1.1);
+}
+.item-similaire img {
+    border-radius: 15px;
+    max-width: 100%;
+    height: auto;
+}
+.item-similaire h3 {
+  align-content: center;
+  text-align: center;
+}
+.note-block {
+  margin: 5% 0;
+}
 
 }
 
@@ -285,4 +293,23 @@ body {
   #toast {
   right: 40%;
   }
+}
+
+@media (min-width: 1000px) {
+.imgDetails img {
+    width: 70%;
+}
+.ingredients ul {
+    padding: revert;
+}
+.divCommentaires, .item-similaire img {
+    width: 70%;
+}
+#zone_commentaire {
+    width: 60%;
+}
+.divTextarea textarea {
+    width: 80%;
+    height: 14vw;
+}
 }

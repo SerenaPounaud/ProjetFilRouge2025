@@ -28,20 +28,25 @@ function getNomPrenom(id) {
  //Math.floor permet d'obtenir un entier valable dans la liste puis on récupère le prenoms/noms dans son tableau
 //id +2/3 modifie le seed pour éviter que nom/prenom soit corrélé au prenom/noms
 
-function createNoteBlock(id) {
+function createNoteBlock(id, isDetail = false) {
     const note = getNoteRecette(id);
     const nbAvis = getNbAvis(id);
     const nom = getNomPrenom(id);
 
     const div = document.createElement('div');
-    div.classList.add('note-block');
+    
+    if (isDetail) {
+        div.classList.add('note-block');
+    } else {
+        div.classList.add('note-block-detail');
+    }
+    
     div.innerHTML = `
         <span class="etoiles">${"★".repeat(note) + "☆".repeat(5 - note)}</span>
         <span class="nb-avis">(${nbAvis} avis)</span>
         <span class="nom">Créé par ${nom}</span>`;
         div.querySelector('.etoiles').setAttribute('aria-label', `Note : ${note} sur 5 étoiles`);
         return div;
-    
 }
 
 // Génére un temps de cuisson/nombre de personnes aléatoirement
