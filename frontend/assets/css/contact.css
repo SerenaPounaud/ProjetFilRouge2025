@@ -1,21 +1,21 @@
-section {
-  display: flex;
-  margin: 3%;
-}
+@media (min-width: 360px) {
+
 .para_form {
-  flex: 1;
   padding: 2%;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  place-items: center;
+  margin-bottom: 10%;
 }
 .para_form h1 {
   font-family: 'DM Serif Display', serif;
-  font-size: 3rem;
+  font-size: clamp(15px, 3vw, 50px);
   margin: 0;
 }
 .para_form p {
-  line-height: 1.5rem; 
+  line-height: 1.5; 
+  font-size: clamp(10px, 2.5vw, 30px);
 }
 .para_form button {
   cursor: pointer;
@@ -24,49 +24,59 @@ section {
   border-radius: 20px;
   padding: 2%;
   border: none;
-  width: 20%;
+  font-size: clamp(10px, 2.5vw, 25px);
 }
 .para_form button:hover {
   color: black;
 }
 .formContact {
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2%;
 }
 .formContact div {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
+  place-items: center;
 }
 #formcontact {
-  border-radius: 30px;
   background-color: rgb(245, 60, 60);
   color: white;
   padding: 10%;
+  width: 100%;
+  font-size: clamp(8px, 2vw, 50px);
+  background: linear-gradient(to bottom,transparent 0%, rgb(245, 60, 60) 20%, rgb(245, 60, 60) 80%,
+  transparent 100%
+  );
 }
 .formContact input:not([type="checkbox"]) {
-  border-radius: 30px;
+  border-radius: 5px;
   height: 2vw;
-  padding: 5%;
+  padding: 4%;
   border: none;
+  width: 50%;
 }
 .formContact textarea {
-  border-radius: 30px;
-  height: 7vw;
-  padding: 5%;
+  border-radius: 10px;
+  height: 20vw;
+  width: 50%;
+  padding: 2%;
   border: none;
 }
-.formContact button {
-  padding: 5%;
-  border-radius: 30px;
+#btn_contact {
+  padding: 3%;
+  border-radius: 10px;
   background-color: white;
   border: none;
   width: 30%;
 }
-.formContact button:hover {
+#btn_contact:hover {
   background-color: orange;
   cursor: pointer;
+}
+}
+
+@media (min-width: 360px) {
+
 }
