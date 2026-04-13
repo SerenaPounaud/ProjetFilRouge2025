@@ -1,14 +1,15 @@
 .error-message {
-    color: red;
-    font-size: 15px;
-    height: 2rem;
-    visibility: hidden; /* caché mais garde l’espace */
+    visibility: hidden;
     opacity: 0;
+    color: red;
+    font-size: clamp(10px, 2.5vw, 25px);
+    min-height: 19px;
+    margin: 2%;
+    padding: 2%;
     transition: opacity 0.3s;
     background-color: white;
-    border-radius: 10px;
-    padding: 2%;
-    width: fit-content;
+    border-radius: 30px;
+    text-align: center;
 }
 /* Bordure rouge sur les champs en erreur */
 .input-error {
