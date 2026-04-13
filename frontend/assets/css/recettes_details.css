@@ -57,6 +57,8 @@ body {
 .imgDetails {
     flex: 1;
     aspect-ratio: 16 / 9;
+    display: grid;
+    place-items: center;
 }
 .imgDetails img {
     object-fit: cover;
@@ -163,7 +165,7 @@ body {
     margin: 0 auto;
     padding: 3%;
     background: linear-gradient(135deg, peachpuff, papayawhip);
-    width: 100%;
+    width: 90%;
     border-radius: 30px;
     align-items: center;
 }
@@ -246,6 +248,7 @@ body {
 .btnSupprimer {
     padding: 2%;
 }
+
 /*Zone recettes similaires*/
 .recettesSimilaires {
     background-color: papayawhip ;
@@ -272,7 +275,7 @@ body {
     justify-content: center;
 }
 .item-similaire:hover {
-  transform: scale(1.1);
+    transform: scale(1.1);
 }
 .item-similaire img {
     border-radius: 15px;
@@ -280,19 +283,18 @@ body {
     height: auto;
 }
 .item-similaire h3 {
-  align-content: center;
-  text-align: center;
+    align-content: center;
+    text-align: center;
 }
 .note-block {
   margin: 5% 0;
 }
-
 }
 
 @media (min-width: 508px) {
-  #toast {
-  right: 40%;
-  }
+#toast {
+    right: 40%;
+}
 }
 
 @media (min-width: 1000px) {
@@ -311,5 +313,15 @@ body {
 .divTextarea textarea {
     width: 80%;
     height: 14vw;
+}
+}
+
+@media (min-width: 1400px) {
+
+.divCommentaires{
+    width: 55%;
+}
+#zone_commentaire {
+    width: 45%;
 }
 }
