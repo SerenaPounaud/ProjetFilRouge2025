@@ -1,38 +1,45 @@
-main {
-  display: flex;
+@media (min-width: 360px) {
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
-.gauche_insc, .droite_insc {
-  flex: 1;
-  padding: 3%;
+#toast {
+  font-size: clamp(8px, 2vw, 20px);
+  bottom: 10%;
+  right: 34%;
+  position: fixed;
+  background: #333;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 8px;
+  pointer-events: none; 
+  opacity: 0;
+}
+.error-message {
+  font-size: clamp(15px, 1vw, 25px);
 }
 .gauche_insc{
   display: flex;
-  justify-content: right;
+  justify-content: center;
 }
 
 /*zone droite*/
-.imgDroite, .imgDroiteConnexion {
-  display: flex;
-  justify-content: center;
-  position: relative;
-}
-.imgDroite img {
-  border-radius: 30px;
-  width: 80%;
-}
-.imgDroite p, .imgDroiteConnexion p {
-  position: absolute;
-  background: white;
-  padding: 2%;
-  border-radius: 30px;
-  bottom: 10%;
-}
 .imgDroite p a, .imgDroiteConnexion p a {
   text-decoration: none;
 }
-.imgDroiteConnexion img {
-  border-radius: 30px;
-  width: 60%;
+.imgDroite img, .imgDroiteConnexion img {
+  display: none;
+}
+.imgDroite p, .imgDroiteConnexion p {
+  padding: 2%;
+  text-align: center;
 }
 
 /*zone gauche*/
@@ -73,16 +80,14 @@ main {
   border: solid rgb(184, 184, 184) 1px;
   text-align: center;
   margin: 1%;
-  font-size: clamp(10px, 1.2vw, 20px);
   width: 100%;
 }
 .formInsc label:not(#cgu) {
   margin: 1%;
-  font-size: clamp(10px, 1.2vw, 20px);
+
 }
 .cgu {
   display: flex;
-  font-size: clamp(10px, 1.2vw, 20px);
 }
 #btn_inscription, #btn_connexion{
   border-radius: 30px;
@@ -101,6 +106,7 @@ main {
 #btn_connexion {
   width: 70%;
 
+
 }
 .faux-lien {
   color: gray;
@@ -108,6 +114,7 @@ main {
   background: transparent;
   border-color: transparent;
   margin-top: 5%;
+
 }
 .faux-lien:hover {
   color: blue;
@@ -122,4 +129,30 @@ main {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+}
+
+@media (min-width: 800px) {
+  /*zone droite*/
+.imgDroite, .imgDroiteConnexion {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+.imgDroite img {
+  border-radius: 30px;
+  width: 80%;
+}
+.imgDroiteConnexion img {
+  border-radius: 30px;
+  width: 60%;
+}
+.imgDroite p, .imgDroiteConnexion p {
+  position: absolute;
+  bottom: 10%;
+  background: white;
+  border-radius: 30px;
+}
+
 }
