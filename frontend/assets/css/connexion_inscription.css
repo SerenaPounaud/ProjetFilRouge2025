@@ -40,6 +40,7 @@
 .imgDroite p, .imgDroiteConnexion p {
   padding: 2%;
   text-align: center;
+  font-size: clamp(13px, 1vw, 20px);
 }
 
 /*zone gauche*/
@@ -52,7 +53,7 @@
   gap: 3vw; 
 }
 .icon {
-  width: clamp(20px, 3vw, 50px);
+  width: clamp(20px, 3vw, 40px);
   transition: transform 0.3s ease;
 }
 .icon:hover {
@@ -63,6 +64,7 @@
   flex-direction: column;
   align-items: center;
   gap: 1vw;
+  font-size: clamp(13px, 2vw, 20px);
 }
 #forminscription {
   flex-direction: column;
@@ -84,7 +86,6 @@
 }
 .formInsc label:not(#cgu) {
   margin: 1%;
-
 }
 .cgu {
   display: flex;
@@ -105,8 +106,6 @@
 }
 #btn_connexion {
   width: 70%;
-
-
 }
 .faux-lien {
   color: gray;
@@ -114,7 +113,6 @@
   background: transparent;
   border-color: transparent;
   margin-top: 5%;
-
 }
 .faux-lien:hover {
   color: blue;
@@ -130,29 +128,41 @@
   white-space: nowrap;
   border: 0;
 }
-
 }
 
 @media (min-width: 800px) {
-  /*zone droite*/
+
+main {
+  display: flex;
+}
+.gauche_insc, .droite_insc {
+  flex: 1;
+  align-content: center;
+  padding: 5%;
+}
+.gauche_insc {
+  justify-content: right;
+}
+
+/*zone droite*/
 .imgDroite, .imgDroiteConnexion {
   display: flex;
   justify-content: center;
   position: relative;
 }
-.imgDroite img {
+.imgDroite img, .imgDroiteConnexion img {
+  display: block;
+  z-index: 0;
+  width: 100%;
+  max-width: 450px;
+  height: auto;
   border-radius: 30px;
-  width: 80%;
-}
-.imgDroiteConnexion img {
-  border-radius: 30px;
-  width: 60%;
 }
 .imgDroite p, .imgDroiteConnexion p {
   position: absolute;
   bottom: 10%;
   background: white;
   border-radius: 30px;
+  padding: 2%;
 }
-
 }
