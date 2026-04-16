@@ -37,7 +37,7 @@
   text-align: left;
 }
 .footer-columns li, .footer p {
-  font-size: clamp(6px, 1.5vw, 20px);
+  font-size: clamp(10px, 1.5vw, 20px);
 }
 .footer-columns ul {
   padding-left: 0;
@@ -45,7 +45,7 @@
 
 @media (min-width: 1600px) {
 .icon {
-  height: 2vw;
+  height: 3vw;
 }
 
 }
