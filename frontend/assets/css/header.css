@@ -15,9 +15,6 @@
   transition: transform 0.3s ease;
 }
 
-
-@media (min-width: 360px) {
-
 /*Navbar*/
 .nav-droite, .nav-centre, .nav-gauche {
   justify-content: center;
@@ -81,7 +78,6 @@ nav a {
   opacity: 0.7;
 }
 
-}
 @media (min-width: 800px) {
 .nav-centre, .nav-gauche {
   justify-content: space-evenly;

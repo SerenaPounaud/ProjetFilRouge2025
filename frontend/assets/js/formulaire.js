@@ -312,7 +312,7 @@ function formRecette() {
     if (formrecette.dataset.initialized) return; //évite plusieurs submit car section injectée dynamiquement
     formrecette.dataset.initialized = "true";
 
-        const maxIngreLength = 20
+        const maxIngreLength = 20;
         const inputIngredients = document.getElementById("ingredients");
         const btnAjoutIngredient = document.getElementById("ajout_ingredient");
         const ingredientsListe = document.getElementById("ingredient_list");
@@ -331,17 +331,23 @@ function formRecette() {
             return;
         }
         clearErrors();
+        
             tabIngredients.push(valeur);
             const li = document.createElement("li");
-            li.textContent = valeur;
+            const span = document.createElement("span");
+            span.textContent = valeur;
+            span.className = "texteIngredient";
 
             const btnSupprimer = document.createElement("button");
             btnSupprimer.textContent = "Supprimer";
             btnSupprimer.type = "button";
+            btnSupprimer.className = "btnListe";
             btnSupprimer.addEventListener("click", () => {
                 li.remove();
                 tabIngredients = tabIngredients.filter(i => i !== valeur);
             });
+
+            li.appendChild(span);
             li.appendChild(btnSupprimer);
             ingredientsListe.appendChild(li);
 

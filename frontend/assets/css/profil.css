@@ -71,7 +71,9 @@
 }
 
 /*section favoris*/
-
+.favorisDiv {
+    font-size: clamp(12px, 2vw, 20px);
+}
 .favorisDiv h2 {
     text-align: center;
 }
@@ -82,7 +84,7 @@
     justify-content: center;
 }
 .divRecette img {
-    width: 50%;
+    width: 90%;
     border-radius: 10px;
 }
 .divRecette div {
@@ -94,19 +96,19 @@
     gap: 8px;
 }
 .btn_delete {
-    padding: 3%;
+    padding: clamp(6px, 1vw, 12px);
+    font-size: clamp(10px, 2vw, 20px);
+    margin-top: 5%;
 }
 .btn_delete:hover {
     opacity: 0.5;
 }
 
 /*section recette*/
-
 #recettes {
-    display: flex;
+    font-size: clamp(10px, 2vw, 20px);
 }
 .ajoutRecetteDiv, .mesRecettes {
-    flex: 1;
     padding: 5%;
 }
 .ajoutRecetteDiv {
@@ -136,24 +138,68 @@
 .divRecetteImg label, .divInstruction label {
     display: block;
 }
-.divIngredients, .divMotsCles {
+.divMotsCles, .inputIngredients {
     display: flex;
     align-items: center;
     justify-content: center;
 }
+.listeIngredients {
+    text-align: initial;
+}
+#ingredient_list {
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+#ingredient_list li {
+    display: flex;
+    justify-content: space-between;
+    width: 45%;
+}
+.texteIngredient {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; /*ajoute les ... quand le texte est coupé*/
+}
+.divMotsCles label {
+    text-wrap: nowrap;
+}
 .divInstruction textarea {
     border-radius: 10px;
-    width: 15vw;
+    width: 100%;
     padding: 3%;
-    margin-top: 2%;
+    height: 25vw;
+}
+.divInstruction label {
+    margin: 4% 0;
 }
 #btn_recette {
     margin-top: 2%;
 }
 
 @media (min-width: 800px) {
-.profilDiv{
+.profilDiv {
     display: flex;
     justify-content: space-evenly;
+}
+.divRecette div {
+    width: 25%;
+}
+.divRecette img {
+    width: 80%;
+}
+#recettes {
+    display: flex;
+}
+.ajoutRecetteDiv, .mesRecettes {
+    flex: 1;
+}
+}
+
+@media (min-width: 1200px) {
+.divRecette img {
+    width: 70%;
 }
 }

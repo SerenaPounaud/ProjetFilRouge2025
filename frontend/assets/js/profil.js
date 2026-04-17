@@ -141,11 +141,15 @@ const contenuHtml = {
             <div id = "nb_personnes_error" class="error-message" role="alert"></div>
 
         <div class="divIngredients">
-            <label for="ingredients">Ingrédients</label>
-            <input type="text" id="ingredients" name="ingredients" placeholder="Ajouter un ingrédient" aria-describedby="ingredients_error" maxlength="20" autocomplete="off">
-            <button type="button" id="ajout_ingredient">Ajouter</button>
-            <ul id="ingredient_list"></ul>
-            <div id = "ingredients_error" class="error-message" role="alert"></div>
+            <div class="inputIngredients">
+                <label for="ingredients">Ajoutez vos ingrédients et leurs quantités</label>
+                <input type="text" id="ingredients" name="ingredients" placeholder="100g Tomates" aria-describedby="ingredients_error" maxlength="20" autocomplete="off">
+                <button type="button" id="ajout_ingredient">Ajouter</button>
+            </div>
+            <div class="listeIngredients">
+                <ul id="ingredient_list"></ul>
+                <div id = "ingredients_error" class="error-message" role="alert"></div>
+            </div> 
         </div>
 
         <div class="divInstruction">
@@ -157,8 +161,11 @@ const contenuHtml = {
             <label for="mots_cles">Mots clés</label>
             <input type="text" id="mots_cles" name="mots_cles" placeholder="Ex : Fromage" aria-describedby="mots_cles_error" minlength="3" maxlength="20" autocomplete="off">
             <button type="button" id="ajout_mot_cle">Ajouter</button>
-            <ul id="mot_cle_list"></ul>
-            <div id = "mots_cles_error" class="error-message" role="alert"></div>
+            <div class="listeMotsCles">
+                <ul id="mot_cle_list"></ul>
+                <div id = "mots_cles_error" class="error-message" role="alert"></div>
+            </div>
+            
         </div>
 
             <button type="submit" id="btn_recette">Enregistrer</button>
