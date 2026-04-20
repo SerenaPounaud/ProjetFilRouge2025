@@ -393,6 +393,7 @@ function formRecette() {
             const li = document.createElement("li");
             const span = document.createElement("span");
             span.textContent = valeur;
+            span.className = "texteTags";
 
             const btnSupprimer = document.createElement("button");
             btnSupprimer.textContent = "Supprimer";

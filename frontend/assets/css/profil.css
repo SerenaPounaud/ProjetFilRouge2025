@@ -2,6 +2,18 @@
     padding: 1%;
     font-size: clamp(12px, 2vw, 15px);
 }
+#toast {
+  font-size: clamp(10px, 2vw, 20px);
+  bottom: 10%;
+  right: 34%;
+  position: fixed;
+  background: #333;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 8px;
+  pointer-events: none; 
+  opacity: 0;
+}
 /*bar de navigation*/
 .user_nav {
     display: flex;
@@ -106,7 +118,7 @@
 
 /*section recette*/
 #recettes {
-    font-size: clamp(10px, 2vw, 20px);
+    font-size: clamp(10px, 2vw, 18px);
 }
 .ajoutRecetteDiv, .mesRecettes {
     padding: 5%;
@@ -137,11 +149,6 @@
 }
 .divRecetteImg label, .divInstruction label {
     display: block;
-}
-.divMotsCles, .inputIngredients {
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 .listeIngredients {
     text-align: initial;
@@ -178,6 +185,29 @@
 #btn_recette {
     margin-top: 2%;
 }
+#mot_cle_list {
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+#mot_cle_list li {
+    display: flex;
+    justify-content: space-between;
+    width: 45%;
+}
+.texteTags {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; /*ajoute les ... quand le texte est coupé*/
+}
+
+@media (min-width: 508px) {
+  #toast {
+  right: 40%;
+  }
+}
 
 @media (min-width: 800px) {
 .profilDiv {
@@ -190,9 +220,7 @@
 .divRecette img {
     width: 80%;
 }
-#recettes {
-    display: flex;
-}
+
 .ajoutRecetteDiv, .mesRecettes {
     flex: 1;
 }
@@ -201,5 +229,11 @@
 @media (min-width: 1200px) {
 .divRecette img {
     width: 70%;
+}
+#recettes {
+    display: flex;
+}
+.divInstruction textarea {
+  height: 15vw;
 }
 }
