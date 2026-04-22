@@ -33,7 +33,6 @@ const contenuHtml = {
 
             <button type="submit" id="btn_info">Enregistrer</button>
         </form>
-    </div>
 </div> `,
     favoris: `
     <section class="favorisDiv">
@@ -147,8 +146,8 @@ const contenuHtml = {
                 <button type="button" id="ajout_ingredient">Ajouter</button>
             </div>
             <div class="listeIngredients">
-                <ul id="ingredient_list"></ul>
                 <div id = "ingredients_error" class="error-message" role="alert"></div>
+                <ul id="ingredient_list"></ul>
             </div> 
         </div>
 
@@ -158,12 +157,14 @@ const contenuHtml = {
             <div id = "instructions_error" class="error-message" role="alert"></div>
         </div>
         <div class="divMotsCles">
-            <label for="mots_cles">Mots clés</label>
-            <input type="text" id="mots_cles" name="mots_cles" placeholder="Ex : Fromage" aria-describedby="mots_cles_error" minlength="3" maxlength="20" autocomplete="off">
-            <button type="button" id="ajout_mot_cle">Ajouter</button>
+            <div class="inputMotsCles">
+                <label for="mots_cles">Mots clés</label>
+                <input type="text" id="mots_cles" name="mots_cles" placeholder="Ex : Fromage" aria-describedby="mots_cles_error" minlength="3" maxlength="20" autocomplete="off">
+                <button type="button" id="ajout_mot_cle">Ajouter</button>
+            </div>
             <div class="listeMotsCles">
-                <ul id="mot_cle_list"></ul>
                 <div id = "mots_cles_error" class="error-message" role="alert"></div>
+                <ul id="mot_cle_list"></ul>
             </div>
             
         </div>

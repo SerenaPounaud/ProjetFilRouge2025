@@ -1,6 +1,6 @@
 .error-message {
     padding: 1%;
-    font-size: clamp(12px, 2vw, 15px);
+    font-size: clamp(12px, 2vw, 18px);
 }
 #toast {
   font-size: clamp(10px, 2vw, 20px);
@@ -185,6 +185,11 @@
 #btn_recette {
     margin-top: 2%;
 }
+.inputMotsCles {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 #mot_cle_list {
     padding: 0;
     display: flex;
@@ -230,10 +235,16 @@
 .divRecette img {
     width: 70%;
 }
-#recettes {
+#recettes.active {
     display: flex;
 }
 .divInstruction textarea {
   height: 15vw;
+}
+#form_recette {
+    width: 100%;
+}
+.inputIngredients label {
+    display: block;
 }
 }
