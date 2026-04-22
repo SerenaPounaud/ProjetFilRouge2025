@@ -22,10 +22,10 @@
 .logo_bas_de_page {
   display: flex;
   justify-content: flex-end;
-  gap: 2%;
+  gap: 3%;
 }
 .icon {
-  height: 3vw;
+  height: clamp(15px, 3vw, 40px);
   transition: transform 0.3s ease;
   margin: 0 0 2%;
 }
@@ -41,11 +41,4 @@
 }
 .footer-columns ul {
   padding-left: 0;
-}
-
-@media (min-width: 1600px) {
-.icon {
-  height: 3vw;
-}
-
 }

@@ -1,5 +1,3 @@
-@media (min-width: 360px) {
-
 .cgu-error, .rgpd-error {
   outline: 2px solid white;
   outline-offset: 2px;
@@ -81,6 +79,11 @@
   background-color: orange;
   cursor: pointer;
 }
+
+@media (min-width: 508px) {
+  #toast {
+  right: 40%;
+  }
 }
 
 @media (min-width: 1200px) {
