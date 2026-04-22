@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Recettes faciles du monde entier, cuisine maison, plats traditionnels et modernes. Explorez, partagez et découvrez des recettes simples et rapides.">
     <link rel="stylesheet" href="assets/css/reset_modern_normalize.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/footer.css">
@@ -12,12 +13,12 @@
     <script src="assets/js/main.js" defer></script>
     <script src="assets/js/header.js" defer></script>
     <script src="assets/js/toast.js" defer></script> 
-    <title>Miam & Co</title>
+    <title>Miam & Co - Site de recettes collaboratif</title>
     <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
-</head>
+</head> 
 <body>
     <div id="toast" role="status"></div> 
-        <button class="robot" type="button">
+        <button class="robot" type="button" aria-label="Ouvrir le chatbot">
             <img src="assets/img/chatbot.webp" alt="Image d'un robot">
         </button>
     <header class="header">
@@ -30,12 +31,12 @@
             
             <div class="nav-centre">
                 <img src="assets/img/poele.webp" alt="Logo Miam & Co" class="logo">
-                <h1 class="titre_h1">Miam & Co - Accueil</h1>
+                <h1 class="titre_h1">Miam & Co <br> Recettes du monde</h1>
             </div>
 
             <div class="nav-droite">
-                <button class="loupe" id="btn_loupe" type="button" aria-label="Rechercher une recette" title="Rechercher une recette">
-                    <img src="assets/img/loupe.svg" alt="Logo d'une loupe pour la recherche" class="imgLoupe">
+                <button class="loupe" id="btn_loupe" type="button" aria-label="Rechercher une recette">
+                    <img src="assets/img/loupe.svg" alt="Logo d'une loupe pour la recherche" aria-hidden="true" class="imgLoupe">
                 </button>
                 <a href="templates/connexion.html">Se connecter</a>
                 <a class="inscrire" href="templates/inscription.html">S'inscrire</a>
@@ -44,9 +45,9 @@
     </header>
 <main>
     <div class="headerImg">
-        <div class="p_header">   
-            <p>Choisissez parmi des milliers de recettes</p>
-            <a href="templates/inscription.html" title="Se connecter ou s'incrire">Inscrivez-vous ➔</a>
+        <div class="texteHeader">   
+            <h2>Découvrez des recettes faciles et rapides du monde entier : plats traditionnels, cuisine maison, desserts gourmands et idées de repas pour tous les jours.</h2>
+            <a href="templates/inscription.html" title="S'incrire">Inscrivez-vous ➔</a>
         </div> 
     </div>
 
@@ -65,7 +66,7 @@
                     type="text" id="barre_recherche" placeholder="Rechercher par mots clés..." aria-label="Champ de recherche par mots clés">
             </form>
                 <div class="actualisation">
-                    <button id="btn_refresh" type="button" aria-label="Actualiser les recettes" title="Actualisez les recettes">Actualisez les recettes</button>
+                    <button id="btn_refresh" type="button">Actualiser les recettes</button>
                     <span id="refresh_status" aria-live="polite" class="refresh_status"></span>
                 </div>
                 <div class="filtre">
@@ -93,9 +94,9 @@
                     <button id="btn_reset" type="button" aria-label="Réinitialiser la recherche">Réinitialiser</button>
                 </div>
         </div>
-        <div class="recettes" id="recettes">
+        <section class="recettes" id="recettes">
             <!--Les recettes s'affichent ici-->
-        </div> 
+        </section> 
         <div id="pagination" class="pagination">
             <!--Les boutons de pages s'affichent ici-->
         </div>
@@ -107,22 +108,23 @@
         <iframe 
             loading="lazy" 
             src="https://www.youtube.com/embed/MuZGBlYEYMo?autoplay=0&mute=1&controls=0&loop=1&playlist=MuZGBlYEYMo&start=1&modestbranding=1&rel=0" 
-            title="YouTube video player" 
-            frameborder="0" 
+            title="Vidéo youtube montrant différentes recettes" 
+            frameborder="1" 
             allow="autoplay; encrypted-media; picture-in-picture" 
             allowfullscreen>
         </iframe>
-            <img src="assets/img/cake.webp" alt="Image d'un cake aux fruits" >
+            <img src="assets/img/cake.webp" alt="Image d'un cake aux fruits maison" >
         <iframe 
             loading="lazy"
             src="https://www.youtube.com/embed/9g-gMkV5vL4?autoplay=0&mute=1&controls=0&loop=1&playlist=9g-gMkV5vL4&modestbranding=1&rel=0"
-            title="YouTube video player"
-            frameborder="0"
+            title="Vidéo youtube montrant comment faire un chili"
+            frameborder="1"
             allow="autoplay; encrypted-media; picture-in-picture"
             allowfullscreen>
         </iframe>
-            <img src="assets/img/bol.webp" alt="Image d'un bol contenant des légumes" >
+            <img src="assets/img/bol.webp" alt="Image d'un bol contenant des légumes">
     </div>
+        <div class="infoVideo"><p>Ces vidéos peuvent ne pas contenir de sous-titres accessibles.</p></div>
     <div class="newsletter">
         <div>
             <p>Soyez les premiers informés des dernières recettes intégrées !</p>
@@ -130,9 +132,8 @@
         <div class="newsletter-email">
             <label for="newsletter_email" class="sr-only">Inscrivez votre adresse email</label>
             <input id="newsletter_email" type="email" placeholder="exemple@gmail.fr" required>
-            <button type="button" aria-label="S'incrire" disabled>S'inscrire</button>
-        </div>
-        
+            <button type="button" aria-disabled="true" disabled>S'inscrire</button>
+        </div> 
     </div>
 </section>
 </main>
@@ -152,24 +153,24 @@
         </nav>
         <div class="footer-columns">
             <ul>
-                <li><a href=""onclick="event.preventDefault()">Présentations</a></li>
-                <li><a href=""onclick="event.preventDefault()">Professionnels</a></li>
-                <li><a href=""onclick="event.preventDefault()">Boutique</a></li>
+                <li><a href="#"onclick="event.preventDefault()">Présentations</a></li>
+                <li><a href="#"onclick="event.preventDefault()">Professionnels</a></li>
+                <li><a href="#"onclick="event.preventDefault()">Boutique</a></li>
             </ul>
             <ul>
-                <li><a href=""onclick="event.preventDefault()">Ateliers</a></li>
-                <li><a href=""onclick="event.preventDefault()">Rencontres locales</a></li>
-                <li><a href=""onclick="event.preventDefault()">Nos initiatives</a></li>
+                <li><a href="#"onclick="event.preventDefault()">Ateliers</a></li>
+                <li><a href="#"onclick="event.preventDefault()">Rencontres locales</a></li>
+                <li><a href="#"onclick="event.preventDefault()">Nos initiatives</a></li>
             </ul>
             <ul>
-                <li><a href=""onclick="event.preventDefault()">Communautés</a></li>
-                <li><a href=""onclick="event.preventDefault()">Formulaire de contact</a></li>
-                <li><a href=""onclick="event.preventDefault()">Travailler avec nous</a></li>
+                <li><a href="#"onclick="event.preventDefault()">Communautés</a></li>
+                <li><a href="#"onclick="event.preventDefault()">Formulaire de contact</a></li>
+                <li><a href="#"onclick="event.preventDefault()">Travailler avec nous</a></li>
             </ul>
             <ul>
-                <li><li><a href=""onclick="event.preventDefault()">Webinaires</a></li></li>
-                <li><li><a href=""onclick="event.preventDefault()">Redonner</a></li></li>
-                <li><li><a href=""onclick="event.preventDefault()">Nous rendre visite</a></li></li>
+                <li><a href="#"onclick="event.preventDefault()">Webinaires</a></li>
+                <li><a href="#"onclick="event.preventDefault()">Redonner</a></li>
+                <li><a href="#"onclick="event.preventDefault()">Nous rendre visite</a></li>
             </ul>
         </div>
             <p>Crée par la ville de Saint Ciers sur Gironde.</p>

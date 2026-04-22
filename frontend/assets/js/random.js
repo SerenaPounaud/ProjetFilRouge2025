@@ -45,7 +45,6 @@ function createNoteBlock(id, isDetail = false) {
         <span class="etoiles">${"★".repeat(note) + "☆".repeat(5 - note)}</span>
         <span class="nb-avis">(${nbAvis} avis)</span>
         <span class="nom">Créé par ${nom}</span>`;
-        div.querySelector('.etoiles').setAttribute('aria-label', `Note : ${note} sur 5 étoiles`);
         return div;
 }
 

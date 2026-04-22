@@ -36,23 +36,23 @@ body {
   aspect-ratio: 16 / 7;
   border-radius: 30px;
   margin: auto auto 5% auto;
-  width: 80%;
+  width: 100%;
 }
-.p_header {
-  font-size: clamp(1px, 1.5vw, 30px);
-  border-radius: 10px;
+.texteHeader {
+  font-size: clamp(6px, 1.5vw, 15px);
   padding: 2%;
-  left: 10px;
-  top: 5%;
+  left: 0px;
+  top: 70%;
   background-color: white;
-  font-family: 'DM Serif Display', serif;
   position: absolute;
+  width: 100%;
 }
-.p_header a {
+.texteHeader a {
   text-decoration: none;
   color: black;
+  font-size: clamp(9px, 2vw, 20px);
 }
-.p_header a:hover {
+.texteHeader a:hover {
   color: rgb(245, 60, 60);
 }
 
@@ -133,7 +133,7 @@ body {
   width: min-content;
 }
 #btn_refresh {
-  background-color: rgb(245, 60, 60);
+  background-color: #c62828;
   color: white;
   border: none;
   cursor: pointer;
@@ -143,7 +143,7 @@ body {
 .filtre select {
   border-radius: 5px;
   width: 100%;
-  background-color: rgb(245, 60, 60);
+  background-color: #c62828;
   color: white;
   border: none;
   padding: 5%;
@@ -165,7 +165,7 @@ body {
   justify-content: center;
 }
 .reset button {
-  background-color: rgb(245, 60, 60);
+  background-color: #c62828;
   border-radius: 5px;
   color: white;
   border: none;
@@ -219,13 +219,13 @@ body {
   cursor: pointer;
 }
 button.active {
-  background-color: #ff9800;
+  background-color: #c62828;
   color: white;
-  border: none;
   border-radius: 5px;
+  box-shadow: 50px 10px 10px 5px;
 }
 .pagination_btn:hover {
-  background-color: #ff9800;
+  background-color: #c62828;
   border-radius: 5px;
   color: white;
 }
@@ -247,11 +247,15 @@ button.active {
 .contenu_video img {
   object-fit: cover; /*remplit toute la zone et évite les images écrasées*/
 }
+.infoVideo {
+  text-align: center;
+  font-size: clamp(10px, 2vw, 20px);
+}
 .newsletter p, .newsletter {
   font-size: clamp(5px, 2vw, 20px);
 }
 .newsletter {
-  background-color: rgb(245, 60, 60);
+  background-color: #c62828;
   color: white;
   border-radius: 30px;
   padding: 20px;
@@ -286,9 +290,12 @@ button.active {
 }
 
 @media (min-width: 508px) {
-  #toast {
+#toast {
   right: 40%;
-  }
+}
+.texteHeader {
+  font-family: 'DM Serif Display', serif;
+}
 }
 
 @media (min-width: 800px) {
@@ -298,10 +305,9 @@ button.active {
 }
 
 @media (min-width: 1001px) { 
-.p_header {
-  border-radius: 20px;
+.headerImg {
+  width: 80%;
 }
-
 /*liste catégories*/
 .middleIndex {
   display: flex;
@@ -348,8 +354,17 @@ button.active {
 }
 }
 
+@media (min-width: 1400px) {
+.texteHeader {
+  left: 10px;
+  top: 5%;
+  width: 43%;
+  border-radius: 20px;
+}
+}
+
 @media (min-width: 1600px) { 
-.p_header {
+.texteHeader {
   border-radius: 30px;
 }
 .zone_recherche {

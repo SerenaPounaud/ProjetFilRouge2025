@@ -1,0 +1,6 @@
+user-agent : * 
+Disallow : /profil/
+
+Allow: /
+
+Sitemap : https//www.ProjetFilRouge2025.com/sitemap.xml //url du site
