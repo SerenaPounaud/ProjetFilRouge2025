@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Créez votre compte pour ajouter des recettes. Inscription rapide et sécurisée">
+    <meta name="description" content="Créez gratuitement votre compte Miam & Co pour ajouter, partager et découvrir des recettes. Inscription rapide, simple et sécurisée.">
     <title>S'inscrire sur Miam & Co</title>
     <link rel="icon" href="../assets/img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../assets/css/reset_modern_normalize.css">
@@ -12,10 +12,10 @@
 </head>
 <body>
 <main>
-    <div id="toast" role="status"></div> 
+    <div id="toast" role="status" aria-live="assertive"></div> 
     <section class="gauche_insc">
         <div class="formGauche">
-            <h1>S'inscrire ⤵</h1>
+            <h1>Créer un compte ⤵</h1>
             <nav class="liens" aria-label="S'inscrire avec un réseau social">
                 <a href="https://www.facebook.com/?locale=fr_FR" title="S'inscrire avec Facebook" rel="noopener noreferrer" target="_blank" aria-label="S'inscrire avec Facebook">
                     <img src="../assets/img/facebook.webp" class="icon" alt="Logo Facebook"> 
@@ -27,9 +27,9 @@
                     <img src="../assets/img/linkedin.webp" class="icon" alt="Logo Linkedin"> 
                 </a>
             </nav>
-            <h2>Ou utilise ton adresse email</h2>
+            <h2>Ou inscris-toi avec ton adresse email</h2>
             <div class="formInsc">
-                <form action="" method="POST" id= "forminscription" novalidate> 
+                <form action="#" method="POST" id= "forminscription" novalidate> 
                     <h3 class="sr-only">Formulaire d'inscription</h3>
                 
                     <label for="lastname">Nom</label>
@@ -52,10 +52,10 @@
                     <input type="password" id="confirm_password" name="confirm_password" placeholder="Réécrivez votre mot de passe" maxlength="20" aria-describedby="confirm_password_error" autocomplete="new-password">
                     <div id = "confirm_password_error" class="error-message" role="alert"></div>
 
-                    <label for="cgu" class="cgu">
-                        J'accepte les conditions générales d'utilisation
+                    <div class="divCgu">
+                        <label for="cgu" class="cgu">J'accepte les conditions générales d'utilisation</label>
                         <input type="checkbox" id="cgu" name="cgu" aria-describedby="cgu_error" aria-required="true">
-                    </label>
+                    </div>
                     <div id = "cgu_error" class="error-message" role="alert"></div>
                     
                     <button type="submit" id="btn_inscription">S'inscrire</button>

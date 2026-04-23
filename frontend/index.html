@@ -17,7 +17,7 @@
     <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
 </head> 
 <body>
-    <div id="toast" role="status"></div> 
+    <div id="toast" role="status" aria-live="assertive"></div> 
         <button class="robot" type="button" aria-label="Ouvrir le chatbot">
             <img src="assets/img/chatbot.webp" alt="Image d'un robot">
         </button>
@@ -29,9 +29,17 @@
                 <a href="templates/contact.html">Contact</a>
             </div>
             
-            <div class="nav-centre">
+         <!--  <div class="nav-centre">
                 <img src="assets/img/poele.webp" alt="Logo Miam & Co" class="logo">
-                <h1 class="titre_h1">Miam & Co <br> Recettes du monde</h1>
+                <p class="titreHeader" aria-label="Accueil - Miam & Co"><strong>Miam & Co<br>Recettes du monde</strong></p>
+            </div>--> 
+            <div class="nav-centre">
+                <a href="index.html" class="logo-link">
+                    <img src="assets/img/poele.webp" alt="Logo d'une poêle" class="logo">
+                    <span class="titreHeader">
+                        <strong>Miam & Co<br>Recettes du monde</strong>
+                    </span>
+                </a>
             </div>
 
             <div class="nav-droite">
@@ -46,7 +54,7 @@
 <main>
     <div class="headerImg">
         <div class="texteHeader">   
-            <h2>Découvrez des recettes faciles et rapides du monde entier : plats traditionnels, cuisine maison, desserts gourmands et idées de repas pour tous les jours.</h2>
+            <h1>Découvrez des recettes faciles et rapides du monde entier : plats traditionnels, cuisine maison, desserts gourmands et idées de repas pour tous les jours</h1>
             <a href="templates/inscription.html" title="S'incrire">Inscrivez-vous ➔</a>
         </div> 
     </div>

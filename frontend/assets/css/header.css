@@ -31,16 +31,16 @@
   gap: 20px;
   padding: 3%;
 }
-header {
-margin-bottom: 30px;
+header { 
+  margin-bottom: 30px;
 }
 header a:not(.inscrire):hover {
-  color: rgb(245, 60, 60);
+  color: #c62828;
 }
 nav {
   display: flex;
 }
-.nav-centre {
+.logo-link {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -48,7 +48,7 @@ nav {
 .logo {
   width: clamp(40px, 7vw, 200px);
 }
-.titre_h1{
+.titreHeader {
   font-size: clamp(10px, 2vw, 30px);
 }
 nav a {

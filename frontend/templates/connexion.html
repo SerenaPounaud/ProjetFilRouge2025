@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Connectez vous pour accéder à votre espace">
-    <title>Se connecter à Miam & Co</title>
+    <meta name="description" content="Connectez-vous à votre compte Miam & Co pour accéder à vos recettes et gérer votre profil">
+    <title>Connexion à Miam & Co - Accédez à votre compte recettes</title>
     <link rel="icon" href="../assets/img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../assets/css/reset_modern_normalize.css">
     <link rel="stylesheet" href="../assets/css/error.css">
@@ -12,7 +12,7 @@
 </head>
 <body>
 <main>
-    <div id="toast" role="status"></div> 
+    <div id="toast" role="status" aria-live="assertive"></div> 
     <section class="gauche_insc">
         <div class="formGauche">
             <h1>Se connecter ⤵</h1>
@@ -24,8 +24,8 @@
                 title="Se connecter avec Google" rel="noopener noreferrer" target="_blank" aria-label="Se connecter avec Google">
                     <img src="../assets/img/google.webp" class="icon" alt="Logo de Google"> 
                 </a>
-                <a href="https://www.linkedin.com/home" title="Se connecter avec Linkedin" rel="noopener noreferrer" target="_blank">
-                    <img src="../assets/img/linkedin.webp" class="icon" alt="Logo Linkedin" aria-label="Se connecter avec Linkedin"> 
+                <a href="https://www.linkedin.com/home" title="Se connecter avec Linkedin" rel="noopener noreferrer" target="_blank"  aria-label="Se connecter avec Linkedin">
+                    <img src="../assets/img/linkedin.webp" class="icon" alt="Logo Linkedin"> 
                 </a>
             </nav>
             <h2>Ou utilise ton adresse email</h2>
@@ -43,12 +43,12 @@
 
                     <button type="submit" id="btn_connexion">Se connecter</button>
                     
-                    <button class="faux-lien" type="button" disabled>Mot de passe oublié ?</button>
+                    <a href="#" class="faux-lien">Mot de passe oublié ?</a>
                 </form>
             </div>
         </div>
     </section>
-    <section class="droite_insc" aria-label="Image d'une dame qui cuisine">
+    <section class="droite_insc">
         <div class="imgDroiteConnexion">
             <img src="../assets/img/Cuisinière.webp" alt="Dame qui cuisine" loading="lazy">
             <p>

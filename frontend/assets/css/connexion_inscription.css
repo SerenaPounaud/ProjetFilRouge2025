@@ -1,4 +1,3 @@
-@media (min-width: 360px) {
 .sr-only {
   position: absolute;
   width: 1px;
@@ -21,6 +20,7 @@
   border-radius: 8px;
   pointer-events: none; 
   opacity: 0;
+  z-index: 1000;
 }
 .error-message {
   font-size: clamp(12px, 2vw, 17px);
@@ -29,7 +29,7 @@
   outline: 2px solid red;
   outline-offset: 2px;
 }
-.gauche_insc{
+.gauche_insc {
   display: flex;
   justify-content: center;
 }
@@ -37,7 +37,7 @@
 /*zone droite*/
 .imgDroite p a, .imgDroiteConnexion p a {
   text-decoration: none;
-  color: rgb(245, 60, 60);
+  color: #c62828;
 }
 .imgDroite p a:hover, .imgDroiteConnexion p a:hover {
   opacity: 0.7;
@@ -56,16 +56,15 @@
   display: flex;
   gap: 3vw; 
 }
-.liens {
-  display: flex;
-  gap: 3vw; 
-}
 .icon {
   width: clamp(20px, 3vw, 35px);
   transition: transform 0.3s ease;
 }
 .icon:hover {
   transform: scale(1.3);
+}
+h1, h2 {
+  font-size: clamp(16px, 2vw, 25px);
 }
 .formGauche {
   display: flex;
@@ -91,27 +90,28 @@
   text-align: center;
   margin: 1%;
 }
-.formInsc label:not(#cgu) {
+.formInsc label {
   margin: 1%;
 }
-.cgu {
+.divCgu {
   display: flex;
   white-space: nowrap;
   gap: 20px;
+  align-items: center;
+}
+#cgu {
+  height: min-content;
 }
 #btn_inscription, #btn_connexion{
   border-radius: 30px;
   color: white;
-  background-color: rgb(245, 60, 60);
+  background-color: #c62828;
   padding: 3% 5%;
   border: none;
   cursor: pointer;
 }
 #btn_inscription {
   width: 40%;
-}
-#cgu {
-  height: min-content;
 }
 #btn_connexion {
   width: 70%;
@@ -120,11 +120,12 @@
   opacity: 0.7;
 }
 .faux-lien {
-  color: gray;
   cursor: pointer;
   background: transparent;
   border-color: transparent;
   margin-top: 5%;
+  text-decoration: none;
+  color: black;
 }
 .faux-lien:hover {
   color: blue;
@@ -139,7 +140,6 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
-}
 }
 
 @media (min-width: 508px) {

@@ -2,6 +2,18 @@
   outline: 2px solid white;
   outline-offset: 2px;
 }
+.error-message {
+  font-size: clamp(10px, 1.5vw, 20px);
+}
+#toast {
+  z-index: 1000;
+}
+.h1Contact {
+  text-align: center;
+  font-size: clamp(8px, 2vw, 20px);
+  margin-top: clamp(10px, 5vw, 80px);
+  font-family: 'DM Serif Display', serif;
+}
 .para_form {
   padding: 5%;
   display: flex;
@@ -10,9 +22,9 @@
   place-items: center;
   margin-bottom: 10%;
 }
-.para_form h1 {
+.para_form h2 {
   font-family: 'DM Serif Display', serif;
-  font-size: clamp(15px, 3vw, 50px);
+  font-size: clamp(15px, 3vw, 40px);
   margin: 0;
 }
 .para_form p {
@@ -21,7 +33,7 @@
 }
 .para_form button {
   cursor: pointer;
-  background-color: rgb(245, 60, 60);
+  background-color: #c62828;
   color: white;
   border-radius: 20px;
   padding: 2%;
@@ -43,14 +55,12 @@
   place-items: center;
 }
 #formcontact {
-  background-color: rgb(245, 60, 60);
+  background-color: #c62828;
   color: white;
   padding: 10%;
   width: 100%;
   font-size: clamp(10px, 2vw, 20px);
-  background: linear-gradient(to bottom,transparent 0%, rgb(245, 60, 60) 20%, rgb(245, 60, 60) 80%,
-  transparent 100%
-  );
+  background: linear-gradient(to bottom,transparent 0%, #c62828 20%, #c62828 80%, transparent 100%);
 }
 .formContact input:not([type="checkbox"]) {
   border-radius: 5px;
@@ -79,15 +89,18 @@
   background-color: orange;
   cursor: pointer;
 }
+.divRgpdContact {
+  flex-direction: initial;
+}
 
 @media (min-width: 508px) {
   #toast {
-  right: 40%;
+  right: 43%;
   }
 }
 
 @media (min-width: 1200px) {
-section {
+.divContact {
   display: flex;
   margin: 5% 0;
   padding: 1%;
@@ -108,5 +121,8 @@ section {
 }
 .formContact input:not([type="checkbox"]) {
   border-radius: 15px;
+}
+#btn_contact {
+  width: 30%;
 }
 }

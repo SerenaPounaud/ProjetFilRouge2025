@@ -25,6 +25,7 @@ body {
   border-radius: 8px;
   pointer-events: none; 
   opacity: 0;
+  z-index: 1000;
 }
 
 /*Img index*/
@@ -39,7 +40,7 @@ body {
   width: 100%;
 }
 .texteHeader {
-  font-size: clamp(6px, 1.5vw, 15px);
+  font-size: clamp(6px, 1.5vw, 14px);
   padding: 2%;
   left: 0px;
   top: 70%;
@@ -53,7 +54,7 @@ body {
   font-size: clamp(9px, 2vw, 20px);
 }
 .texteHeader a:hover {
-  color: rgb(245, 60, 60);
+  color: #c62828;
 }
 
 /*liste catégories*/
@@ -81,7 +82,7 @@ body {
   margin: 0;
 }
 .li_aside li:hover {
-  color: rgb(245, 60, 60);
+  color: #c62828;
 }
 
 /*zone recherche*/
@@ -326,7 +327,7 @@ button.active {
   margin: revert;
 }
 .li_aside li:hover {
-  color: rgb(245, 60, 60);
+  color: #c62828;
 }
 
 /*Zone recherche*/
