@@ -244,6 +244,7 @@ button.active {
   max-height: 100px;
   aspect-ratio: 16 / 9; /*format vidéo YouTube*/
   border-radius: 20px;
+  border: none;
 }
 .contenu_video img {
   object-fit: cover; /*remplit toute la zone et évite les images écrasées*/
