@@ -9,7 +9,7 @@ if (!idMeal) {
   recipeDetailsDiv.innerHTML = '<p>Aucune recette sélectionnée.</p>';
 } else {
   async function getRecipeDetails(id) { //si il existe => fonction asynchrome pour récupérer la recette via l'API
-    try { //try pour gérer les erreurs
+    try {
       const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`); //récupère les détails de la recette correspondant à l'id
       const data = await response.json(); //transforme la réponse en objet js via .json
       return data.meals ? data.meals[0] : null; //si data.meals existe, si oui renvoie le premier élément du tableau meals
@@ -32,8 +32,9 @@ function displayRecettesSimilaire(meals, currentId) {
     card.setAttribute("role", "listitem")
 
     card.innerHTML = `
-    <h3>${meal.strMeal}</h3>
-    <img src="${meal.strMealThumb}">`;
+      <h3>${meal.strMeal}</h3>
+      <img src="${meal.strMealThumb}" alt="Photo de la recette ${meal.strMeal}">
+    `;
 
     const noteBlock = createNoteBlock(meal.idMeal, true);
     card.appendChild(noteBlock);
@@ -156,7 +157,7 @@ recipeDetailsDiv.innerHTML = `
 
 <div class="headerDetails">
   <div class="imgDetails">
-    <img src="${meal.strMealThumb || ''}" alt="${meal.strMeal || ''}">
+    <img src="${meal.strMealThumb || ''}" alt="Photo de la recette ${meal.strMeal || ''}">
   </div>
   <div class="infoDetails">
     <h2>${meal.strMeal || '—'}</h2>
@@ -203,6 +204,7 @@ recipeDetailsDiv.innerHTML = `
   </aside>
 </div>
   `;
+  document.title = `${meal.strMeal || 'Recette'} - détails, ingrédients et préparation`;
 });
 }//instructions fournit par l'API
 

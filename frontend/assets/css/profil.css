@@ -34,7 +34,7 @@
     opacity: 0.7;
 }
 .user_nav button.active {
-    background-color: rgb(245, 60, 60);
+    background-color: #c62828;
     color: white;
 }
 
@@ -46,10 +46,13 @@
     display: block; /* affiché quand actif */
     border-top: 3px solid;
     border-bottom: 3px solid;
-    border-image: linear-gradient(to right, rgb(245, 60, 60), #c9cd4e) 1;
+    border-image: linear-gradient(to right, #f06525, #c9cd4e) 1;
 }
 
 /*section profil*/
+h1 {
+    text-align: center;
+}
 .profilDiv {
     padding: 3%;
     font-size: clamp(12px, 2vw, 20px);
@@ -72,7 +75,7 @@
 #btn_info, .btn_delete {
     border-radius: 30px;
     color: white;
-    background-color: rgb(245, 60, 60);
+    background-color: #c62828;
     border: none;
     cursor: pointer;
 }
@@ -121,10 +124,10 @@
 #recettes {
     font-size: clamp(10px, 2vw, 18px);
 }
-.ajoutRecetteDiv, .mesRecettes {
+.ajoutRecetteForm, .mesRecettes {
     padding: 5%;
 }
-.ajoutRecetteDiv {
+.ajoutRecetteForm {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -143,7 +146,7 @@
 #form_recette button {
     border-radius: 30px;
     color: white;
-    background-color: rgb(245, 60, 60);
+    background-color: #c62828;
     border: none;
     cursor: pointer;
     padding: 3%;
@@ -226,8 +229,7 @@
 .divRecette img {
     width: 80%;
 }
-
-.ajoutRecetteDiv, .mesRecettes {
+.ajoutRecetteForm, .mesRecettes {
     flex: 1;
 }
 }
@@ -236,7 +238,7 @@
 .divRecette img {
     width: 70%;
 }
-#recettes.active {
+.ajoutRecette {
     display: flex;
 }
 .divInstruction textarea {

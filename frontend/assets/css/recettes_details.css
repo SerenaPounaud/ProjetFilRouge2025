@@ -16,17 +16,6 @@
     opacity: 1;
     visibility: visible;
 }
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-}
 body {
   margin: 0;
   padding: 0;
@@ -43,6 +32,11 @@ body {
   pointer-events: none; 
   opacity: 0;
   z-index: 1000;
+}
+.h1DetailRecette {
+    text-align: center;
+    font-size: clamp(12px, 2vw, 35px);
+    margin-top: clamp(10px, 5vw, 80px);
 }
 #recettes_details {
     padding: 0 5%;
@@ -143,12 +137,8 @@ body {
     margin: 0 auto;
     padding: 3%;
     background: linear-gradient(135deg, peachpuff, papayawhip);
-    width: 100%;
+    width: 80%;
     border-radius: 30px;
-}
-#connexion label {
-    font-size: clamp(10px, 2vw, 20px);
-    margin-bottom: clamp(20px, 2vw, 40px);
 }
 #connexion input {
     border-radius: 10px;
@@ -167,8 +157,31 @@ body {
     border-radius: 30px;
     align-items: center;
 }
-#zone_commentaire h3 {
+#zone_commentaire legend {
     font-size: clamp(10px, 2vw, 25px);
+    margin-bottom: clamp(10px, 2vw, 30px);;
+}
+fieldset {
+    border: none;
+    width: 100%;
+}
+#note_input_error, #prenom_error {
+    text-align: center;
+}
+.divSeConnecter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: clamp(10px, 2vw, 20px);
+}
+.legendConnecter {
+    margin: auto auto 5% auto;
+}
+.noteCommentaire {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 #zone_commentaire label {
     margin: 0 1% 1% 1%;
@@ -237,7 +250,7 @@ body {
     height: 25vw;
 }
 .btnEnvoyer, #btn_deconnexion, #note_input, .btnConnexion, .btnSupprimer {
-    background-color: rgb(245, 60, 60);
+    background-color: #c62828;
     border-radius: 30px;
     color: white;
     border: none;
@@ -315,7 +328,7 @@ body {
     width: 60%;
 }
 #connexion {
-    width: 50%;
+    width: 60%;
 }
 .divTextarea textarea {
     width: 80%;
@@ -331,6 +344,9 @@ body {
     width: 55%;
 }
 #zone_commentaire {
-    width: 45%;
+    width: 50%;
+}
+#connexion {
+    width: 50%;
 }
 }

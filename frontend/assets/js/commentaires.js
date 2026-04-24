@@ -18,12 +18,10 @@ function conditionCommentaire() {
         connexionDiv.style.display = "none";
         commentaireZone.style.display = "flex";
         btnDeconnexion.style.display = "block";
-        commentaireZone.removeAttribute("aria-hidden");
     } else {
         connexionDiv.style.display = "flex";
         commentaireZone.style.display = "none";
         btnDeconnexion.style.display = "none";
-        commentaireZone.setAttribute("aria-hidden", "true");
     }
 }
 

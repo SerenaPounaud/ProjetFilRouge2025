@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Découvrez la recette détaillée avec ingrédients, étapes et avis utilisateurs.">
     <link rel="stylesheet" href="../assets/css/reset_modern_normalize.css">
     <link rel="stylesheet" href="../assets/css/recettes_details.css">
     <script src="../assets/js/random.js" defer></script>    
@@ -10,59 +11,67 @@
     <script src="../assets/js/recettes_details.js" defer></script>
     <script src="../assets/js/header.js" defer></script>
     <script src="../assets/js/toast.js" defer></script>
-    <title>Recette</title>
 </head>
 <body>
     <!--informe les technologies d'assitance que le contenu contient des informations importantes qui changent dynamiquement-->
-    <div id="toast" role="status"></div> 
+    <div id="toast" role="status" aria-live="assertive"></div> 
                                                             
     <header id="header"></header>
 
 <main>
-    <h1 class="sr-only">Détails de la recette</h1>
+    <h1 class="h1DetailRecette">Détails de la recette</h1>
 
-    <section id="recettes_details" aria-label="Détails de la recette"></section>
+    <section id="recettes_details"></section>
 
     <section class="espaceCommentaires">
         <h2 id="h2Com">Commentaires</h2>
 
         <div id="commentaires" aria-live="polite"></div>
 
-        <form id="zone_commentaire" style="display: none;" aria-hidden="true" onsubmit="event.preventDefault(); ajoutCommentaire();"> <!--empêche le comportement par défaut du navigateur(rechargement)-->
-            <h3>Ajouter un commentaire</h3>
+        <form id="zone_commentaire" onsubmit="event.preventDefault(); ajoutCommentaire();"> <!--empêche le comportement par défaut du navigateur(rechargement)-->
+            <fieldset>
+                <legend><strong>Ajouter un commentaire</strong></legend>
 
-            <div class="inputCommentaires">
-                <label for="commentaire_input">Votre commentaire :</label>
-                <div class="divTextarea">
-                    <textarea id="commentaire_input" placeholder="Ecrivez votre commentaire" maxlength="500"></textarea>
-                    <p id="char_count" class="char_count" role="status">0/500</p>
+                <div class="inputCommentaires">
+                    <label for="commentaire_input">Votre commentaire :</label>
+                    <div class="divTextarea">
+                        <textarea id="commentaire_input" placeholder="Ecrivez votre commentaire" maxlength="500"></textarea>
+                        <p id="char_count" class="char_count" role="status">0/500</p>
+                    </div>
                 </div>
-            </div>
-
-            <label for="note_input">Note :</label>
-            <select id="note_input" aria-required="true">
-                <option value="" selected disabled>Choisissez une note</option>
-                <option value="1">★☆☆☆☆</option>
-                <option value="2">★★☆☆☆</option>
-                <option value="3">★★★☆☆</option>
-                <option value="4">★★★★☆</option>
-                <option value="5">★★★★★</option>
-            </select>
-            <div class="error" id="note_input_error" aria-live="assertive" role="alert"></div> <!--interruption immédiate-->
-            
-            <div class="btnZoneCommentaire">
-                <button class="btnEnvoyer" type="submit">Envoyer</button>
-                <button type="button" id="btn_deconnexion" style="display: none;" onclick="deconnexion()">Déconnexion</button>
-            </div>
+                <div class="noteCommentaire">
+                    <label for="note_input">Note :</label>
+                    <select id="note_input" aria-required="true">
+                        <option value="" selected disabled>Choisissez une note</option>
+                        <option value="1">★☆☆☆☆</option>
+                        <option value="2">★★☆☆☆</option>
+                        <option value="3">★★★☆☆</option>
+                        <option value="4">★★★★☆</option>
+                        <option value="5">★★★★★</option>
+                    </select>
+                </div>
+                <div class="error" id="note_input_error" aria-live="assertive" role="alert"></div> <!--interruption immédiate-->
+                
+                <div class="btnZoneCommentaire">
+                    <button class="btnEnvoyer" type="submit">Envoyer</button>
+                    <button type="button" id="btn_deconnexion" aria-label="Se déconnecter" onclick="deconnexion()">Déconnexion</button>
+                </div>
+            </fieldset>
         </form>
 
-        <div id="connexion">
-            <label for="prenom"><strong>Se connecter pour commenter</strong></label>
-            <input type="text" id="prenom" placeholder="Entrez votre prénom" aria-required="true" autocomplete="given-name" required>
-            <div class="error" id="prenom_error" aria-live="assertive" role="alert"></div>
-            
+        <form id="connexion">
+            <fieldset>
+                <legend class="legendConnecter"><strong>Se connecter pour commenter</strong></legend>
+                <div class="divSeConnecter">
+                    <label for="prenom">Votre prénom :</label>
+                    <input type="text" id="prenom" placeholder="Entrez votre prénom" aria-required="true" autocomplete="given-name" aria-describedby="prenom_error" required>
+                </div>
+                <div class="error" id="prenom_error" aria-live="assertive" role="alert"></div>
+            </fieldset>
+
             <button class="btnConnexion" type="button" onclick="connexion()">Se connecter</button>
-        </div>
+        </form>
+
     </section>
     <section class="recettesSimilaires">
         <h3>Recettes de la même catégorie</h3>
