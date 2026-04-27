@@ -157,7 +157,7 @@ recipeDetailsDiv.innerHTML = `
 
 <div class="headerDetails">
   <div class="imgDetails">
-    <img src="${meal.strMealThumb || ''}" alt="Photo de la recette ${meal.strMeal || ''}">
+    <img src="${meal.strMealThumb || ''}" fetchpriority="high" alt="Photo de la recette ${meal.strMeal || ''}">
   </div>
   <div class="infoDetails">
     <h2>${meal.strMeal || '—'}</h2>

@@ -106,37 +106,38 @@ const contenuHtml = {
                 <div id="nom_recette_error" class="error-message" role="alert"></div>
 
                 <label for="img">Image</label>
-                <input type="file" id="img" name="img"aria-describedby="img_error" accept="image/*">
+                <input type="file" id="img" name="img" aria-describedby="img_error" accept="image/*">
                 <div id="img_error" class="error-message" role="alert"></div>
             </div>
+                <fieldset>
+                    <legend>Temps de cuisson</legend>
+                    <label for="cuisson_h">Heures :</label>
+                    <select id="cuisson_h" name="cuisson_h">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                    <div id = "cuisson_h_error" class="error-message" role="alert"></div>
 
-                <h3>Temps de cuisson</h3>
-                <label for="cuisson_h">Heures :</label>
-                <select id="cuisson_h" name="cuisson_h">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                </select>
-                <div id = "cuisson_h_error" class="error-message" role="alert"></div>
-
-                <label for="cuisson_m">Minutes :</label>
-                <select id="cuisson_m" name="cuisson_m">
-                    <option value="0">0</option>
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="15">15</option>
-                    <option value="20">20</option>
-                    <option value="25">25</option>
-                    <option value="30">30</option>
-                    <option value="35">35</option>
-                    <option value="40">40</option>
-                    <option value="45">45</option>
-                    <option value="50">50</option>
-                    <option value="55">55</option>
-                </select>
-                <div id = "cuisson_m_error" class="error-message" role="alert"></div>
+                    <label for="cuisson_m">Minutes :</label>
+                    <select id="cuisson_m" name="cuisson_m">
+                        <option value="0">0</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                        <option value="25">25</option>
+                        <option value="30">30</option>
+                        <option value="35">35</option>
+                        <option value="40">40</option>
+                        <option value="45">45</option>
+                        <option value="50">50</option>
+                        <option value="55">55</option>
+                    </select>
+                    <div id = "cuisson_m_error" class="error-message" role="alert"></div>
+                </fieldset>
 
                 <label for="nb_personnes">Nombre de personnes</label>
                 <input type="number" id="nb_personnes" name="nb_personnes" min="1" max ="10" value="1" aria-describedby="nb_personnes_error" autocomplete="off">

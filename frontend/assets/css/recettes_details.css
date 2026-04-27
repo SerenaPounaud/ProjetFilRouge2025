@@ -16,6 +16,12 @@
     opacity: 1;
     visibility: visible;
 }
+header, footer {
+    min-height: 100px;
+}
+main {
+    min-height: 1000px;
+}
 body {
   margin: 0;
   padding: 0;
@@ -40,7 +46,9 @@ body {
 }
 #recettes_details {
     padding: 0 5%;
+    min-height: 400px;
 }
+
 /*header recette*/
 .headerDetails {
     display: flex;
@@ -48,12 +56,11 @@ body {
 }
 .imgDetails {
     flex: 1;
-    aspect-ratio: 16 / 9;
     display: grid;
     place-items: center;
 }
 .imgDetails img {
-    object-fit: cover;
+    aspect-ratio: 10 / 9;
     width: 80%;
     border-radius: 20px;
 }
@@ -127,6 +134,7 @@ body {
     margin-bottom: 5%;
     font-size: clamp(10px, 2vw, 20px);
     padding: 0 5%;
+    min-height: 600px;
 }
 #h2Com {
     font-size: clamp(15px, 2vw, 50px);
@@ -202,6 +210,7 @@ fieldset {
     flex-direction: column;
     gap: clamp(20px, 2vw, 40px);
     margin: 3% 0;
+    min-height: 300px;
 }
 .divCommentaires {
     border-radius: 10px;
@@ -267,6 +276,7 @@ fieldset {
 .recettesSimilaires {
     background-color: papayawhip ;
     padding: 2%;
+    min-height: 250px;
 }
 .recettesSimilaires > h3 {
     font-size: clamp(10px, 3vw, 30px);
@@ -293,8 +303,8 @@ fieldset {
 }
 .item-similaire img {
     border-radius: 15px;
-    max-width: 100%;
-    height: auto;
+    aspect-ratio: 10 / 9;
+    width: 80%;
 }
 .item-similaire h3 {
     align-content: center;
@@ -315,9 +325,6 @@ fieldset {
 }
 
 @media (min-width: 1000px) {
-.imgDetails img {
-    width: 70%;
-}
 .ingredients ul {
     padding: revert;
 }
