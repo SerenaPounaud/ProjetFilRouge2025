@@ -170,7 +170,6 @@ const contenuHtml = {
                     <div id = "mots_cles_error" class="error-message" role="alert"></div>
                     <ul id="mot_cle_list"></ul>
                 </div>
-                
             </div>
 
                 <button type="submit" id="btn_recette">Enregistrer</button>
