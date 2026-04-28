@@ -145,7 +145,7 @@ const contenuHtml = {
 
             <div class="divIngredients">
                 <div class="inputIngredients">
-                    <label for="ingredients">Ajoutez vos ingrédients et leurs quantités</label>
+                    <label for="ingredients">Ajoutez vos ingrédients et leurs quantités (un par un)</label>
                     <input type="text" id="ingredients" name="ingredients" placeholder="100g Tomates" aria-describedby="ingredients_error" maxlength="20" autocomplete="off">
                     <button type="button" id="ajout_ingredient" aria-label="Ajouter un ingrédient">Ajouter</button>
                 </div>
@@ -162,7 +162,7 @@ const contenuHtml = {
             </div>
             <div class="divMotsCles">
                 <div class="inputMotsCles">
-                    <label for="mots_cles">Mots clés</label>
+                    <label for="mots_cles">Mots clés (un par un)</label>
                     <input type="text" id="mots_cles" name="mots_cles" placeholder="Ex : Fromage" aria-describedby="mots_cles_error" minlength="3" maxlength="20" autocomplete="off">
                     <button type="button" id="ajout_mot_cle" aria-label="Ajouter un mot clé">Ajouter</button>
                 </div>
