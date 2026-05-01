@@ -73,7 +73,7 @@ h1 {
     margin: 2%;
     text-align: center;
 }
-#btn_info, .btn_delete {
+#btn_info, .btn_delete, #deleteAccount {
     border-radius: 30px;
     color: white;
     background-color: #c62828;
@@ -83,8 +83,12 @@ h1 {
 #btn_info {
     padding: clamp(8px, 2vw, 20px);
 }
-#btn_info:hover {
+#btn_info:hover, #deleteAccount:hover {
     opacity: 0.7;
+}
+#deleteAccount {
+    padding: clamp(8px, 1vw, 15px);
+    margin: clamp(10px, 1vw, 20px);
 }
 
 /*section favoris*/

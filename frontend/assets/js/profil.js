@@ -12,6 +12,7 @@ const contenuHtml = {
         <p>Prénom : Pounaud</p>
         <p>Email : exemple@gmail.fr</p>
         <p>Mot de passe : **********</p>
+        <button type="submit" id="deleteAccount">Supprimer mon compte</button>
     </div>
         <form action="#" method="POST" id="form_profil" novalidate> 
         <h2>Modifier mes informations</h2>
