@@ -37,6 +37,7 @@ nav {
 nav a {
   font-size: clamp(8px, 2vw, 20px);
   text-decoration: none;
+  cursor: pointer;
 }
 nav a:not(.inscrire) {
   color: black;
