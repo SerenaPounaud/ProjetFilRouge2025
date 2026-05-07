@@ -1,0 +1,53 @@
+/*Img index*/
+.headerImg {
+  position: relative;
+}
+.headerImg img {
+  width: 100%;
+  border-radius: 30px;
+}
+.texteHeader {
+  font-size: clamp(5px, 1vw, 10px);
+  padding: 2%;
+  left: 0px;
+  bottom: 0px;
+  background-color: white;
+  position: absolute;
+}
+.texteHeader a {
+  text-decoration: none;
+  color: black;
+  font-size: clamp(9px, 2vw, 20px);
+}
+.texteHeader a:hover {
+  color: #c62828;
+}
+
+@media (min-width: 508px) {
+.texteHeader {
+  font-family: 'DM Serif Display', serif;
+}
+}
+
+@media (min-width: 1001px) { 
+.headerImg {
+    width: 80%;
+    margin: 0 auto;
+}
+}
+
+@media (min-width: 1400px) {
+.texteHeader {
+  left: 10px;
+  top: 5%;
+  width: 38%;
+  border-radius: 20px;
+  bottom: initial;
+}
+}
+
+@media (min-width: 1600px) { 
+.texteHeader {
+  border-radius: 30px;
+}
+}
