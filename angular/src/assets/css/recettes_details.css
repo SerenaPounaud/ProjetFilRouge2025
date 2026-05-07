@@ -1,0 +1,359 @@
+.error {
+    visibility: hidden;
+    opacity: 0;
+    color: red;
+    font-size: clamp(10px, 2.5vw, 20px);
+    min-height: 19px;
+    margin: 2%;
+    padding: 2%;
+    transition: opacity 0.3s;
+}
+.input-error {
+    border: 2px solid red;
+    background: #fff5f5;
+}
+.error.visible {
+    opacity: 1;
+    visibility: visible;
+}
+header, footer {
+    min-height: 100px;
+}
+main {
+    min-height: 1000px;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+#toast {
+  font-size: clamp(8px, 2vw, 20px);
+  bottom: 10%;
+  right: 34%;
+  position: fixed;
+  background: #333;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 8px;
+  pointer-events: none; 
+  opacity: 0;
+  z-index: 1000;
+}
+.h1DetailRecette {
+    text-align: center;
+    font-size: clamp(12px, 2vw, 35px);
+    margin-top: clamp(10px, 5vw, 80px);
+}
+#recettes_details {
+    padding: 0 5%;
+    min-height: 400px;
+}
+
+/*header recette*/
+.headerDetails {
+    display: flex;
+    margin-top: 3%;
+}
+.imgDetails {
+    flex: 1;
+    display: grid;
+    place-items: center;
+}
+.imgDetails img {
+    aspect-ratio: 10 / 9;
+    width: 80%;
+    border-radius: 20px;
+}
+.infoDetails {
+    flex: 1;
+    font-size: clamp(10px, 2vw, 20px);
+}
+.infoDetails h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(15px, 3vw, 50px);
+}
+.loremDetails {
+    margin-bottom: 8%;
+}
+.middleDetails {
+    display: flex;
+    font-size: clamp(10px, 2vw, 20px);
+}
+.middleDetails h2, .middleDetails h3 {
+    font-size: clamp(10px, 2vw, 30px);
+}
+.infoSuppleDetails {
+    margin-bottom: 5%;
+}
+.noteDetails {
+    display: flex;
+}
+.note-block-detail{
+  flex: 2;
+}
+.buttonDetails {
+    display: flex;
+    justify-content: space-evenly;
+    flex: 1;
+}
+.btnDetails {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    aspect-ratio: 16 / 9;
+    width: clamp(10px, 3vw, 40px);
+}
+.btnDetails svg {
+    transition: transform 0.3s ease;
+    object-fit: cover;
+    width: 100%;
+}
+.btnDetails svg:hover {
+    transform: scale(1.2);
+}
+.instructions {
+    flex: 2;
+    padding: 5%;
+    line-height: 1.5;
+}
+.ingredients {
+    flex: 1;
+}
+.ingredients li {
+    margin: 3%;
+}
+.ingredients ul {
+    padding: 0;
+}
+
+/*Zone commentaire*/
+.espaceCommentaires {
+    margin-bottom: 5%;
+    font-size: clamp(10px, 2vw, 20px);
+    padding: 0 5%;
+    min-height: 600px;
+}
+#h2Com {
+    font-size: clamp(15px, 2vw, 50px);
+}
+#connexion {
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    padding: 3%;
+    background: linear-gradient(135deg, peachpuff, papayawhip);
+    width: 80%;
+    border-radius: 30px;
+}
+#connexion input {
+    border-radius: 10px;
+    padding: clamp(7px, 1vw, 15px);
+    border: none;
+}
+.btnConnexion {
+    padding: clamp(10px, 2vw, 20px);
+}
+#zone_commentaire {
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 3%;
+    background: linear-gradient(135deg, peachpuff, papayawhip);
+    width: 90%;
+    border-radius: 30px;
+    align-items: center;
+}
+#zone_commentaire legend {
+    font-size: clamp(10px, 2vw, 25px);
+    margin-bottom: clamp(10px, 2vw, 30px);;
+}
+fieldset {
+    border: none;
+    width: 100%;
+}
+#note_input_error, #prenom_error {
+    text-align: center;
+}
+.divSeConnecter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: clamp(10px, 2vw, 20px);
+}
+.legendConnecter {
+    margin: auto auto 5% auto;
+}
+.noteCommentaire {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#zone_commentaire label {
+    margin: 0 1% 1% 1%;
+}
+.btnZoneCommentaire {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+}
+.btnEnvoyer, #btn_deconnexion, #note_input {
+    padding: 2%;
+}
+#note_input {
+    text-align: center;
+}
+#commentaires {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 2vw, 40px);
+    margin: 3% 0;
+    min-height: 300px;
+}
+.divCommentaires {
+    border-radius: 10px;
+    padding: 2%;
+    width: 90%;
+}
+.divCommentaires:nth-child(odd) {
+  align-self: flex-start;
+  background-color: papayawhip;
+}
+
+.divCommentaires:nth-child(even) {
+  align-self: flex-end;
+  background-color: peachpuff;
+}
+.paraCommentaires {
+    overflow-wrap: break-word; /*évite de dépasser le conteneur*/
+}
+.meta {
+    display: flex;
+    gap: clamp(10px, 3vw, 40px);
+    margin-bottom: 1.5%;
+    align-items: center;
+}
+.dateSpan {
+    white-space: nowrap; /*évite de casser*/
+}
+#char_count {
+    align-self: flex-end;
+}
+.inputCommentaires {
+    aspect-ratio: 16/8;
+    width: 100%;
+}
+.inputCommentaires > .divTextarea {
+    display: flex;
+    gap: 10px;
+    margin: 4%;
+    justify-content: center;
+}
+.divTextarea textarea {
+    width: 80%;
+    resize: none;
+    border-radius: 10px;
+    padding: 2%;
+    height: 25vw;
+}
+.btnEnvoyer, #btn_deconnexion, #note_input, .btnConnexion, .btnSupprimer {
+    background-color: #c62828;
+    border-radius: 30px;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.btnSupprimer {
+    padding: 2%;
+}
+.btnSupprimer:hover, .btnConnexion:hover {
+    opacity: 0.7;
+}
+
+/*Zone recettes similaires*/
+.recettesSimilaires {
+    background-color: papayawhip ;
+    padding: 2%;
+    min-height: 250px;
+}
+.recettesSimilaires > h3 {
+    font-size: clamp(10px, 3vw, 30px);
+    text-align: center;
+}
+#recettes_similaires {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 0.2%;
+}
+.item-similaire {
+    width: 20%;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: clamp(5px, 2vw, 18px);
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.item-similaire:hover {
+    transform: scale(1.1);
+}
+.item-similaire img {
+    border-radius: 15px;
+    aspect-ratio: 10 / 9;
+    width: 80%;
+}
+.item-similaire h3 {
+    align-content: center;
+    text-align: center;
+}
+.note-block {
+  margin: 5% 0;
+}
+
+@media (min-width: 508px) {
+#toast {
+    right: 40%;
+}
+#prenom_error {
+    margin: 1%;
+    padding: 1%;
+}
+}
+
+@media (min-width: 1000px) {
+.ingredients ul {
+    padding: revert;
+}
+.divCommentaires, .item-similaire img {
+    width: 70%;
+}
+#zone_commentaire {
+    width: 60%;
+}
+#connexion {
+    width: 60%;
+}
+.divTextarea textarea {
+    width: 80%;
+    height: 14vw;
+}
+.divCommentaires, #connexion {
+    border-radius: 50px 0 50px 0;
+}
+}
+
+@media (min-width: 1400px) {
+.divCommentaires{
+    width: 55%;
+}
+#zone_commentaire {
+    width: 50%;
+}
+#connexion {
+    width: 50%;
+}
+}
