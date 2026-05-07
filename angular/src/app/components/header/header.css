@@ -1,0 +1,83 @@
+/*Navbar*/
+.nav-droite, .nav-centre, .nav-gauche {
+  justify-content: center;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  font-size: 10px;
+  flex: 1;
+}
+.nav-gauche {
+  gap: 20px;
+}
+.nav-droite {
+  gap: 20px;
+  padding: 3%;
+}
+header { 
+  margin-bottom: 30px;
+}
+header a:not(.inscrire):hover {
+  color: #c62828;
+}
+nav {
+  display: flex;
+}
+.logo-link {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.logo {
+  width: clamp(40px, 7vw, 200px);
+}
+.titreHeader {
+  font-size: clamp(10px, 2vw, 30px);
+}
+nav a {
+  font-size: clamp(8px, 2vw, 20px);
+  text-decoration: none;
+}
+nav a:not(.inscrire) {
+  color: black;
+}
+.loupe  {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.loupe:hover {
+  transform: scale(1.5);
+}
+.imgLoupe {
+  height: clamp(10px, 3vw, 40px);
+}
+.inscrire {
+  border-radius: 30px;
+  color: white;
+  background-color: #c62828;
+  padding: 3% 5%;
+  text-decoration: none;
+}
+.inscrire:hover {
+  opacity: 0.7;
+}
+
+@media (min-width: 800px) {
+.nav-centre, .nav-gauche {
+  justify-content: space-evenly;
+}
+.nav-droite {
+  justify-content: space-between;
+}
+}
+
+@media (min-width: 1001px) {
+.nav-gauche {
+  gap: 0;
+}
+.nav-droite {
+  gap: 0;
+}
+}
