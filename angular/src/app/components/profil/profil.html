@@ -1,12 +1,19 @@
 <main>
-    <div id="toast" role="status"></div> 
     <nav aria-label="Navigation utilisateur" class="user_nav">
-        <button type="button" data-target="profil">Mes informations</button>
-        <button type="button" data-target="favoris">Mes favoris</button>
-        <button type="button" data-target="recettes">Mes recettes</button>
+        <button type="button" [class.active]="sectionActive === 'profil'" (click)="changeSection('profil')">Mes informations</button>
+        <button type="button" [class.active]="sectionActive === 'favoris'" (click)="changeSection('favoris')">Mes favoris</button>
+        <button type="button" [class.active]="sectionActive === 'recettes'" (click)="changeSection('recettes')">Mes recettes</button>
     </nav>
 
-    <section id="profil" class="section"></section>
-    <section id="favoris" class="section"></section>
-    <section id="recettes" class="section"></section>
+    <section class="section">
+        @if (sectionActive === 'profil') {
+            <app-profil-infos></app-profil-infos>
+        }
+         @if (sectionActive === 'favoris') {
+            <app-profil-favoris></app-profil-favoris>
+        }
+         @if (sectionActive === 'recettes') {
+            <app-profil-recettes></app-profil-recettes>
+        }
+    </section>
 </main>

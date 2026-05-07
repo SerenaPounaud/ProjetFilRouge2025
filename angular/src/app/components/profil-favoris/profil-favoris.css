@@ -1,0 +1,51 @@
+/*section favoris*/
+h1 {
+    text-align: center;
+}
+.favorisDiv {
+    font-size: clamp(12px, 2vw, 20px);
+}
+.divRecette {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 2% 5%;
+    justify-content: center;
+}
+.divRecette img {
+    width: 90%;
+    border-radius: 10px;
+}
+.divRecette div {
+    padding: 2%;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+.btn_delete {
+    padding: clamp(6px, 1vw, 12px);
+    font-size: clamp(10px, 2vw, 20px);
+    margin-top: 5%;
+    border-radius: 30px;
+    color: white;
+    background-color: #c62828;
+    border: none;
+    cursor: pointer;
+}
+.btn_delete:hover {
+    opacity: 0.5;
+}
+@media (min-width: 800px) {
+.divRecette div {
+    width: 25%;
+}
+.divRecette img {
+    width: 80%;
+}
+}
+@media (min-width: 1200px) {
+.divRecette img {
+    width: 70%;
+}
+}

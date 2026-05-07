@@ -1,0 +1,47 @@
+/*section profil*/
+h1 {
+    text-align: center;
+}
+.profilDiv {
+    padding: 3%;
+    font-size: clamp(12px, 2vw, 20px);
+}
+#mes_infos {
+    text-align: center;
+}
+#form_profil {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+}
+.profilDiv input {
+    border-radius: 10px;
+    border: solid 1px;
+    padding: 1%;
+    margin: 2%;
+    text-align: center;
+}
+#btn_info, #deleteAccount {
+    border-radius: 30px;
+    color: white;
+    background-color: #c62828;
+    border: none;
+    cursor: pointer;
+}
+#btn_info {
+    padding: clamp(8px, 2vw, 20px);
+}
+#btn_info:hover, #deleteAccount:hover {
+    opacity: 0.7;
+}
+#deleteAccount {
+    padding: clamp(8px, 1vw, 15px);
+    margin: clamp(10px, 1vw, 20px);
+}
+
+@media (min-width: 800px) {
+.profilDiv {
+    display: flex;
+    justify-content: space-evenly;
+}
+}
