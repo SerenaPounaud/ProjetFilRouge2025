@@ -15,12 +15,39 @@
     <script src="assets/js/header.js" defer></script>
     <script src="assets/js/toast.js" defer></script> 
     <title>Miam & Co - Site de recettes collaboratif</title>
+    <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
 </head> 
 <body>
     <div id="toast" role="status" aria-live="assertive"></div> 
         <button class="robot" type="button" aria-label="Ouvrir le chatbot">
             <img src="assets/img/chatbot.webp" alt="Image d'un robot">
         </button>
+    <header class="header">
+        <nav aria-label="Navigation principale">
+            
+            <div class="nav-gauche">
+                <a href="./index.html">Accueil</a>
+                <a href="templates/contact.html">Contact</a>
+            </div>
+             
+            <div class="nav-centre">
+                <a href="index.html" class="logo-link">
+                    <img src="assets/img/poele.webp" alt="Logo d'une poêle" class="logo">
+                    <span class="titreHeader">
+                        <strong>Miam & Co<br>Recettes du monde</strong>
+                    </span>
+                </a>
+            </div>
+
+            <div class="nav-droite">
+                <button class="loupe" id="btn_loupe" type="button" aria-label="Rechercher une recette">
+                    <img src="assets/img/loupe.svg" alt="Logo d'une loupe pour la recherche" aria-hidden="true" class="imgLoupe">
+                </button>
+                <a href="templates/connexion.html">Se connecter</a>
+                <a class="inscrire" href="templates/inscription.html">S'inscrire</a>
+            </div>
+        </nav>
+    </header>
 <main>
     <div class="headerImg">
         <img src="./assets/img/dame_pizza.webp" fetchpriority="high" loading="eager" alt="Dame qui mange une pizza">
@@ -113,5 +140,43 @@
     </div>
 </section>
 </main>
+    <footer class="footer"> 
+        <nav aria-label="Liens vers les réseaux sociaux" class="logo_bas_de_page"><!--ouvrir dans un autre onglet + empêche x d’accéder à l'onglet actuel + n’envoie pas l’URL du site à x-->
+            <a href="https://www.facebook.com/?locale=fr_FR" target="_blank" rel="noopener noreferrer" title="Lien vers Facebook">
+                <img src="assets/img/facebook.webp" alt="Logo Facebook" class="icon">
+            </a>
+                 
+            <a href="https://www.instagram.com/?hl=fr" target="_blank" rel="noopener noreferrer" title="Lien vers Instagram">
+                <img src="assets/img/instagram.webp" alt="Logo Instagram" class="icon">
+            </a>
+                
+            <a href="https://x.com/?lang=fr" target="_blank" rel="noopener noreferrer" title="Lien vers Twitter">
+                <img src="assets/img/twitter.webp" alt="Logo X/Twitter" class="icon">
+            </a> 
+        </nav>
+        <div class="footer-columns">
+            <ul>
+                <li><a href="#"onclick="event.preventDefault()">Présentations</a></li>
+                <li><a href="#"onclick="event.preventDefault()">Professionnels</a></li>
+                <li><a href="#"onclick="event.preventDefault()">Boutique</a></li>
+            </ul>
+            <ul>
+                <li><a href="#"onclick="event.preventDefault()">Ateliers</a></li>
+                <li><a href="#"onclick="event.preventDefault()">Rencontres locales</a></li>
+                <li><a href="#"onclick="event.preventDefault()">Nos initiatives</a></li>
+            </ul>
+            <ul>
+                <li><a href="#"onclick="event.preventDefault()">Communautés</a></li>
+                <li><a href="#"onclick="event.preventDefault()">Formulaire de contact</a></li>
+                <li><a href="#"onclick="event.preventDefault()">Travailler avec nous</a></li>
+            </ul>
+            <ul>
+                <li><a href="#"onclick="event.preventDefault()">Webinaires</a></li>
+                <li><a href="#"onclick="event.preventDefault()">Redonner</a></li>
+                <li><a href="#"onclick="event.preventDefault()">Nous rendre visite</a></li>
+            </ul>
+        </div>
+            <p>Crée par la ville de Saint Ciers sur Gironde.</p>
+    </footer>
 </body>
 </html>
