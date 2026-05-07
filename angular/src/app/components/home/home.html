@@ -1,1 +1,92 @@
-<p>home works!</p>
+<main>
+    <div class="headerImg">
+        <img src="assets/img/dame_pizza.webp" fetchpriority="high" loading="eager" alt="Dame qui mange une pizza">
+        <div class="texteHeader">   
+            <h1>Découvrez des recettes faciles et rapides du monde entier : plats traditionnels, cuisine maison, desserts gourmands et idées de repas pour tous les jours</h1>
+            <a href="templates/inscription.html" title="S'incrire">Inscrivez-vous ➔</a>
+        </div> 
+    </div>
+
+<section class="middleIndex">
+    <aside aria-label="Catégories de recettes" class="li_aside"> <!--section gauche pour la recherche par catégories-->
+        <h2>Recettes</h2> 
+        <ul id="liste_categories"></ul> <!--Affiche la liste des catégories-->
+    </aside>
+    <div class="zone_recettes">
+        <div class="zone_recherche">
+            <form class="barre_recherche" role="search"> <!--barre de recherche pour rechercher par mots clés + nb de personnes-->
+                <button type="submit" id="btn_recherche" aria-label="Rechercher une recette">
+                    <img src="assets/img/loupe.svg" height="15px" alt="Loupe de recherche" aria-hidden="true">
+                </button>
+                <input type="text" id="barre_recherche" placeholder="Rechercher par mots clés..." aria-label="Champ de recherche par mots clés">
+            </form>
+                <div class="actualisation">
+                    <button id="btn_refresh" type="button">Actualiser les recettes</button>
+                    <span id="refresh_status" aria-live="polite" class="refresh_status"></span>
+                </div>
+                <div class="filtre">
+                    <div>    
+                        <label for="btn_personnes">Filtrer par : Personnes</label>
+                        <select id="btn_personnes">
+                            <option value="">Toutes les recettes</option>
+                            <option value="1">Pour 1 personne</option>
+                            <option value="2">Pour 2 personnes</option>
+                            <option value="3">Pour 3 personnes</option>
+                            <option value="4">Pour 4 personnes</option>
+                            <option value="plus5">+ de 5 personnes</option>
+                        </select>
+                    </div> 
+                    <div>
+                        <label for="btn_date">Filtrer par : Date</label>
+                        <select id="btn_date">
+                            <option value="">Aucun tri</option>
+                            <option value="recent">Récent</option>
+                            <option value="ancien">Ancien</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="reset">
+                    <button id="btn_reset" type="button" aria-label="Réinitialiser la recherche">Réinitialiser</button>
+                </div>
+        </div>
+        <section class="recettes" id="recettes">
+            <!--Les recettes s'affichent ici-->
+        </section> 
+        <div id="pagination" class="pagination">
+            <!--Les boutons de pages s'affichent ici-->
+        </div>
+    </div>
+</section>
+
+<section class="footerIndex">
+    <div class="contenu_video">
+        <iframe 
+            loading="lazy" 
+            src="https://www.youtube-nocookie.com/embed/MuZGBlYEYMo?autoplay=0&mute=1&controls=0&loop=1&playlist=MuZGBlYEYMo&start=1&modestbranding=1&rel=0" 
+            title="Vidéo youtube montrant différentes recettes" 
+            allow="autoplay; encrypted-media; picture-in-picture" 
+            allowfullscreen>
+        </iframe>
+            <img src="assets/img/cake.webp" alt="Image d'un cake aux fruits maison" >
+        <iframe 
+            loading="lazy"
+            src="https://www.youtube-nocookie.com/embed/9g-gMkV5vL4?autoplay=0&mute=1&controls=0&loop=1&playlist=9g-gMkV5vL4&modestbranding=1&rel=0"
+            title="Vidéo youtube montrant comment faire un chili"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowfullscreen>
+        </iframe>
+            <img src="assets/img/bol.webp" alt="Image d'un bol contenant des légumes">
+    </div>
+        <div class="infoVideo"><p>Ces vidéos peuvent ne pas contenir de sous-titres accessibles.</p></div>
+    <div class="newsletter">
+        <div>
+            <p>Soyez les premiers informés des dernières recettes intégrées !</p>
+        </div>
+        <div class="newsletter-email">
+            <label for="newsletter_email" class="sr-only">Inscrivez votre adresse email</label>
+            <input id="newsletter_email" type="email" placeholder="exemple@gmail.fr" required>
+            <button type="button" aria-disabled="true" disabled>S'inscrire</button>
+        </div> 
+    </div>
+</section>
+</main>
