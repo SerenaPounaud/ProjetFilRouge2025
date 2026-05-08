@@ -11,17 +11,20 @@
 }
 
 /*zone droite*/
-.imgDroite p a, .imgDroiteConnexion p a {
+.imgDroite p a {
   text-decoration: none;
   color: #c62828;
 }
-.imgDroite p a:hover, .imgDroiteConnexion p a:hover {
+a {
+  cursor: pointer;
+}
+.imgDroite p a:hover {
   opacity: 0.7;
 }
-.imgDroite img, .imgDroiteConnexion img {
+.imgDroite img {
   display: none;
 }
-.imgDroite p, .imgDroiteConnexion p {
+.imgDroite p {
   padding: 2%;
   text-align: center;
   font-size: clamp(13px, 1vw, 20px);
@@ -54,11 +57,6 @@ h1, h2 {
   display: flex;
   align-items: center;
 }
-#formconnexion {
-  flex-direction: column;
-  display: flex;
-  align-items: center;
-}
 .formInsc input:not(#cgu) {
   border-radius: 30px;
   padding: 2%;
@@ -78,7 +76,7 @@ h1, h2 {
 #cgu {
   height: min-content;
 }
-#btn_inscription, #btn_connexion{
+#btn_inscription {
   border-radius: 30px;
   color: white;
   background-color: #c62828;
@@ -89,39 +87,8 @@ h1, h2 {
 #btn_inscription {
   width: 40%;
 }
-#btn_connexion {
-  width: 70%;
-}
-#btn_connexion:hover, #btn_inscription:hover {
+#btn_inscription:hover {
   opacity: 0.7;
-}
-.faux-lien {
-  cursor: pointer;
-  background: transparent;
-  border-color: transparent;
-  margin-top: 5%;
-  text-decoration: none;
-  color: black;
-}
-.faux-lien:hover {
-  color: blue;
-}
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-@media (min-width: 508px) {
-  #toast {
-  right: 40%;
-  }
 }
 
 @media (min-width: 800px) {
@@ -138,12 +105,12 @@ main {
 }
 
 /*zone droite*/
-.imgDroite, .imgDroiteConnexion {
+.imgDroite {
   display: flex;
   justify-content: center;
   position: relative;
 }
-.imgDroite img, .imgDroiteConnexion img {
+.imgDroite img {
   display: block;
   z-index: 0;
   width: 100%;
@@ -151,7 +118,7 @@ main {
   height: auto;
   border-radius: 30px;
 }
-.imgDroite p, .imgDroiteConnexion p {
+.imgDroite p {
   position: absolute;
   bottom: 10%;
   background: white;
