@@ -1,55 +1,16 @@
 <div class="favorisDiv">
 <h1>Mes recettes favorites</h1>
     <div class="divRecette">
+        <!--boucle graphique-->
+        @for(recetteFavori of recettesFavoris; track recetteFavori.id; let i=$index){
         <div>
-            <h2>Recette 1</h2>
-            <img src="../assets/img/cake.webp" alt="cake">
+            <h2>{{recetteFavori.nomRecette}}</h2>
+            <img [src]="recetteFavori.img" alt="cake">
             <button type="button" class="btn_delete">Supprimer</button>
-        </div>
-        <div>
-            <h2>Recette 2</h2>
-            <img src="../assets/img/cake.webp" alt="cake">
-            <button type="button" class="btn_delete">Supprimer</button>
-        </div>
-        <div>
-            <h2>Recette 3</h2>
-            <img src="../assets/img/cake.webp" alt="cake">
-            <button type="button" class="btn_delete">Supprimer</button>
-        </div>
-        <div>
-            <h2>Recette 4</h2>
-            <img src="../assets/img/cake.webp" alt="cake">
-            <button type="button" class="btn_delete">Supprimer</button>
-        </div>
-        <div>
-            <h2>Recette 5</h2>
-            <img src="../assets/img/cake.webp" alt="cake">
-            <button type="button" class="btn_delete">Supprimer</button>
-        </div>
-        <div>
-            <h2>Recette 6</h2>
-            <img src="../assets/img/cake.webp" alt="cake">
-            <button type="button" class="btn_delete">Supprimer</button>
-        </div>
-        <div>
-            <h2>Recette 7</h2>
-            <img src="../assets/img/cake.webp" alt="cake">
-            <button type="button" class="btn_delete">Supprimer</button>
-        </div>
-        <div>
-            <h2>Recette 8</h2>
-            <img src="../assets/img/cake.webp" alt="cake">
-            <button type="button" class="btn_delete">Supprimer</button>
-        </div>
-        <div>
-            <h2>Recette 9</h2>
-            <img src="../assets/img/cake.webp" alt="cake">
-            <button type="button" class="btn_delete">Supprimer</button>
-        </div>
-        <div>
-            <h2>Recette 10</h2>
-            <img src="../assets/img/cake.webp" alt="cake">
-            <button type="button" class="btn_delete">Supprimer</button>
-        </div>
+        </div> 
+        }
+        @empty {
+            <p>Aucune recettes dans les favoris</p>
+        }
     </div>
 </div>

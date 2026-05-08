@@ -76,11 +76,26 @@
             </div>
         </div>
 
-            <button type="submit" id="btn_recette">Enregistrer</button>
+            <button [disabled]="isDisabled" type="submit" id="btn_recette">Enregistrer</button>
         </form>
     </div>
     <div class="mesRecettes">
         <h2>Mes recettes :</h2>
-        <p>Ici s'afficheront les recettes que l'utilisateur intégrera. On pourra les supprimer ou les modifier ultérieurement</p>
+        <div class="recettesUsers">
+            @for(recetteUser of recettesUsers; track recetteUser.id; let i=$index){
+            <div class="recettes">
+                <h2>{{recetteUser.nomRecette}}</h2>
+                <img [src]="recetteUser.img" alt="cake">
+                <div class="zoneBtn">
+                    <button type="button" class="btnDelete">Supprimer</button>
+                    <button type="button" class="btnEdit">Modifier</button>
+                </div>
+                
+            </div> 
+            }
+            @empty {
+                <p>Vous n'avez créer aucune recettes</p>
+            }
+        </div>
     </div>
 </div>

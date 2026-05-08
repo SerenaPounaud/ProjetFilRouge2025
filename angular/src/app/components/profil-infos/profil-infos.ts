@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './profil-infos.css',
 })
 export class ProfilInfos {
+isDisabled:boolean=true;
 
 }

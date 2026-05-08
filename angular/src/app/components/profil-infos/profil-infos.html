@@ -27,6 +27,6 @@
             <input type="password" id="password" name="password" placeholder="Min 8 caractères" aria-describedby="password_error" maxlength="20" autocomplete="current-password">
             <div id = "password_error" class="error-message" role="alert"></div>
 
-            <button type="submit" id="btn_info">Enregistrer</button>
+            <button [disabled]="isDisabled" type="submit" id="btn_info">Enregistrer</button>
         </form>
 </div>
