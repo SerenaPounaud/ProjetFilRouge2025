@@ -1,5 +1,6 @@
 <main>
     <nav aria-label="Navigation utilisateur" class="user_nav">
+        // property binding + event binding
         <button type="button" [class.active]="sectionActive === 'profil'" (click)="changeSection('profil')">Mes informations</button>
         <button type="button" [class.active]="sectionActive === 'favoris'" (click)="changeSection('favoris')">Mes favoris</button>
         <button type="button" [class.active]="sectionActive === 'recettes'" (click)="changeSection('recettes')">Mes recettes</button>
