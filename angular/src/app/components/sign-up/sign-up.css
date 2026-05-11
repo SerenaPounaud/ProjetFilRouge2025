@@ -1,7 +1,4 @@
-.error-message {
-  font-size: clamp(12px, 2vw, 17px);
-}
-.cgu-error, .rgpd-error {
+.cgu-error {
   outline: 2px solid red;
   outline-offset: 2px;
 }

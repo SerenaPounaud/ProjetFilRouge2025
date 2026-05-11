@@ -15,36 +15,70 @@
         </nav>
         <h2>Ou inscris-toi avec ton adresse email</h2>
         <div class="formInsc">
-            <form action="#" method="POST" id= "forminscription" novalidate> 
+            <form [formGroup]="signUpForm" (ngSubmit)="signUp()" method="POST" id="forminscription" novalidate> 
                 <h3 class="sr-only">Formulaire d'inscription</h3>
             
                 <label for="lastname">Nom</label>
-                <input type="text" id="lastname" name="lastname" placeholder="Votre nom" maxlength="50" aria-describedby="lastname_error" autocomplete="name">
-                <div id="lastname_error" class="error-message" role="alert"></div>
+                <input type="text" formControlName="lastname" id="lastname" name="lastname" placeholder="Votre nom" maxlength="50" autocomplete="name">
+                @if(signUpForm.get('lastname')?.invalid && (signUpForm.get('lastname')?.touched || signUpForm.get('lastname')?.dirty)) {
+                   @if(signUpForm.get('lastname')?.errors?.['required']){
+                    <div>Ce champ est obligatoire</div>
+                    } @else if (signUpForm.get('lastname')?.errors?.['maxlength']) {
+                        <div>Maximum 50 caractères</div>
+                    }  
+                }
 
                 <label for="firstname">Prénom</label>
-                <input type="text" id="firstname" name="firstname" placeholder="Votre prénom" maxlength="50" aria-describedby="firstname_error" autocomplete="given-name">
-                <div id="firstname_error" class="error-message" role="alert"></div>
+                <input type="text" formControlName="firstname" id="firstname" name="firstname" placeholder="Votre prénom" maxlength="50" autocomplete="given-name">
+                @if(signUpForm.get('firstname')?.invalid && (signUpForm.get('firstname')?.touched || signUpForm.get('firstname')?.dirty)) {
+                   @if(signUpForm.get('firstname')?.errors?.['required']){
+                    <div>Ce champ est obligatoire</div>
+                    } @else if (signUpForm.get('firstname')?.errors?.['maxlength']) {
+                        <div>Maximum 50 caractères</div>
+                    }  
+                }
                 
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="exemple@gmail.fr" maxlength="150" aria-describedby="email_error" autocomplete="email">
-                <div id = "email_error" class="error-message" role="alert"></div>
+                <input type="email" formControlName="email" id="email" name="email" placeholder="exemple@gmail.fr" maxlength="150" autocomplete="email">
+                @if(signUpForm.get('email')?.invalid && (signUpForm.get('email')?.touched || signUpForm.get('email')?.dirty)) {
+                   @if(signUpForm.get('email')?.errors?.['required']){
+                    <div>Ce champ est obligatoire</div>
+                    } @else if (signUpForm.get('email')?.errors?.['maxlength']) {
+                        <div>Maximum 150 caractères</div>
+                    } @else if (signUpForm.get('email')?.errors?.['email']) {
+                        <div>Entrer un email correct. Exemple : exemple@gmail.fr</div>
+                    } 
+                }
 
                 <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" placeholder="Min 8 caractères" maxlength="20" aria-describedby="password_error" autocomplete="new-password">
-                <div id = "password_error" class="error-message" role="alert"></div>
+                <input type="password" formControlName="password" id="password" name="password" placeholder="Min 8 caractères" maxlength="20" autocomplete="new-password">
+                @if(signUpForm.get('password')?.invalid && (signUpForm.get('password')?.touched || signUpForm.get('password')?.dirty)) {
+                   @if(signUpForm.get('password')?.errors?.['required']){
+                    <div>Ce champ est obligatoire</div>
+                    } @else if (signUpForm.get('password')?.errors?.['maxlength'] || signUpForm.get('password')?.errors?.['minlength']) {
+                        <div>Le mot de passe doit être entre 8 et 20 caractères</div>
+                    }
+                }
 
                 <label for="confirm_password">Confirmer le mot de passe</label>
-                <input type="password" id="confirm_password" name="confirm_password" placeholder="Réécrivez votre mot de passe" maxlength="20" aria-describedby="confirm_password_error" autocomplete="new-password">
-                <div id = "confirm_password_error" class="error-message" role="alert"></div>
+                <input type="password" formControlName="confirmPassword" id="confirm_password" name="confirm_password" placeholder="Réécrivez votre mot de passe" maxlength="20" autocomplete="new-password">
+                @if(signUpForm.get('confirmPassword')?.invalid && (signUpForm.get('confirmPassword')?.touched || signUpForm.get('confirmPassword')?.dirty)) {
+                   @if(signUpForm.get('confirmPassword')?.errors?.['required']){
+                    <div>Ce champ est obligatoire</div>
+                    } 
+                }
 
                 <div class="divCgu">
                     <label for="cgu" class="cgu">J'accepte les conditions générales d'utilisation</label>
-                    <input type="checkbox" id="cgu" name="cgu" aria-describedby="cgu_error" aria-required="true">
+                    <input type="checkbox" formControlName="cgu" id="cgu" name="cgu" aria-required="true">
                 </div>
-                <div id = "cgu_error" class="error-message" role="alert"></div>
+                @if(signUpForm.get('cgu')?.invalid && (signUpForm.get('cgu')?.touched || signUpForm.get('cgu')?.dirty)) {
+                   @if(signUpForm.get('cgu')?.errors?.['requiredTrue']){
+                    <div>Veuillez accepter les conditions</div>
+                    } 
+                }
                 
-                <button type="submit" id="btn_inscription">S'inscrire</button>
+                <button type="submit" [disabled]="signUpForm.invalid" [style]="signUpForm.invalid ? 'backgroundColor:grey' : 'backgroundColor:#c62828'" id="btn_inscription">S'inscrire</button>
                 
             </form>
         </div>
