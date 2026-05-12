@@ -16,7 +16,10 @@
                 }
 
             <label for="img">Image</label>
-            <input type="file" formControlName="img" (change)="selecteImg($event)" id="img" name="img" accept="image/*" required>
+            <input type="file" (change)="selectImg($event)" id="img" name="img" accept="image/*" required>
+            @if(previewImg){
+                <img [src]="previewImg" alt="preview" width="200">
+            }
 
         </div>
             <fieldset>
@@ -57,11 +60,11 @@
             </fieldset>
 
             <label for="nb_personnes">Nombre de personnes</label>
-            <input type="number" formControlName="nbPersonnes" id="nbPersonnes" name="nbPersonnes" min="1" max ="10" value="1" autocomplete="off">
+            <input type="number" formControlName="nbPersonnes" id="nbPersonnes" name="nbPersonnes" min="1" max ="10" autocomplete="off">
                 @if(addRecipeForm.get('nbPersonnes')?.invalid && (addRecipeForm.get('nbPersonnes')?.touched || addRecipeForm.get('nbPersonnes')?.dirty)) {
                    @if(addRecipeForm.get('nbPersonnes')?.errors?.['required']){
                     <div>Ce champ est obligatoire</div>
-                    }  @else if (addRecipeForm.get('nbPersonnes')?.errors?.['maxl'] || addRecipeForm.get('nbPersonnes')?.errors?.['min']) {
+                    }  @else if (addRecipeForm.get('nbPersonnes')?.errors?.['max'] || addRecipeForm.get('nbPersonnes')?.errors?.['min']) {
                         <div>Le nombre de personnes doit être entre 1 et 10</div>
                     }
                 }
@@ -77,10 +80,17 @@
                         <div>Maximum 20 caractères</div>
                     }
                 }
-                <button type="button" id="ajout_ingredient" aria-label="Ajouter un ingrédient">Ajouter</button>
+                <button type="button" (click)="addIngredient()" aria-label="Ajouter un ingrédient">Ajouter</button>
             </div>
             <div class="listeIngredients">
-                <ul id="ingredient_list"></ul>
+                <ul>
+                    @for(ingredient of ingredientsList; track ingredient; let i = $index){
+                        <li>
+                            {{ ingredient }}
+                            <button type="button" (click)="removeIngredient(i)">X</button>
+                        </li>
+                    }
+                </ul>
             </div> 
         </div>
 
@@ -107,13 +117,20 @@
                         <div>Entre 3 et 20 caractères</div>
                     }
                 }
-                <button type="button" id="ajout_mot_cle" aria-label="Ajouter un mot clé">Ajouter</button>
+                <button type="button" (click)="addMotCle()" aria-label="Ajouter un mot clé">Ajouter</button>
             </div>
             <div class="listeMotsCles">
-                <ul id="mot_cle_list"></ul>
+                <ul>
+                    @for(motCle of motsClesList; track motCle; let i = $index){
+                        <li>
+                            {{ motCle }}
+                            <button type="button" (click)="removeMotCle(i)">X</button>
+                        </li>
+                    }
+                </ul>
             </div>
         </div>
-            <button [disabled]="addRecipeForm.invalid" [style.background-color]="addRecipeForm.invalid ? 'grey' : '#c62828'" type="submit" id="btn_recette">Enregistrer</button>
+            <button [disabled]="!formValid()" [style.background-color]="!formValid() ? 'grey' : '#c62828'" type="submit" id="btn_recette">Enregistrer</button>
         </form>
     </div>
     <div class="mesRecettes">

@@ -1,66 +1,118 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-profil-recettes',
   imports: [ReactiveFormsModule],
   templateUrl: './profil-recettes.html',
-  styleUrl: './profil-recettes.css',
+  styleUrls: ['./profil-recettes.css']
 })
-export class ProfilRecettes {
-addRecipeForm !:FormGroup;
-users:any[]=[];
-selectedFile !: File;
+export class ProfilRecettes implements OnInit {
+  addRecipeForm!: FormGroup;
+  selectedFile?: File; //img selectionnée, file ou undifined(optionnel)
+  previewImg: string | ArrayBuffer | null = null; //aperçu img,(arraybuffer = binaire brut/pdf/audio)
+  ingredientsList: string[] = [];
+  motsClesList: string[] = [];
+  recettesUsers: any[] = [];
 
-recettesUsers: any = [
-  {id:1, nomRecette: 'Recette 1', img: 'assets/img/cake.webp'},
-  {id:2, nomRecette: 'Recette 2', img: 'assets/img/cake.webp'},
-  {id:3, nomRecette: 'Recette 3', img: 'assets/img/cake.webp'},
-  {id:4, nomRecette: 'Recette 4', img: 'assets/img/cake.webp'}
-];
+  constructor(private fb: FormBuilder) {}
 
+ngOnInit(): void {
 
-constructor(private formBuilder:FormBuilder){}
+  this.addRecipeForm = this.fb.group({
+    nomRecette: ['', [Validators.required, Validators.maxLength(30)]],
+    heures: [0, Validators.required],
+    minutes: [0, Validators.required],
+    nbPersonnes: [1, [Validators.required, Validators.min(1), Validators.max(10)]],
+    ingredients: ['', [Validators.maxLength(20)]],
+    instructions: ['', [Validators.required, Validators.maxLength(60000)]],
+    motsCles: ['', [Validators.maxLength(20), Validators.minLength(3)]],
+  });
 
-ngOnInit():void{
-  this.addRecipeForm = this.formBuilder.group({
-    nomRecette : ['', [Validators.required, Validators.maxLength(30)]],
-    img : ['',[Validators.required]],
-    heures : ['0',[Validators.required]],
-    minutes : ['0',[Validators.required]],
-    nbPersonnes : ['1', [Validators.required, Validators.max(10), Validators.min(1)]],
-    ingredients : ['', [Validators.required, Validators.maxLength(20)]],
-    instructions : ['', [Validators.required, Validators.maxLength(60000)]],
-    motsCles : ['', [Validators.required, Validators.maxLength(20), Validators.minLength(3)]],
-  })
+  //récupère les recettes stockées dans le localstorage
+  const saved = localStorage.getItem('recettes');
+  this.recettesUsers = saved ? JSON.parse(saved) : []; //convertit en tab
 }
-addRecipe(){
-  console.log(this.addRecipeForm.value);
-  if (this.addRecipeForm.valid) {
-    const formValue = this.addRecipeForm.value;
-    let listeIngredients = [];
-    let listeMotsCles = [];
 
-    if (formValue.ingredients) listeIngredients.push('ingredients');
-    if (formValue.motsCles) listeMotsCles.push('motsCles');
+// gestion img
+selectImg(event: Event): void {
+  const file = (event.target as HTMLInputElement).files?.[0]; //récupère le fichier sélectionné
+  if (!file) return;
 
-    //objet final
-    const finalRecipe = {
-    nomRecette : formValue.nomRecette,
-    img : formValue.img,
-    heures : formValue.heures,
-    minutes : formValue.minutes ,
-    nbPersonnes : formValue.nbPersonnes,
-    listeIngredients,
-    instructions : formValue.instructions,
-    listeMotsCles,
-    };
+  this.selectedFile = file; //stock l'img dedans
 
-    this.users = JSON.parse(localStorage.getItem("users") || "[]");
-    this.users.push(finalRecipe);
-    localStorage.setItem("users", JSON.stringify(this.users));
-    alert("Création du compte avec succés");
-    this.addRecipeForm.reset();
+  //lecteur de fichier
+  const reader = new FileReader(); //transforme un fichier en texte/affichable
+  reader.onload = () => { //quand lecture terminé
+    this.previewImg = reader.result; //contient le nouveau fichier (en base64)
+  };
+  reader.readAsDataURL(file); //affiche l'img (lis & transforme en dataurl)
+}
+
+// gestion liste ingrédients
+addIngredient(): void {
+  const value = this.addRecipeForm.value.ingredients?.trim(); //récupère la valeur
+
+  if (value && !this.ingredientsList.includes(value)) {
+    this.ingredientsList.push(value);
+    this.addRecipeForm.patchValue({ ingredients: '' });
   }
+}
+removeIngredient(i: number): void {
+  this.ingredientsList.splice(i, 1);
+}
+
+// gestion liste mots clés
+addMotCle(): void {
+  const value = this.addRecipeForm.value.motsCles?.trim();
+
+  if (value && !this.motsClesList.includes(value)) {
+    this.motsClesList.push(value);
+    this.addRecipeForm.patchValue({ motsCles: '' });
+  }
+}
+removeMotCle(i: number): void {
+  this.motsClesList.splice(i, 1);
+}
+
+// validation form
+formValid(): boolean {
+  return this.addRecipeForm.valid && this.ingredientsList.length > 0 && this.motsClesList.length > 0;
+}
+
+// ajout recette
+addRecipe(): void {
+
+  if (this.addRecipeForm.invalid) return;
+
+  const form = this.addRecipeForm.value;
+
+  const newRecipe = {
+    id: Date.now(),
+    nomRecette: form.nomRecette,
+    img: this.previewImg,
+    temps: `${form.heures}h${form.minutes}`,
+    nbPersonnes: form.nbPersonnes,
+    ingredients: this.ingredientsList,
+    instructions: form.instructions,
+    motsCles: this.motsClesList
+  };
+
+  this.recettesUsers.push(newRecipe);
+  localStorage.setItem('recettes', JSON.stringify(this.recettesUsers));
+
+  this.resetForm();
+}
+
+resetForm(): void {
+  this.addRecipeForm.reset({
+    heures: '0',
+    minutes: '0',
+    nbPersonnes: 1
+  });
+
+  this.ingredientsList = [];
+  this.motsClesList = [];
+  this.previewImg = null;
 }
 }
