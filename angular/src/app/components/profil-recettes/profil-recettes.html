@@ -9,17 +9,20 @@
             <input type="text" id="nomRecette" formControlName="nomRecette" name="nomRecette" placeholder="Nom de la recette" maxlength="30" autocomplete="off">
                 @if(addRecipeForm.get('nomRecette')?.invalid && (addRecipeForm.get('nomRecette')?.touched || addRecipeForm.get('nomRecette')?.dirty)) {
                    @if(addRecipeForm.get('nomRecette')?.errors?.['required']){
-                    <div>Ce champ est obligatoire</div>
+                    <div class="error">Ce champ est obligatoire</div>
                     } @else if (addRecipeForm.get('nomRecette')?.errors?.['maxlength']) {
-                        <div>Maximum 30 caractères</div>
+                        <div class="error">Maximum 30 caractères</div>
                     }  
                 }
 
             <label for="img">Image</label>
-            <input type="file" (change)="selectImg($event)" id="img" name="img" accept="image/*" required>
-            @if(previewImg){
+            <input type="file" #fileInput (change)="selectImg($event)" id="img" name="img" accept="image/*">
+                @if(!previewImg && (addRecipeForm.touched || addRecipeForm.dirty)) {
+                <div class="error">L'image est obligatoire</div>
+                }
+                @if(previewImg){
                 <img [src]="previewImg" alt="preview" width="200">
-            }
+                }
 
         </div>
             <fieldset>
@@ -34,7 +37,7 @@
                 </select>
                 @if(addRecipeForm.get('heures')?.invalid && (addRecipeForm.get('heures')?.touched || addRecipeForm.get('heures')?.dirty)) {
                    @if(addRecipeForm.get('heures')?.errors?.['required']){
-                    <div>Ce champ est obligatoire</div>
+                    <div class="error">Ce champ est obligatoire</div>
                     }  
                 }
                 <label for="cuisson_m">Minutes :</label>
@@ -54,7 +57,7 @@
                 </select>
                 @if(addRecipeForm.get('minutes')?.invalid && (addRecipeForm.get('minutes')?.touched || addRecipeForm.get('minutes')?.dirty)) {
                    @if(addRecipeForm.get('minutes')?.errors?.['required']){
-                    <div>Ce champ est obligatoire</div>
+                    <div class="error">Ce champ est obligatoire</div>
                     }  
                 }
             </fieldset>
@@ -63,9 +66,9 @@
             <input type="number" formControlName="nbPersonnes" id="nbPersonnes" name="nbPersonnes" min="1" max ="10" autocomplete="off">
                 @if(addRecipeForm.get('nbPersonnes')?.invalid && (addRecipeForm.get('nbPersonnes')?.touched || addRecipeForm.get('nbPersonnes')?.dirty)) {
                    @if(addRecipeForm.get('nbPersonnes')?.errors?.['required']){
-                    <div>Ce champ est obligatoire</div>
+                    <div class="error">Ce champ est obligatoire</div>
                     }  @else if (addRecipeForm.get('nbPersonnes')?.errors?.['max'] || addRecipeForm.get('nbPersonnes')?.errors?.['min']) {
-                        <div>Le nombre de personnes doit être entre 1 et 10</div>
+                        <div class="error">Le nombre de personnes doit être entre 1 et 10</div>
                     }
                 }
 
@@ -73,14 +76,13 @@
             <div class="inputIngredients">
                 <label for="ingredients">Ajoutez vos ingrédients et leurs quantités (un par un)</label>
                 <input type="text" formControlName="ingredients" id="ingredients" name="ingredients" placeholder="100g Tomates" maxlength="20" autocomplete="off">
-                @if(addRecipeForm.get('ingredients')?.invalid && (addRecipeForm.get('ingredients')?.touched || addRecipeForm.get('ingredients')?.dirty)) {
-                   @if(addRecipeForm.get('ingredients')?.errors?.['required']){
-                    <div>Ce champ est obligatoire</div>
-                    }  @else if (addRecipeForm.get('ingredients')?.errors?.['maxlength']) {
-                        <div>Maximum 20 caractères</div>
+                    @if(ingredientsList.length === 0 && (addRecipeForm.get('ingredients')?.touched || addRecipeForm.get('ingredients')?.dirty)) {
+                        <div class="error">Ajoutez au moins un ingrédient</div>
+                    }               
+                    @if(addRecipeForm.get('ingredients')?.errors?.['maxlength']) {
+                        <div class="error">Maximum 20 caractères par mot clé</div>
                     }
-                }
-                <button type="button" (click)="addIngredient()" aria-label="Ajouter un ingrédient">Ajouter</button>
+                <button type="button" (click)="addIngredient()" id="btnIngredients" aria-label="Ajouter un ingrédient">Ajouter</button>
             </div>
             <div class="listeIngredients">
                 <ul>
@@ -99,9 +101,9 @@
             <textarea formControlName="instructions" id="instructions" name="instructions" placeholder="Etape 1 :..." maxlength="60000" autocomplete="off"></textarea>
                 @if(addRecipeForm.get('instructions')?.invalid && (addRecipeForm.get('instructions')?.touched || addRecipeForm.get('instructions')?.dirty)) {
                    @if(addRecipeForm.get('instructions')?.errors?.['required']){
-                    <div>Ce champ est obligatoire</div>
+                    <div class="error">Ce champ est obligatoire</div>
                     }  @else if (addRecipeForm.get('instructions')?.errors?.['maxlength']) {
-                        <div>Maximum 60000 caractères</div>
+                        <div class="error">Maximum 60000 caractères</div>
                     }
                 }
         </div>
@@ -110,14 +112,15 @@
             <div class="inputMotsCles">
                 <label for="motsCles">Mots clés (un par un)</label>
                 <input type="text" formControlName="motsCles"  id="motsCles" name="motsCles" placeholder="Ex : Fromage" minlength="3" maxlength="20" autocomplete="off">
-                @if(addRecipeForm.get('motsCles')?.invalid && (addRecipeForm.get('motsCles')?.touched || addRecipeForm.get('motsCles')?.dirty)) {
-                   @if(addRecipeForm.get('motsCles')?.errors?.['required']){
-                    <div>Ce champ est obligatoire</div>
-                    }  @else if (addRecipeForm.get('motsCles')?.errors?.['maxlength'] || addRecipeForm.get('motsCles')?.errors?.['minlength']) {
-                        <div>Entre 3 et 20 caractères</div>
+                    @if(motsClesList.length === 0 && (addRecipeForm.get('motsCles')?.touched || addRecipeForm.get('motsCles')?.dirty)) {
+                    <div class="error">Ajoutez au moins un mot clé</div>
                     }
-                }
-                <button type="button" (click)="addMotCle()" aria-label="Ajouter un mot clé">Ajouter</button>
+                    @if(addRecipeForm.get('motsCles')?.errors?.['maxlength']) {
+                        <div class="error">Maximum 20 caractères par mot clé</div>
+                        } @else if (addRecipeForm.get('motsCles')?.errors?.['minlength']) {
+                        <div class="error">Minimum 3 caractères</div>
+                    }
+                <button type="button" (click)="addMotCle()" id="btnMotsCles" aria-label="Ajouter un mot clé">Ajouter</button>
             </div>
             <div class="listeMotsCles">
                 <ul>
@@ -130,7 +133,7 @@
                 </ul>
             </div>
         </div>
-            <button [disabled]="!formValid()" [style.background-color]="!formValid() ? 'grey' : '#c62828'" type="submit" id="btn_recette">Enregistrer</button>
+            <button [disabled]="!formValid()" type="submit" id="btn_recette">Enregistrer</button>
         </form>
     </div>
     <div class="mesRecettes">

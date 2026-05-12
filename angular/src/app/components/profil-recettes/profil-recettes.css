@@ -1,4 +1,9 @@
 /*section recette*/
+.error {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
 h1 {
     text-align: center;
 }
@@ -52,7 +57,7 @@ fieldset legend {
     padding: 2%;
     margin: 2%;
 }
-#form_recette button, .btnEdit, .btnDelete {
+.btnEdit, .btnDelete, #btnIngredients, #btn_recette, #btnMotsCles {
     border-radius: 30px;
     color: white;
     background-color: #c62828;
@@ -97,6 +102,10 @@ fieldset legend {
 }
 #btn_recette {
     margin-top: 2%;
+}
+#btn_recette:disabled {
+  background-color: grey;
+  cursor: not-allowed;
 }
 .inputMotsCles {
     display: flex;

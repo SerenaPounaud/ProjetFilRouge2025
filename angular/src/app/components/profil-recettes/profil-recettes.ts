@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -14,6 +14,7 @@ export class ProfilRecettes implements OnInit {
   ingredientsList: string[] = [];
   motsClesList: string[] = [];
   recettesUsers: any[] = [];
+  @ViewChild('fileInput') fileInput!: ElementRef; //récupère l'élément du template
 
   constructor(private fb: FormBuilder) {}
 
@@ -21,8 +22,8 @@ ngOnInit(): void {
 
   this.addRecipeForm = this.fb.group({
     nomRecette: ['', [Validators.required, Validators.maxLength(30)]],
-    heures: [0, Validators.required],
-    minutes: [0, Validators.required],
+    heures: ['', Validators.required],
+    minutes: ['', Validators.required],
     nbPersonnes: [1, [Validators.required, Validators.min(1), Validators.max(10)]],
     ingredients: ['', [Validators.maxLength(20)]],
     instructions: ['', [Validators.required, Validators.maxLength(60000)]],
@@ -77,17 +78,17 @@ removeMotCle(i: number): void {
 
 removeRecetteUser(i: number): void {
   this.recettesUsers.splice(i, 1);
-  localStorage.setItem('recettes', JSON.stringify(this.recettesUsers));
+  localStorage.setItem('recettesUsers', JSON.stringify(this.recettesUsers));
 };
 
 // validation form
 formValid(): boolean {
-  return this.addRecipeForm.valid && this.ingredientsList.length > 0 && this.motsClesList.length > 0;
+  return this.addRecipeForm.valid && this.ingredientsList.length > 0 && this.motsClesList.length > 0 && !!this.previewImg; //convertit en boolean
 };
 
 // ajout recette
 addRecipe(): void {
-  if (this.addRecipeForm.invalid) return;
+  if (!this.formValid()) return;
 
   const form = this.addRecipeForm.value;
 
@@ -103,7 +104,7 @@ addRecipe(): void {
   };
 
   this.recettesUsers.push(newRecipe); //ajoute la recette dans le tab
-  localStorage.setItem('recettes', JSON.stringify(this.recettesUsers));
+  localStorage.setItem('recettesUsers', JSON.stringify(this.recettesUsers));
 
   this.resetForm();
 };
@@ -114,10 +115,14 @@ resetForm(): void {
     heures: '0',
     minutes: '0',
     nbPersonnes: 1
-  })
+  });
   //vide les listes + img
   this.ingredientsList = [];
   this.motsClesList = [];
   this.previewImg = null;
+  this.selectedFile = undefined;
+  if (this.fileInput) {
+    this.fileInput.nativeElement.value='';
+  }
 };
 }

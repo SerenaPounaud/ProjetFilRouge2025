@@ -27,7 +27,7 @@ contact(){
   if (this.contactForm.valid) {
     this.usersContact = JSON.parse(localStorage.getItem("usersContact") || "[]");
     this.usersContact.push(this.contactForm.value);
-    localStorage.setItem("users", JSON.stringify(this.usersContact));
+    localStorage.setItem("usersContact", JSON.stringify(this.usersContact));
     alert("Envoi du message avec succés");
     this.contactForm.reset();
   }
