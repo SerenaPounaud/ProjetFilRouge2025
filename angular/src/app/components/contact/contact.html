@@ -11,46 +11,76 @@
                     Nous nous engageons à vous répondre dans les plus brefs délais et à vous apporter toute l’aide nécessaire. 
                     Remplissez le formulaire ci-contre en indiquant vos coordonnées et votre message, et nous prendrons contact avec vous rapidement. 
                     Votre satisfaction est notre priorité !</p>
-                <button type="button" aria-label="Prévoir un appel" aria-disabled="true">Prévoir un appel<br>(bientôt disponible)</button>
+                <button type="button" aria-label="Prévoir un appel" aria-disabled="true" disabled>Prévoir un appel<br>(bientôt disponible)</button>
             </div>
             <div class="formContact">
-                <form action="#" method="POST" id="formcontact" novalidate> <!--method post pour éviter l'affichage des données sensibles dans l'url-->
+                <form [formGroup]="contactForm" (ngSubmit)="contact()" method="POST" id="formcontact" novalidate> <!--method post pour éviter l'affichage des données sensibles dans l'url-->
                 
                     <div>
                         <label for="lastname">Nom</label>
-                        <input type="text" id="lastname" name="lastname" placeholder="Votre nom" maxlength="50" aria-describedby="lastname_error" autocomplete="name">
-                        <div id="lastname_error" class="error-message" role="alert"></div>
+                        <input type="text" id="lastname" formControlName="lastname" name="lastname" placeholder="Votre nom" maxlength="50" autocomplete="name">
+                        @if(contactForm.get('lastname')?.invalid && (contactForm.get('lastname')?.touched || contactForm.get('lastname')?.dirty)) {
+                            @if(contactForm.get('lastname')?.errors?.['required']){
+                                <div>Ce champ est obligatoire</div>
+                                } @else if (contactForm.get('lastname')?.errors?.['maxlength']) {
+                                    <div>Maximum 50 caractères</div>
+                                }  
+                            }
                     </div>
 
                     <div>
                         <label for="firstname">Prénom</label>
-                        <input type="text" id="firstname" name="firstname" placeholder="Votre prénom" maxlength="50" aria-describedby="firstname_error" autocomplete="given-name">
-                        <div id="firstname_error" class="error-message" role="alert"></div>
+                        <input type="text" id="firstname" formControlName="firstname" name="firstname" placeholder="Votre prénom" maxlength="50" autocomplete="given-name">
+                        @if(contactForm.get('firstname')?.invalid && (contactForm.get('firstname')?.touched || contactForm.get('firstname')?.dirty)) {
+                            @if(contactForm.get('firstname')?.errors?.['required']){
+                                <div>Ce champ est obligatoire</div>
+                                } @else if (contactForm.get('firstname')?.errors?.['maxlength']) {
+                                    <div>Maximum 50 caractères</div>
+                                }  
+                            }
                     </div>
 
                     <div>
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="exemple@gmail.fr" maxlength="150" aria-describedby="email_error" autocomplete="email">
-                        <div id="email_error" class="error-message" role="alert"></div>
+                        <input type="email" id="email" formControlName="email" name="email" placeholder="exemple@gmail.fr" maxlength="150" autocomplete="email">
+                        @if(contactForm.get('email')?.invalid && (contactForm.get('email')?.touched || contactForm.get('email')?.dirty)) {
+                            @if(contactForm.get('email')?.errors?.['required']){
+                                <div>Ce champ est obligatoire</div>
+                                } @else if (contactForm.get('email')?.errors?.['maxlength']) {
+                                    <div>Maximum 150 caractères</div>
+                                } @else if (contactForm.get('email')?.errors?.['email']) {
+                                    <div>Entrer un email correct. Exemple : exemple@gmail.fr</div>
+                                } 
+                            }
                     </div>
 
                     <div>
                         <label for="message">Message :</label>
-                        <textarea id="message" name="message" placeholder="Écrivez ici (max 255 caractères)" maxlength="255" aria-describedby="message_error"></textarea>
+                        <textarea id="message" name="message" formControlName="message" placeholder="Écrivez ici (max 255 caractères)" maxlength="255"></textarea>
                         <div id="char_count" aria-live="polite">0/255</div>
-                        <div id="message_error" class="error-message" role="alert"></div>
+                        @if(contactForm.get('message')?.invalid && (contactForm.get('message')?.touched || contactForm.get('message')?.dirty)) {
+                            @if(contactForm.get('message')?.errors?.['required']){
+                                <div>Ce champ est obligatoire</div>
+                                } @else if (contactForm.get('message')?.errors?.['maxlength']) {
+                                    <div>Maximum 255 caractères</div>
+                                } 
+                            }
                     </div>
 
                     <div>
                         <div class="divRgpdContact">
                             <label for="rgpd">Je consens au traitement des données personnelles</label>
-                            <input type="checkbox" id="rgpd" name="rgpd" aria-describedby="rgpd_error">
+                            <input type="checkbox" formControlName="rgpd" id="rgpd" name="rgpd">
+                            @if(contactForm.get('rgpd')?.invalid && (contactForm.get('rgpd')?.touched || contactForm.get('rgpd')?.dirty)) {
+                                @if(contactForm.get('rgpd')?.errors?.['required']){
+                                    <div>Ce champ est obligatoire</div>
+                                    } 
+                                }
                         </div>
-                        <div id="rgpd_error" class="error-message" role="alert"></div>
                     </div>
 
                     <div class="buttonContact">
-                        <button type="submit" id="btn_contact">Envoyer</button>
+                        <button type="submit" [disabled]="contactForm.invalid" id="btn_contact">Envoyer</button>
                     </div>
                     
                 </form>

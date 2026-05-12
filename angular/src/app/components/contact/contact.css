@@ -84,10 +84,11 @@
   background-color: white;
   border: none;
   width: 20%;
-}
-#btn_contact:hover {
-  background-color: orange;
   cursor: pointer;
+}
+#btn_contact:disabled {
+  background-color: grey;
+  cursor: not-allowed;
 }
 .divRgpdContact {
   flex-direction: initial;
