@@ -139,9 +139,9 @@
             @for(recetteUser of recettesUsers; track recetteUser.id; let i=$index){
             <div class="recettes">
                 <h2>{{recetteUser.nomRecette}}</h2>
-                <img [src]="recetteUser.img" alt="cake">
+                <img [src]="recetteUser.img" alt="recetteUser.img">
                 <div class="zoneBtn">
-                    <button type="button" class="btnDelete">Supprimer</button>
+                    <button type="button" (click)="removeRecetteUser(i)" class="btnDelete">Supprimer</button>
                     <button type="button" class="btnEdit">Modifier</button>
                 </div>
                 

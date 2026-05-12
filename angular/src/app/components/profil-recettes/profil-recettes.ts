@@ -29,10 +29,10 @@ ngOnInit(): void {
     motsCles: ['', [Validators.maxLength(20), Validators.minLength(3)]],
   });
 
-  //récupère les recettes stockées dans le localstorage
+//récupère les recettes stockées dans le localstorage
   const saved = localStorage.getItem('recettes');
   this.recettesUsers = saved ? JSON.parse(saved) : []; //convertit en tab
-}
+};
 
 // gestion img
 selectImg(event: Event): void {
@@ -47,20 +47,20 @@ selectImg(event: Event): void {
     this.previewImg = reader.result; //contient le nouveau fichier (en base64)
   };
   reader.readAsDataURL(file); //affiche l'img (lis & transforme en dataurl)
-}
+};
 
 // gestion liste ingrédients
 addIngredient(): void {
-  const value = this.addRecipeForm.value.ingredients?.trim(); //récupère la valeur
+  const value = this.addRecipeForm.value.ingredients?.trim(); //s'exécute seulement si ingredients existe et n’est pas null/undefined
 
-  if (value && !this.ingredientsList.includes(value)) {
+  if (value && !this.ingredientsList.includes(value)) { //vérifie si pas vide + doublons
     this.ingredientsList.push(value);
-    this.addRecipeForm.patchValue({ ingredients: '' });
+    this.addRecipeForm.patchValue({ ingredients: '' }); //vide le champ
   }
-}
+};
 removeIngredient(i: number): void {
   this.ingredientsList.splice(i, 1);
-}
+};
 
 // gestion liste mots clés
 addMotCle(): void {
@@ -70,19 +70,23 @@ addMotCle(): void {
     this.motsClesList.push(value);
     this.addRecipeForm.patchValue({ motsCles: '' });
   }
-}
+};
 removeMotCle(i: number): void {
   this.motsClesList.splice(i, 1);
-}
+};
+
+removeRecetteUser(i: number): void {
+  this.recettesUsers.splice(i, 1);
+  localStorage.setItem('recettes', JSON.stringify(this.recettesUsers));
+};
 
 // validation form
 formValid(): boolean {
   return this.addRecipeForm.valid && this.ingredientsList.length > 0 && this.motsClesList.length > 0;
-}
+};
 
 // ajout recette
 addRecipe(): void {
-
   if (this.addRecipeForm.invalid) return;
 
   const form = this.addRecipeForm.value;
@@ -98,21 +102,22 @@ addRecipe(): void {
     motsCles: this.motsClesList
   };
 
-  this.recettesUsers.push(newRecipe);
+  this.recettesUsers.push(newRecipe); //ajoute la recette dans le tab
   localStorage.setItem('recettes', JSON.stringify(this.recettesUsers));
 
   this.resetForm();
-}
+};
 
+// reset formulaire
 resetForm(): void {
-  this.addRecipeForm.reset({
+  this.addRecipeForm.reset({ //remet aux valeurs par défaut
     heures: '0',
     minutes: '0',
     nbPersonnes: 1
-  });
-
+  })
+  //vide les listes + img
   this.ingredientsList = [];
   this.motsClesList = [];
   this.previewImg = null;
-}
+};
 }
