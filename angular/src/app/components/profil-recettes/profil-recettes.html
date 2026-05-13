@@ -138,21 +138,12 @@
     </div>
     <div class="mesRecettes">
         <h2>Mes recettes :</h2>
-        <div class="recettesUsers">
-            @for(recetteUser of recettesUsers; track recetteUser.id; let i=$index){
-            <div class="recettes">
-                <h2>{{recetteUser.nomRecette}}</h2>
-                <img [src]="recetteUser.img" alt="recetteUser.img">
-                <div class="zoneBtn">
-                    <button type="button" (click)="removeRecetteUser(i)" class="btnDelete">Supprimer</button>
-                    <button type="button" class="btnEdit">Modifier</button>
-                </div>
-                
-            </div> 
-            }
-            @empty {
-                <p>Vous n'avez créer aucune recettes</p>
-            }
-        </div>
+        <!--@input-->
+         @for(recetteUser of recettesUsers; track recetteUser.id; let i=$index){
+            <app-profil-recettes-card [element]="recetteUser" [index]="i" (delete)="removeRecetteUser($event)"></app-profil-recettes-card>
+         } @empty {
+        <p>Vous n'avez créer aucune recettes</p>
+        }
     </div>
+    
 </div>

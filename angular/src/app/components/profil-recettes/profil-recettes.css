@@ -7,33 +7,8 @@
 h1 {
     text-align: center;
 }
-#recettes {
-    font-size: clamp(10px, 2vw, 18px);
-}
 .ajoutRecetteForm, .mesRecettes {
     padding: 5%;
-}
-.recettesUsers {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-.recettes {
-    margin: 2% 5%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    width: 30%;
-}
-.recettesUsers img {
-    width: 100%;
-    border-radius: 10px;
-}
-.zoneBtn {
-    display: flex;
-    width: 100%;
-    justify-content: space-evenly;
 }
 .ajoutRecetteForm {
     text-align: center;
@@ -57,7 +32,7 @@ fieldset legend {
     padding: 2%;
     margin: 2%;
 }
-.btnEdit, .btnDelete, #btnIngredients, #btn_recette, #btnMotsCles {
+#btnIngredients, #btn_recette, #btnMotsCles {
     border-radius: 30px;
     color: white;
     background-color: #c62828;

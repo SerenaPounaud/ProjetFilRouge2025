@@ -1,0 +1,30 @@
+.recettesUsers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.recettes {
+    margin: 2% 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 30%;
+}
+.recettesUsers img {
+    width: 100%;
+    border-radius: 10px;
+}
+.zoneBtn {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+}
+.btnEdit, .btnDelete {
+    border-radius: 30px;
+    color: white;
+    background-color: #c62828;
+    border: none;
+    cursor: pointer;
+    padding: 3%;
+}

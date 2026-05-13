@@ -1,9 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { ProfilRecettesCard } from '../profil-recettes-card/profil-recettes-card';
 
 @Component({
   selector: 'app-profil-recettes',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ProfilRecettesCard],
   templateUrl: './profil-recettes.html',
   styleUrls: ['./profil-recettes.css']
 })
@@ -31,7 +32,7 @@ ngOnInit(): void {
   });
 
 //récupère les recettes stockées dans le localstorage
-  const saved = localStorage.getItem('recettes');
+  const saved = localStorage.getItem('recettesUsers');
   this.recettesUsers = saved ? JSON.parse(saved) : []; //convertit en tab
 };
 
