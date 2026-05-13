@@ -1,0 +1,104 @@
+.error {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+#form_recette {
+    margin-top: 3%;
+    width: 70%;
+}
+fieldset {
+    border: none;
+}
+fieldset legend {
+    margin: auto auto 5% auto;
+}
+#form_recette input {
+    border-radius: 10px;
+    border: solid 1px;
+    padding: 2%;
+    margin: 2%;
+}
+#btnIngredients, #btn_recette, #btnMotsCles {
+    border-radius: 30px;
+    color: white;
+    background-color: #c62828;
+    border: none;
+    cursor: pointer;
+    padding: 3%;
+}
+.divRecetteImg label, .divInstruction label {
+    display: block;
+}
+.listeIngredients {
+    text-align: initial;
+}
+#ingredient_list {
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+#ingredient_list li {
+    display: flex;
+    justify-content: space-between;
+    width: 45%;
+}
+.texteIngredient {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; /*ajoute les ... quand le texte est coupé*/
+}
+.divMotsCles label {
+    text-wrap: nowrap;
+}
+.divInstruction textarea {
+    border-radius: 10px;
+    width: 100%;
+    padding: 3%;
+    height: 25vw;
+}
+.divInstruction label {
+    margin: 4% 0;
+}
+#btn_recette {
+    margin-top: 2%;
+}
+#btn_recette:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}
+.inputMotsCles {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#mot_cle_list {
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+#mot_cle_list li {
+    display: flex;
+    justify-content: space-between;
+    width: 45%;
+}
+.texteTags {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; /*ajoute les ... quand le texte est coupé*/
+}
+@media (min-width: 1200px) {
+.divInstruction textarea {
+  height: 15vw;
+}
+#form_recette {
+    width: 100%;
+}
+.inputIngredients label {
+    display: block;
+}
+}
