@@ -1,35 +1,20 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ContactForm } from '../contact-form/contact-form';
 
 @Component({
   selector: 'app-contact',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ContactForm],
   templateUrl: './contact.html',
   styleUrl: './contact.css',
 })
 export class Contact {
-contactForm !: FormGroup;
 usersContact:any[]=[];
 
-constructor(private formBuilder:FormBuilder){}
-
-ngOnInit():void{ //s'exécute une seule fois, ne retourne aucune données
-  this.contactForm = this.formBuilder.group({
-    lastname : ['', [Validators.required, Validators.maxLength(50)]],
-    firstname : ['', [Validators.required, Validators.maxLength(50)]],
-    email : ['', [Validators.required, Validators.email, Validators.maxLength(150)]],
-    message : ['', [Validators.required, Validators.maxLength(255)]],
-    rgpd : [false, Validators.requiredTrue]
-  })
-};
-contact(){
-  console.log(this.contactForm.value);
-  if (this.contactForm.valid) {
+saveContact(data: any) {
     this.usersContact = JSON.parse(localStorage.getItem("usersContact") || "[]");
-    this.usersContact.push(this.contactForm.value);
+    this.usersContact.push(data);
     localStorage.setItem("usersContact", JSON.stringify(this.usersContact));
     alert("Envoi du message avec succés");
-    this.contactForm.reset();
-  }
 }
 }

@@ -1,0 +1,63 @@
+#formcontact {
+  color: white;
+  padding: 10%;
+  width: 100%;
+  font-size: clamp(10px, 2vw, 20px);
+  background: linear-gradient(to bottom,transparent 0%, #c62828 20%, #c62828 80%, transparent 100%);
+}
+#formcontact div {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(5px, 2vw, 20px);
+  place-items: center;
+}
+#formcontact input:not([type="checkbox"]) {
+  border-radius: 5px;
+  height: 2vw;
+  padding: clamp(10px, 2vw, 25px);
+  border: none;
+  max-width: 250px;
+}
+#formcontact textarea {
+  border-radius: 10px;
+  max-width: 400px;
+  padding: 2%;
+  border: none;
+  width: 40vw;
+  max-height: 200px;
+  height: 20vw;
+}
+#btn_contact {
+  padding: 2%;
+  border-radius: 10px;
+  background-color: white;
+  border: none;
+  width: 20%;
+  cursor: pointer;
+}
+#btn_contact:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}
+.divRgpdContact {
+  flex-direction: initial;
+}
+
+@media (min-width: 1200px) {
+#formcontact {
+  border-radius: 30px;
+  border-left: solid black;
+  border-right: solid black;
+  width: 100%;
+  max-width: 600px;
+}
+#formcontact input:not([type="checkbox"]) {
+  height: 1vw;
+}
+#btn_contact {
+  width: 30%;
+}
+input:not([type="checkbox"]) {
+  border-radius: 15px;
+}
+}
