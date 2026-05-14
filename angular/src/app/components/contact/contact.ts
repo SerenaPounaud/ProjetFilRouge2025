@@ -11,9 +11,9 @@ import { ContactForm } from '../contact-form/contact-form';
 export class Contact {
 usersContact:any[]=[];
 
-saveContact(data: any) {
+saveContact(message: any) {
     this.usersContact = JSON.parse(localStorage.getItem("usersContact") || "[]");
-    this.usersContact.push(data);
+    this.usersContact.push(message);
     localStorage.setItem("usersContact", JSON.stringify(this.usersContact));
     alert("Envoi du message avec succés");
 }
