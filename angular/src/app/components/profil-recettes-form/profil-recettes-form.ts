@@ -15,8 +15,8 @@ export class ProfilRecettesForm {
   ingredientsList: string[] = [];
   motsClesList: string[] = [];
 
-  @Input() recette: any;
-  @Input() editIndex: number | null = null;
+  @Input() recette: any; //permet d'envoyer une recette
+  @Input() editIndex: number | null = null; //reçoit l'index de la recette à modifier
   @ViewChild('fileInput') fileInput!: ElementRef; //récupère l'élément du template
   @Output() recipeCreated = new EventEmitter<any>(); //envoi un event au parent
 
@@ -103,7 +103,7 @@ addRecipe(): void {
   const form = this.addRecipeForm.value;
 
   const newRecipe = {
-    id: this.recette?.id || Date.now(), //garde l'id pendant l'edit
+    id: this.recette?.id || Date.now(), //garde l'id pendant l'edit sinon en créer un
     nomRecette: form.nomRecette,
     img: this.previewImg,
     temps: `${form.heures}h${form.minutes}`,
@@ -113,32 +113,31 @@ addRecipe(): void {
     motsCles: this.motsClesList
   };
 
-  this.recipeCreated.emit({recipe: newRecipe, index: this.editIndex}); //envoi une nouvelle recette au parent
+  this.recipeCreated.emit({recipe: newRecipe, index: this.editIndex}); //envoi une nouvelle recette + id au parent
 
   this.resetForm();
-  this.recette = null;
+  this.recette = null; //retire la recette en édition
 };
 
-  ngOnChanges(changes: SimpleChanges): void {
+ngOnChanges(changes: SimpleChanges): void { //détecte les changements des @Input
 
-    if (changes['recette'] && this.recette && this.addRecipeForm) {
+  if (changes['recette'] && this.recette && this.addRecipeForm) { //vérifie si recette a changé
 
-      const temps = this.recette.temps.split('h');
+    const temps = this.recette.temps.split('h'); //découpe le temps ex: ["2", "30"]
 
-      this.addRecipeForm.patchValue({
-        nomRecette: this.recette.nomRecette,
-        heures: temps[0],
-        minutes: temps[1],
-        nbPersonnes: this.recette.nbPersonnes,
-        instructions: this.recette.instructions
-      });
+    this.addRecipeForm.patchValue({ //modifie certains champs
+      nomRecette: this.recette.nomRecette,
+      heures: temps[0], //index du tab
+      minutes: temps[1],
+      nbPersonnes: this.recette.nbPersonnes,
+      instructions: this.recette.instructions
+    });
 
-      this.ingredientsList = [...this.recette.ingredients];
-      this.motsClesList = [...this.recette.motsCles];
+    this.ingredientsList = [...this.recette.ingredients]; //copie le tab original
+    this.motsClesList = [...this.recette.motsCles];
 
-      this.previewImg = this.recette.img;
-    }
-
+    this.previewImg = this.recette.img; //réaffiche l’img actuelle dans le formulaire lorsqu’on édite
   }
+}
 
 }
