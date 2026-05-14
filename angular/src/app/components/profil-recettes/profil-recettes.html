@@ -9,7 +9,7 @@
         <h2>Mes recettes :</h2>
         <!--@input-->
          @for(recetteUser of recettesUsers; track recetteUser.id; let i=$index){
-            <app-profil-recettes-card [element]="recetteUser" [index]="i" (delete)="removeRecetteUser($event)"></app-profil-recettes-card>
+            <app-profil-recettes-card [element]="recetteUser" [index]="i" (deleteRecette)="removeRecetteUser($event)"></app-profil-recettes-card>
          } @empty {
         <p>Vous n'avez créer aucune recettes</p>
         }

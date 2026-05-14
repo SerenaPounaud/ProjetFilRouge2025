@@ -1,9 +1,9 @@
 <div class="recettesUsers">
     <div class="recettes">
         <h2>{{element.nomRecette}}</h2>
-        <img [src]="element.img" alt="element.img">
+        <img [src]="element.img" [alt]="element.img">
         <div class="zoneBtn">
-            <button type="button" (click)="removeRecetteUser()" class="btnDelete">Supprimer</button>
+            <button type="button" (click)="removeRecetteUser()" class="btnDelete"><mat-icon>delete</mat-icon></button>
             <button type="button" class="btnEdit">Modifier</button>
         </div>
     </div> 
