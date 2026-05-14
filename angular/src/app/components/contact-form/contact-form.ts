@@ -23,7 +23,6 @@ ngOnInit():void{ //s'exécute une seule fois, ne retourne aucune données
   })
 };
 contact(){
-  console.log(this.contactForm.value);
   if (this.contactForm.valid) {
     this.formSubmitted.emit(this.contactForm.value);
     this.contactForm.reset();

@@ -11,6 +11,8 @@ import { ProfilRecettesForm } from '../profil-recettes-form/profil-recettes-form
 })
 export class ProfilRecettes implements OnInit {
   recettesUsers: any[] = [];
+  recetteToEdit: any = null;
+  editIndex: number | null = null;
 
   ngOnInit(): void {
     //récupère les recettes stockées dans le localstorage
@@ -19,13 +21,24 @@ export class ProfilRecettes implements OnInit {
   };
   
 addRecipe(recipe: any): void { //récupère la recette reçu
-  this.recettesUsers.push(recipe);
+  if (recipe.index !== null){
+    this.recettesUsers[recipe.index] = recipe.recipe;
+  } else {
+    this.recettesUsers.push(recipe.recipe);
+  }
   localStorage.setItem('recettesUsers', JSON.stringify(this.recettesUsers));
+  this.recetteToEdit = null;
+  this.editIndex = null;
 }
+//@Output
 removeRecetteUser(i: number): void {
   this.recettesUsers.splice(i, 1);
   localStorage.setItem('recettesUsers', JSON.stringify(this.recettesUsers));
 };
 
+editRecette(recette: any, index: number): void {
+  this.recetteToEdit = recette;
+  this.editIndex = index;
+}
 
 }

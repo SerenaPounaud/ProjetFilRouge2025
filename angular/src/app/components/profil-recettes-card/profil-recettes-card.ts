@@ -11,10 +11,15 @@ import { MatButtonModule } from '@angular/material/button';
 export class ProfilRecettesCard {
   @Input() element:any;
   @Input() index!: number; //position de la recette
+
   @Output() deleteRecette = new EventEmitter<number>(); //event suppression enfant -> parent
+  @Output() editRecette = new EventEmitter<any>();
 
   removeRecetteUser(): void { //envoi l'index au parent
     this.deleteRecette.emit(this.index);
+  }
+  updateRecetteUser(): void { //envoi l'index au parent
+    this.editRecette.emit(this.element);
   }
 
 }

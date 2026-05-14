@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -14,6 +14,9 @@ export class ProfilRecettesForm {
   previewImg: string | ArrayBuffer | null = null; //aperçu img,(arraybuffer = binaire brut/pdf/audio)
   ingredientsList: string[] = [];
   motsClesList: string[] = [];
+
+  @Input() recette: any;
+  @Input() editIndex: number | null = null;
   @ViewChild('fileInput') fileInput!: ElementRef; //récupère l'élément du template
   @Output() recipeCreated = new EventEmitter<any>(); //envoi un event au parent
 
@@ -100,7 +103,7 @@ addRecipe(): void {
   const form = this.addRecipeForm.value;
 
   const newRecipe = {
-    id: Date.now(),
+    id: this.recette?.id || Date.now(), //garde l'id pendant l'edit
     nomRecette: form.nomRecette,
     img: this.previewImg,
     temps: `${form.heures}h${form.minutes}`,
@@ -110,10 +113,32 @@ addRecipe(): void {
     motsCles: this.motsClesList
   };
 
-  this.recipeCreated.emit(newRecipe); //envoi une nouvelle recette au parent
+  this.recipeCreated.emit({recipe: newRecipe, index: this.editIndex}); //envoi une nouvelle recette au parent
 
   this.resetForm();
+  this.recette = null;
 };
 
+  ngOnChanges(changes: SimpleChanges): void {
+
+    if (changes['recette'] && this.recette && this.addRecipeForm) {
+
+      const temps = this.recette.temps.split('h');
+
+      this.addRecipeForm.patchValue({
+        nomRecette: this.recette.nomRecette,
+        heures: temps[0],
+        minutes: temps[1],
+        nbPersonnes: this.recette.nbPersonnes,
+        instructions: this.recette.instructions
+      });
+
+      this.ingredientsList = [...this.recette.ingredients];
+      this.motsClesList = [...this.recette.motsCles];
+
+      this.previewImg = this.recette.img;
+    }
+
+  }
 
 }
