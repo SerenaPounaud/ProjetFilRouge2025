@@ -110,7 +110,8 @@ addRecipe(): void {
     nbPersonnes: form.nbPersonnes,
     ingredients: this.ingredientsList,
     instructions: form.instructions,
-    motsCles: this.motsClesList
+    motsCles: this.motsClesList,
+    dateCreation: this.recette?.dateCreation || new Date().toLocaleDateString('fr-FR') //garde la date d'édit
   };
 
   this.recipeCreated.emit({recipe: newRecipe, index: this.editIndex}); //envoi une nouvelle recette + id au parent
