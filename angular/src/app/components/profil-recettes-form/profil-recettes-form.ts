@@ -114,7 +114,12 @@ addRecipe(): void {
   };
 
   this.recipeCreated.emit({recipe: newRecipe, index: this.editIndex}); //envoi une nouvelle recette + id au parent
-
+  
+  if (this.editIndex !== null) {
+    alert('Recette modifiée avec succès !');
+  } else {
+    alert('Recette ajoutée avec succès !');
+  }
   this.resetForm();
   this.recette = null; //retire la recette en édition
 };
