@@ -82,8 +82,8 @@ formValid(): boolean {
 // reset formulaire
 resetForm(): void {
   this.addRecipeForm.reset({ //remet aux valeurs par défaut
-    heures: '0',
-    minutes: '0',
+    heures: null,
+    minutes: null,
     nbPersonnes: 1
   });
   //vide les listes + img
