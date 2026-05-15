@@ -1,7 +1,7 @@
 <h1>Ajouter ou modifier vos recettes</h1>
 <div class="ajoutRecette">
     <div class="ajoutRecetteForm">
-        <h2>Créer/modifier une recette</h2>
+        <h2>{{recetteToEdit ? 'Modifier la recette' : 'Créer une recette'}}</h2>
         <!--@output-->
         <app-profil-recettes-form (recipeCreated)="addRecipe($event)" [recette]="recetteToEdit" [editIndex]="editIndex"></app-profil-recettes-form>
     </div>
@@ -14,5 +14,4 @@
         <p>Vous n'avez créer aucune recettes</p>
         }
     </div>
-    
 </div>
