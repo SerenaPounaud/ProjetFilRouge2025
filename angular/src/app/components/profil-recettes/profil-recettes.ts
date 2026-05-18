@@ -2,6 +2,7 @@ import { Component, OnInit,} from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProfilRecettesCard } from '../profil-recettes-card/profil-recettes-card';
 import { ProfilRecettesForm } from '../profil-recettes-form/profil-recettes-form';
+import { RecetteService } from '../../services/recette-service';
 
 @Component({
   selector: 'app-profil-recettes',
@@ -14,10 +15,13 @@ export class ProfilRecettes implements OnInit {
   recetteToEdit: any = null;
   editIndex: number | null = null;
 
+  constructor(private rService:RecetteService){}
+
   ngOnInit(): void {
     //récupère les recettes stockées dans le localstorage
-    const saved = localStorage.getItem('recettesUsers');
-    this.recettesUsers = saved ? JSON.parse(saved) : []; //convertit en tab
+    /*const saved = localStorage.getItem('recettesUsers');
+    this.recettesUsers = saved ? JSON.parse(saved) : []; //convertit en tab*/
+    this.rService.getAllRecipes().subscribe(); //récupère les donnèes à partir de httpclient + et déclenche requêtes
   };
   
 addRecipe(recipe: any): void { //récupère la recette reçu
