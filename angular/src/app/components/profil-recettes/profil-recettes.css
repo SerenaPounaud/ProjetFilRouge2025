@@ -2,6 +2,14 @@
 h1 {
     text-align: center;
 }
+.recettesUsers {
+    display: flex;
+    flex-wrap: wrap;
+}
+.cardUsers {
+    width: 20%;
+    margin: 3%;
+}
 .ajoutRecetteForm, .mesRecettes {
     padding: 5%;
 }
