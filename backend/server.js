@@ -1,7 +1,4 @@
 const app = require("./app");
-const connecDB = require("./config/db");
-
-connecDB(); //lance la connexion vers la bd
 
 const PORT = 3000;
 
