@@ -1,8 +1,8 @@
-const express = require("express"); //permet d'utiliser router
-const router = express.Router(); //envoie vers le bon controllers
+import express from "express"; //permet d'utiliser router
+import {getHello} from "../controllers/user.controller.js";
 
-const {getHello} = require("../controllers/user.controller");
+const router = express.Router(); //envoie vers le bon controllers
 
 router.get("/hello", getHello);
 
-module.exports = router;
+export default router;

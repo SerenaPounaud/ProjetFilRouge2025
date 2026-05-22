@@ -1,10 +1,11 @@
 //configuration express
-const express = require('express');
-const userRoutes = require("./routes/user.routes");
+import express from "express";
+import userRoutes from "./routes/user.routes.js"
 
 const app = express();
 
+app.use(express.json()); //permet de récupèrer les données json
 //connexion routes
 app.use("/api", userRoutes);
 
-module.exports = app;
+export default app;

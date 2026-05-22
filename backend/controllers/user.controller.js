@@ -1,8 +1,6 @@
-const User = require("../models/user.models");
+import User from "../models/user.models.js";
 
 //get test
-const getHello = (req, res) => {
+export const getHello = (req, res) => {
     res.json({message: "Hello from Express"})
 }
-
-module.exports = {getHello};
