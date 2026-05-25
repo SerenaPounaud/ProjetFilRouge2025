@@ -9,6 +9,59 @@ export const addRecipe = async (req, res) => {
         res.json({message: "Recette ajouté", recipe});
         
     } catch (error) {
-        res.json({message: "Erreur lors de l'ajout de la recette"})
+        res.json({message: "Erreur lors de l'ajout de la recette", error})
     }
-}
+};
+
+//Voir toutes les recettes
+export const getAllRecipes = async (req, res) => {
+    try {
+        const recipes = await Recipe.find();
+        res.json(recipes); //envoi la liste
+        
+    } catch (error) {
+        res.json({message: "Erreur lors de la récupération des recettes", error})
+    }
+};
+
+//Récupére un produit
+export const getRecipeById = async (req, res) => {
+    try {
+        const recipe = await Recipe.findById(req.params.id);
+        if (!recipe){
+            return res.json({message: "Recette introuvable"})
+        }
+        res.json(recipe); //récupére la recette
+        
+    } catch (error) {
+        res.json({message: "Erreur lors de la récupération de la recette", error})
+    }
+};
+
+//Supprime une recette
+export const deleteRecipeById = async (req, res) => {
+    try {
+        const recipe = await Recipe.findByIdAndDelete(req.params.id);
+        if (!recipe){
+            return res.json({message: "Recette introuvable"})
+        }
+        res.json({message: "Recette supprimée"});
+        
+    } catch (error) {
+        res.json({message: "Erreur lors de la suppression de la recette", error})
+    }
+};
+
+//Modifier une recette
+export const updateRecipe = async (req, res) => {
+    try {
+        const recipe = await Recipe.findByIdAndUpdate(req.params.id, req.body, {new: true}); //retourne la recette à jour
+        if (!recipe){
+            return res.json({message: "Recette introuvable"})
+        }
+        res.json({message: "Recette modifiée", recipe}); //retourne la recette
+        
+    } catch (error) {
+        res.json({message: "Erreur lors de la modification de la recette", error})
+    }
+};
