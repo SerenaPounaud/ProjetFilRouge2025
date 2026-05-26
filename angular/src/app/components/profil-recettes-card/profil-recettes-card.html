@@ -1,7 +1,7 @@
 <div class="recettes">
     <h2>{{element.nomRecette}}</h2>
     <img [src]="element.img" [alt]="element.img">
-    <p>Créer le :{{element.dateCreation}}</p>
+    <p>Créer le :{{element.dateAjout}}</p>
     <div class="zoneBtn">
         <button type="button" (click)="removeRecetteUser()" class="btnDelete" title="Supprimer"><mat-icon>delete</mat-icon></button>
         <button type="button" class="btnEdit" (click)="updateRecetteUser()">Modifier</button>

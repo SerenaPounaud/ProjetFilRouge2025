@@ -103,7 +103,6 @@ addRecipe(): void {
   const form = this.addRecipeForm.value;
 
   const newRecipe = {
-    id: this.recette?.id || Date.now(), //garde l'id pendant l'edit sinon en créer un
     nomRecette: form.nomRecette,
     img: this.previewImg,
     temps: `${form.heures}h${form.minutes}`,
@@ -111,7 +110,7 @@ addRecipe(): void {
     ingredients: this.ingredientsList,
     instructions: form.instructions,
     motsCles: this.motsClesList,
-    dateCreation: this.recette?.dateCreation || new Date().toLocaleDateString('fr-FR') //garde la date d'édit
+    dateAjout: this.recette?.dateAjout || new Date().toLocaleDateString('fr-FR') //garde la date d'édit
   };
 
   this.recipeCreated.emit({recipe: newRecipe, index: this.editIndex}); //envoi une nouvelle recette + id au parent

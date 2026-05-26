@@ -18,22 +18,28 @@ export class ProfilRecettes implements OnInit {
   constructor(private rService:RecetteService){}
 
   ngOnInit(): void {
-    //récupère les recettes stockées dans le localstorage
-    /*const saved = localStorage.getItem('recettesUsers');
-    this.recettesUsers = saved ? JSON.parse(saved) : []; //convertit en tab*/
-    this.rService.getAllRecipes().subscribe(); //récupère les donnèes à partir de httpclient + et déclenche requêtes
+    //récupère les donnèes à partir de httpclient + et déclenche requêtes
+    this.rService.getAllRecipes().subscribe(); 
   };
   
 addRecipe(recipe: any): void { //récupère la recette reçu
   if (recipe.index !== null){
     this.recettesUsers[recipe.index] = recipe.recipe;
   } else {
-    this.recettesUsers.push(recipe.recipe);
+    this.rService.addRecipe(recipe.recipe).subscribe({ //écoute + gére la réponse
+      next: (res) => {
+        console.log(res);
+      },
+      error:(err) => {
+        console.log(err);
+        alert("Erreur lors de l'ajout de la recette");
+      }
+    });
   }
-  localStorage.setItem('recettesUsers', JSON.stringify(this.recettesUsers));
   this.recetteToEdit = null;
   this.editIndex = null;
-}
+};
+
 //@Output
 removeRecetteUser(i: number): void {
   this.recettesUsers.splice(i, 1);

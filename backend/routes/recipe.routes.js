@@ -3,10 +3,10 @@ import { addRecipe, deleteRecipeById, getAllRecipes, getRecipeById, updateRecipe
 
 const router = express.Router();
 
-router.post("/recipes", addRecipe);
-router.get("/recipes", getAllRecipes);
-router.get("/recipes/:id", getRecipeById);
-router.delete("/recipes/:id", deleteRecipeById);
-router.put("/recipes/:id", updateRecipe);
+router.post("/", addRecipe);
+router.get("/", getAllRecipes);
+router.get("/:id", getRecipeById);
+router.delete("/:id", deleteRecipeById);
+router.put("/:id", updateRecipe);
 
 export default router;

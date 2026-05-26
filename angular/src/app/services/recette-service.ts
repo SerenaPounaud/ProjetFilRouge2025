@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class RecetteService {
-  recetteURL : string='http://localhost:3000/api/recettes'; //port backend node
+  recetteURL : string='http://localhost:3000/api/recipes'; //port backend node
 
   constructor(private htppClient: HttpClient){}
   // tab des recettes || []
