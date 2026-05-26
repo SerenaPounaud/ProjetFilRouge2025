@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-zone-recette-liste-recettes',
@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './zone-recette-liste-recettes.css',
 })
 export class ZoneRecetteListeRecettes {
-
+@Input() recipe!: any;
 }

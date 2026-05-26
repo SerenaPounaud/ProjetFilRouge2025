@@ -1,1 +1,7 @@
-<p>zone-recette-liste-recettes works!</p>
+    <div class="carte-recette">
+        <h2>{{ recipe.nomRecette }}</h2>
+        <img [src]="recipe.img" [alt]="recipe.nomRecette">
+        <div class="zoneBtn">
+            <button type="button">Voir</button>
+        </div>
+    </div>

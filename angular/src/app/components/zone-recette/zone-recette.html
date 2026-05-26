@@ -40,9 +40,16 @@
                     <button id="btn_reset" type="button" aria-label="Réinitialiser la recherche">Réinitialiser</button>
                 </div>
         </div>
+
         <section class="recettes" id="recettes">
-            <!--Les recettes s'affichent ici-->
-        </section> 
+            <!--@input-->
+            @for(recipe of recipes$ | async ; track recipe.id; let i=$index){
+                <app-zone-recette-liste-recettes [recipe]="recipe"/>
+            } @empty {
+            <p>Aucune recettes trouvées</p>
+            }
+        </section>
+
         <div id="pagination" class="pagination">
             <!--Les boutons de pages s'affichent ici-->
         </div>

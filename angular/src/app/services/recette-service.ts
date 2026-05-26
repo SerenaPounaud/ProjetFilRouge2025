@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http'; //requêtes
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -7,25 +8,25 @@ import { Injectable } from '@angular/core';
 export class RecetteService {
   recetteURL : string='http://localhost:3000/api/recipes'; //port backend node
 
-  constructor(private htppClient: HttpClient){}
+  constructor(private httpClient: HttpClient){}
   // tab des recettes || []
-  getAllRecipes(){
-    return this.htppClient.get(this.recetteURL);
+  getAllRecipes(): Observable<any[]>{
+    return this.httpClient.get<any[]>(this.recetteURL);
   }
   // recette || null
   getRecipeById(id:number){
-    return this.htppClient.get(this.recetteURL + "/" + id);
+    return this.httpClient.get(this.recetteURL + "/" + id);
   }
   // string || boolean || recipeObj + id
   addRecipe(recipeObj:any){
-    return this.htppClient.post(this.recetteURL, recipeObj);
+    return this.httpClient.post(this.recetteURL, recipeObj);
   }
   // string || boolean
   deleteRecipeById(id:number){
-    return this.htppClient.delete(this.recetteURL + "/" + id);
+    return this.httpClient.delete(this.recetteURL + "/" + id);
   }
   // string || boolean || recipeObj + id
   updateRecipe(recipeObj:any){
-    return this.htppClient.put(this.recetteURL, recipeObj);
+    return this.httpClient.put(this.recetteURL, recipeObj);
   }
 }
