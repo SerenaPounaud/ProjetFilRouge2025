@@ -1,54 +1,61 @@
-import { Component, OnInit,} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProfilRecettesCard } from '../profil-recettes-card/profil-recettes-card';
 import { ProfilRecettesForm } from '../profil-recettes-form/profil-recettes-form';
 import { RecetteService } from '../../services/recette-service';
+import { Observable } from 'rxjs';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-profil-recettes',
-  imports: [ReactiveFormsModule, ProfilRecettesCard, ProfilRecettesForm],
+  imports: [ReactiveFormsModule, ProfilRecettesCard, ProfilRecettesForm, AsyncPipe, JsonPipe],
   templateUrl: './profil-recettes.html',
   styleUrls: ['./profil-recettes.css']
 })
 export class ProfilRecettes implements OnInit {
-  recettesUsers: any[] = [];
-  recetteToEdit: any = null;
-  editIndex: number | null = null;
+  recetteToEdit: any = null; //index de la recette à éditer, null si création
+  recipes$!:Observable<any[]>; //récupère immédiatement les recettes || + tard
 
-  constructor(private rService:RecetteService){}
-
-  ngOnInit(): void {
-    //récupère les donnèes à partir de httpclient + et déclenche requêtes
-    this.rService.getAllRecipes().subscribe(); 
+  constructor(private rService:RecetteService){} //injecte le crud
+  
+  ngOnInit(): void { //récupération des recettes
+    this.recipes$ = this.rService.getAllRecipes();
   };
   
-addRecipe(recipe: any): void { //récupère la recette reçu
-  if (recipe.index !== null){
-    this.recettesUsers[recipe.index] = recipe.recipe;
-  } else {
-    this.rService.addRecipe(recipe.recipe).subscribe({ //écoute + gére la réponse
-      next: (res) => {
-        console.log(res);
-      },
-      error:(err) => {
-        console.log(err);
-        alert("Erreur lors de l'ajout de la recette");
-      }
+addRecipe(event: any): void { //récupère l'objet
+  const data = event.recipe; //récupère la recette reçu
+
+  if (data?._id){ //si édition
+    this.rService.updateRecipe(data, data._id).subscribe(() => {
+      this.refresh();
+      alert('Recette modifiée');
+      this.recetteToEdit = null;
     });
+  } else { //si création
+    this.rService.addRecipe(data).subscribe({ //écoute + gére la réponse
+      next: () => {
+        this.refresh();
+        alert('Recette ajoutée');
+        this.recetteToEdit = null; 
+      },
+      error: () => {
+        alert("Erreur lors de l'ajout de la recette");
+      } 
+      });
   }
-  this.recetteToEdit = null;
-  this.editIndex = null;
 };
 
-//@Output
-removeRecetteUser(i: number): void {
-  this.recettesUsers.splice(i, 1);
-  localStorage.setItem('recettesUsers', JSON.stringify(this.recettesUsers));
-};
-
-editRecette(recette: any, index: number): void {
-  this.recetteToEdit = recette;
-  this.editIndex = index;
+removeRecetteUser(id: string): void {
+  this.rService.deleteRecipeById(id).subscribe(() => {
+    this.refresh();
+  });
 }
 
+editRecette(recette: any): void {
+  this.recetteToEdit = recette; //met la recette dedans
+}
+
+private refresh(): void { //recharge toutes les recettes depuis l'api
+  this.recipes$ = this.rService.getAllRecipes();
+}
 }

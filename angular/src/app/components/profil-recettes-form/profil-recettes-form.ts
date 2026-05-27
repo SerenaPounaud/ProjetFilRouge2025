@@ -16,7 +16,6 @@ export class ProfilRecettesForm {
   motsClesList: string[] = [];
 
   @Input() recette: any; //permet d'envoyer une recette
-  @Input() editIndex: number | null = null; //reçoit l'index de la recette à modifier
   @ViewChild('fileInput') fileInput!: ElementRef; //récupère l'élément du template
   @Output() recipeCreated = new EventEmitter<any>(); //envoi un event au parent
 
@@ -103,6 +102,7 @@ addRecipe(): void {
   const form = this.addRecipeForm.value;
 
   const newRecipe = {
+    _id: this.recette?._id,
     nomRecette: form.nomRecette,
     img: this.previewImg,
     temps: `${form.heures}h${form.minutes}`,
@@ -112,16 +112,11 @@ addRecipe(): void {
     motsCles: this.motsClesList,
     dateAjout: this.recette?.dateAjout || new Date().toLocaleDateString('fr-FR') //garde la date d'édit
   };
-
-  this.recipeCreated.emit({recipe: newRecipe, index: this.editIndex}); //envoi une nouvelle recette + id au parent
-  
-  if (this.editIndex !== null) {
-    alert('Recette modifiée avec succès');
-  } else {
-    alert('Recette ajoutée avec succès');
-  }
+  this.recipeCreated.emit({
+    recipe: newRecipe
+  })
+  this.recette = null;
   this.resetForm();
-  this.recette = null; //retire la recette en édition
 };
 
 ngOnChanges(changes: SimpleChanges): void { //détecte les changements des @Input

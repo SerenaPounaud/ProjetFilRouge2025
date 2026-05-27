@@ -3,14 +3,14 @@
     <div class="ajoutRecetteForm">
         <h2>{{recetteToEdit ? 'Modifier la recette' : 'Créer une recette'}}</h2>
         <!--@output-->
-        <app-profil-recettes-form (recipeCreated)="addRecipe($event)" [recette]="recetteToEdit" [editIndex]="editIndex"></app-profil-recettes-form>
+        <app-profil-recettes-form (recipeCreated)="addRecipe($event)" [recette]="recetteToEdit"></app-profil-recettes-form>
     </div>
     <div class="mesRecettes">
         <h2>Mes recettes :</h2>
         <div class="recettesUsers">
             <!--@input-->
-            @for(recetteUser of recettesUsers; track recetteUser.id; let i=$index){
-                <app-profil-recettes-card class="cardUsers" [element]="recetteUser" [index]="i" (deleteRecette)="removeRecetteUser($event)" (editRecette)="editRecette(recetteUser, i)"></app-profil-recettes-card>
+            @for(recipeUser of recipes$ | async; track recipeUser._id; let i=$index){
+                <app-profil-recettes-card class="cardUsers" [recipe]="recipeUser" [index]="i" (deleteRecette)="removeRecetteUser($event)" (editRecette)="editRecette(recipeUser)"></app-profil-recettes-card>
             } @empty {
             <p>Vous n'avez créer aucune recettes</p>
             }

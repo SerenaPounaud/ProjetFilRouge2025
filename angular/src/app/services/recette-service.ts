@@ -22,11 +22,11 @@ export class RecetteService {
     return this.httpClient.post(this.recetteURL, recipeObj);
   }
   // string || boolean
-  deleteRecipeById(id:number){
+  deleteRecipeById(id:string){
     return this.httpClient.delete(this.recetteURL + "/" + id);
   }
   // string || boolean || recipeObj + id
-  updateRecipe(recipeObj:any){
-    return this.httpClient.put(this.recetteURL, recipeObj);
+  updateRecipe(recipeObj:any, id:string){
+    return this.httpClient.put(`${this.recetteURL}/${id}`, recipeObj);
   }
 }

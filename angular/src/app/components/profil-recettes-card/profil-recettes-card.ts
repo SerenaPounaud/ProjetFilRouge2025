@@ -9,17 +9,17 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './profil-recettes-card.css',
 })
 export class ProfilRecettesCard {
-  @Input() element:any;
+  @Input() recipe!:any;
   @Input() index!: number; //position de la recette
 
-  @Output() deleteRecette = new EventEmitter<number>(); //event suppression enfant -> parent
+  @Output() deleteRecette = new EventEmitter<string>(); //event suppression enfant -> parent
   @Output() editRecette = new EventEmitter<any>();
 
   removeRecetteUser(): void { //envoi l'index au parent
-    this.deleteRecette.emit(this.index);
+    this.deleteRecette.emit(this.recipe._id);
   }
   updateRecetteUser(): void { //envoi l'index au parent
-    this.editRecette.emit(this.element);
+    this.editRecette.emit(this.recipe);
   }
 
 }
