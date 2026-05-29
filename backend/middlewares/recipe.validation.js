@@ -63,14 +63,15 @@ export const validateRecipe = (req, res, next) => {
                 "any.required": "Les mots-clés sont obligatoires"
             }),
     });
-    // vérifie si le body respecte le schema + montre toutes les erreurs
-    const {error} = Schema.validate(req.body, {abortEarly: false}); 
+    // vérifie si le body respecte le schema + montre toutes les erreurs + body validé et transformé
+    const {error, value} = Schema.validate(req.body, {abortEarly: false}); 
 
     if (error) {
-        return res.status(400).json({ //Bad Request
+        return res.status(400).json({ //Bad Request, client error
             message: "Erreur de validation",
-            errors: error.details.map((err => err.message)) //parcourt les erreurs et récupère le message
+            errors: error.details.map((err => err.message)) //parcourt + créer un tab puis retourne le message
         });
     }
+    req.body = value; //body nettoyé/validé
     next();
 };

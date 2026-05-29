@@ -1,7 +1,7 @@
 import Recipe from "../models/recipe.model.js";
 
 //Ajoute une recette
-export const addRecipe = async (req, res) => {
+export const addRecipe = async (req, res, next) => {
     try {
         const recipe = new Recipe(req.body);
         await recipe.save(); //sauvegarde dans la db
@@ -9,23 +9,23 @@ export const addRecipe = async (req, res) => {
         res.json({message: "Recette ajouté", recipe});
         
     } catch (error) {
-        res.json({message: "Erreur lors de l'ajout de la recette", error})
+        next(error);
     }
 };
 
 //Voir toutes les recettes
-export const getAllRecipes = async (req, res) => {
+export const getAllRecipes = async (req, res, next) => {
     try {
         const recipes = await Recipe.find();
         res.json(recipes); //envoi la liste
         
     } catch (error) {
-        res.json({message: "Erreur lors de la récupération des recettes", error})
+        next(error);
     }
 };
 
 //Récupére un produit
-export const getRecipeById = async (req, res) => {
+export const getRecipeById = async (req, res, next) => {
     try {
         const recipe = await Recipe.findById(req.params.id);
         if (!recipe){
@@ -34,12 +34,12 @@ export const getRecipeById = async (req, res) => {
         res.json(recipe); //récupére la recette
         
     } catch (error) {
-        res.json({message: "Erreur lors de la récupération de la recette", error})
+        next(error);
     }
 };
 
 //Supprime une recette
-export const deleteRecipeById = async (req, res) => {
+export const deleteRecipeById = async (req, res, next) => {
     try {
         const recipe = await Recipe.findByIdAndDelete(req.params.id);
         if (!recipe){
@@ -48,12 +48,12 @@ export const deleteRecipeById = async (req, res) => {
         res.json({message: "Recette supprimée"});
         
     } catch (error) {
-        res.json({message: "Erreur lors de la suppression de la recette", error})
+        next(error);
     }
 };
 
 //Modifier une recette
-export const updateRecipe = async (req, res) => {
+export const updateRecipe = async (req, res, next) => {
     try {
         const recipe = await Recipe.findByIdAndUpdate(req.params.id, req.body, {new: true}); //retourne la recette à jour
         if (!recipe){
@@ -62,6 +62,6 @@ export const updateRecipe = async (req, res) => {
         res.json({message: "Recette modifiée", recipe}); //retourne la recette
         
     } catch (error) {
-        res.json({message: "Erreur lors de la modification de la recette", error})
+        next(error);
     }
 };
