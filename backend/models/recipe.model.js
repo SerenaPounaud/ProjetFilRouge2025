@@ -9,9 +9,9 @@ const recipeSchema = new mongoose.Schema({
     instructions: String,
     motsCles: [String],
     dateAjout: {
-        type: String,
-        default: () => new Date().toLocaleDateString('fr-FR')
-        }
+        type: Date,
+        default: Date.now
+    }
 });
 
 const Recipe = mongoose.model("Recipe", recipeSchema);

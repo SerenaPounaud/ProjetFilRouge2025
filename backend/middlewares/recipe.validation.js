@@ -2,7 +2,7 @@ import Joi from "joi"; //permet la validation pour être accepter dans la db
 
 export const validateRecipe = (req, res, next) => {
     const Schema = Joi.object({
-        nomRecette : Joi.string().trim().max(30).required().messages({
+        nomRecette : Joi.string().max(30).required().messages({
             "string.base" : "Le nom doit être une chaîne de caractères",
             "string.empty" : "Le nom est obligatoire",
             "string.max" : "Maximum 30 caractères",
@@ -27,7 +27,7 @@ export const validateRecipe = (req, res, next) => {
         }),
         ingredients: Joi.array()
             .items(
-                Joi.string().trim().max(20).min(3).messages({
+                Joi.string().max(20).min(3).messages({
                     "string.base": "Chaque ingrédient doit être une chaîne de caractères",
                     "string.empty": "Ingrédient obligatoire",
                     "string.max": "Un ingrédient ne peut pas dépasser 20 caractères",
@@ -41,14 +41,14 @@ export const validateRecipe = (req, res, next) => {
                 "array.min": "Il faut au moins un ingrédient",
                 "any.required": "Les ingrédients sont obligatoires"
             }),
-        instructions : Joi.string().trim().max(60000).required().messages({
+        instructions : Joi.string().max(60000).required().messages({
             "string.empty" : "Instructions obligatoire",
             "string.max" : "Maximum 60 000 caractères",
             "any.required": "Instructions obligatoire"
         }),
         motsCles: Joi.array()
             .items(
-                Joi.string().trim().min(3).max(30).messages({
+                Joi.string().min(3).max(30).messages({
                     "string.base": "Chaque mot-clé doit être une chaîne de caractères",
                     "string.empty": "Mot-clé obligatoire",
                     "string.min": "Un mot-clé doit faire au moins 3 caractères",
@@ -63,8 +63,8 @@ export const validateRecipe = (req, res, next) => {
                 "any.required": "Les mots-clés sont obligatoires"
             }),
     });
-    // vérifie si le body respecte le schema + montre toutes les erreurs + body validé et transformé
-    const {error, value} = Schema.validate(req.body, {abortEarly: false}); 
+    // vérifie si le body respecte le schema + montre toutes les erreurs
+    const {error} = Schema.validate(req.body, {abortEarly: false}); 
 
     if (error) {
         return res.status(400).json({ //Bad Request, client error
@@ -72,6 +72,6 @@ export const validateRecipe = (req, res, next) => {
             errors: error.details.map((err => err.message)) //parcourt + créer un tab puis retourne le message
         });
     }
-    req.body = value; //body nettoyé/validé
+
     next();
 };

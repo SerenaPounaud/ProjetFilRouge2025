@@ -1,7 +1,7 @@
 <div class="recettes">
     <h2>{{recipe.nomRecette}}</h2>
     <img [src]="recipe.img" [alt]="recipe.img">
-    <p>Créer le :{{recipe.dateAjout}}</p>
+    <p>Créé le : {{ recipe.dateAjout | date:'dd/MM/yyyy' }}</p>
     <div class="zoneBtn">
         <button type="button" (click)="removeRecetteUser()" class="btnDelete" title="Supprimer"><mat-icon>delete</mat-icon></button>
         <button type="button" class="btnEdit" (click)="updateRecetteUser()">Modifier</button>

@@ -109,8 +109,7 @@ addRecipe(): void {
     nbPersonnes: form.nbPersonnes,
     ingredients: this.ingredientsList,
     instructions: form.instructions,
-    motsCles: this.motsClesList,
-    dateAjout: this.recette?.dateAjout || new Date().toLocaleDateString('fr-FR') //garde la date d'édit
+    motsCles: this.motsClesList
   };
   this.recipeCreated.emit({
     recipe: newRecipe
