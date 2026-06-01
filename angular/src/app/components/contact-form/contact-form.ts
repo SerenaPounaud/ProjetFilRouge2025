@@ -18,7 +18,7 @@ ngOnInit():void{ //s'exécute une seule fois, ne retourne aucune données
     lastname : ['', [Validators.required, Validators.maxLength(50)]],
     firstname : ['', [Validators.required, Validators.maxLength(50)]],
     email : ['', [Validators.required, Validators.email, Validators.maxLength(150)]],
-    message : ['', [Validators.required, Validators.maxLength(255)]],
+    message : ['', [Validators.required, Validators.maxLength(1000)]],
     rgpd : [false, Validators.requiredTrue]
   })
 };

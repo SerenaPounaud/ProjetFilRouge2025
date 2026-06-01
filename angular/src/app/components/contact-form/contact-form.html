@@ -39,13 +39,13 @@
 
     <div>
         <label for="message">Message :</label>
-        <textarea id="message" name="message" formControlName="message" placeholder="Écrivez ici (max 255 caractères)" maxlength="255"></textarea>
-        <div id="char_count" aria-live="polite">0/255</div>
+        <textarea id="message" name="message" formControlName="message" placeholder="Écrivez ici (max 1000 caractères)" maxlength="1000"></textarea>
+        <div id="char_count" aria-live="polite">0/1000</div>
         @if(contactForm.get('message')?.invalid && (contactForm.get('message')?.touched || contactForm.get('message')?.dirty)) {
             @if(contactForm.get('message')?.errors?.['required']){
                 <div>Ce champ est obligatoire</div>
                 } @else if (contactForm.get('message')?.errors?.['maxlength']) {
-                    <div>Maximum 255 caractères</div>
+                    <div>Maximum 1000 caractères</div>
                 } 
             }
     </div>

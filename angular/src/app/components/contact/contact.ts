@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ContactForm } from '../contact-form/contact-form';
+import { ContactService } from '../../services/contact-service';
 
 @Component({
   selector: 'app-contact',
@@ -9,12 +10,19 @@ import { ContactForm } from '../contact-form/contact-form';
   styleUrl: './contact.css',
 })
 export class Contact {
-usersContact:any[]=[];
+    
+  constructor(private contactService: ContactService) {}
 
 saveContact(message: any) {
-    this.usersContact = JSON.parse(localStorage.getItem("usersContact") || "[]");
-    this.usersContact.push(message);
-    localStorage.setItem("usersContact", JSON.stringify(this.usersContact));
-    alert("Envoi du message avec succés");
+  this.contactService.sendMessage(message).subscribe({
+    next: (res) => {
+      alert("Message envoyé avec succès");
+    },
+    error: (err) => {
+      console.error(err);
+      alert("Erreur lors de l'envoi");
+    }
+  });
 }
+
 }
