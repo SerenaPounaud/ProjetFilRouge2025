@@ -6,10 +6,10 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   if(!token){
     return next(req);
   }
-    const authReq = req.clone({ //sert à transporter une preuve d’identité vers le serveur pour autorisation
+    const authReq = req.clone({ //copie req + ajout header http
       setHeaders: {
         Authorization: `Bearer ${token}` //Bearer = format pour envoyer un token
       }
   });
-  return next(authReq);
+  return next(authReq); //envoie la req modifiée avec token
 };
