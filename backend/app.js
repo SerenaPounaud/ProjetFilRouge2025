@@ -12,6 +12,7 @@ const app = express();
 app.use(cors(corsOptions));
 
 app.use(express.json()); //permet de récupèrer les données json
+
 //connexion routes
 app.use("/api", userRoutes);
 app.use("/api/recipes", recipeRoutes);

@@ -29,10 +29,10 @@ ngOnInit():void{ //s'exécute une seule fois, ne retourne aucune données
   signUp(): void {
     if (this.signUpForm.invalid) return;
 
-    this.userService.signup(this.signUpForm.value).subscribe({
+    this.userService.signup(this.signUpForm.value).subscribe({ //gère la réponse
       next: () => {
         alert("Compte créé avec succès");
-        this.router.navigate(["/sign-in"]);
+        this.router.navigate(["/"]);
       },
       error: (err) => {
         console.error(err);

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http'; //requêtes
+import { HttpClient} from '@angular/common/http'; //requêtes
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -18,7 +18,7 @@ export class RecetteService {
     return this.httpClient.get(this.recetteURL + "/" + id);
   }
   // string || boolean || recipeObj + id
-  addRecipe(recipeObj:any){
+  addRecipe(recipeObj:any){    
     return this.httpClient.post(this.recetteURL, recipeObj);
   }
   // string || boolean

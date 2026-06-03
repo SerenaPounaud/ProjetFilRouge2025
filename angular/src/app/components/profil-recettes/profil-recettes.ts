@@ -26,10 +26,16 @@ addRecipe(event: any): void { //récupère l'objet
   const data = event.recipe; //récupère la recette reçu
 
   if (data?._id){ //si édition
-    this.rService.updateRecipe(data, data._id).subscribe(() => {
+    this.rService.updateRecipe(data, data._id).subscribe({
+      next: () => {
       this.refresh();
       alert('Recette modifiée');
       this.recetteToEdit = null;
+      },
+      error: (err) => {
+        console.error(err);
+        alert("Erreur modification");
+      }
     });
   } else { //si création
     this.rService.addRecipe(data).subscribe({ //écoute + gére la réponse
@@ -52,6 +58,10 @@ removeRecetteUser(id: string): void {
 }
 
 editRecette(recette: any): void {
+  if (!localStorage.getItem('token')) {
+    alert("Vous devez être connecté");
+    return;
+  }
   this.recetteToEdit = recette; //met la recette dedans
 }
 
