@@ -14,6 +14,6 @@ export class UsersService {
   }
 
   signin(userObj:any){
-    return this.httpClient.post(this.userURL + "/signin", userObj);
+    return this.httpClient.post(this.userURL + "/signin", userObj); //post = évite d'envoyer des données dans l'url
   }
 }

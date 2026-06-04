@@ -48,7 +48,7 @@ export const signin = async (req, res, next) => {
             process.env.JWT_SECRET, //ajoute la clé secrète (mot de passe serveur)
             {expiresIn: "1d"}
          );
-         res.status(201).json({token});
+         res.status(201).json({token}); //renvoi token
          
     } catch (error) {
         next(error);

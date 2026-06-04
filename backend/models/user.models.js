@@ -5,7 +5,6 @@ const userSchema = new mongoose.Schema({ //créer une instance
     firstname : String,
     email : String,
     password : String,
-    confirmPassword : String,
     cgu : Boolean
 });
 

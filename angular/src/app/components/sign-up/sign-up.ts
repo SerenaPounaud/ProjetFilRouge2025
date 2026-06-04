@@ -28,17 +28,23 @@ ngOnInit():void{ //s'exécute une seule fois, ne retourne aucune données
 }
   signUp(): void {
     if (this.signUpForm.invalid) return;
+    const password = this.signUpForm.get('password')?.value;
+    const confirmPassword = this.signUpForm.get('confirmPassword')?.value;
+
+    if (password !== confirmPassword){
+      alert('Les mots de passe ne correspondent pas');
+      return;
+    }
 
     this.userService.signup(this.signUpForm.value).subscribe({ //gère la réponse
-      next: () => {
+      next: (res) => {
         alert("Compte créé avec succès");
         this.router.navigate(["/"]);
       },
       error: (err) => {
         console.error(err);
-        alert("Erreur lors de la création du compte");
+        alert(err.error.message);
       }
     });
   }
 }
-

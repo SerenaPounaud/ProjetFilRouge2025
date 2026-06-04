@@ -3,7 +3,18 @@ import Recipe from "../models/recipe.model.js";
 //Ajoute une recette
 export const addRecipe = async (req, res, next) => {
     try {
-        const recipe = new Recipe(req.body);
+        const recipe = new Recipe({
+            nomRecette: req.body.nomRecette,
+            img: req.body.img,
+            temps: req.body.temps,
+            nbPersonnes: req.body.nbPersonnes,
+            ingredients: req.body.ingredients,
+            instructions: req.body.instructions,
+            motsCles: req.body.motsCles,
+
+            //id user connecté
+            userID: req.userId 
+        });
         await recipe.save(); //sauvegarde dans la db
 
         res.json({message: "Recette ajouté", recipe});
