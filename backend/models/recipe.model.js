@@ -13,7 +13,7 @@ const recipeSchema = new mongoose.Schema({
         default: Date.now
     },
     //référence avec user
-    userID: {
+    user: {
         type: mongoose.Schema.Types.ObjectId, //défini user comme un objectID
         ref: "User" //pointe vers le document user
     }

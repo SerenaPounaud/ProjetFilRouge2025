@@ -13,7 +13,7 @@ export const addRecipe = async (req, res, next) => {
             motsCles: req.body.motsCles,
 
             //id user connecté
-            userID: req.userId 
+            user: req.userId 
         });
         await recipe.save(); //sauvegarde dans la db
 
@@ -27,7 +27,7 @@ export const addRecipe = async (req, res, next) => {
 //Voir toutes les recettes
 export const getAllRecipes = async (req, res, next) => {
     try {
-        const recipes = await Recipe.find();
+        const recipes = await Recipe.find().populate("user", "lastname firstname"); //remplace l'ID stocké dans userID par les informations complètes de l'utilisateur correspondant
         res.json(recipes); //envoi la liste
         
     } catch (error) {
