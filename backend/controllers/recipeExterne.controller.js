@@ -28,25 +28,28 @@ export const importMeals = async (req, res, next) => {
             return res.status(404).json({ message: "Aucune recette trouvée" });
         }
 
-        const existing = await Recette.find({}, { sourceId: 1 }).lean(); //récupère sourceId des recettes stockées
+        const existing = await Recette.find({}, { sourceId: 1 }).lean(); //récupère sourceId des recettes stockées, transforme les documents Mongoose en objets JavaScript simples
         const existingSet = new Set(existing.map(r => r.sourceId)); //vérifie si une recette existe déjà puis set
+
+        const newMeals = [];
 
         for (let meal of meals) {
             if (!existingSet.has(meal.idMeal)) { //évite les doublons
-                await Recette.create({
+                newMeals.push({
                     nomRecette: meal.strMeal,
                     img: meal.strMealThumb,
                     instructions: meal.strInstructions,
                     ingredients: extractIngredients(meal),
                     temps: 0,
                     nbPersonnes: 1,
-                    motsCles: [meal.strCategory],
+                    motsCles: meal.strCategory ? [meal.strCategory] : [],
                     source: "themealdb",
                     sourceId: meal.idMeal,
                     user: null
                 });
             }
         }
+        await Recette.insertMany(newMeals);
         res.json({ message: "Import terminé" });
     } catch (error) {
         console.error(error);

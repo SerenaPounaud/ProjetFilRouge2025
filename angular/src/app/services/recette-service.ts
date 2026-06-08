@@ -29,4 +29,8 @@ export class RecetteService {
   updateRecipe(recipeObj:any, id:string){
     return this.httpClient.put(`${this.recetteURL}/${id}`, recipeObj);
   }
+
+  getMyRecipes() {
+    return this.httpClient.get<any[]>(this.recetteURL + "/my");
+  }
 }

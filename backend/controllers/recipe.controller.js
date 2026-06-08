@@ -76,3 +76,13 @@ export const updateRecipe = async (req, res, next) => {
         next(error);
     }
 };
+
+// affiche recette user dans prodil
+export const getMyRecipes = async (req, res, next) => {
+    try {
+        const recipes = await Recipe.find({user: req.userId}).populate("user", "lastname firstname");
+        res.json(recipes);
+    } catch (error) {
+        next(error);
+    }
+}

@@ -10,12 +10,15 @@ const recipeSchema = new mongoose.Schema({
     motsCles: [String],
     source: {
         type: String,
-        enum: ["local", "themealdb"],
+        enum: ["local", "themealdb"], //valeurs autorisées
         default: "local"
     },
     sourceId: {
         type: String,
-        default: null
+        default: null,
+        index: true, //accélère les recherches
+        unique: true, //empêche les doublons
+        sparse: true //ignore les null pour l'unicité
     },
     dateAjout: {
         type: Date,

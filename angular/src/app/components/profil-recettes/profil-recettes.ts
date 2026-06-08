@@ -19,7 +19,7 @@ export class ProfilRecettes implements OnInit {
   constructor(private rService:RecetteService){} //injecte le crud
   
   ngOnInit(): void { //récupération des recettes
-    this.recipes$ = this.rService.getAllRecipes();
+    this.recipes$ = this.rService.getMyRecipes();
   };
   
 addRecipe(event: any): void { //récupère l'objet
@@ -65,7 +65,7 @@ editRecette(recette: any): void {
   this.recetteToEdit = recette; //met la recette dedans
 }
 
-private refresh(): void { //recharge toutes les recettes depuis l'api
-  this.recipes$ = this.rService.getAllRecipes();
+private refresh(): void { //recharge toutes les recettes de l'user depuis l'api
+  this.recipes$ = this.rService.getMyRecipes();
 }
 }
