@@ -6,6 +6,7 @@ import recipeRoutes from "./routes/recipe.routes.js";
 import contactRoutes from "./routes/contact.routes.js";
 import { corsOptions } from "./cors/cors.js";
 import { errorHandler } from "./middlewares/error.middleware.js";
+import recipeExterneRoutes from './routes/recipeExterne.routes.js';
 
 const app = express();
 //app.use(cors()); //autorise tout (mode dev)
@@ -17,6 +18,7 @@ app.use(express.json()); //permet de récupèrer les données json
 app.use("/api", userRoutes);
 app.use("/api/recipes", recipeRoutes);
 app.use("/api/contacts", contactRoutes);
+app.use("/api/recipes/external", recipeExterneRoutes);
 
 //récupère tous les messages d'erreurs
 app.use(errorHandler);

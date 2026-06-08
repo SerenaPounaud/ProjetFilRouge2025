@@ -8,6 +8,15 @@ const recipeSchema = new mongoose.Schema({
     ingredients: [String],
     instructions: String,
     motsCles: [String],
+    source: {
+        type: String,
+        enum: ["local", "themealdb"],
+        default: "local"
+    },
+    sourceId: {
+        type: String,
+        default: null
+    },
     dateAjout: {
         type: Date,
         default: Date.now
