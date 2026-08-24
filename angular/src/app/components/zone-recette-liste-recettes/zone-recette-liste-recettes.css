@@ -1,0 +1,19 @@
+.carte-recette {
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.carte-recette img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 15px;
+}
+.carte-recette:hover {
+  transform: scale(1.1);
+}
+.carte-recette h2 {
+  align-content: center;
+  text-align: center;
+}

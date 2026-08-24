@@ -117,31 +117,14 @@
 
 /*recettes*/
 .recettes {
-  font-size: clamp(5px, 2vw, 20px);
+  font-size: clamp(5px, 2vw, 15px);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
   gap: 5%;
 }
-.recette-item {
-  width: 20%;
-  transition: transform 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.recette-item img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 15px;
-}
-.recette-item:hover {
-  transform: scale(1.1);
-}
-.recette-item h3 {
-  align-content: center;
-  text-align: center;
+app-zone-recette-liste-recettes {
+  width : 20%;
 }
 .note-block {
   margin: 5% 0;

@@ -46,7 +46,7 @@
             @for(recipe of recipes$ | async ; track recipe.id; let i=$index){
                 <app-zone-recette-liste-recettes [recipe]="recipe"/>
             } @empty {
-            <p>Aucune recettes trouvées</p>
+                <p>Aucune recettes trouvées</p>
             }
         </section>
 
