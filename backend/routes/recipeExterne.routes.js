@@ -1,8 +1,9 @@
 import express from 'express';
-import { importMeals } from '../controllers/recipeExterne.controller.js';
+import { importMeals, getCategories } from '../controllers/recipeExterne.controller.js';
 
 const router = express.Router();
 
 router.get('/import-themealdb', importMeals);
+router.get('/categories', getCategories);
 
 export default router;

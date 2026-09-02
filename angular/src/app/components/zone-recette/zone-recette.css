@@ -3,7 +3,9 @@
   flex-direction: column;
   margin-bottom: 2%;
 }
-
+app-zone-recette-categories {
+  margin-right: 5%;
+}
 /*zone recherche*/
 .zone_recherche {
   display: flex;

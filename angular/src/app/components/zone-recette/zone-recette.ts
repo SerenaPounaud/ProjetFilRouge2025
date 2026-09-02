@@ -20,9 +20,13 @@ export class ZoneRecette {
     this.recipes$ = this.RecetteService.getAllRecipes();
   }
 
-  filterByCategory(category: string): void {
-    this.recipes$ = this.RecetteService.getAllRecipes().pipe(
-      map(recipes => recipes.filter(recipe => recipe.motsCles?.includes(category)))
+filterByCategory(category: string): void {
+  this.recipes$ = this.RecetteService.getAllRecipes().pipe(
+    map(recipes =>
+      recipes.filter(recipe =>
+        recipe.categorie === category
+      )
     )
-  }
+  );
+}
 }

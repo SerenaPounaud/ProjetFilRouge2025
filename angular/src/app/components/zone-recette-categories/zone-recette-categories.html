@@ -1,12 +1,9 @@
 <aside aria-label="Catégories de recettes" class="li_aside">
   <h2>Recettes</h2>
-
   <ul>
-    @for (category of categories; track category.idCategory) {
-      <li>
-        <button type="button" (click)="selectCategory(category.strCategory)">
-          {{ category.strCategory }}
-        </button>
+    @for (category of categories; track category) {
+      <li (click)="selectCategory(category)">
+          {{ category }}
       </li>
     }
   </ul>

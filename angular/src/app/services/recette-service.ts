@@ -33,7 +33,7 @@ export class RecetteService {
     return this.httpClient.get<any[]>(this.recetteURL + "/my");
   }
   //récupération des catégories
-  getCategories(): Observable<any> {
-    return this.httpClient.get('https://www.themealdb.com/api/json/v1/1/categories.php');
+  getCategories(): Observable<string[]> {
+    return this.httpClient.get<string[]>('http://localhost:3000/api/recipes/external/categories');
   }
 }

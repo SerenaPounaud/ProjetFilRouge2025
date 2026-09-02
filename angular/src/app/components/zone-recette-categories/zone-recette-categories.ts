@@ -14,10 +14,15 @@ export class ZoneRecetteCategories {
   private recetteService = inject(RecetteService);
 
   ngOnInit(): void {
-    this.recetteService.getCategories().subscribe(data => {
-      this.categories = data.categories;
-    });
-  }
+    this.recetteService.getCategories().subscribe({
+      next: (categories) => {
+        this.categories = categories;
+      },
+      error: (error) => {
+        console.error("Erreur récupération catégories :", error);
+      }
+    })
+  };
 
   selectCategory(category : string): void {
     this.categorySelected.emit(category);

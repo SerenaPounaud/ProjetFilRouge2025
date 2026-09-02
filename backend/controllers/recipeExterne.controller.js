@@ -42,7 +42,8 @@ export const importMeals = async (req, res, next) => {
                     ingredients: extractIngredients(meal),
                     temps: 0,
                     nbPersonnes: 1,
-                    motsCles: meal.strCategory ? [meal.strCategory] : [],
+                    categorie: meal.strCategory || null,
+                    motsCles: [],
                     source: "themealdb",
                     sourceId: meal.idMeal,
                     user: null
@@ -53,6 +54,18 @@ export const importMeals = async (req, res, next) => {
         res.json({ message: "Import terminé" });
     } catch (error) {
         console.error(error);
+        next(error);
+    }
+};
+
+// Récupère les catégories présentes dans MongoDB
+export const getCategories = async (req, res, next) => {
+    try {
+        const categories = await Recette.distinct("categorie", { //récupère les valeurs dans categorie, sans doublons
+            categorie: { $ne: null } //évite les valeurs nulles
+        });
+        res.json(categories);
+    } catch (error) {
         next(error);
     }
 };

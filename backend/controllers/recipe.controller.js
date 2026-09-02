@@ -11,9 +11,9 @@ export const addRecipe = async (req, res, next) => {
             ingredients: req.body.ingredients,
             instructions: req.body.instructions,
             motsCles: req.body.motsCles,
-
-            //id user connecté
-            user: req.userId 
+            categorie: req.body.categorie,
+            source: "local",
+            user: req.userId //id user connecté
         });
         await recipe.save(); //sauvegarde dans la db
 

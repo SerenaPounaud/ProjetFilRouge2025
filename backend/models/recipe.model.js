@@ -7,7 +7,14 @@ const recipeSchema = new mongoose.Schema({
     nbPersonnes: Number,
     ingredients: [String],
     instructions: String,
-    motsCles: [String],
+    motsCles: {
+        type: [String],
+        default: []
+    },
+    categorie: {
+        type: String,
+        default: null
+    },
     source: {
         type: String,
         enum: ["local", "themealdb"], //valeurs autorisées
