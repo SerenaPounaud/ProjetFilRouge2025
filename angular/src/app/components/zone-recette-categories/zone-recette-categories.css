@@ -1,0 +1,38 @@
+.li_aside h2 {
+  margin: 2%;
+  text-align: center;
+}
+.li_aside {
+  margin: 5% 0;
+  font-size: clamp(10px, 2vw, 20px);
+}
+.li_aside li {
+  margin: 3%;
+}
+#liste_categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 0;
+  margin: 0;
+}
+.li_aside li:hover {
+  color: #c62828;
+}
+
+@media (min-width: 1001px) { 
+.li_aside {
+  padding-right: 10%;
+}
+.li_aside li {
+  margin: 30%;
+}
+#liste_categories {
+  display: block;
+  padding: revert;
+  margin: revert;
+}
+.li_aside li:hover {
+  color: #c62828;
+}
+}

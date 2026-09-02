@@ -29,8 +29,11 @@ export class RecetteService {
   updateRecipe(recipeObj:any, id:string){
     return this.httpClient.put(`${this.recetteURL}/${id}`, recipeObj);
   }
-
   getMyRecipes() {
     return this.httpClient.get<any[]>(this.recetteURL + "/my");
+  }
+  //récupération des catégories
+  getCategories(): Observable<any> {
+    return this.httpClient.get('https://www.themealdb.com/api/json/v1/1/categories.php');
   }
 }

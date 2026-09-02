@@ -1,8 +1,7 @@
 <section class="middleIndex">
-    <aside aria-label="Catégories de recettes" class="li_aside"> <!--section gauche pour la recherche par catégories-->
-        <h2>Recettes</h2> 
-        <ul id="liste_categories"></ul> <!--Affiche la liste des catégories-->
-    </aside>
+
+    <app-zone-recette-categories (categorySelected)="filterByCategory($event)"/>
+
     <div class="zone_recettes">
         <div class="zone_recherche">
             <form class="barre_recherche" role="search"> <!--barre de recherche pour rechercher par mots clés + nb de personnes-->
