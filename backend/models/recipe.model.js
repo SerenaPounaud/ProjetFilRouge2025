@@ -1,42 +1,67 @@
 import mongoose from "mongoose";
 
-const recipeSchema = new mongoose.Schema({
-    nomRecette: String,
-    img: String,
-    temps: String,
-    nbPersonnes: Number,
-    ingredients: [String],
-    instructions: String,
-    motsCles: {
-        type: [String],
-        default: []
-    },
-    categorie: {
-        type: String,
-        default: null
-    },
-    source: {
-        type: String,
-        enum: ["local", "themealdb"], //valeurs autorisées
-        default: "local"
-    },
-    sourceId: {
-        type: String,
-        default: null,
-        index: true, //accélère les recherches
-        unique: true, //empêche les doublons
-        sparse: true //ignore les null pour l'unicité
-    },
-    dateAjout: {
-        type: Date,
-        default: Date.now
-    },
-    //référence avec user
-    user: {
-        type: mongoose.Schema.Types.ObjectId, //défini user comme un objectID
-        ref: "User" //pointe vers le document user
-    }
-});
+const { Schema, model } = mongoose;
 
-const Recipe = mongoose.model("Recipe", recipeSchema);
+const recipeSchema = new Schema(
+    {
+        nomRecette: {
+            type: String,
+            required: true,
+        },
+        img: {
+            type: String,
+            default: null
+        },
+        temps: {
+            type: String,
+            default: null
+        },
+        nbPersonnes: {
+            type: Number,
+            default: null,
+            min: 1
+        },
+        ingredients: {
+            type: [String],
+            default: []
+        },
+        instructions: {
+            type: String,
+            default: null
+        },
+        motsCles: {
+            type: [String],
+            default: []
+        },
+        categorie: {
+            type: String,
+            default: null
+        },
+        source: {
+            type: String,
+            enum: ["local", "themealdb"],
+            default: "local"
+        },
+        sourceId: {
+            type: String,
+            default: null,
+            unique: true,
+            sparse: true //ignore les valeurs nulles pour l'unicité
+        },
+        user: {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+            default: null
+        }
+    },
+    {
+        timestamps: {
+            createdAt: "dateAjout",
+            updatedAt: "dateModification"
+        }
+    }
+);
+
+const Recipe = model("Recipe", recipeSchema);
+
 export default Recipe;

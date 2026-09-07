@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { catchError, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -7,7 +8,7 @@ import { inject, Injectable } from '@angular/core';
 export class UsersService {
   httpClient = inject(HttpClient);
 
-  userURL : string='http://localhost:3000/api/users';
+  userURL: string = "/api/users";
 
   signup(userObj:any){
     return this.httpClient.post(this.userURL + "/signup", userObj);
@@ -15,5 +16,17 @@ export class UsersService {
 
   signin(userObj:any){
     return this.httpClient.post(this.userURL + "/signin", userObj); //post = évite d'envoyer des données dans l'url
+  }
+
+  me(){
+    return this.httpClient.get(this.userURL + "/me", {withCredentials: true});
+  }
+
+  //vérifie si l'user connecté est admin
+  isAdmin(){
+    return this.me().pipe( //permet les opérateurs
+      map((res:any) => res.role === "admin"), //transforme en boolean
+      catchError(() => of(false))
+    );
   }
 }

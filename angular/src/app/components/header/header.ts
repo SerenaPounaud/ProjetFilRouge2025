@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-header',
@@ -8,5 +9,22 @@ import { RouterLink } from '@angular/router';
   styleUrl: './header.css',
 })
 export class Header {
-isConnected:boolean=true;
+  isConnected = false;
+
+  constructor(private router: Router, private authService: AuthService) {}
+
+  ngOnInit() {
+    this.authService.isConnected$.subscribe(status => {
+      this.isConnected = status;
+    });
+  }
+  
+logout(): void {
+  this.authService.logout().subscribe({
+    next: () => {
+      this.authService.setConnected(false);
+      this.router.navigate(['/sign-in']);
+    }
+  });
+}
 }

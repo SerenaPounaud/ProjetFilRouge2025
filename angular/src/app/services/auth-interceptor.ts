@@ -1,15 +1,21 @@
-import { HttpInterceptorFn } from '@angular/common/http';
+import { HttpInterceptorFn } from "@angular/common/http";
+import { inject } from "@angular/core";
+import { AuthService } from "./auth-service";
+import { catchError, throwError } from "rxjs";
 
-export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const token = localStorage.getItem('token');
+//ajoute les cookies aux requêtes HTTP
+export const authInterceptor: HttpInterceptorFn = (req,next) => {
+  const authService = inject(AuthService);
 
-  if(!token){
-    return next(req);
-  }
-    const authReq = req.clone({ //copie req + ajout header http
-      setHeaders: {
-        Authorization: `Bearer ${token}` //Bearer = format pour envoyer un token
+  const authReq = req.clone({ withCredentials: true});
+  
+  //vérifie si l'user est connecté
+  return next(authReq).pipe(
+    catchError(error => {
+      if (error.status === 401) {
+        authService.setConnected(false);
       }
-  });
-  return next(authReq); //envoie la req modifiée avec token
+      return throwError(() => error);
+    })
+  );
 };

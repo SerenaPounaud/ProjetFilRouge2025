@@ -20,7 +20,7 @@ ngOnInit():void{ //s'exécute une seule fois, ne retourne aucune données
   this.signUpForm = this.formBuilder.group({
     lastname : ['', [Validators.required, Validators.maxLength(50)]],
     firstname : ['', [Validators.required, Validators.maxLength(50)]],
-    email : ['', [Validators.required, Validators.email, Validators.maxLength(150)]],
+    email : ['', [Validators.required, Validators.email]],
     password : ['', [Validators.required, Validators.maxLength(20), Validators.minLength(8)]],
     confirmPassword : ['', [Validators.required]],
     cgu : [false, Validators.requiredTrue]

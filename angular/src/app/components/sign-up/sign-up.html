@@ -43,8 +43,6 @@
                 @if(signUpForm.get('email')?.invalid && (signUpForm.get('email')?.touched || signUpForm.get('email')?.dirty)) {
                    @if(signUpForm.get('email')?.errors?.['required']){
                     <div>Ce champ est obligatoire</div>
-                    } @else if (signUpForm.get('email')?.errors?.['maxlength']) {
-                        <div>Maximum 150 caractères</div>
                     } @else if (signUpForm.get('email')?.errors?.['email']) {
                         <div>Entrer un email correct. Exemple : exemple@gmail.fr</div>
                     } 

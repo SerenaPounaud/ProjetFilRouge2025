@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class RecetteService {
-  recetteURL : string='http://localhost:3000/api/recipes'; //port backend node
+  recetteURL : string ='/api/recipes';
 
   constructor(private httpClient: HttpClient){}
   // tab des recettes || []

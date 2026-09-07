@@ -42,7 +42,7 @@
 
         <section class="recettes" id="recettes">
             <!--@input-->
-            @for(recipe of recipes$ | async ; track recipe.id; let i=$index){
+            @for(recipe of recipes$ | async ; track recipe._id; let i=$index){
                 <app-zone-recette-liste-recettes [recipe]="recipe"/>
             } @empty {
                 <p>Aucune recettes trouvées</p>

@@ -23,7 +23,19 @@ export const signup = async (req, res, next) => {
         });
 
         await user.save();
-        res.status(200).json({message: "Utilisateur ajouté", user});
+            const token = jwt.sign(
+                {userId: user._id, role: user.role},
+                process.env.JWT_SECRET,
+                {expiresIn: "3h"}
+            );
+            // cookie hhtponly, risque csrf
+            res.cookie("token", token, {
+                httpOnly: true, //empêche l'accès au cookie depuis le JS
+                secure: process.env.NODE_ENV === "production", //interception réseau
+                sameSite: "lax", //empêche l'envoi du cookie depuis un autre domaine
+                maxAge: 3*60*60*1000 //3h
+            });
+        return res.status(201).json({message: "Utilisateur créé", expiresAt: Date.now() + 3*60*60*1000});
     } catch (error) {
         next(error);
     }
@@ -42,15 +54,47 @@ export const signin = async (req, res, next) => {
          const isMatch = await bcrypt.compare(password, user.password);
          if (!isMatch) return res.status(404).json({message: "Email ou mot de passe incorrect"});
 
-         //génère un token
-         const token = jwt.sign(
-            {userId: user._id,lastname: user.lastname},
-            process.env.JWT_SECRET, //ajoute la clé secrète (mot de passe serveur)
-            {expiresIn: "1d"}
-         );
-         res.status(201).json({token}); //renvoi token
-         
+        const token = jwt.sign(
+            {userId: user._id, role: user.role},
+            process.env.JWT_SECRET,
+            {expiresIn: "3h"}
+        );
+        //cookie httponly
+        res.cookie("token", token, {
+            httpOnly: true, //empêche l'accès au cookie depuis le JS
+            secure: process.env.NODE_ENV === "production", //interception réseau
+            sameSite: "lax", //empêche l'envoi du cookie depuis un autre domaine
+            maxAge: 3*60*60*1000 //3h
+        });
+        res.status(200).json({message: "Connexion réussie", expiresAt: Date.now() + 3*60*60*1000});
     } catch (error) {
         next(error);
     }
 }
+
+export const logout = (req, res) => {
+    res.clearCookie("token", { //supprime le cookie
+        httpOnly: true,
+        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production"
+    });
+    return res.status(200).json({ message: "Déconnecté" });
+};
+
+//vérifie si user connecté
+export const me = (req, res) => {
+    const token = req.cookies.token; //récupère le cookie
+    if(!token) return res.status(200).json({authenticated: false});
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET); //vérifie token valide
+
+        return res.status(200).json({
+            authenticated: true,
+            userId: decoded.userId,
+            role: decoded.role
+        });
+    } catch(error) {
+        return res.status(200).json({authenticated: false});
+    }
+};

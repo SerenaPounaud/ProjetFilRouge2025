@@ -27,9 +27,12 @@ export const addRecipe = async (req, res, next) => {
 //Voir toutes les recettes
 export const getAllRecipes = async (req, res, next) => {
     try {
-        const recipes = await Recipe.find().populate("user", "lastname firstname"); //remplace l'ID stocké dans userID par les informations complètes de l'utilisateur correspondant
-        res.json(recipes); //envoi la liste
-        
+        const page = parseInt(req.query?.page) || 1; //récupère param page convertit en entier
+        const limit = parseInt(req.query?.limit) || 10;
+        const skip = (page - 1) * limit; //calcul le nombre de document à ignorer
+        const recipes = await Recipe.find().populate("user", "lastname firstname").skip(skip).limit(limit); //remplace l'ID stocké dans userID par les informations complètes de l'utilisateur correspondant
+        const total = await Recipe.countDocuments(); //compte le nombre total de documents
+        res.json({data: recipes, page, totalPages: Math.ceil(total/limit), totalItems: total});
     } catch (error) {
         next(error);
     }
@@ -41,6 +44,10 @@ export const getRecipeById = async (req, res, next) => {
         const recipe = await Recipe.findById(req.params.id);
         if (!recipe){
             return res.json({message: "Recette introuvable"})
+        }
+        //si la recette n'appartient pas à l'user connecté
+        if (recipe.user.toString() !== String(req.userId)) {
+            return res.status(403).json({ message: "Accès refusé" });
         }
         res.json(recipe); //récupére la recette
         
@@ -77,7 +84,7 @@ export const updateRecipe = async (req, res, next) => {
     }
 };
 
-// affiche recette user dans prodil
+// affiche recette user dans profil
 export const getMyRecipes = async (req, res, next) => {
     try {
         const recipes = await Recipe.find({user: req.userId}).populate("user", "lastname firstname");
