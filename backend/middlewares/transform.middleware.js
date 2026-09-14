@@ -1,11 +1,11 @@
 export const transformRecipe = (req, res, next) => {
     const body = req.body;
 
-    if (body.nomRecette) {
+    if (typeof body.nomRecette === "string") {
         body.nomRecette = body.nomRecette.trim().toLowerCase();
     }
 
-    if (body.img) {
+    if (typeof body.img === "string") {
         body.img = body.img.trim();
     }
 
@@ -37,24 +37,13 @@ export const transformRecipe = (req, res, next) => {
         }
 
         if (Array.isArray(body.ingredients)) {
-            const newIngredients = [];
-
-            for (let i = 0; i < body.ingredients.length; i++) {
-                let ingredient = body.ingredients[i];
-
-                if (ingredient) {
-                    ingredient = ingredient.trim();
-
-                    if (ingredient !== "") {
-                        newIngredients.push(ingredient);
-                    }
-                }
-            }
-            body.ingredients = newIngredients;
+            body.ingredients = body.ingredients
+            .map(ingredient => ingredient.trim()) //transforme en tableau
+            .filter(ingredient => ingredient !== "");
         }
     }
 
-    if (body.instructions) {
+    if (typeof body.instructions === "string") {
         body.instructions = body.instructions.trim();
     }
 
@@ -65,22 +54,10 @@ export const transformRecipe = (req, res, next) => {
         }
 
         if (Array.isArray(body.motsCles)) {
-            const newMotsCles = [];
-
-            for (let i = 0; i < body.motsCles.length; i++) {
-                let mot = body.motsCles[i];
-
-                if (mot) {
-                    mot = mot.trim().toLowerCase();
-
-                    if (mot !== "") {
-                        newMotsCles.push(mot);
-                    }
-                }
-            }
-            body.motsCles = newMotsCles;
+            body.motsCles = body.motsCles
+            .map(mot => mot.trim().toLowerCase())
+            .filter(mot => mot !== "");
         }
     }
-
     next();
 };

@@ -1,19 +1,23 @@
-export const transformUser = (req,res,next) => {
-    if (!req.body){
-        return res.status(400).json({message: "Body manquant"});
+export const transformUser = (req, res, next) => {
+    if (!req.body) {
+        return res.status(400).json({ message: "Body manquant" });
     }
-    if (req.body.lastname){
+
+    if (typeof req.body.lastname === "string") {
         req.body.lastname = req.body.lastname.trim();
     }
-    if (req.body.firstname){
+
+    if (typeof req.body.firstname === "string") {
         req.body.firstname = req.body.firstname.trim();
     }
-    if (req.body.email){
+
+    if (typeof req.body.email === "string") {
         req.body.email = req.body.email.trim().toLowerCase();
     }
-    if (req.body.password){
+
+    if (typeof req.body.password === "string") {
         req.body.password = req.body.password.trim();
     }
 
     next();
-}
+};

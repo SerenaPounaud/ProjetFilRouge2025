@@ -12,10 +12,7 @@ export const validateRecipe = (req, res, next) => {
             "string.pattern.base": "L'image doit être une image valide (png, jpeg, jpg, webp en base64)",
             "any.required": "L'image est obligatoire"
         }),
-        temps: Joi.string()
-        .pattern(/^\d+h\d{1,2}$/)
-        .required()
-        .messages({
+        temps: Joi.string().pattern(/^\d+h\d{1,2}$/).required().messages({
             "string.pattern.base": "Format attendu : 2h30",
             "any.required": "Le temps est obligatoire",
         }),
@@ -34,9 +31,7 @@ export const validateRecipe = (req, res, next) => {
                     "string.min": "Un ingrédient doit faire minimum 3 caractères"
                 })
             )
-            .min(1)
-            .required()
-            .messages({
+            .min(1).required().messages({
                 "array.base": "Les ingrédients doivent être un tableau",
                 "array.min": "Il faut au moins un ingrédient",
                 "any.required": "Les ingrédients sont obligatoires"
@@ -55,16 +50,14 @@ export const validateRecipe = (req, res, next) => {
                     "string.max": "Un mot-clé ne peut pas dépasser 30 caractères"
                 })
             )
-            .min(1)
-            .required()
-            .messages({
+            .min(1).required().messages({
                 "array.base": "Les mots-clés doivent être un tableau",
                 "array.min": "Il faut au moins un mot-clé",
                 "any.required": "Les mots-clés sont obligatoires"
             }),
     });
     // vérifie si le body respecte le schema + montre toutes les erreurs
-    const {error} = Schema.validate(req.body, {abortEarly: false}); 
+    const {error} = Schema.validate(req.body, {abortEarly: false, allowUnknown: false}); 
 
     if (error) {
         return res.status(400).json({ //Bad Request, client error
@@ -72,6 +65,5 @@ export const validateRecipe = (req, res, next) => {
             errors: error.details.map((err => err.message)) //parcourt + créer un tab puis retourne le message
         });
     }
-
     next();
 };

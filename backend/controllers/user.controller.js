@@ -47,7 +47,7 @@ export const signin = async (req, res, next) => {
          const {email, password} = req.body;
 
          //vérifie user
-         const user = await User.findOne({email:email});
+         const user = await User.findOne({email:email}).select("+password"); //récupère le mot de passe hashé
          if (!user) return res.status(404).json({message: "Email ou mot de passe incorrect"});
 
          //compare password

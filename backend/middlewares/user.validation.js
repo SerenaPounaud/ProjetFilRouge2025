@@ -19,11 +19,11 @@ export const validateUser = (req, res, next) => {
                 "any.required": "Le prénom est obligatoire"
             }),
 
-        email: Joi.string().email({tlds: {allow: true}}).required().messages({ //extension de domaine
-                "string.base": "La email doit être une chaîne de caractère",
-                "string.empty": "La email est obligatoire",
+        email: Joi.string().max(150).email({tlds: {allow: true}}).required().messages({ //extension de domaine
+                "string.base": "L'email doit être une chaîne de caractère",
+                "string.empty": "L'email est obligatoire",
                 "string.email": "L'email doit être valide",
-                "any.required": "La email est obligatoire"
+                "any.required": "L'email est obligatoire"
             }),
         password: Joi.string().min(8).max(20).pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/).required().messages({
                 "string.base": "Le mot de passe doit être une chaîne de caractère",
@@ -40,7 +40,7 @@ export const validateUser = (req, res, next) => {
             })
     });
     //Vérifie si le body respecte le schema + montre toutes les erreurs
-    const {error} = Schema.validate(req.body, {abortEarly: false});
+    const {error} = Schema.validate(req.body, {abortEarly: false, allowUnknown: false});
 
     if (error){
         return res.status(400).json({

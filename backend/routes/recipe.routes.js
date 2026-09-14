@@ -3,14 +3,15 @@ import { addRecipe, deleteRecipeById, getAllRecipes, getMyRecipes, getRecipeById
 import { validateRecipe } from "../middlewares/recipe.validation.js";
 import { transformRecipe } from "../middlewares/transform.middleware.js";
 import { verifyToken } from "../middlewares/auth.middleware.js";
+import { sanitizeBody } from "../middlewares/sanitizeBody.middleware.js";
 
 const router = express.Router();
 
-router.post("/", verifyToken, transformRecipe, validateRecipe, addRecipe);
+router.post("/", sanitizeBody(["nomRecette", "img", "temps", "nbPersonnes", "ingredients", "instructions", "motsCles"]), verifyToken, transformRecipe, validateRecipe, addRecipe);
 router.get("/", getAllRecipes);
-router.get("/my", verifyToken, getMyRecipes);
+router.get("/me", verifyToken, getMyRecipes);
 router.get("/:id", getRecipeById);
 router.delete("/:id",verifyToken, deleteRecipeById);
-router.put("/:id",verifyToken, updateRecipe);
+router.put("/:id", sanitizeBody(["nomRecette", "img", "temps", "nbPersonnes", "ingredients", "instructions", "motsCles"]),verifyToken, updateRecipe);
 
 export default router;
