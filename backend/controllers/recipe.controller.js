@@ -43,11 +43,7 @@ export const getRecipeById = async (req, res, next) => {
     try {
         const recipe = await Recipe.findById(req.params.id);
         if (!recipe){
-            return res.json({message: "Recette introuvable"})
-        }
-        //si la recette n'appartient pas à l'user connecté
-        if (recipe.user.toString() !== String(req.userId)) {
-            return res.status(403).json({ message: "Accès refusé" });
+            return res.status(404).json({message: "Recette introuvable"})
         }
         res.json(recipe); //récupére la recette
         
@@ -59,10 +55,14 @@ export const getRecipeById = async (req, res, next) => {
 //Supprime une recette
 export const deleteRecipeById = async (req, res, next) => {
     try {
-        const recipe = await Recipe.findByIdAndDelete(req.params.id);
+        const recipe = await Recipe.findById(req.params.id);
         if (!recipe){
-            return res.json({message: "Recette introuvable"})
+            return res.status(404).json({message: "Recette introuvable"})
         }
+        if (recipe.user.toString() !== String(req.userId)) {
+            return res.status(403).json({ message: "Accès refusé" });
+        }
+        await recipe.deleteOne();
         res.json({message: "Recette supprimée"});
         
     } catch (error) {
@@ -73,12 +73,19 @@ export const deleteRecipeById = async (req, res, next) => {
 //Modifier une recette
 export const updateRecipe = async (req, res, next) => {
     try {
-        const recipe = await Recipe.findByIdAndUpdate(req.params.id, req.body, {new: true}); //retourne la recette à jour
-        if (!recipe){
-            return res.json({message: "Recette introuvable"})
+        const recipe = await Recipe.findById(req.params.id);
+
+        if (!recipe) {
+            return res.status(404).json({ message: "Recette introuvable" });
         }
-        res.json({message: "Recette modifiée", recipe}); //retourne la recette
-        
+        if (recipe.user.toString() !== String(req.userId)) {
+            return res.status(403).json({ message: "Accès refusé" });
+        }
+
+        Object.assign(recipe, req.body);
+        await recipe.save();
+        res.json({message: "Recette modifiée", recipe});
+
     } catch (error) {
         next(error);
     }

@@ -7,11 +7,11 @@ import { sanitizeBody } from "../middlewares/sanitizeBody.middleware.js";
 
 const router = express.Router();
 
-router.post("/", sanitizeBody(["nomRecette", "img", "temps", "nbPersonnes", "ingredients", "instructions", "motsCles"]), verifyToken, transformRecipe, validateRecipe, addRecipe);
+router.post("/", verifyToken, sanitizeBody(["nomRecette", "img", "temps", "nbPersonnes", "ingredients", "instructions", "motsCles", "categorie"]),transformRecipe, validateRecipe, addRecipe);
 router.get("/", getAllRecipes);
 router.get("/me", verifyToken, getMyRecipes);
 router.get("/:id", getRecipeById);
 router.delete("/:id",verifyToken, deleteRecipeById);
-router.put("/:id", sanitizeBody(["nomRecette", "img", "temps", "nbPersonnes", "ingredients", "instructions", "motsCles"]),verifyToken, updateRecipe);
+router.put("/:id", verifyToken, sanitizeBody(["nomRecette", "img", "temps", "nbPersonnes", "ingredients", "instructions", "motsCles", "categorie"]), transformRecipe, validateRecipe, updateRecipe);
 
 export default router;
