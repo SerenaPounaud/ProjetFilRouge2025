@@ -7,7 +7,7 @@ import { loginLimiter } from "../middlewares/rateLimit.middleware.js";
 
 const router = express.Router(); //envoie vers le bon controllers
 
-router.post("/signup", sanitizeBody(["lastname", "firstname", "email", "password", "cgu"]), validateUser, transformUser, signup);
+router.post("/signup", sanitizeBody(["lastname", "firstname", "email", "password", "cgu"]),transformUser, validateUser, signup);
 router.post("/signin", sanitizeBody(["email", "password"]), loginLimiter, signin);
 router.get("/me", me);
 router.post("/logout", logout);

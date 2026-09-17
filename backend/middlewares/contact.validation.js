@@ -6,12 +6,14 @@ export const validateContact = (req, res, next) => {
             "string.base" : "Le nom doit être une chaîne de caractères",
             "string.empty" : "Le nom est obligatoire",
             "string.max" : "Maximum 50 caractères",
+            "string.pattern.base": "Le nom contient des caractères invalides",
             "any.required" : "Le nom est obligatoire"
         }),
         firstname: Joi.string().max(50).pattern(/^[a-zA-ZÀ-ÿ\s-]+$/).required().messages({
             "string.base" : "Le prénom doit être une chaîne de caractères",
             "string.empty" : "Le prénom est obligatoire",
             "string.max" : "Maximum 50 caractères",
+            "string.pattern.base": "Le prénom contient des caractères invalides",
             "any.required" : "Le prénom est obligatoire"
         }),
         email: Joi.string().max(150).email({tlds: {allow: true}}).required().messages({

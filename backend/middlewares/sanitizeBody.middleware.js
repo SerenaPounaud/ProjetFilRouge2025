@@ -7,7 +7,7 @@ const sanitizeValue = (value) => {
     if (Array.isArray(value)) {
         return value.map(sanitizeValue); //chaque élément du tableau est nettoyé
     }
-    if (value && typeof value === "object") {
+    if (value !== null && typeof value === "object") {
         return Object.fromEntries( //transforme en objet
             Object.entries(value).map(([key, val]) => [key, sanitizeValue(val)]) //transforme en tableau de paires + nettoyage
         );
@@ -22,10 +22,10 @@ export const sanitizeBody = (allowedFields) => {
 
     req.body = Object.fromEntries(Object.entries(req.body) //transforme objet en tableau
         //garde uniquement les champs autorisés
-        .filter(([key]) => allowedFields.includes(key)) //récupère seulement la première valeur du tableau
+        .filter(([key]) => allowedFields.includes(key)) //filtre, récupère seulement la première valeur du tableau
         //nettoie les valeurs texte
         .map(([key, value]) => [key, sanitizeValue(value)])
-        );//puis reconvertit en objet
+        );//nettoie et reconvertit en objet
     next();
     };
 };
