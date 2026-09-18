@@ -3,7 +3,7 @@ import { importMeals, getCategories } from '../controllers/recipeExterne.control
 
 const router = express.Router();
 
-router.get('/import-themealdb', importMeals);
+router.post('/import-themealdb', importMeals);
 router.get('/categories', getCategories);
 
 export default router;

@@ -4,11 +4,11 @@ import { ProfilRecettesCard } from '../profil-recettes-card/profil-recettes-card
 import { ProfilRecettesForm } from '../profil-recettes-form/profil-recettes-form';
 import { RecetteService } from '../../services/recette-service';
 import { Observable } from 'rxjs';
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-profil-recettes',
-  imports: [ReactiveFormsModule, ProfilRecettesCard, ProfilRecettesForm, AsyncPipe, JsonPipe],
+  imports: [ReactiveFormsModule, ProfilRecettesCard, ProfilRecettesForm, AsyncPipe],
   templateUrl: './profil-recettes.html',
   styleUrls: ['./profil-recettes.css']
 })

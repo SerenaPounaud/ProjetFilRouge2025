@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ContactService {
-  contactURL : string='http://localhost:3000/api/contacts'; //port backend node
+  contactURL : string='/api/contacts'; //port backend node
 
   constructor(private httpClient: HttpClient){}
 
