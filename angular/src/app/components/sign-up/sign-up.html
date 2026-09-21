@@ -58,14 +58,6 @@
                     }
                 }
 
-                <label for="confirm_password">Confirmer le mot de passe</label>
-                <input type="password" formControlName="confirmPassword" id="confirm_password" name="confirm_password" placeholder="Réécrivez votre mot de passe" maxlength="20" autocomplete="new-password">
-                @if(signUpForm.get('confirmPassword')?.invalid && (signUpForm.get('confirmPassword')?.touched || signUpForm.get('confirmPassword')?.dirty)) {
-                   @if(signUpForm.get('confirmPassword')?.errors?.['required']){
-                    <div>Ce champ est obligatoire</div>
-                    } 
-                }
-
                 <div class="divCgu">
                     <label for="cgu" class="cgu">J'accepte les conditions générales d'utilisation</label>
                     <input type="checkbox" formControlName="cgu" id="cgu" name="cgu" aria-required="true">

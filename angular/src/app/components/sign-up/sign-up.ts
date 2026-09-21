@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { UsersService } from '../../services/users-service';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-sign-up',
@@ -11,10 +12,12 @@ import { UsersService } from '../../services/users-service';
 })
 export class SignUp {
 signUpForm !:FormGroup; //groupe les inputs
-router= inject(Router);
-userService = inject(UsersService);
 
-constructor(private formBuilder:FormBuilder){}
+constructor(
+  private formBuilder: FormBuilder, 
+  private router: Router, 
+  private userService : UsersService, 
+  private authService: AuthService){}
 
 ngOnInit():void{ //s'exécute une seule fois, ne retourne aucune données
   this.signUpForm = this.formBuilder.group({
@@ -22,29 +25,23 @@ ngOnInit():void{ //s'exécute une seule fois, ne retourne aucune données
     firstname : ['', [Validators.required, Validators.maxLength(50)]],
     email : ['', [Validators.required, Validators.email]],
     password : ['', [Validators.required, Validators.maxLength(20), Validators.minLength(8)]],
-    confirmPassword : ['', [Validators.required]],
     cgu : [false, Validators.requiredTrue]
   });
 }
-  signUp(): void {
-    if (this.signUpForm.invalid) return;
-    const password = this.signUpForm.get('password')?.value;
-    const confirmPassword = this.signUpForm.get('confirmPassword')?.value;
-
-    if (password !== confirmPassword){
-      alert('Les mots de passe ne correspondent pas');
-      return;
+  signUp() {
+   this.userService.signup(this.signUpForm.value).subscribe({
+    next : (res) => {
+      this.authService.setConnected(true);
+      this.authService.setExpiration(res.expiresAt);
+      alert('Inscription réussie');
+      this.router.navigate(['']);
+    },
+    error: (err) => {
+      console.log(err);
+      const message = err.error?.errors?.join(', ') // transforme en string + virgule
+      || err.error?.message || "Erreur lors de la création du compte";
+      alert(message);
     }
-
-    this.userService.signup(this.signUpForm.value).subscribe({ //gère la réponse
-      next: (res) => {
-        alert("Compte créé avec succès");
-        this.router.navigate(["/"]);
-      },
-      error: (err) => {
-        console.error(err);
-        alert(err.error.message);
-      }
-    });
+   });
   }
 }

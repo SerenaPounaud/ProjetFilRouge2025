@@ -1,7 +1,8 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, Router } from '@angular/router';
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
+import { AuthService } from './services/auth-service';
 
 @Component({
   selector: 'app-root',
@@ -11,4 +12,13 @@ import { Footer } from './components/footer/footer';
 })
 export class App {
   protected readonly title = signal('angular');
+
+  constructor(private authService: AuthService, private router: Router){}
+
+  ngOnInit(){
+    //vérifie si l'user est connecté
+    this.authService.checkAuth().subscribe(res => {
+      this.authService.setConnected(res.authenticated);
+    });
+  }
 }

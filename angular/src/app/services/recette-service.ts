@@ -10,8 +10,12 @@ export class RecetteService {
 
   constructor(private httpClient: HttpClient){}
   // tab des recettes || []
-  getAllRecipes(): Observable<any[]>{
-    return this.httpClient.get<any[]>(this.recetteURL);
+  getAllRecipes(page: number, limit:number, category?: string){
+    let url = `${this.recetteURL}?page=${page}&limit=${limit}`;
+    if (category) {
+      url += `&categorie=${encodeURIComponent(category)}`;
+    }
+    return this.httpClient.get<any>(url);
   }
   // recette || null
   getRecipeById(id:number){
@@ -26,8 +30,8 @@ export class RecetteService {
     return this.httpClient.delete(this.recetteURL + "/" + id);
   }
   // string || boolean || recipeObj + id
-  updateRecipe(recipeObj:any, id:string){
-    return this.httpClient.put(`${this.recetteURL}/${id}`, recipeObj);
+  updateRecipe(recipeObj:any, id:number | string){
+    return this.httpClient.put(this.recetteURL + "/" + id, recipeObj);
   }
   getMyRecipes() {
     return this.httpClient.get<any[]>(this.recetteURL + "/my");

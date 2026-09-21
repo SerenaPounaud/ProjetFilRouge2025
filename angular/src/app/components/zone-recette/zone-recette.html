@@ -42,15 +42,17 @@
 
         <section class="recettes" id="recettes">
             <!--@input-->
-            @for(recipe of recipes$ | async ; track recipe._id; let i=$index){
-                <app-zone-recette-liste-recettes [recipe]="recipe"/>
+            @for(recipe of recipes; track recipe._id){
+                <app-zone-recette-liste-recettes [recipes]="recipe"/>
             } @empty {
                 <p>Aucune recettes trouvées</p>
             }
         </section>
 
-        <div id="pagination" class="pagination">
-            <!--Les boutons de pages s'affichent ici-->
+        <div class="pagination">
+            <button (click)="previousPage()" [disabled]="page === 1">Précédent</button>
+            <span>Page {{page}} / {{totalPages}}</span>
+            <button (click)="nextPage()" [disabled]="page === totalPages">Suivant</button>
         </div>
     </div>
 </section>

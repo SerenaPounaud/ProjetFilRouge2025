@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './zone-recette-liste-recettes.css',
 })
 export class ZoneRecetteListeRecettes {
-@Input() recipe!: any;
+@Input() recipes!: any;
 }

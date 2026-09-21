@@ -111,18 +111,11 @@ app-zone-recette-liste-recettes {
   margin: 5% 0;
 }
 .pagination {
-  font-size: clamp(5px, 2vw, 20px);
-  flex-wrap: wrap;
-  margin: 2%;
-  text-align: center;
   display: flex;
   justify-content: center;
-}
-.pagination_btn {
-  font-size: clamp(5px, 2vw, 20px);
-  border: transparent;
-  background: transparent;
-  cursor: pointer;
+  align-items: center;
+  gap: 20px;
+  padding: 15px;
 }
 button.active {
   background-color: #c62828;
@@ -130,11 +123,7 @@ button.active {
   border-radius: 5px;
   box-shadow: 50px 10px 10px 5px;
 }
-.pagination_btn:hover {
-  background-color: #c62828;
-  border-radius: 5px;
-  color: white;
-}
+
 
 @media (min-width: 508px) {
 #toast {

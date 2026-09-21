@@ -2,31 +2,55 @@ import { Component, inject } from '@angular/core';
 import { ZoneRecetteListeRecettes } from '../zone-recette-liste-recettes/zone-recette-liste-recettes';
 import { ZoneRecetteCategories} from '../zone-recette-categories/zone-recette-categories';
 import { RecetteService } from '../../services/recette-service';
-import { map, Observable } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-zone-recette',
-  imports: [ZoneRecetteListeRecettes, AsyncPipe, ZoneRecetteCategories],
+  imports: [ZoneRecetteListeRecettes, ZoneRecetteCategories],
   templateUrl: './zone-recette.html',
   styleUrl: './zone-recette.css',
 })
 export class ZoneRecette {
-  recipes$!:Observable<any[]>; //récupère immédiatement || + tard
+  recipes: any[] = [];
+  page = 1;
+  limit = 10
+  totalPages = 0;
+  category = '';
 
   private RecetteService = inject(RecetteService);
   
   ngOnInit() { //affiche les recettes de la bd
-    this.recipes$ = this.RecetteService.getAllRecipes();
+    this.loadRecipes();
   }
 
 filterByCategory(category: string): void {
-  this.recipes$ = this.RecetteService.getAllRecipes().pipe(
-    map(recipes =>
-      recipes.filter(recipe =>
-        recipe.categorie === category
-      )
-    )
-  );
+  this.category = category;
+  this.page = 1;
+  this.loadRecipes();
 }
+
+  // Récupère les recettes de la BD
+  loadRecipes(): void {
+    this.RecetteService
+      .getAllRecipes(this.page, this.limit, this.category)
+      .subscribe(res => {
+        // Les recettes reçues
+        this.recipes = res.data;
+        // Nombre total de pages
+        this.totalPages = res.totalPages;
+      });
+  }
+
+  //pagination
+  nextPage(){
+    if (this.page < this.totalPages){
+      this.page++;
+      this.loadRecipes();
+    }
+  }
+  previousPage(){
+    if (this.page > 1) {
+      this.page--;
+      this.loadRecipes();
+    }
+  }
 }

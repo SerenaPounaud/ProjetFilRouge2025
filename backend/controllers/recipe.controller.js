@@ -30,8 +30,15 @@ export const getAllRecipes = async (req, res, next) => {
         const page = parseInt(req.query?.page) || 1; //récupère param page convertit en entier
         const limit = parseInt(req.query?.limit) || 10;
         const skip = (page - 1) * limit; //calcul le nombre de document à ignorer
-        const recipes = await Recipe.find().populate("user", "lastname firstname").skip(skip).limit(limit); //remplace l'ID stocké dans userID par les informations complètes de l'utilisateur correspondant
-        const total = await Recipe.countDocuments(); //compte le nombre total de documents
+        const categorie = req.query?.categories;
+        const filter = {};
+
+        if (categorie) {
+            filter.categorie = categorie;        
+        }
+
+        const recipes = await Recipe.find(filter).populate("user", "lastname firstname").skip(skip).limit(limit); //remplace l'ID stocké dans userID par les informations complètes de l'utilisateur correspondant
+        const total = await Recipe.countDocuments(filter); //compte le nombre total de documents
         res.json({data: recipes, page, totalPages: Math.ceil(total/limit), totalItems: total});
     } catch (error) {
         next(error);

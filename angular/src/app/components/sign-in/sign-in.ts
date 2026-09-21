@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { UsersService } from '../../services/users-service';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-sign-in',
@@ -11,9 +12,12 @@ import { UsersService } from '../../services/users-service';
 })
 export class SignIn {
 signInForm !: FormGroup;
-userService = inject(UsersService);
 
-constructor(private formBuilder:FormBuilder, private router:Router){}
+constructor(
+  private formBuilder:FormBuilder, 
+  private router:Router, 
+  private authService: AuthService, 
+  private userService: UsersService){}
 
 ngOnInit():void{
   this.signInForm = this.formBuilder.group({
@@ -22,17 +26,18 @@ ngOnInit():void{
   })
 }
 
-signIn(){
-  let formValue = this.signInForm.value;
+  signIn() {
+  const formValue = this.signInForm.value;
   this.userService.signin(formValue).subscribe({
-    next: (res:any) => {
-      console.log(res);
-      localStorage.setItem('token', res.token);
+    next: (res) => {
+      this.authService.setConnected(true);
+      this.authService.setExpiration(res.expiresAt);
       this.router.navigate(['profil']);
     },
-    error: (err) => {
+    error: () => {
       alert("Email ou mot de passe incorrect");
     }
   });
+    
   }
 }
