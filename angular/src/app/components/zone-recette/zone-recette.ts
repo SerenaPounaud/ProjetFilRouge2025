@@ -12,7 +12,7 @@ import { RecetteService } from '../../services/recette-service';
 export class ZoneRecette {
   recipes: any[] = [];
   page = 1;
-  limit = 10
+  limit = 16
   totalPages = 0;
   category = '';
 
@@ -30,8 +30,7 @@ filterByCategory(category: string): void {
 
   // Récupère les recettes de la BD
   loadRecipes(): void {
-    this.RecetteService
-      .getAllRecipes(this.page, this.limit, this.category)
+    this.RecetteService.getAllRecipes(this.page, this.limit, this.category)
       .subscribe(res => {
         // Les recettes reçues
         this.recipes = res.data;

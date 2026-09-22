@@ -28,9 +28,9 @@ export const addRecipe = async (req, res, next) => {
 export const getAllRecipes = async (req, res, next) => {
     try {
         const page = parseInt(req.query?.page) || 1; //récupère param page convertit en entier
-        const limit = parseInt(req.query?.limit) || 10;
+        const limit = parseInt(req.query?.limit) || 16;
         const skip = (page - 1) * limit; //calcul le nombre de document à ignorer
-        const categorie = req.query?.categories;
+        const categorie = req.query?.categorie;
         const filter = {};
 
         if (categorie) {
