@@ -34,10 +34,10 @@ export class RecetteService {
     return this.httpClient.put(this.recetteURL + "/" + id, recipeObj);
   }
   getMyRecipes() {
-    return this.httpClient.get<any[]>(this.recetteURL + "/my");
+    return this.httpClient.get<any[]>(this.recetteURL + "/me");
   }
   //récupération des catégories
-  getCategories(): Observable<string[]> {
-    return this.httpClient.get<string[]>('http://localhost:3000/api/recipes/external/categories');
+  getCategories(): Observable<string[]> { 
+    return this.httpClient.get<string[]>(this.recetteURL + '/external/categories');
   }
 }
