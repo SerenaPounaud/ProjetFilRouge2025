@@ -7,5 +7,6 @@ export const routes: Routes = [
     {path: 'contact', loadComponent:() => import('./components/contact/contact').then(m => m.Contact)},
     {path: 'profil', canActivate: [authGuard], loadComponent:() => import('./components/profil/profil').then(m => m.Profil)},
     {path: 'sign-in', loadComponent:() => import('./components/sign-in/sign-in').then(m => m.SignIn)},
-    {path: 'sign-up', loadComponent:() => import('./components/sign-up/sign-up').then(m => m.SignUp)}
+    {path: 'sign-up', loadComponent:() => import('./components/sign-up/sign-up').then(m => m.SignUp)},
+    {path: 'recette-details/:id', loadComponent:() => import('./components/recette-details/recette-details').then(m => m.RecetteDetails)}
 ];

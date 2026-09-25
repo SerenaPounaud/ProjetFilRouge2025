@@ -12,6 +12,7 @@ export const addRecipe = async (req, res, next) => {
             instructions: req.body.instructions,
             motsCles: req.body.motsCles,
             categorie: req.body.categorie,
+            tags: req.body.tags,
             source: "local",
             user: req.userId //id user connecté
         });

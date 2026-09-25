@@ -18,7 +18,7 @@ export class RecetteService {
     return this.httpClient.get<any>(url);
   }
   // recette || null
-  getRecipeById(id:number){
+  getRecipeById(id:number | string){
     return this.httpClient.get(this.recetteURL + "/" + id);
   }
   // string || boolean || recipeObj + id

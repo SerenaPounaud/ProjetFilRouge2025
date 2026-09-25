@@ -16,6 +16,7 @@ const recipeSchema = new Schema(
         instructions: {type: String, default: null},
         motsCles: {type: [String], default: []},
         categorie: {type: String, default: null},
+        tags: {type: [String], default: []},
         source: {
             type: String,
             enum: ["local", "themealdb"],

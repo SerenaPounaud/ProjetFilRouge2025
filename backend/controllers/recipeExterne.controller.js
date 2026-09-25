@@ -44,6 +44,7 @@ export const importMeals = async (req, res, next) => {
                     nbPersonnes: 1,
                     categorie: meal.strCategory || null,
                     motsCles: [],
+                    tags: meal.strTags ? meal.strTags.split(',') : [],
                     source: "themealdb",
                     sourceId: meal.idMeal,
                     user: null
