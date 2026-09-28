@@ -4,6 +4,7 @@ import cors from "cors";
 import userRoutes from "./routes/user.routes.js";
 import recipeRoutes from "./routes/recipe.routes.js";
 import contactRoutes from "./routes/contact.routes.js";
+import commentaireRoutes from "./routes/commentaire.routes.js";
 import { corsOptions } from "./cors/cors.js";
 import { errorHandler } from "./middlewares/error.middleware.js";
 import helmet from 'helmet';
@@ -39,6 +40,7 @@ app.use("/api", userRoutes);
 app.use("/api/recipes", recipeRoutes);
 app.use("/api/contacts", contactRoutes);
 app.use("/api/recipes/external", recipeExterneRoutes);
+app.use("/api/commentaires", commentaireRoutes);
 if(process.env.NODE_ENV === "test") {app.use("/api/test", testRoutes)};
 
 //récupère tous les messages d'erreurs

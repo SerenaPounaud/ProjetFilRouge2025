@@ -86,84 +86,77 @@
           }
         </ul>
         <h4>Tags :</h4>
-        <ul>
-          @for (tag of recipe.tags; track tag) {
-            <li>{{ tag }}</li>
+          @if (recipe.tags?.length) {
+            <ul>
+              @for (tag of recipe.tags; track tag) {
+                <li>{{ tag }}</li>
+              }
+            </ul>
+          } @else {
+            <p>Aucun mots-clés pour cette recette</p>
           }
-        </ul>
 
       </aside>
     </div>
   </section>
 
   <section class="espaceCommentaires">
+    <h2>Commentaires</h2>
 
-    <h2 id="h2Com">Commentaires</h2>
-
-    <div id="commentaires" aria-live="polite">
-
-      <div class="commentaire">
-
-        <div class="commentaire-header">
-          <strong>commentaire.user</strong>
-          <span>commentaire.date</span>
-        </div>
-
-        <p>commentaire.contenu </p>
-
-        <div class="commentaire-note">
-          <span>★</span>
-        </div>
-
-      </div>
-
-      <p class="aucun-commentaire">Aucun commentaire pour le moment.</p>
-
+    <div aria-live="polite">
+      @if (commentaires.length > 0) {
+        @for (commentaire of commentaires; track commentaire.id) {
+          <app-commentaire [commentaire]="commentaire"></app-commentaire>
+        }
+      } @else {
+        <p class="aucun-commentaire">Aucun commentaire pour le moment.</p>
+      }
     </div>
 
-    <form class="zone-commentaire">
-      <fieldset>
+      @if(!isConnected){
+        <strong>Se connecter pour commenter</strong>
+        <button routerLink="/sign-in">Se connecter</button>
+    } @else {
+      <form class="zone-commentaire">
+        <fieldset>
 
-        <legend>
-          <strong>Ajouter un commentaire</strong>
-        </legend>
+          <legend>
+            <strong>Ajouter un commentaire</strong>
+          </legend>
 
-        <div class="inputCommentaires">
-          <label for="commentaire_input"> Votre commentaire :</label>
-          <div class="divTextarea">
-            <textarea
-              id="commentaire_input"
-              name="commentaire"
-              placeholder="Écrivez votre commentaire"
-              maxlength="500"
-            ></textarea>
-            <p class="char_count" role="status">Commentaire.length/500</p>
+          <div class="inputCommentaires">
+            <label for="commentaire_input">Votre commentaire :</label>
+            <div class="divTextarea">
+              <textarea
+                id="commentaire_input"
+                name="commentaire"
+                placeholder="Écrivez votre commentaire"
+                maxlength="500"
+              ></textarea>
+              <p class="char_count" role="status">Commentaire.length/500</p>
+            </div>
           </div>
-        </div>
 
-        <div class="noteCommentaire">
-          <label for="note_input"> Note :</label>
-          <select id="note_input" name="note" required>
-            <option value="" disabled>Choisissez une note</option>
-            <option value="1">★☆☆☆☆</option>
-            <option value="2">★★☆☆☆</option>
-            <option value="3">★★★☆☆</option>
-            <option value="4">★★★★☆</option>
-            <option value="5">★★★★★</option>
-          </select>
-        </div>
+          <div class="noteCommentaire">
+            <label for="note_input">Note :</label>
+            <select id="note_input" name="note" required>
+              <option value="" disabled>Choisissez une note</option>
+              <option value="1">★☆☆☆☆</option>
+              <option value="2">★★☆☆☆</option>
+              <option value="3">★★★☆☆</option>
+              <option value="4">★★★★☆</option>
+              <option value="5">★★★★★</option>
+            </select>
+          </div>
 
-        <div class="error" aria-live="assertive" role="alert">erreurNote</div>
+          <div class="error" aria-live="assertive" role="alert">erreurNote</div>
 
-        <div class="btnZoneCommentaire">
-          <button class="btnEnvoyer" type="submit">Envoyer</button>
-        </div>
+          <div class="btnZoneCommentaire">
+            <button class="btnEnvoyer" type="submit">Envoyer</button>
+          </div>
 
-      </fieldset>
-    </form>
-
-      <strong>Se connecter pour commenter</strong>
-      <button class="btnConnexion" type="submit">Se connecter</button>
-
+        </fieldset>
+      </form>
+    }
   </section>
 </article>

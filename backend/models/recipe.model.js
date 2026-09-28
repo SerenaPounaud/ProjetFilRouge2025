@@ -10,7 +10,8 @@ const recipeSchema = new Schema(
         nbPersonnes: {
             type: Number, 
             default: null, 
-            min: 1
+            min: 1,
+            max: 10
         },
         ingredients: {type: [String], default: []},
         instructions: {type: String, default: null},
