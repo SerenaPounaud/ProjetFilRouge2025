@@ -9,7 +9,6 @@ export class ContactService {
 
   constructor(private httpClient: HttpClient){}
 
-  // string || boolean || recipeObj + id
   sendMessage(messageObj:any){
     return this.httpClient.post(this.contactURL, messageObj);
   }

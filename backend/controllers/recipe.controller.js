@@ -90,7 +90,16 @@ export const updateRecipe = async (req, res, next) => {
             return res.status(403).json({ message: "Accès refusé" });
         }
 
-        Object.assign(recipe, req.body);
+        recipe.nomRecette = req.body.nomRecette;
+        recipe.img = req.body.img;
+        recipe.temps = req.body.temps;
+        recipe.nbPersonnes = req.body.nbPersonnes;
+        recipe.ingredients = req.body.ingredients;
+        recipe.instructions = req.body.instructions;
+        recipe.motsCles = req.body.motsCles;
+        recipe.categorie = req.body.categorie;
+        recipe.tags = req.body.tags;
+        
         await recipe.save();
         res.json({message: "Recette modifiée", recipe});
 

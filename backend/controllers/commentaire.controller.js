@@ -6,23 +6,10 @@ export const createCommentaire = async (req, res, next) => {
             contenu: req.body.contenu,
             note: req.body.note,
             user: req.userId,
-            recipe: req.params.id
+            recipe: req.params.recipeId
         });
         await commentaire.save();
         res.json({message: "Commentaire ajouté", commentaire});
-    } catch (error) {
-        next(error);
-    }
-};
-
-export const getCommentaireById = async (req, res, next) => {
-    try {
-        const commentaire = await Commentaire.findById(req.params.id);
-        if (!commentaire){
-            return res.status(404).json({message: "Commentaire introuvable"})
-        }
-        res.json(commentaire); //récupére le commentaire
-        
     } catch (error) {
         next(error);
     }
@@ -56,11 +43,24 @@ export const updateCommentaire = async (req, res, next) => {
             return res.status(403).json({ message: "Accès refusé" });
         }
 
-        Object.assign(commentaire, req.body);
+        commentaire.contenu = req.body.contenu;
+        commentaire.note = req.body.note;
         await commentaire.save();
         res.json({message: "Commentaire modifié", commentaire});
 
     } catch (error) {
         next(error);
     }
+};
+
+export const getCommentairesByRecipe = async (req, res, next) => {
+  try {
+    const commentaires = await Commentaire.find({recipe: req.params.recipeId}) //récupère les commentaires d'une recette
+    .populate("user", "lastname firstname").sort({ dateAjout: -1 });//trie par date décroissante
+
+    res.json(commentaires);
+
+  } catch (error) {
+    next(error);
+  }
 };

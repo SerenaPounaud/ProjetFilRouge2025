@@ -105,7 +105,7 @@
 
     <div aria-live="polite">
       @if (commentaires.length > 0) {
-        @for (commentaire of commentaires; track commentaire.id) {
+        @for (commentaire of commentaires; track commentaire._id) {
           <app-commentaire [commentaire]="commentaire"></app-commentaire>
         }
       } @else {
