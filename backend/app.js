@@ -36,7 +36,7 @@ app.use(express.json({limit: "10kb"})); //permet d'utiliser des données json + 
 
 //connexion routes
 app.use("/api", apiLimiter); //limite le nombre de req globale
-app.use("/api", userRoutes);
+app.use("/api/users", userRoutes);
 app.use("/api/recipes", recipeRoutes);
 app.use("/api/contacts", contactRoutes);
 app.use("/api/recipes/external", recipeExterneRoutes);
