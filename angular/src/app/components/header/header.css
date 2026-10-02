@@ -17,7 +17,7 @@
 header { 
   margin-bottom: 30px;
 }
-header a:not(.inscrire):hover {
+header a:not(.inscrire):not(.logout):hover {
   color: #c62828;
 }
 nav {
@@ -54,14 +54,14 @@ nav a:not(.inscrire) {
 .imgLoupe {
   height: clamp(10px, 3vw, 40px);
 }
-.inscrire {
+.inscrire, .logout {
   border-radius: 30px;
   color: white;
   background-color: #c62828;
   padding: 3% 5%;
   text-decoration: none;
 }
-.inscrire:hover {
+.inscrire:hover, .logout:hover {
   opacity: 0.7;
 }
 

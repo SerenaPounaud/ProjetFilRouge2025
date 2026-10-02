@@ -1,12 +1,13 @@
+import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
 
 @Component({
   selector: 'app-commentaire',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './commentaire.html',
   styleUrl: './commentaire.css',
 })
 export class Commentaire {
-@Input() commentaire!: Commentaire;
+@Input() commentaire!: any;
 }

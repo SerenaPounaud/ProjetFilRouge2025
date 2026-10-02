@@ -14,7 +14,7 @@ export class CommentaireService {
   }
 
   createCommentaire(recipeId: string, commentaireObj: any){    
-    return this.httpClient.post(`/api/recipes/${recipeId}/commentaires`, commentaireObj);
+    return this.httpClient.post(`${this.commentaireURL}/${recipeId}/commentaires`, commentaireObj);
   }
 
   deleteCommentaireById(id: string){

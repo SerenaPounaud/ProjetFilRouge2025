@@ -1,8 +1,5 @@
 <div class="carte-recette" (click)="voirRecette()">
     <h2>{{ recipes.nomRecette }}</h2>
     <img [src]="recipes.img" [alt]="recipes.nomRecette">
-    <div class="zoneBtn">
-        <button type="button">Voir</button>
-    </div>
     <p>Créée par : {{ recipes.user?.firstname }} {{ recipes.user?.lastname }}</p>
 </div>

@@ -103,21 +103,22 @@
   <section class="espaceCommentaires">
     <h2>Commentaires</h2>
 
-    <div aria-live="polite">
+    <div aria-live="polite" id="commentaires">
       @if (commentaires.length > 0) {
         @for (commentaire of commentaires; track commentaire._id) {
-          <app-commentaire [commentaire]="commentaire"></app-commentaire>
+          <app-commentaire [commentaire]="commentaire" class="divCommentaires"></app-commentaire>
         }
       } @else {
         <p class="aucun-commentaire">Aucun commentaire pour le moment.</p>
       }
     </div>
 
+
       @if(!isConnected){
         <strong>Se connecter pour commenter</strong>
-        <button routerLink="/sign-in">Se connecter</button>
+        <button routerLink="/sign-in" id="connexion">Se connecter</button>
     } @else {
-      <form class="zone-commentaire">
+      <form class="zone_commentaire" [formGroup]="commentaireForm" (ngSubmit)="ajouterCommentaire()">
         <fieldset>
 
           <legend>
@@ -132,14 +133,14 @@
                 name="commentaire"
                 placeholder="Écrivez votre commentaire"
                 maxlength="500"
+                formControlName="contenu"
               ></textarea>
-              <p class="char_count" role="status">Commentaire.length/500</p>
             </div>
           </div>
 
           <div class="noteCommentaire">
             <label for="note_input">Note :</label>
-            <select id="note_input" name="note" required>
+            <select id="note_input" name="note" required formControlName="note">
               <option value="" disabled>Choisissez une note</option>
               <option value="1">★☆☆☆☆</option>
               <option value="2">★★☆☆☆</option>
@@ -149,10 +150,8 @@
             </select>
           </div>
 
-          <div class="error" aria-live="assertive" role="alert">erreurNote</div>
-
           <div class="btnZoneCommentaire">
-            <button class="btnEnvoyer" type="submit">Envoyer</button>
+            <button class="btnEnvoyer" type="submit" [disabled]="commentaireForm.invalid">Envoyer</button>
           </div>
 
         </fieldset>

@@ -148,14 +148,32 @@ body {
 }
 
 /*Zone commentaire*/
+#commentaires {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 2vw, 40px);
+  margin: 3% 0;
+  min-height: 300px;
+}
+.divCommentaires {
+    border-radius: 10px;
+    padding: 2%;
+    width: 90%;
+}
+.divCommentaires:nth-child(odd) {
+  align-self: flex-start;
+  background-color: papayawhip;
+}
+
+.divCommentaires:nth-child(even) {
+  align-self: flex-end;
+  background-color: peachpuff;
+}
 .espaceCommentaires {
     margin-bottom: 5%;
     font-size: clamp(10px, 2vw, 20px);
     padding: 0 5%;
     min-height: 600px;
-}
-#h2Com {
-    font-size: clamp(15px, 2vw, 50px);
 }
 #connexion {
     flex-direction: column;
@@ -174,7 +192,7 @@ body {
 .btnConnexion {
     padding: clamp(10px, 2vw, 20px);
 }
-#zone_commentaire {
+.zone_commentaire {
     flex-direction: column;
     margin: 0 auto;
     padding: 3%;
@@ -183,16 +201,9 @@ body {
     border-radius: 30px;
     align-items: center;
 }
-#zone_commentaire legend {
-    font-size: clamp(10px, 2vw, 25px);
-    margin-bottom: clamp(10px, 2vw, 30px);;
-}
 fieldset {
     border: none;
     width: 100%;
-}
-#note_input_error, #prenom_error {
-    text-align: center;
 }
 .divSeConnecter {
     display: flex;
@@ -201,66 +212,23 @@ fieldset {
     gap: 10px;
     font-size: clamp(10px, 2vw, 20px);
 }
-.legendConnecter {
-    margin: auto auto 5% auto;
-}
 .noteCommentaire {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-#zone_commentaire label {
-    margin: 0 1% 1% 1%;
 }
 .btnZoneCommentaire {
     display: flex;
     width: 100%;
     justify-content: space-evenly;
 }
-.btnEnvoyer, #btn_deconnexion, #note_input {
+.btnEnvoyer, #note_input {
     padding: 2%;
 }
 #note_input {
     text-align: center;
 }
-#commentaires {
-    display: flex;
-    flex-direction: column;
-    gap: clamp(20px, 2vw, 40px);
-    margin: 3% 0;
-    min-height: 300px;
-}
-.divCommentaires {
-    border-radius: 10px;
-    padding: 2%;
-    width: 90%;
-}
-.divCommentaires:nth-child(odd) {
-  align-self: flex-start;
-  background-color: papayawhip;
-}
-
-.divCommentaires:nth-child(even) {
-  align-self: flex-end;
-  background-color: peachpuff;
-}
-.paraCommentaires {
-    overflow-wrap: break-word; /*évite de dépasser le conteneur*/
-}
-.meta {
-    display: flex;
-    gap: clamp(10px, 3vw, 40px);
-    margin-bottom: 1.5%;
-    align-items: center;
-}
-.dateSpan {
-    white-space: nowrap; /*évite de casser*/
-}
-#char_count {
-    align-self: flex-end;
-}
 .inputCommentaires {
-    aspect-ratio: 16/8;
     width: 100%;
 }
 .inputCommentaires > .divTextarea {
@@ -276,18 +244,12 @@ fieldset {
     padding: 2%;
     height: 25vw;
 }
-.btnEnvoyer, #btn_deconnexion, #note_input, .btnConnexion, .btnSupprimer {
+.btnEnvoyer, #note_input, .btnConnexion {
     background-color: #c62828;
     border-radius: 30px;
     color: white;
     border: none;
     cursor: pointer;
-}
-.btnSupprimer {
-    padding: 2%;
-}
-.btnSupprimer:hover, .btnConnexion:hover {
-    opacity: 0.7;
 }
 
 /*Zone recettes similaires*/
@@ -327,9 +289,6 @@ fieldset {
 .item-similaire h3 {
     align-content: center;
     text-align: center;
-}
-.note-block {
-  margin: 5% 0;
 }
 
 @media (min-width: 508px) {

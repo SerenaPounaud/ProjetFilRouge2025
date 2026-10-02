@@ -1,12 +1,10 @@
-<div class="commentaire">
-  <div class="commentaire-header">
-    <strong>commentaire.user</strong>
-    <span>commentaire.date</span>
+<div>
+  <div class="dataCommentaires">
+    <strong>{{ commentaire.user?.firstname }} {{ commentaire.user?.lastname }}</strong>
+    <span>{{ commentaire.dateAjout | date:'dd/MM/yyyy' }}</span>
+    <div><span>★</span>{{ commentaire.note }}/5</div>
   </div>
 
-  <p>commentaire.contenu</p>
+  <p>{{ commentaire.contenu }}</p>
 
-  <div class="commentaire-note">
-    <span>★</span>commentaire.note/5
-  </div>
 </div>
