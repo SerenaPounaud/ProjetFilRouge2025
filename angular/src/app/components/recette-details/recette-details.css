@@ -1,21 +1,8 @@
 .error {
-    visibility: hidden;
-    opacity: 0;
-    color: red;
-    font-size: clamp(10px, 2.5vw, 20px);
-    min-height: 19px;
-    margin: 2%;
-    padding: 2%;
-    transition: opacity 0.3s;
+  color: red;
+  font-size: clamp(10px, 2vw, 20px);
 }
-.input-error {
-    border: 2px solid red;
-    background: #fff5f5;
-}
-.error.visible {
-    opacity: 1;
-    visibility: visible;
-}
+
 header, footer {
     min-height: 100px;
 }
@@ -26,7 +13,7 @@ body {
   margin: 0;
   padding: 0;
 }
-#toast {
+/*#toast {
   font-size: clamp(8px, 2vw, 20px);
   bottom: 10%;
   right: 34%;
@@ -38,7 +25,7 @@ body {
   pointer-events: none; 
   opacity: 0;
   z-index: 1000;
-}
+}*/
 /*.h2 {
     text-align: center;
     font-size: clamp(12px, 2vw, 35px);
@@ -61,7 +48,7 @@ body {
 }
 .imgDetails img {
     aspect-ratio: 10 / 9;
-    width: 80%;
+    width: 70%;
     border-radius: 20px;
 }
 .infoDetails {
@@ -114,24 +101,15 @@ body {
 .btnDetails svg:hover {
     transform: scale(1.2);
 }
-
-
 .btnDetails {
-  color: #8b5e3c;
+  color: black;
   background: transparent;
   border: none;
   cursor: pointer;
 }
-
-.btnDetails svg {
-  width: 24px;
-  height: 24px;
-}
 .btnDetails:hover {
-  color: #c45a3c;
+  color: red;
 }
-
-
 .instructions {
     flex: 2;
     padding: 5%;
@@ -152,8 +130,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: clamp(20px, 2vw, 40px);
-  margin: 3% 0;
-  min-height: 300px;
+  margin: 5% 0;
 }
 .divCommentaires {
     border-radius: 10px;
@@ -193,17 +170,21 @@ body {
     padding: clamp(10px, 2vw, 20px);
 }
 .zone_commentaire {
-    flex-direction: column;
+    display: flex;
     margin: 0 auto;
     padding: 3%;
     background: linear-gradient(135deg, peachpuff, papayawhip);
     width: 90%;
     border-radius: 30px;
-    align-items: center;
 }
 fieldset {
     border: none;
     width: 100%;
+    gap: 20px;
+    display: grid;
+}
+fieldset legend {
+    margin: auto auto 5% auto;
 }
 .divSeConnecter {
     display: flex;
@@ -214,8 +195,9 @@ fieldset {
 }
 .noteCommentaire {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    gap: clamp(8px, 2vw, 20px);
 }
 .btnZoneCommentaire {
     display: flex;
@@ -236,6 +218,8 @@ fieldset {
     gap: 10px;
     margin: 4%;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 .divTextarea textarea {
     width: 80%;
@@ -252,63 +236,15 @@ fieldset {
     cursor: pointer;
 }
 
-/*Zone recettes similaires*/
-.recettesSimilaires {
-    background-color: papayawhip ;
-    padding: 2%;
-    min-height: 250px;
-}
-.recettesSimilaires > h3 {
-    font-size: clamp(10px, 3vw, 30px);
-    text-align: center;
-}
-#recettes_similaires {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    gap: 0.2%;
-}
-.item-similaire {
-    width: 20%;
-    transition: transform 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: clamp(5px, 2vw, 18px);
-    flex-wrap: wrap;
-    justify-content: center;
-}
-.item-similaire:hover {
-    transform: scale(1.1);
-}
-.item-similaire img {
-    border-radius: 15px;
-    aspect-ratio: 10 / 9;
-    width: 80%;
-}
-.item-similaire h3 {
-    align-content: center;
-    text-align: center;
-}
-
-@media (min-width: 508px) {
-#toast {
-    right: 40%;
-}
-#prenom_error {
-    margin: 1%;
-    padding: 1%;
-}
-}
 
 @media (min-width: 1000px) {
 .ingredients ul {
     padding: revert;
 }
-.divCommentaires, .item-similaire img {
+.divCommentaires {
     width: 70%;
 }
-#zone_commentaire {
+.zone_commentaire {
     width: 60%;
 }
 #connexion {
@@ -327,7 +263,7 @@ fieldset {
 .divCommentaires{
     width: 55%;
 }
-#zone_commentaire {
+.zone_commentaire {
     width: 50%;
 }
 #connexion {

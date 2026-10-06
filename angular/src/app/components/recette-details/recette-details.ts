@@ -51,7 +51,7 @@ ngOnInit() {
 
 ajouterCommentaire(): void{
   if (this.commentaireForm.invalid) {
-    this.commentaireForm.markAllAsTouched();
+    this.commentaireForm.markAllAsTouched(); //indique que tous les champs ont été visités
     return;
   }
   const recipeId = this.activatedRoute.snapshot.paramMap.get('id');
@@ -64,13 +64,11 @@ ajouterCommentaire(): void{
     contenu: this.commentaireForm.value.contenu,
     note: Number(this.commentaireForm.value.note)
   };
-  console.log('Commentaire ajouter', newCommentaire);
 
   this.commentairesService.createCommentaire(recipeId, newCommentaire).subscribe({
     next: (response: any) => {
-      console.log('Commentaire enregistré :', response);
       //affichage du commentaire ajouté
-      this.commentaires.unshift(response.commentaire);
+      this.commentaires.unshift(response.commentaire); //ajoute le commentaire au début du tableau
       this.commentaireForm.reset();
     }
   })

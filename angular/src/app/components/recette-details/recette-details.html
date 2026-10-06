@@ -135,6 +135,13 @@
                 maxlength="500"
                 formControlName="contenu"
               ></textarea>
+            @if(commentaireForm.get('contenu')?.invalid && (commentaireForm.get('contenu')?.touched || commentaireForm.get('contenu')?.dirty)) {
+              @if(commentaireForm.get('contenu')?.errors?.['required']){
+              <div class="error">Ce champ est obligatoire</div>
+              } @else if (commentaireForm.get('contenu')?.errors?.['maxlength']) {
+                  <div class="error">Maximum 500 caractères</div>
+              }  
+            }
             </div>
           </div>
 
@@ -148,6 +155,11 @@
               <option value="4">★★★★☆</option>
               <option value="5">★★★★★</option>
             </select>
+            @if(commentaireForm.get('note')?.invalid && (commentaireForm.get('note')?.touched || commentaireForm.get('note')?.dirty)) {
+                @if(commentaireForm.get('note')?.errors?.['required']){
+                <div class="error">Ce champ est obligatoire</div>
+                }  
+            }
           </div>
 
           <div class="btnZoneCommentaire">
