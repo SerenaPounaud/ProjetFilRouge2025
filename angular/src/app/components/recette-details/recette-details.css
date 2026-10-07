@@ -2,7 +2,6 @@
   color: red;
   font-size: clamp(10px, 2vw, 20px);
 }
-
 header, footer {
     min-height: 100px;
 }
@@ -26,11 +25,16 @@ body {
   opacity: 0;
   z-index: 1000;
 }*/
-/*.h2 {
+a {
+    text-decoration: none;
+    color: black;
+    font-size: clamp(10px, 2vw, 20px);
+}
+h2 {
     text-align: center;
     font-size: clamp(12px, 2vw, 35px);
     margin-top: clamp(10px, 5vw, 80px);
-}*/
+}
 #recettes_details {
     padding: 0 5%;
     min-height: 400px;
@@ -38,7 +42,6 @@ body {
 
 /*header recette*/
 .headerDetails {
-    display: flex;
     margin-top: 3%;
 }
 .imgDetails {
@@ -55,18 +58,18 @@ body {
     flex: 1;
     font-size: clamp(10px, 2vw, 20px);
 }
-/*.infoDetails h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(15px, 3vw, 50px);
-}*/
-.loremDetails {
-    margin-bottom: 8%;
+.h3Recette {
+    text-align: center;
+}
+.descriptionDetails {
+    line-height: 1.5;
 }
 .middleDetails {
     display: flex;
     font-size: clamp(10px, 2vw, 20px);
+    flex-direction: column-reverse;
 }
-.middleDetails h2, .middleDetails h3 {
+.middleDetails h3 {
     font-size: clamp(10px, 2vw, 30px);
 }
 .infoSuppleDetails {
@@ -115,14 +118,19 @@ body {
     padding: 5%;
     line-height: 1.5;
 }
-.ingredients {
+.divTags, .divIngredients {
     flex: 1;
+}
+.ingredients {
+    display: flex;
 }
 .ingredients li {
     margin: 3%;
 }
 .ingredients ul {
     padding: 0;
+    width: fit-content;
+    margin: 0 auto;
 }
 
 /*Zone commentaire*/
@@ -136,6 +144,7 @@ body {
     border-radius: 10px;
     padding: 2%;
     width: 90%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 .divCommentaires:nth-child(odd) {
   align-self: flex-start;
@@ -152,24 +161,26 @@ body {
     padding: 0 5%;
     min-height: 600px;
 }
-#connexion {
+.zoneConnexion {
+    display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 auto;
-    padding: 3%;
-    background: linear-gradient(135deg, peachpuff, papayawhip);
-    width: 80%;
-    border-radius: 30px;
+    gap: 15px;
 }
-#connexion input {
-    border-radius: 10px;
-    padding: clamp(7px, 1vw, 15px);
+#btnConnexion {
+    padding: 2%;
+    background: linear-gradient( 100deg, peachpuff, papayawhip);
+    border-radius: 50px 0 50px 0;
     border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.2s, transform 0.2s;
 }
-.btnConnexion {
-    padding: clamp(10px, 2vw, 20px);
+#btnConnexion:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
+  cursor: pointer;
 }
-.zone_commentaire {
+.formCommentaire {
     display: flex;
     margin: 0 auto;
     padding: 3%;
@@ -185,13 +196,6 @@ fieldset {
 }
 fieldset legend {
     margin: auto auto 5% auto;
-}
-.divSeConnecter {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    font-size: clamp(10px, 2vw, 20px);
 }
 .noteCommentaire {
     display: flex;
@@ -228,7 +232,7 @@ fieldset legend {
     padding: 2%;
     height: 25vw;
 }
-.btnEnvoyer, #note_input, .btnConnexion {
+.btnEnvoyer, #note_input {
     background-color: #c62828;
     border-radius: 30px;
     color: white;
@@ -238,24 +242,41 @@ fieldset legend {
 
 
 @media (min-width: 1000px) {
-.ingredients ul {
-    padding: revert;
-}
 .divCommentaires {
     width: 70%;
 }
-.zone_commentaire {
-    width: 60%;
-}
-#connexion {
+.formCommentaire {
     width: 60%;
 }
 .divTextarea textarea {
     width: 80%;
     height: 14vw;
 }
-.divCommentaires, #connexion {
+.divCommentaires {
     border-radius: 50px 0 50px 0;
+}
+.headerDetails {
+    display: flex;
+}
+.ingredients {
+    flex: 1;
+}
+.divTags, .divIngredients {
+    flex: none;
+}
+.ingredients {
+    display: initial;
+}
+.ingredients li {
+    margin: 3%;
+}
+.ingredients ul {
+    padding: revert;
+    width: initial;
+    margin: initial;
+}
+.middleDetails {
+    flex-direction: initial;
 }
 }
 
@@ -263,10 +284,7 @@ fieldset legend {
 .divCommentaires{
     width: 55%;
 }
-.zone_commentaire {
-    width: 50%;
-}
-#connexion {
+.formCommentaire {
     width: 50%;
 }
 }

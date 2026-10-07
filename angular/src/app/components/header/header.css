@@ -33,6 +33,7 @@ nav {
 }
 .titreHeader {
   font-size: clamp(10px, 2vw, 30px);
+  line-height: 1;
 }
 nav a {
   font-size: clamp(8px, 2vw, 20px);
