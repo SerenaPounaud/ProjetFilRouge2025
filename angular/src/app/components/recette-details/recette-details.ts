@@ -17,7 +17,8 @@ export class RecetteDetails {
   commentaireForm!: FormGroup;
   recipe:any;
   isConnected = false;
-  commentaires:any[] = [];
+  commentaires: any[] = [];
+  currentUser: any = null;
 
   constructor(
     private activatedRoute : ActivatedRoute, 
@@ -47,6 +48,17 @@ ngOnInit() {
   this.authService.isConnected$.subscribe(status => {
     this.isConnected = status;
   });
+
+  this.authService.checkAuth().subscribe({ 
+    next: (user) => { 
+      this.currentUser = user; 
+      this.isConnected = true; 
+    }, 
+      error: () => { 
+        this.currentUser = null; 
+        this.isConnected = false; 
+      } 
+    });
 }
 
 ajouterCommentaire(): void{
@@ -55,10 +67,7 @@ ajouterCommentaire(): void{
     return;
   }
   const recipeId = this.activatedRoute.snapshot.paramMap.get('id');
-  if(!recipeId) {
-    console.error('ID recette introuvable');
-    return;
-  }
+  if(!recipeId) return;
 
   const newCommentaire = {
     contenu: this.commentaireForm.value.contenu,
@@ -71,7 +80,10 @@ ajouterCommentaire(): void{
       this.commentaires.unshift(response.commentaire); //ajoute le commentaire au début du tableau
       this.commentaireForm.reset();
     }
-  })
+  });
 }
 
+onCommentaireSupprime(id: string): void {
+  this.commentaires = this.commentaires.filter(commentaire => commentaire._id !== id);
+}
 }

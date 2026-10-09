@@ -3,8 +3,8 @@
     <strong>{{ commentaire.user?.firstname }} {{ commentaire.user?.lastname }}</strong>
     <span>{{ commentaire.dateAjout | date:'dd/MM/yyyy' }}</span>
     <div><span>★</span>{{ commentaire.note }}/5</div>
-    @if (isConnected && commentaire.user?._id === currentUser?.id) {
-      <button (click)="removeCommentaire(commentaire._id)">Supprimer</button>
+    @if (isConnected && commentaire.user?._id === currentUser?.userId) {
+      <button type="button" (click)="removeCommentaire(commentaire._id)">Supprimer</button>
     }
   </div>
 

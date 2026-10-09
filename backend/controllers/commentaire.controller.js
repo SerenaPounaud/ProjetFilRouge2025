@@ -9,7 +9,8 @@ export const createCommentaire = async (req, res, next) => {
             recipe: req.params.recipeId
         });
         await commentaire.save();
-        res.json({message: "Commentaire ajouté", commentaire});
+        const commentaireUser = await Commentaire.findById(commentaire._id).populate("user", "lastname firstname");
+        res.json({message: "Commentaire ajouté", commentaire: commentaireUser});
     } catch (error) {
         next(error);
     }

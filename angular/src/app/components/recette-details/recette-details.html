@@ -112,7 +112,12 @@
     <div aria-live="polite" id="commentaires">
       @if (commentaires.length > 0) {
         @for (commentaire of commentaires; track commentaire._id) {
-          <app-commentaire [commentaire]="commentaire" class="divCommentaires"></app-commentaire>
+          <app-commentaire 
+          [commentaire]="commentaire" 
+          [currentUser]="currentUser" 
+          [isConnected]="isConnected" 
+          (commentaireSupprime)="onCommentaireSupprime($event)" 
+          class="divCommentaires"></app-commentaire>
         }
       } @else {
         <p class="aucun-commentaire">Aucun commentaire pour le moment.</p>
