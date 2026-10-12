@@ -7,3 +7,16 @@
     margin-bottom: 1.5%;
     align-items: center;
 }
+.btnDelete {
+    border-radius: 20px 0 20px 0;
+    background: white;
+    border: transparent;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 15%;
+    padding: 1%;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+.btnDelete:hover {
+    transform: scale(1.08);
+}

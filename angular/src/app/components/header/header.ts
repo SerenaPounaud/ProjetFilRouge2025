@@ -21,10 +21,13 @@ export class Header {
   
 logout(): void {
   this.authService.logout().subscribe({
-    next: () => {
-      this.authService.setConnected(false);
-      this.router.navigate(['/sign-in']);
+  next: () => {
+    this.authService.setConnected(false);
+    this.router.navigate(['/sign-in']);
+  },
+    error: (err) => {
+    console.error('Erreur lors de la déconnexion :', err);
     }
   });
-}
+  }
 }

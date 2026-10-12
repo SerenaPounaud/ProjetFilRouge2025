@@ -1,10 +1,10 @@
 <div>
   <div class="dataCommentaires">
-    <strong>{{ commentaire.user?.firstname }} {{ commentaire.user?.lastname }}</strong>
+    <strong>{{ commentaire.user?.firstname | titlecase }} {{ commentaire.user?.lastname | titlecase }}</strong>
     <span>{{ commentaire.dateAjout | date:'dd/MM/yyyy' }}</span>
     <div><span>★</span>{{ commentaire.note }}/5</div>
     @if (isConnected && commentaire.user?._id === currentUser?.userId) {
-      <button type="button" (click)="removeCommentaire(commentaire._id)">Supprimer</button>
+      <button type="button" class="btnDelete" (click)="removeCommentaire(commentaire._id)">Supprimer</button>
     }
   </div>
 

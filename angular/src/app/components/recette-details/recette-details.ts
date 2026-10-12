@@ -33,6 +33,7 @@ ngOnInit() {
     note: ['', [Validators.required, Validators.min(1), Validators.max(5)]]
   });
 
+  //récupèration de l'id de la recette depuis l'URL
   const id = this.activatedRoute.snapshot.paramMap.get('id');
   if (!id) return;
 
@@ -40,25 +41,26 @@ ngOnInit() {
   this.recetteService.getRecipeById(id).subscribe((recette: any) => {
     this.recipe = recette;
   });
+
   //récupèration des commentaires
   this.commentairesService.getCommentairesByRecipe(id).subscribe((commentaires: any[]) => {
     this.commentaires = commentaires;
   });
+
   //vérification connexion
   this.authService.isConnected$.subscribe(status => {
     this.isConnected = status;
   });
 
-  this.authService.checkAuth().subscribe({ 
-    next: (user) => { 
-      this.currentUser = user; 
-      this.isConnected = true; 
-    }, 
-      error: () => { 
-        this.currentUser = null; 
-        this.isConnected = false; 
-      } 
-    });
+ this.authService.checkAuth().subscribe({ 
+  next: (user) => { 
+    this.currentUser = user; 
+  }, 
+    error: () => { 
+      this.currentUser = null;
+    } 
+  });
+
 }
 
 ajouterCommentaire(): void{
@@ -83,6 +85,7 @@ ajouterCommentaire(): void{
   });
 }
 
+//met à jour la liste après la suppression d'un commentaire
 onCommentaireSupprime(id: string): void {
   this.commentaires = this.commentaires.filter(commentaire => commentaire._id !== id);
 }

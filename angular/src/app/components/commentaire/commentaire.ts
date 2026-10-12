@@ -1,11 +1,11 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, TitleCasePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { Input, Output, EventEmitter } from '@angular/core';
 import { CommentaireService } from '../../services/commentaire-service';
 
 @Component({
   selector: 'app-commentaire',
-  imports: [DatePipe],
+  imports: [DatePipe, TitleCasePipe],
   templateUrl: './commentaire.html',
   styleUrl: './commentaire.css',
 })
