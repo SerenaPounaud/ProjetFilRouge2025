@@ -16,27 +16,42 @@ export class ZoneRecette {
   totalPages = 0;
   category = '';
 
+  errorMessage: string | null = null;
+  isLoading = false;
+
   private RecetteService = inject(RecetteService);
   
   ngOnInit() { //affiche les recettes de la bd
     this.loadRecipes();
   }
 
-filterByCategory(category: string): void {
-  this.category = category;
-  this.page = 1;
-  this.loadRecipes();
-}
+  filterByCategory(category: string): void {
+    this.category = category;
+    this.page = 1;
+    this.loadRecipes();
+  }
 
   // Récupère les recettes de la BD
   loadRecipes(): void {
-    this.RecetteService.getAllRecipes(this.page, this.limit, this.category)
-      .subscribe(res => {
+    this.isLoading = true;
+    this.errorMessage = null; //efface une éventuelle erreur précédente
+
+    this.RecetteService.getAllRecipes(this.page, this.limit, this.category).subscribe({
+      next: (res) => {
         // Les recettes reçues
         this.recipes = res.data;
         // Nombre total de pages
         this.totalPages = res.totalPages;
-      });
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des recettes', err);
+        this.recipes = []; //efface les recettes en cas d'erreur
+        this.totalPages = 0;
+        this.errorMessage = 'Impossible de charger les recettes. Veuillez réessayer plus tard.';
+        this.isLoading = false;
+      }
+    });
   }
 
   //pagination

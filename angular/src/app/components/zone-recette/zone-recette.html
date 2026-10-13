@@ -41,11 +41,18 @@
         </div>
 
         <section class="recettes" id="recettes">
-            <!--@input-->
-            @for(recipe of recipes; track recipe._id){
-                <app-zone-recette-liste-recettes [recipes]="recipe"/>
-            } @empty {
-                <p>Aucune recettes trouvées</p>
+            @if (isLoading) {
+                <p role="status">Chargement des recettes...</p>
+            } @else if (errorMessage) {
+                <div class="message-erreur" role="alert">
+                    <p>{{ errorMessage }}</p>
+                </div>
+            } @else {
+                @for (recipe of recipes; track recipe._id) {
+                    <app-zone-recette-liste-recettes [recipes]="recipe"/>
+                } @empty {
+                    <p>Aucune recette trouvée.</p>
+                }
             }
         </section>
 

@@ -1,3 +1,7 @@
+@if (recipeError) {
+  <p class="error" role="alert">{{ recipeError }}</p>
+}
+
 <article class="page-details" *ngIf="recipe">
   <a routerLink="/" aria-label="Retour à la liste des tickets" id="">← Retour</a>
   <h2>Détails de la recette</h2>
@@ -110,7 +114,9 @@
     <h3>Commentaires</h3>
 
     <div aria-live="polite" id="commentaires">
-      @if (commentaires.length > 0) {
+      @if (commentairesError) {
+        <p class="error" role="alert">{{ commentairesError }}</p>
+      } @else if (commentaires.length > 0) {
         @for (commentaire of commentaires; track commentaire._id) {
           <app-commentaire 
           [commentaire]="commentaire" 

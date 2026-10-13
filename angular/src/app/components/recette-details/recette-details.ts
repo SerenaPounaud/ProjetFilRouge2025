@@ -20,6 +20,9 @@ export class RecetteDetails {
   commentaires: any[] = [];
   currentUser: any = null;
 
+  recipeError: string | null = null;
+  commentairesError: string | null = null;
+
   constructor(
     private activatedRoute : ActivatedRoute, 
     private authService: AuthService, 
@@ -38,13 +41,27 @@ ngOnInit() {
   if (!id) return;
 
   //récupèration de la recette
-  this.recetteService.getRecipeById(id).subscribe((recette: any) => {
-    this.recipe = recette;
+  this.recetteService.getRecipeById(id).subscribe({
+    next: (recette:any) => {
+      this.recipe = recette;
+      this.recipeError = null;
+    },
+    error: (err) => {
+      console.error('Erreur lors du chargement de la recette', err);
+      this.recipeError = "Erreur lors du chargement de la recette. Veuillez réessayer.";
+    }
   });
 
   //récupèration des commentaires
-  this.commentairesService.getCommentairesByRecipe(id).subscribe((commentaires: any[]) => {
-    this.commentaires = commentaires;
+  this.commentairesService.getCommentairesByRecipe(id).subscribe({
+    next: (commentaires: any[]) => {
+      this.commentaires = commentaires;
+      this.commentairesError = null;
+    },
+    error: (err) => {
+      console.error('Erreur lors du chargement des commentaires', err);
+      this.commentairesError = "Erreur lors du chargement des commentaires.";
+    }
   });
 
   //vérification connexion
@@ -52,6 +69,7 @@ ngOnInit() {
     this.isConnected = status;
   });
 
+  //récupération de l'utilisateur courant
  this.authService.checkAuth().subscribe({ 
   next: (user) => { 
     this.currentUser = user; 
