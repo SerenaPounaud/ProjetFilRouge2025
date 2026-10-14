@@ -10,10 +10,6 @@
                 </button>
                 <input type="text" id="barre_recherche" placeholder="Rechercher par mots clés..." aria-label="Champ de recherche par mots clés">
             </form>
-                <div class="actualisation">
-                    <button id="btn_refresh" type="button">Actualiser les recettes</button>
-                    <span id="refresh_status" aria-live="polite" class="refresh_status"></span>
-                </div>
                 <div class="filtre">
                     <div>    
                         <label for="btn_personnes">Filtrer par : Personnes</label>
@@ -34,11 +30,12 @@
                             <option value="ancien">Ancien</option>
                         </select>
                     </div>
+                    <div class="reset">
+                        <button id="btn_reset" type="button" aria-label="Réinitialiser la recherche">Réinitialiser</button>
+                    </div>
+                        
                 </div>
-                <div class="reset">
-                    <button id="btn_reset" type="button" aria-label="Réinitialiser la recherche">Réinitialiser</button>
-                </div>
-        </div>
+    </div>
 
         <section class="recettes" id="recettes">
             @if (isLoading) {
@@ -56,10 +53,12 @@
             }
         </section>
 
+
         <div class="pagination">
-            <button (click)="previousPage()" [disabled]="page === 1">Précédent</button>
-            <span>Page {{page}} / {{totalPages}}</span>
-            <button (click)="nextPage()" [disabled]="page === totalPages">Suivant</button>
+            <button (click)="previousPage()" [disabled]="page === 1" aria-label="Page précédente" title="Page précédente">←</button>
+            <span>Page {{ page }} / {{ totalPages }}</span>
+            <button (click)="nextPage()" [disabled]="page >= totalPages" aria-label="Page suivante" title="Page suivante">→</button>
         </div>
+
     </div>
 </section>

@@ -1,3 +1,8 @@
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
 .li_aside h2 {
   margin: 2%;
   text-align: center;
@@ -27,6 +32,9 @@
 .li_aside {
   padding-right: 10%;
 }
+.li_aside ul{
+  padding: revert;
+}
 .li_aside li {
   margin: 30%;
 }
@@ -38,5 +46,8 @@
 .li_aside li:hover {
   color: #c62828;
   cursor: pointer;
+}
+ul {
+  display: initial;
 }
 }
