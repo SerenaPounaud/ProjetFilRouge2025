@@ -13,7 +13,7 @@
                 <div class="filtre">
                     <div>    
                         <label for="btn_personnes">Filtrer par : Personnes</label>
-                        <select id="btn_personnes">
+                        <select id="btn_personnes" [(ngModel)]="nbPersonnes" (change)="applyFilters()">
                             <option value="">Toutes les recettes</option>
                             <option value="1">Pour 1 personne</option>
                             <option value="2">Pour 2 personnes</option>
@@ -24,14 +24,14 @@
                     </div> 
                     <div>
                         <label for="btn_date">Filtrer par : Date</label>
-                        <select id="btn_date">
+                        <select id="btn_date" [(ngModel)]="dateTri" (change)="applyFilters()">
                             <option value="">Aucun tri</option>
                             <option value="recent">Récent</option>
                             <option value="ancien">Ancien</option>
                         </select>
                     </div>
                     <div class="reset">
-                        <button id="btn_reset" type="button" aria-label="Réinitialiser la recherche">Réinitialiser</button>
+                        <button id="btn_reset" type="button" aria-label="Réinitialiser la recherche" (click)="resetFilters()">Réinitialiser</button>
                     </div>
                         
                 </div>

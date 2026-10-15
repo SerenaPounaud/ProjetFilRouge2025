@@ -10,10 +10,16 @@ export class RecetteService {
 
   constructor(private httpClient: HttpClient){}
   // tab des recettes || []
-  getAllRecipes(page: number, limit:number, category?: string){ //? = optionnel
+  getAllRecipes(page: number, limit:number, category?: string, nbPersonnes?: string, dateTri?: string){ //? = optionnel
     let url = `${this.recetteURL}?page=${page}&limit=${limit}`; //url de l'api
     if (category) {
       url += `&categorie=${encodeURIComponent(category)}`; //encode correctement et l'ajoute à l'url
+    }
+    if (nbPersonnes) {
+      url += `&nbPersonnes=${encodeURIComponent(nbPersonnes)}`;
+    }
+    if (dateTri) {
+      url += `&dateTri=${encodeURIComponent(dateTri)}`;
     }
     return this.httpClient.get<any>(url);
   }

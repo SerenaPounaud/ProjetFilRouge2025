@@ -41,7 +41,7 @@ export const importMeals = async (req, res, next) => {
                     instructions: meal.strInstructions,
                     ingredients: extractIngredients(meal),
                     temps: 0,
-                    nbPersonnes: 1,
+                    nbPersonnes: Math.floor(Math.random() * 10) + 1, //nombre aléatoire de personnes entre 1 et 10
                     categorie: meal.strCategory || null,
                     motsCles: [],
                     tags: meal.strTags ? meal.strTags.split(',') : [],

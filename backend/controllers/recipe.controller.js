@@ -32,13 +32,30 @@ export const getAllRecipes = async (req, res, next) => {
         const limit = parseInt(req.query?.limit) || 16;
         const skip = (page - 1) * limit; //calcul le nombre de document à ignorer pour la pagination
         const categorie = req.query?.categorie;
+        const nbPersonnes = req.query?.nbPersonnes;
+        const dateTri = req.query?.dateTri;
         const filter = {};
 
         if (categorie) {
             filter.categorie = categorie;        
         }
+        if (nbPersonnes === 'plus5') {
+            filter.nbPersonnes = { $gt: 5 }; //filtre les recettes avec plus de 5 personnes
+        } else if (nbPersonnes) {
+            const nombre = Number(nbPersonnes);
+            if ([1, 2, 3, 4].includes(nombre)) {
+                filter.nbPersonnes = nombre; //filtre les recettes avec le nombre de personnes spécifié
+            }
+        }
+        let sort = {};
+        if (dateTri === 'recent') {
+            sort = {createdAt: -1}; 
+        } else if (dateTri === 'ancien') {
+            sort = {createdAt: 1};
+        }
+
         //remplace l'ID stocké dans userID par les informations complètes de l'utilisateur correspondant
-        const recipes = await Recipe.find(filter).populate("user", "lastname firstname").skip(skip).limit(limit); 
+        const recipes = await Recipe.find(filter).populate("user", "lastname firstname").sort(sort).skip(skip).limit(limit); 
         const total = await Recipe.countDocuments(filter); //compte le nombre total de documents
         res.json({data: recipes, page, totalPages: Math.ceil(total/limit), totalItems: total});
     } catch (error) {
