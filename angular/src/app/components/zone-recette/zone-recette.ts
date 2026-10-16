@@ -28,13 +28,10 @@ export class ZoneRecette {
     this.loadRecipes();
   }
 
-  filterByCategory(category: string): void {
-    this.category = category;
-    this.page = 1;
-    this.loadRecipes();
-  }
-
-  applyFilters(): void {
+  applyFilters(category?: string): void {
+    if (category !== undefined) {
+      this.category = category;
+    }
     this.page = 1; // Réinitialiser la page à 1 lors de l'application des filtres
     this.loadRecipes();
   }
@@ -65,6 +62,7 @@ export class ZoneRecette {
     this.nbPersonnes = '';
     this.dateTri = '';
     this.page = 1;
+    this.category = '';
     this.loadRecipes();
   }
 

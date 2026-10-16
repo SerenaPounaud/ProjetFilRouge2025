@@ -1,6 +1,6 @@
 <section class="middleIndex">
 
-    <app-zone-recette-categories (categorySelected)="filterByCategory($event)"/>
+    <app-zone-recette-categories (categorySelected)="applyFilters($event)"/>
 
     <div class="zone_recettes">
         <div class="zone_recherche">
@@ -19,7 +19,7 @@
                             <option value="2">Pour 2 personnes</option>
                             <option value="3">Pour 3 personnes</option>
                             <option value="4">Pour 4 personnes</option>
-                            <option value="plus5">+ de 5 personnes</option>
+                            <option value="plus5">5 personnes ou plus</option>
                         </select>
                     </div> 
                     <div>

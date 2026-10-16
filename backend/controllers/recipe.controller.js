@@ -28,36 +28,45 @@ export const addRecipe = async (req, res, next) => {
 //Voir toutes les recettes
 export const getAllRecipes = async (req, res, next) => {
     try {
-        const page = parseInt(req.query?.page) || 1; //récupère param page convertit en entier
-        const limit = parseInt(req.query?.limit) || 16;
+        const pageParam = req.query?.page; //récupère param page
+        const limitParam = req.query?.limit; //recette par page
+        
+        //valeur par défaut
+        const page = pageParam === undefined ? 1 : Number(pageParam);
+        const limit = limitParam === undefined ? 16 : Number(limitParam);
+
+        if (!Number.isInteger(page) || page < 1 || !Number.isInteger(limit) || limit < 1 || limit > 100) {
+            return res.status(400).json({message: "Les paramètres de page et limit doivent être des entiers positifs. La limite est de 100 maximum."});
+        }
+
         const skip = (page - 1) * limit; //calcul le nombre de document à ignorer pour la pagination
         const categorie = req.query?.categorie;
         const nbPersonnes = req.query?.nbPersonnes;
         const dateTri = req.query?.dateTri;
-        const filter = {};
+        const filter = {}; //objet vide pour stocker les filtres
 
         if (categorie) {
             filter.categorie = categorie;        
         }
         if (nbPersonnes === 'plus5') {
-            filter.nbPersonnes = { $gt: 5 }; //filtre les recettes avec plus de 5 personnes
+            filter.nbPersonnes = { $gte: 5 }; //filtre les recettes => à 5 personnes via l'opérateur
         } else if (nbPersonnes) {
             const nombre = Number(nbPersonnes);
-            if ([1, 2, 3, 4].includes(nombre)) {
+            if ([1, 2, 3, 4].includes(nombre)) { //vérifie si le nombre est compris entre 1 et 4
                 filter.nbPersonnes = nombre; //filtre les recettes avec le nombre de personnes spécifié
             }
         }
         let sort = {};
         if (dateTri === 'recent') {
-            sort = {createdAt: -1}; 
+            sort = {createdAt: -1}; //tri décroissant
         } else if (dateTri === 'ancien') {
             sort = {createdAt: 1};
         }
 
-        //remplace l'ID stocké dans userID par les informations complètes de l'utilisateur correspondant
+        //récupère les recettes avec les filtres, tri, pagination et le champ user avec lastname et firstname
         const recipes = await Recipe.find(filter).populate("user", "lastname firstname").sort(sort).skip(skip).limit(limit); 
         const total = await Recipe.countDocuments(filter); //compte le nombre total de documents
-        res.json({data: recipes, page, totalPages: Math.ceil(total/limit), totalItems: total});
+        res.json({data: recipes, page, totalPages: Math.ceil(total/limit), totalItems: total}); //arrondit à l'entier supérieur
     } catch (error) {
         next(error);
     }
