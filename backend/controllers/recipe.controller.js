@@ -10,7 +10,6 @@ export const addRecipe = async (req, res, next) => {
             nbPersonnes: req.body.nbPersonnes,
             ingredients: req.body.ingredients,
             instructions: req.body.instructions,
-            motsCles: req.body.motsCles,
             categorie: req.body.categorie,
             tags: req.body.tags,
             source: "local",
@@ -43,6 +42,7 @@ export const getAllRecipes = async (req, res, next) => {
         const categorie = req.query?.categorie;
         const nbPersonnes = req.query?.nbPersonnes;
         const dateTri = req.query?.dateTri;
+        const tag = req.query?.tags;
         const filter = {}; //objet vide pour stocker les filtres
 
         if (categorie) {
@@ -61,6 +61,13 @@ export const getAllRecipes = async (req, res, next) => {
             sort = {createdAt: -1}; //tri décroissant
         } else if (dateTri === 'ancien') {
             sort = {createdAt: 1};
+        }
+
+        if(tag) {
+            filter.tags = {
+                $regex: tag, 
+                $options: "i" //insensible à la casse
+            };
         }
 
         //récupère les recettes avec les filtres, tri, pagination et le champ user avec lastname et firstname
@@ -122,7 +129,6 @@ export const updateRecipe = async (req, res, next) => {
         recipe.nbPersonnes = req.body.nbPersonnes;
         recipe.ingredients = req.body.ingredients;
         recipe.instructions = req.body.instructions;
-        recipe.motsCles = req.body.motsCles;
         recipe.categorie = req.body.categorie;
         recipe.tags = req.body.tags;
         

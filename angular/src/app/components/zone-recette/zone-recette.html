@@ -4,11 +4,17 @@
 
     <div class="zone_recettes">
         <div class="zone_recherche">
-            <form class="barre_recherche" role="search"> <!--barre de recherche pour rechercher par mots clés + nb de personnes-->
+            <form class="barre_recherche" role="search" (ngSubmit)="applyFilters()">
                 <button type="submit" id="btn_recherche" aria-label="Rechercher une recette">
                     <img src="assets/img/loupe.svg" height="15px" alt="Loupe de recherche" aria-hidden="true">
                 </button>
-                <input type="text" id="barre_recherche" placeholder="Rechercher par mots clés..." aria-label="Champ de recherche par mots clés">
+                <input 
+                type="text" 
+                name="tag" id="barre_recherche" 
+                [(ngModel)]="tag" 
+                placeholder="Rechercher par mots clés..." 
+                aria-label="Champ de recherche par mots clés"
+                maxLength = "20">
             </form>
                 <div class="filtre">
                     <div>    

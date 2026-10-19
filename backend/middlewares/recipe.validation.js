@@ -41,7 +41,7 @@ export const validateRecipe = (req, res, next) => {
             "string.max" : "Maximum 60 000 caractères",
             "any.required": "Instructions obligatoire"
         }),
-        motsCles: Joi.array()
+        tags: Joi.array()
             .items(
                 Joi.string().min(3).max(30).messages({
                     "string.base": "Chaque mot-clé doit être une chaîne de caractères",

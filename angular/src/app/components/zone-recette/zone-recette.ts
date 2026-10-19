@@ -18,6 +18,7 @@ export class ZoneRecette {
   category = '';
   nbPersonnes = '';
   dateTri = '';
+  tag = '';
 
   errorMessage: string | null = null;
   isLoading = false;
@@ -32,7 +33,7 @@ export class ZoneRecette {
     if (category !== undefined) {
       this.category = category;
     }
-    this.page = 1; // Réinitialiser la page à 1 lors de l'application des filtres
+    this.page = 1; //réinitialiser la page à 1 lors de l'application des filtres
     this.loadRecipes();
   }
 
@@ -41,10 +42,10 @@ export class ZoneRecette {
     this.isLoading = true;
     this.errorMessage = null; //efface une éventuelle erreur précédente
 
-    this.RecetteService.getAllRecipes(this.page, this.limit, this.category, this.nbPersonnes, this.dateTri).subscribe({
+    this.RecetteService.getAllRecipes(this.page, this.limit, this.category, this.nbPersonnes, this.dateTri, this.tag).subscribe({
       next: (res) => {
         // Les recettes reçues
-        this.recipes = [...res.data].sort(() => Math.random() - 0.5); //mélange aléatoire des recettes
+        this.recipes = res.data;
         // Nombre total de pages
         this.totalPages = res.totalPages;
         this.isLoading = false;
@@ -75,6 +76,7 @@ export class ZoneRecette {
     this.dateTri = '';
     this.page = 1;
     this.category = '';
+    this.tag = '';
     this.loadRecipes();
   }
 

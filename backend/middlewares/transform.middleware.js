@@ -47,16 +47,16 @@ export const transformRecipe = (req, res, next) => {
         body.instructions = body.instructions.trim();
     }
 
-    //motsCles : nettoyage tableau
-    if (body.motsCles) {
-        if (typeof body.motsCles === "string") {
-            body.motsCles = [body.motsCles];
+    //tags : nettoyage tableau
+    if (body.tags) {
+        if (typeof body.tags === "string") {
+            body.tags = [body.tags];
         }
 
-        if (Array.isArray(body.motsCles)) {
-            body.motsCles = body.motsCles
-            .map(mot => mot.trim().toLowerCase())
-            .filter(mot => mot !== "");
+        if (Array.isArray(body.tags)) {
+            body.tags = body.tags
+            .map(tag => tag.trim().toLowerCase())
+            .filter(tag => tag !== "");
         }
     }
     next();

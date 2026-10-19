@@ -15,7 +15,6 @@ const recipeSchema = new Schema(
         },
         ingredients: {type: [String], default: []},
         instructions: {type: String, default: null},
-        motsCles: {type: [String], default: []},
         categorie: {type: String, default: null},
         tags: {type: [String], default: []},
         source: {

@@ -13,7 +13,7 @@ export class ProfilRecettesForm {
   selectedFile?: File; //img selectionnée, file ou undifined(optionnel)
   previewImg: string | ArrayBuffer | null = null; //aperçu img,(arraybuffer = binaire brut/pdf/audio)
   ingredientsList: string[] = [];
-  motsClesList: string[] = [];
+  tagsList: string[] = [];
 
   @Input() recette: any; //permet d'envoyer une recette
   @ViewChild('fileInput') fileInput!: ElementRef; //récupère l'élément du template
@@ -29,7 +29,7 @@ export class ProfilRecettesForm {
     nbPersonnes: [1, [Validators.required, Validators.min(1), Validators.max(10)]],
     ingredients: ['', [Validators.maxLength(20)]],
     instructions: ['', [Validators.required, Validators.maxLength(60000)]],
-    motsCles: ['', [Validators.maxLength(20), Validators.minLength(3)]],
+    tags: ['', [Validators.maxLength(20), Validators.minLength(3)]],
   });
 }
   // gestion img
@@ -61,21 +61,21 @@ removeIngredient(i: number): void {
 };
 
 // gestion liste mots clés
-addMotCle(): void {
-  const value = this.addRecipeForm.value.motsCles?.trim();
+addTag(): void {
+  const value = this.addRecipeForm.value.tags?.trim();
 
-  if (value && !this.motsClesList.includes(value)) {
-    this.motsClesList.push(value);
-    this.addRecipeForm.patchValue({ motsCles: '' });
+  if (value && !this.tagsList.includes(value)) {
+    this.tagsList.push(value);
+    this.addRecipeForm.patchValue({ tags: '' });
   }
 };
-removeMotCle(i: number): void {
-  this.motsClesList.splice(i, 1);
+removeTag(i: number): void {
+  this.tagsList.splice(i, 1);
 };
 
 // validation form
 formValid(): boolean {
-  return this.addRecipeForm.valid && this.ingredientsList.length > 0 && this.motsClesList.length > 0 && !!this.previewImg; //convertit en boolean
+  return this.addRecipeForm.valid && this.ingredientsList.length > 0 && this.tagsList.length > 0 && !!this.previewImg; //convertit en boolean
 };
 
 // reset formulaire
@@ -87,7 +87,7 @@ resetForm(): void {
   });
   //vide les listes + img
   this.ingredientsList = [];
-  this.motsClesList = [];
+  this.tagsList = [];
   this.previewImg = null;
   this.selectedFile = undefined;
   if (this.fileInput) {
@@ -109,7 +109,7 @@ addRecipe(): void {
     nbPersonnes: form.nbPersonnes,
     ingredients: this.ingredientsList,
     instructions: form.instructions,
-    motsCles: this.motsClesList
+    tags: this.tagsList
   };
   this.recipeCreated.emit({
     recipe: newRecipe
@@ -133,7 +133,7 @@ ngOnChanges(changes: SimpleChanges): void { //détecte les changements des @Inpu
     });
 
     this.ingredientsList = [...this.recette.ingredients]; //copie le tab original
-    this.motsClesList = [...this.recette.motsCles];
+    this.tagsList = [...this.recette.tags];
 
     this.previewImg = this.recette.img; //réaffiche l’img actuelle dans le formulaire lorsqu’on édite
   }

@@ -106,24 +106,24 @@
 
 <div class="divMotsCles">
     <div class="inputMotsCles">
-        <label for="motsCles">Mots clés (un par un)</label>
-        <input type="text" formControlName="motsCles"  id="motsCles" name="motsCles" placeholder="Ex : Fromage" minlength="3" maxlength="20" autocomplete="off">
-            @if(motsClesList.length === 0 && (addRecipeForm.get('motsCles')?.touched || addRecipeForm.get('motsCles')?.dirty)) {
+        <label for="tags">Mots clés (un par un)</label>
+        <input type="text" formControlName="tags"  id="tags" name="tags" placeholder="Ex : Fromage" minlength="3" maxlength="20" autocomplete="off">
+            @if(tagsList.length === 0 && (addRecipeForm.get('tags')?.touched || addRecipeForm.get('tags')?.dirty)) {
             <div class="error">Ajoutez au moins un mot clé</div>
             }
-            @if(addRecipeForm.get('motsCles')?.errors?.['maxlength']) {
+            @if(addRecipeForm.get('tags')?.errors?.['maxlength']) {
                 <div class="error">Maximum 20 caractères par mot clé</div>
-                } @else if (addRecipeForm.get('motsCles')?.errors?.['minlength']) {
+                } @else if (addRecipeForm.get('tags')?.errors?.['minlength']) {
                 <div class="error">Minimum 3 caractères</div>
             }
-        <button type="button" (click)="addMotCle()" id="btnMotsCles" aria-label="Ajouter un mot clé">Ajouter</button>
+        <button type="button" (click)="addTag()" id="btnMotsCles" aria-label="Ajouter un mot clé">Ajouter</button>
     </div>
     <div class="listeMotsCles">
         <ul>
-            @for(motCle of motsClesList; track motCle; let i = $index){
+            @for(motCle of tagsList; track motCle; let i = $index){
                 <li>
                     {{ motCle }}
-                    <button type="button" (click)="removeMotCle(i)">X</button>
+                    <button type="button" (click)="removeTag(i)">X</button>
                 </li>
             }
         </ul>
