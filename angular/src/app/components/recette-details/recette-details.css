@@ -1,6 +1,8 @@
 .error {
   color: red;
   font-size: clamp(10px, 2vw, 20px);
+  text-align: center;
+  padding: 3%;
 }
 header, footer {
     min-height: 100px;
@@ -12,23 +14,13 @@ body {
   margin: 0;
   padding: 0;
 }
-/*#toast {
-  font-size: clamp(8px, 2vw, 20px);
-  bottom: 10%;
-  right: 34%;
-  position: fixed;
-  background: #333;
-  color: white;
-  padding: 12px 18px;
-  border-radius: 8px;
-  pointer-events: none; 
-  opacity: 0;
-  z-index: 1000;
-}*/
-a {
+#lienRetour {
     text-decoration: none;
     color: black;
     font-size: clamp(10px, 2vw, 20px);
+}
+#lienRetour:hover {
+    color: #c62828;
 }
 h2 {
     text-align: center;
@@ -111,7 +103,7 @@ h2 {
   cursor: pointer;
 }
 .btnDetails:hover {
-  color: red;
+  color: #c62828;
 }
 .instructions {
     flex: 2;

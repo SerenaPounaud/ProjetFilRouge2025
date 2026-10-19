@@ -44,7 +44,7 @@ export class ZoneRecette {
     this.RecetteService.getAllRecipes(this.page, this.limit, this.category, this.nbPersonnes, this.dateTri).subscribe({
       next: (res) => {
         // Les recettes reçues
-        this.recipes = res.data;
+        this.recipes = [...res.data].sort(() => Math.random() - 0.5); //mélange aléatoire des recettes
         // Nombre total de pages
         this.totalPages = res.totalPages;
         this.isLoading = false;
@@ -58,6 +58,18 @@ export class ZoneRecette {
       }
     });
   }
+
+  //défilement vers la section des recettes
+  scrollToRecipes(): void {
+    const element = document.getElementById('recettes');
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  }
+
   resetFilters(): void {
     this.nbPersonnes = '';
     this.dateTri = '';
@@ -71,12 +83,14 @@ export class ZoneRecette {
     if (this.page < this.totalPages){
       this.page++;
       this.loadRecipes();
+      this.scrollToRecipes();
     }
   }
   previousPage(){
     if (this.page > 1) {
       this.page--;
       this.loadRecipes();
+      this.scrollToRecipes();
     }
   }
 }

@@ -35,30 +35,30 @@
                     </div>
                         
                 </div>
-    </div>
-
-        <section class="recettes" id="recettes">
-            @if (isLoading) {
-                <p role="status">Chargement des recettes...</p>
-            } @else if (errorMessage) {
-                <div class="message-erreur" role="alert">
-                    <p>{{ errorMessage }}</p>
-                </div>
-            } @else {
-                @for (recipe of recipes; track recipe._id) {
-                    <app-zone-recette-liste-recettes [recipes]="recipe"/>
-                } @empty {
-                    <p>Aucune recette trouvée.</p>
-                }
-            }
-        </section>
-
-
-        <div class="pagination">
-            <button (click)="previousPage()" [disabled]="page === 1" aria-label="Page précédente" title="Page précédente">←</button>
-            <span>Page {{ page }} / {{ totalPages }}</span>
-            <button (click)="nextPage()" [disabled]="page >= totalPages" aria-label="Page suivante" title="Page suivante">→</button>
         </div>
+
+    <section class="recettes" id="recettes">
+        @if (isLoading) {
+            <p role="status">Chargement des recettes...</p>
+        } @else if (errorMessage) {
+            <div class="message-erreur" role="alert">
+                <p>{{ errorMessage }}</p>
+            </div>
+        } @else {
+            @for (recipe of recipes; track recipe._id) {
+                <app-zone-recette-liste-recettes [recipes]="recipe"/>
+            } @empty {
+                <p>Aucune recette trouvée.</p>
+            }
+        }
+    </section>
+
+
+    <div class="pagination">
+        <button (click)="previousPage()" [disabled]="page === 1" aria-label="Page précédente" title="Page précédente">←</button>
+        <span>Page {{ page }} / {{ totalPages }}</span>
+        <button (click)="nextPage()" [disabled]="page >= totalPages" aria-label="Page suivante" title="Page suivante">→</button>
+    </div>
 
     </div>
 </section>
