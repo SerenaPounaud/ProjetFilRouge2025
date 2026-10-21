@@ -8,8 +8,9 @@ import { RecetteService } from '../../services/recette-service';
   styleUrl: './zone-recette-categories.css',
 })
 export class ZoneRecetteCategories {
-  categories: any[] = [];
+  categories: string[] = [];
   @Output() categorySelected = new EventEmitter<string>();
+  selectedCategory = '';
   
   private recetteService = inject(RecetteService);
 
@@ -25,6 +26,11 @@ export class ZoneRecetteCategories {
   };
 
   selectCategory(category : string): void {
-    this.categorySelected.emit(category);
+    this.selectedCategory = category;
+    this.categorySelected.emit(category); //envoie au parent
+  }
+
+  resetCategory(): void {
+    this.selectedCategory = '';
   }
 }

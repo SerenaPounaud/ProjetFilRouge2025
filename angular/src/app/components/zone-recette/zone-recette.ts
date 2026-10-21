@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { ZoneRecetteListeRecettes } from '../zone-recette-liste-recettes/zone-recette-liste-recettes';
 import { ZoneRecetteCategories} from '../zone-recette-categories/zone-recette-categories';
 import { RecetteService } from '../../services/recette-service';
@@ -22,6 +22,9 @@ export class ZoneRecette {
 
   errorMessage: string | null = null;
   isLoading = false;
+
+  //permet au parent d'accéder à la méthode resetCategory() du composant enfant ZoneRecetteCategories
+  @ViewChild(ZoneRecetteCategories) zoneRecetteCategories!: ZoneRecetteCategories;
 
   private RecetteService = inject(RecetteService);
   
@@ -77,6 +80,7 @@ export class ZoneRecette {
     this.page = 1;
     this.category = '';
     this.tag = '';
+    this.zoneRecetteCategories.resetCategory();
     this.loadRecipes();
   }
 

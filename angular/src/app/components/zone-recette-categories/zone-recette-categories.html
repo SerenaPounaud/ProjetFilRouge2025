@@ -2,7 +2,10 @@
   <h2>Recettes</h2>
   <ul>
     @for (category of categories; track category) {
-      <li (click)="selectCategory(category)">
+      <li 
+      (click)="selectCategory(category)" 
+      [class.active]="selectedCategory === category" 
+      [attr.aria-current]="selectedCategory === category ? 'true' : null">
           {{ category }}
       </li>
     }
