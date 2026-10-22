@@ -12,12 +12,11 @@
 }
 .nav-droite {
   gap: 20px;
-  padding: 3%;
 }
 header { 
   margin-bottom: 30px;
 }
-header a:not(.inscrire):not(.logout):hover {
+header a:not(.sign-up):not(.logout):hover {
   color: #c62828;
 }
 nav {
@@ -40,38 +39,26 @@ nav a {
   text-decoration: none;
   cursor: pointer;
 }
-nav a:not(.inscrire) {
+nav a:not(.sign-up) {
   color: black;
 }
-.loupe  {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-.loupe:hover {
-  transform: scale(1.5);
-}
-.imgLoupe {
-  height: clamp(10px, 3vw, 40px);
-}
-.inscrire, .logout {
+.sign-up, .logout {
   border-radius: 30px;
   color: white;
   background-color: #c62828;
   padding: 3% 5%;
   text-decoration: none;
 }
-.inscrire:hover, .logout:hover {
+.sign-up:hover, .logout:hover {
   opacity: 0.7;
+}
+.sign-in {
+  line-height: normal;
 }
 
 @media (min-width: 800px) {
-.nav-centre, .nav-gauche {
+.nav-centre, .nav-gauche, .nav-droite {
   justify-content: space-evenly;
-}
-.nav-droite {
-  justify-content: space-between;
 }
 }
 

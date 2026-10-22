@@ -45,7 +45,7 @@
 
     <section class="recettes" id="recettes">
         @if (isLoading) {
-            <p role="status">Chargement des recettes...</p>
+            <p role="status" class="loadingRecipes">Chargement des recettes...</p>
         } @else if (errorMessage) {
             <div class="message-erreur" role="alert">
                 <p>{{ errorMessage }}</p>

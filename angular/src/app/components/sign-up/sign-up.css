@@ -2,7 +2,12 @@
   display: flex;
   justify-content: center;
 }
-
+.error {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 4px;
+  text-align: center;
+}
 /*zone droite*/
 .imgDroite p a {
   text-decoration: none;
@@ -49,16 +54,13 @@ h1, h2 {
   flex-direction: column;
   display: flex;
   align-items: center;
+  gap: clamp(10px, 2vw, 20px);
 }
 .formInsc input:not(#cgu) {
   border-radius: 30px;
   padding: 2%;
   border: solid rgb(184, 184, 184) 1px;
   text-align: center;
-  margin: 1%;
-}
-.formInsc label {
-  margin: 1%;
 }
 .divCgu {
   display: flex;

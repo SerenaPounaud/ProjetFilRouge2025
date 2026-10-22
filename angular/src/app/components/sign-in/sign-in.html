@@ -23,11 +23,11 @@
                 <input type="email" id="email" name="email" formControlName="email" placeholder="exemple@gmail.fr" maxlength="150" autocomplete="email">
                 @if(signInForm.get('email')?.invalid && (signInForm.get('email')?.touched || signInForm.get('email')?.dirty)) {
                    @if(signInForm.get('email')?.errors?.['required']){
-                    <div>Ce champ est obligatoire</div>
+                    <div class="error">Ce champ est obligatoire</div>
                     } @else if (signInForm.get('email')?.errors?.['maxlength']) {
-                        <div>Maximum 150 caractères</div>
+                        <div class="error">Maximum 150 caractères</div>
                     } @else if (signInForm.get('email')?.errors?.['email']) {
-                        <div>Entrer un email correct. Exemple : exemple@gmail.fr</div>
+                        <div class="error">Entrer un email correct. Exemple : exemple@gmail.fr</div>
                     } 
                 }
 
@@ -35,13 +35,13 @@
                 <input type="password" id="password" name="password" formControlName="password" placeholder="Min 8 caractères" maxlength="20" autocomplete="current-password">
                 @if(signInForm.get('password')?.invalid && (signInForm.get('password')?.touched || signInForm.get('password')?.dirty)) {
                    @if(signInForm.get('password')?.errors?.['required']){
-                    <div>Ce champ est obligatoire</div>
+                    <div class="error">Ce champ est obligatoire</div>
                     } @else if (signInForm.get('password')?.errors?.['maxlength'] || signInForm.get('password')?.errors?.['minlength']) {
-                        <div>Le mot de passe doit être entre 8 et 20 caractères</div>
+                        <div class="error">Le mot de passe doit contenir 8 à 20 caractères</div>
                     }
                 }
 
-                <button type="submit" id="btn_connexion" [disabled]="signInForm.invalid" (click)="signIn()">Se connecter</button>
+                <button type="submit" id="btn_connexion" [disabled]="signInForm.invalid">Se connecter</button>
                 
                 <a class="faux-lien">Mot de passe oublié ?</a>
             </form>

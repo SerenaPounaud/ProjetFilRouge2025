@@ -36,6 +36,7 @@ export class ZoneRecette {
     if (category !== undefined) {
       this.category = category;
     }
+    this.tag = this.tag.trim();
     this.page = 1; //réinitialiser la page à 1 lors de l'application des filtres
     this.loadRecipes();
   }

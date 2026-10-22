@@ -22,9 +22,9 @@
                 <input type="text" formControlName="lastname" id="lastname" name="lastname" placeholder="Votre nom" maxlength="50" autocomplete="name">
                 @if(signUpForm.get('lastname')?.invalid && (signUpForm.get('lastname')?.touched || signUpForm.get('lastname')?.dirty)) {
                    @if(signUpForm.get('lastname')?.errors?.['required']){
-                    <div>Ce champ est obligatoire</div>
+                    <div class="error">Ce champ est obligatoire</div>
                     } @else if (signUpForm.get('lastname')?.errors?.['maxlength']) {
-                        <div>Maximum 50 caractères</div>
+                        <div class="error">Maximum 50 caractères</div>
                     }  
                 }
 
@@ -32,9 +32,9 @@
                 <input type="text" formControlName="firstname" id="firstname" name="firstname" placeholder="Votre prénom" maxlength="50" autocomplete="given-name">
                 @if(signUpForm.get('firstname')?.invalid && (signUpForm.get('firstname')?.touched || signUpForm.get('firstname')?.dirty)) {
                    @if(signUpForm.get('firstname')?.errors?.['required']){
-                    <div>Ce champ est obligatoire</div>
+                    <div class="error">Ce champ est obligatoire</div>
                     } @else if (signUpForm.get('firstname')?.errors?.['maxlength']) {
-                        <div>Maximum 50 caractères</div>
+                        <div class="error">Maximum 50 caractères</div>
                     }  
                 }
                 
@@ -42,9 +42,9 @@
                 <input type="email" formControlName="email" id="email" name="email" placeholder="exemple@gmail.fr" maxlength="150" autocomplete="email">
                 @if(signUpForm.get('email')?.invalid && (signUpForm.get('email')?.touched || signUpForm.get('email')?.dirty)) {
                    @if(signUpForm.get('email')?.errors?.['required']){
-                    <div>Ce champ est obligatoire</div>
+                    <div class="error">Ce champ est obligatoire</div>
                     } @else if (signUpForm.get('email')?.errors?.['email']) {
-                        <div>Entrer un email correct. Exemple : exemple@gmail.fr</div>
+                        <div class="error">Entrer un email correct. Exemple : exemple@gmail.fr</div>
                     } 
                 }
 
@@ -52,9 +52,9 @@
                 <input type="password" formControlName="password" id="password" name="password" placeholder="Min 8 caractères" maxlength="20" autocomplete="new-password">
                 @if(signUpForm.get('password')?.invalid && (signUpForm.get('password')?.touched || signUpForm.get('password')?.dirty)) {
                    @if(signUpForm.get('password')?.errors?.['required']){
-                    <div>Ce champ est obligatoire</div>
+                    <div class="error">Ce champ est obligatoire</div>
                     } @else if (signUpForm.get('password')?.errors?.['maxlength'] || signUpForm.get('password')?.errors?.['minlength']) {
-                        <div>Le mot de passe doit être entre 8 et 20 caractères</div>
+                        <div class="error">Le mot de passe doit contenir 8 à 20 caractères</div>
                     }
                 }
 
@@ -64,7 +64,7 @@
                 </div>
                 @if(signUpForm.get('cgu')?.invalid && (signUpForm.get('cgu')?.touched || signUpForm.get('cgu')?.dirty)) {
                    @if(signUpForm.get('cgu')?.errors?.['requiredTrue']){
-                    <div>Veuillez accepter les conditions</div>
+                    <div class="error">Veuillez accepter les conditions</div>
                     } 
                 }
                 

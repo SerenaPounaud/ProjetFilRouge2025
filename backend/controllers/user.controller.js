@@ -48,11 +48,11 @@ export const signin = async (req, res, next) => {
 
          //vérifie user
          const user = await User.findOne({email:email}).select("+password"); //récupère le mot de passe hashé
-         if (!user) return res.status(404).json({message: "Email ou mot de passe incorrect"});
+         if (!user) return res.status(401).json({message: "Email ou mot de passe incorrect"});
 
          //compare password
          const isMatch = await bcrypt.compare(password, user.password);
-         if (!isMatch) return res.status(404).json({message: "Email ou mot de passe incorrect"});
+         if (!isMatch) return res.status(401).json({message: "Email ou mot de passe incorrect"});
 
         const token = jwt.sign(
             {userId: user._id, role: user.role},

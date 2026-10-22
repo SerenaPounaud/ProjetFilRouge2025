@@ -34,8 +34,8 @@ ngOnInit():void{
       this.authService.setExpiration(res.expiresAt);
       this.router.navigate(['profil']);
     },
-    error: () => {
-      alert("Email ou mot de passe incorrect");
+    error: (error) => {
+      alert(error.error?.message || "Une erreur est survenue");
     }
   });
     
