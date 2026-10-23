@@ -14,12 +14,20 @@
 .carte-recette:hover {
   transform: scale(1.1);
 }
-.carte-recette h2 {
-  text-align: center;
+.h2Recette {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  margin-bottom: clamp(2px, 2vw, 20px);
+  margin-top: clamp(2px, 2vw, 20px);
+}
+.h2Recette h2 {
   line-height: normal;
+  text-align: center;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   line-clamp: 2;
   overflow: hidden;
+  margin: 0;
 }

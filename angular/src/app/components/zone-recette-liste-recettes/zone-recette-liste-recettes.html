@@ -1,5 +1,7 @@
 <div class="carte-recette" (click)="voirRecette()">
-    <h2>{{ recipes.nomRecette }}</h2>
+    <div class="h2Recette">
+        <h2>{{ recipes.nomRecette }}</h2>
+    </div>
     <img [src]="recipes.img" [alt]="recipes.nomRecette">
     <p>Créée par : {{ recipes.user?.firstname }} {{ recipes.user?.lastname }}</p>
 </div>
