@@ -82,19 +82,80 @@ export const logout = (req, res) => {
 };
 
 //vérifie si user connecté
-export const me = (req, res) => {
-    const token = req.cookies.token; //récupère le cookie
-    if(!token) return res.status(200).json({authenticated: false});
-
+export const me = async (req, res, next) => {
     try {
+        const token = req.cookies.token; //récupère le cookie
+        if(!token) return res.status(401).json({authenticated: false});
+    
         const decoded = jwt.verify(token, process.env.JWT_SECRET); //vérifie token valide
+
+        //récupère les infos du l'user dans mongodb
+        const user = await User.findById(decoded.userId).select("lastname firstname email role");
+
+        if(!user) {
+            return res.status(404).json({message: "Utilisateur introuvable"});
+        }
 
         return res.status(200).json({
             authenticated: true,
-            userId: decoded.userId,
-            role: decoded.role
+            user: {
+                _id: user._id,
+                lastname: user.lastname,
+                firstname: user.firstname,
+                email: user.email,
+                role: user.role
+            }
         });
     } catch(error) {
-        return res.status(200).json({authenticated: false});
+        if ( //token invalide ou token expiré
+            error.name === "JsonWebTokenError" || error.name === "TokenExpiredError"
+        ) {
+            return res.status(401).json({authenticated: false});
+        }
+        return next(error);
+    }
+    
+};
+
+//Modifier un profil
+export const updateProfil = async (req, res, next) => {
+    try {
+        const {lastname, firstname, email, currentPassword, newPassword} = req.body;
+
+        const user = await User.findById(req.userId).select("+password");
+
+        if (!user) {
+            return res.status(404).json({ message: "Utilisateur introuvable" });
+        }
+        if (email && email !== user.email) {
+            const existingUser = await User.findOne({email, _id: {$ne: user._id}});
+            if (existingUser) {
+                return res.status(409).json({message: "Email déjà utilisé"});
+            }
+            user.email = email;
+        }
+        if (lastname) user.lastname = lastname;
+        if (firstname) user.firstname = firstname;
+        
+        if (newPassword) {            
+            const isMatch = await bcrypt.compare(currentPassword, user.password);
+            if (!isMatch) {
+                return res.status(400).json({message: "Le mot de passe actuel est incorrect"});
+            }
+            user.password = await bcrypt.hash(newPassword, 10);
+        }
+       
+        await user.save();
+        return res.status(200).json({message: "Profil modifiée", 
+            user: {
+            _id: user._id,
+            lastname: user.lastname,
+            firstname: user.firstname,
+            email: user.email,
+            role: user.role
+        }});
+
+    } catch (error) {
+        next(error);
     }
 };

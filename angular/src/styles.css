@@ -13,23 +13,10 @@ body {
   margin: 0;
   padding: 0 5%;
 }
-#toast {
-  font-size: clamp(8px, 2vw, 20px);
-  bottom: 10%;
-  right: 34%;
-  position: fixed;
-  background: #333;
-  color: white;
-  padding: 12px 18px;
-  border-radius: 8px;
-  pointer-events: none; 
-  opacity: 0;
-  z-index: 1000;
-}
 .robot {
   position: fixed;
   bottom: 20px;
-  right: 20px;
+  right: 80px;
   z-index: 1;
   background: none;
   cursor: pointer;

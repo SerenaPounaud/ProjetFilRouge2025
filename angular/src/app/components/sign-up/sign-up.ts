@@ -37,7 +37,6 @@ ngOnInit():void{ //s'exécute une seule fois, ne retourne aucune données
       this.router.navigate(['']);
     },
     error: (err) => {
-      console.log(err);
       const message = err.error?.errors?.join(', ') // transforme en string + virgule
       || err.error?.message || "Erreur lors de la création du compte";
       alert(message);

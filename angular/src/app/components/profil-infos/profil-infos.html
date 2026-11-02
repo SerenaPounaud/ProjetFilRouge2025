@@ -2,31 +2,59 @@
 <div class="profilDiv">       
     <div id='mes_infos'>
         <h2>Mes informations</h2>
-        <p>Nom : Séréna</p>
-        <p>Prénom : Pounaud</p>
-        <p>Email : exemple@gmail.fr</p>
+        <p>Nom : {{ user?.lastname }}</p>
+        <p>Prénom : {{ user?.firstname }}</p>
+        <p>Email : {{ user?.email }}</p>
         <p>Mot de passe : **********</p>
         <button type="submit" id="deleteAccount">Supprimer mon compte</button>
     </div>
-        <form action="#" method="POST" id="form_profil" novalidate> 
+        <form [formGroup]="profilFrom" (ngSubmit)="updateProfil()" method="POST" id="form_profil" novalidate> 
         <h2>Modifier mes informations</h2>
 
             <label for="lastname">Nom</label>
-            <input type="text" id="lastname" name="lastname" placeholder="Votre nom" maxlength="50" aria-describedby="lastname_error" autocomplete="name">
-            <div id="lastname_error" class="error-message" role="alert"></div>
+            <input type="text" id="lastname" formControlName="lastname" name="lastname" placeholder="Votre nom" maxlength="50" aria-describedby="lastname_error" autocomplete="family-name">
+            @if(profilFrom.get('lastname')?.invalid && (profilFrom.get('lastname')?.touched || profilFrom.get('lastname')?.dirty)) {
+                @if (profilFrom.get('lastname')?.errors?.['maxlength']) {
+                    <div class="error">Maximum 50 caractères</div>
+                }  
+            }
 
             <label for="firstname">Prénom</label>
-            <input type="text" id="firstname" name="firstname" placeholder="Votre prénom" maxlength="50" aria-describedby="firstname_error" autocomplete="given-name">
-            <div id="firstname_error" class="error-message" role="alert"></div>
+            <input type="text" id="firstname" formControlName="firstname" name="firstname" placeholder="Votre prénom" maxlength="50" aria-describedby="firstname_error" autocomplete="given-name">
+            @if(profilFrom.get('firstname')?.invalid && (profilFrom.get('firstname')?.touched || profilFrom.get('firstname')?.dirty)) {
+                @if (profilFrom.get('firstname')?.errors?.['maxlength']) {
+                    <div class="error">Maximum 50 caractères</div>
+                }  
+            }
 
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="exemple@gmail.fr" maxlength="150" aria-describedby="email_error" autocomplete="email">
-            <div id = "email_error" class="error-message" role="alert"></div>
+            <input type="email" id="email" formControlName="email" name="email" placeholder="exemple@gmail.fr" maxlength="150" aria-describedby="email_error" autocomplete="email">
+            @if(profilFrom.get('email')?.invalid && (profilFrom.get('email')?.touched || profilFrom.get('email')?.dirty)) {
+                @if (profilFrom.get('email')?.errors?.['maxlength']) {
+                    <div class="error">Maximum 150 caractères</div>
+                }  
+            }            
 
-            <label for="password">Mot de passe</label>
-            <input type="password" id="password" name="password" placeholder="Min 8 caractères" aria-describedby="password_error" maxlength="20" autocomplete="current-password">
-            <div id = "password_error" class="error-message" role="alert"></div>
-
-            <button [disabled]="isDisabled" type="submit" id="btn_info">Enregistrer</button>
+            <label for="currentPassword">Mot de passe actuel</label>
+            <input type="currentPassword" formControlName="currentPassword" id="currentPassword" name="currentPassword" placeholder="Mot de passe actuel" aria-describedby="password_error" maxlength="20" autocomplete="current-password">
+            
+            <label for="newPassword">Nouveau mot de passe</label>
+            <input type="newPassword" formControlName="newPassword" id="newPassword" name="newPassword" placeholder="Min 8 caractères" aria-describedby="password_error" maxlength="20" autocomplete="current-password">
+            @if(profilFrom.get('newPassword')?.invalid && (profilFrom.get('newPassword')?.touched || profilFrom.get('newPassword')?.dirty)) {
+                @if (profilFrom.get('newPassword')?.errors?.['maxlength']) {
+                    <div class="error">Maximum 20 caractères</div>
+                } @else if (profilFrom.get('newPassword')?.errors?.['minlength']) {
+                    <div class="error">Minimum 8 caractères</div>
+                } @else if (profilFrom.get('newPassword')?.errors?.['pattern']) {
+                    <div class="error">Le mot de passe doit contenir une majuscule, une minuscule et un chiffre</div>
+                }
+            } 
+            <button [disabled]="!formValid()" type="submit" id="btn_info">{{isSaving ? 'Enregistrement...' : 'Enregistrer'}}</button>
+            @if (message) {
+                <p class="succes" role="status">{{message}}</p>
+            }
+            @if (errorMessage) {
+                <p class="error" role="alert">{{errorMessage}}</p>
+            }
         </form>
 </div>

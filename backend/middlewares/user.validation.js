@@ -5,7 +5,6 @@ export const validateUser = (req, res, next) => {
         lastname: Joi.string().max(50).pattern(/^[a-zA-ZÀ-ÿ\s-]+$/).required().messages({
                 "string.base": "Le nom doit être une chaîne de caractère",
                 "string.empty": "Le nom est obligatoire",
-                "string.min": "Minimum 3 caractères",
                 "string.max": "Maximum 50 caractères",
                 "string.pattern.base": "Le nom contient des caractères non autorisés",
                 "any.required": "Le nom est obligatoire"
@@ -13,7 +12,6 @@ export const validateUser = (req, res, next) => {
         firstname: Joi.string().max(50).pattern(/^[a-zA-ZÀ-ÿ\s-]+$/).required().messages({
                 "string.base": "Le prénom doit être une chaîne de caractère",
                 "string.empty": "Le prénom est obligatoire",
-                "string.min": "Minimum 3 caractères",
                 "string.max": "Maximum 50 caractères",
                 "string.pattern.base": "Le prénom contient des caractères non autorisés",
                 "any.required": "Le prénom est obligatoire"
@@ -22,6 +20,7 @@ export const validateUser = (req, res, next) => {
         email: Joi.string().max(150).email({tlds: {allow: true}}).required().messages({ //extension de domaine
                 "string.base": "L'email doit être une chaîne de caractère",
                 "string.empty": "L'email est obligatoire",
+                "string.max": "Maximum 150 caractères",
                 "string.email": "L'email doit être valide",
                 "any.required": "L'email est obligatoire"
             }),

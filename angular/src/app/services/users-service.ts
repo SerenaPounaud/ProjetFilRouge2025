@@ -22,10 +22,14 @@ export class UsersService {
     return this.httpClient.get(this.userURL + "/me", {withCredentials: true});
   }
 
+  updateProfil(userObj: any){
+    return this.httpClient.put<any>(this.userURL + "/me", userObj, {withCredentials: true});
+  }
+
   //vérifie si l'user connecté est admin
   isAdmin(){
     return this.me().pipe( //permet les opérateurs
-      map((res:any) => res.role === "admin"), //transforme en boolean
+      map((res:any) => res.user?.role === "admin"), //transforme en boolean
       catchError(() => of(false))
     );
   }

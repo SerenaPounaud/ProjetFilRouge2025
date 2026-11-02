@@ -34,8 +34,10 @@ ngOnInit():void{
       this.authService.setExpiration(res.expiresAt);
       this.router.navigate(['profil']);
     },
-    error: (error) => {
-      alert(error.error?.message || "Une erreur est survenue");
+    error: (err) => {
+      const message = err.error?.errors?.join(', ') // transforme en string + virgule
+      || err.error?.message || "Erreur lors de la connexion";
+      alert(message);
     }
   });
     
