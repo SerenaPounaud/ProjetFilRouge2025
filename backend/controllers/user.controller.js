@@ -127,8 +127,10 @@ export const updateProfil = async (req, res, next) => {
         if (!user) {
             return res.status(404).json({ message: "Utilisateur introuvable" });
         }
+        //vérifie si l'email est déjà utilisé par un autre utilisateur
         if (email && email !== user.email) {
-            const existingUser = await User.findOne({email, _id: {$ne: user._id}});
+            //l'id doit être différent de celui l'user actuel
+            const existingUser = await User.findOne({email, _id: {$ne: user._id}}); //$ne = not equal
             if (existingUser) {
                 return res.status(409).json({message: "Email déjà utilisé"});
             }
@@ -137,7 +139,8 @@ export const updateProfil = async (req, res, next) => {
         if (lastname) user.lastname = lastname;
         if (firstname) user.firstname = firstname;
         
-        if (newPassword) {            
+        if (newPassword) {    
+            //vérifie si le mot de passe actuel est correct    
             const isMatch = await bcrypt.compare(currentPassword, user.password);
             if (!isMatch) {
                 return res.status(400).json({message: "Le mot de passe actuel est incorrect"});
@@ -146,7 +149,7 @@ export const updateProfil = async (req, res, next) => {
         }
        
         await user.save();
-        return res.status(200).json({message: "Profil modifiée", 
+        return res.status(200).json({message: "Profil modifié avec succès", 
             user: {
             _id: user._id,
             lastname: user.lastname,

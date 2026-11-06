@@ -19,9 +19,8 @@ export const validateUpdateUser = (req, res, next) => {
                 "string.max": "Maximum 150 caractères",
                 "string.email": "L'email doit être valide",
             }),
-        currentPassword: Joi.string().min(8).max(20).messages({
-                "string.min": "Minimum 8 caractères",
-                "string.max": "Maximum 20 caractères"
+        currentPassword: Joi.string().messages({
+                "string.base": "Le mot de passe actuel doit être une chaîne de caractères"
             }),
         newPassword: Joi.string().min(8).max(20).pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/).messages({
                 "string.base": "Le mot de passe doit être une chaîne de caractère",
@@ -30,9 +29,12 @@ export const validateUpdateUser = (req, res, next) => {
                 "string.pattern.base": "Le mot de passe doit contenir une majuscule, une minuscule et un chiffre"
             }),
 
-    }).min(1).unknown(false).messages({"object.min": "Vous devez renseigner au moins un champ à modifier"}).custom((value, helpers) => {
+    }).min(1) //au moins un champ doit être renseigné
+    .unknown(false) //interdit les champs non définis dans le schéma
+    .messages({"object.min": "Vous devez renseigner au moins un champ à modifier"})
+    .custom((value, helpers) => { //ajoute une règle de validation. helpers = permet de déclencher une erreur
         if (value.currentPassword && !value.newPassword) {
-            return helpers.error("any.custom", {
+            return helpers.error("any.custom", { //any.custom = identifiant de l'erreur personnalisée
                 message: "Le nouveau mot de passe est obligatoire"
             });
         }
@@ -42,7 +44,7 @@ export const validateUpdateUser = (req, res, next) => {
             });
         }
         return value;
-    }).messages({"any.custom": "{{#message}}"});
+    }).messages({"any.custom": "{{#message}}"}); //récupère le message d'erreur défini dans le custom
 
     //Vérifie si le body respecte le schema + montre toutes les erreurs
     const {error} = Schema.validate(req.body, {abortEarly: false, allowUnknown: false});
@@ -50,7 +52,7 @@ export const validateUpdateUser = (req, res, next) => {
     if (error){
         return res.status(400).json({
             message: "Erreur de validation",
-            errors: error.details.map(err => err.message)
+            errors: error.details.map(err => err.message) //récupère uniquement le message d'erreur de chaque erreur
         });
     }
     next();
